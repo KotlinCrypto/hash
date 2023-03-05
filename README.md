@@ -79,14 +79,14 @@ dependencies {
 
 | hash  | kotlin |
 |:-----:|:------:|
-| 0.1.0 | 1.8.0  |
+| 0.1.1 | 1.8.10 |
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.1.0-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.1.1-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
-[badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.0-blue.svg?logo=kotlin
+[badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin
 [badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.1.0-blue.svg
 
 <!-- TAG_PLATFORMS -->
