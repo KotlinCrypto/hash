@@ -1,0 +1,5 @@
+public final class org/kotlincrypto/hash/Sha1 : org/kotlincrypto/core/Digest {
+	public fun <init> ()V
+	public fun copy (Lorg/kotlincrypto/core/internal/DigestState;)Lorg/kotlincrypto/core/Digest;
+}
+
