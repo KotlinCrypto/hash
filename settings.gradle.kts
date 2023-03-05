@@ -15,5 +15,6 @@ if (CHECK_PUBLICATION != null) {
         include(":library:$name")
     }
 
+    include(":bom")
     include(":tools:testing")
 }
