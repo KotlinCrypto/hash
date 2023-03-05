@@ -136,7 +136,7 @@ PUBLISH_TASKS=$(./gradlew tasks -PKMP_TARGETS="$MACOS_TARGETS" |
   cut -d ' ' -f 1 |
   grep -e "publishIos" -e "publishMacos" -e "publishTvos" -e "publishWatchos"
 )
-./gradlew $PUBLISH_TASKS -PKMP_TARGETS="$MACOS_TARGETS"
+./gradlew $PUBLISH_TASKS --no-daemon --no-parallel -PKMP_TARGETS="$MACOS_TARGETS"
 ```
 
 ### Linux
