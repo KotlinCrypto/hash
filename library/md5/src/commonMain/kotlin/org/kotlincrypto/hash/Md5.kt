@@ -43,7 +43,7 @@ public class Md5: Digest {
         this.state = md5.state.copyOf()
     }
 
-    public override fun copy(state: DigestState): Digest = Md5(state, this)
+    protected override fun copy(state: DigestState): Digest = Md5(state, this)
 
     protected override fun compress(buffer: ByteArray) {
         val k = K

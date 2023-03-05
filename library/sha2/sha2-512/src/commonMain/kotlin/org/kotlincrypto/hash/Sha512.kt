@@ -47,7 +47,7 @@ public class Sha512: Digest {
         this.state = sha512.state.copyOf()
     }
 
-    public override fun copy(state: DigestState): Digest = Sha512(state, this)
+    protected override fun copy(state: DigestState): Digest = Sha512(state, this)
 
     protected override fun compress(buffer: ByteArray) {
         val x = x
