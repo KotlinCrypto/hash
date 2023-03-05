@@ -9,8 +9,8 @@ if (CHECK_PUBLICATION != null) {
     listOf(
         "md5",
         "sha1",
-        "sha2:256",
-        "sha2:512",
+        "sha2:sha2-256",
+        "sha2:sha2-512",
     ).forEach { name ->
         include(":library:$name")
     }
