@@ -62,24 +62,14 @@ fun main() {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    val hash = "0.1.0"
-    implementation("org.kotlincrypto.hash:md5:$hash")
-    implementation("org.kotlincrypto.hash:sha1:$hash")
-    implementation("org.kotlincrypto.hash:sha2-256:$hash")
-    implementation("org.kotlincrypto.hash:sha2-512:$hash")
-}
-```
+    // define the BOM and its version
+    implementation(platform("org.kotlincrypto.hash:bom:0.1.1"))
 
-<!-- TAG_VERSION -->
-
-```groovy
-// build.gradle
-dependencies {
-    def hash = "0.1.0"
-    implementation "org.kotlincrypto.hash:md5:$hash"
-    implementation "org.kotlincrypto.hash:sha1:$hash"
-    implementation "org.kotlincrypto.hash:sha2-256:$hash"
-    implementation "org.kotlincrypto.hash:sha2-512:$hash"
+    // define artifacts without version
+    implementation("org.kotlincrypto.hash:md5")
+    implementation("org.kotlincrypto.hash:sha1")
+    implementation("org.kotlincrypto.hash:sha2-256")
+    implementation("org.kotlincrypto.hash:sha2-512")
 }
 ```
 

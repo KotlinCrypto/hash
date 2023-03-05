@@ -65,10 +65,11 @@ kmpConfiguration {
 
             sourceSetMain {
                 dependencies {
-                    implementation("$group:md5:$version")
-                    implementation("$group:sha1:$version")
-                    implementation("$group:sha2-256:$version")
-                    implementation("$group:sha2-512:$version")
+                    implementation(platform("$group:bom:$version"))
+                    implementation("$group:md5")
+                    implementation("$group:sha1")
+                    implementation("$group:sha2-256")
+                    implementation("$group:sha2-512")
                 }
             }
         }
