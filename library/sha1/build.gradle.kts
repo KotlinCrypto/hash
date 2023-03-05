@@ -63,8 +63,10 @@ kmpConfiguration {
         kotlin {
             explicitApi()
 
-            extensions.configure<SigningExtension>("signing") {
-                useGpgCmd()
+            if (!version.toString().endsWith("-SNAPSHOT")) {
+                extensions.configure<SigningExtension>("signing") {
+                    useGpgCmd()
+                }
             }
         }
     }

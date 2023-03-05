@@ -32,6 +32,8 @@ dependencies {
     }
 }
 
-signing {
-    useGpgCmd()
+if (!version.toString().endsWith("-SNAPSHOT")) {
+    signing {
+        useGpgCmd()
+    }
 }
