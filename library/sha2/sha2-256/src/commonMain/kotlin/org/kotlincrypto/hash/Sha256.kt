@@ -47,7 +47,7 @@ public class Sha256: Digest {
         this.state = sha256.state.copyOf()
     }
 
-    public override fun copy(state: DigestState): Digest = Sha256(state, this)
+    protected override fun copy(state: DigestState): Digest = Sha256(state, this)
 
     protected override fun compress(buffer: ByteArray) {
         val x = x
