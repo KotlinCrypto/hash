@@ -40,7 +40,9 @@ abstract class DigestUnitTest {
     }
 
     open fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+        digest.update(TestData.BYTES_MEDIUM[0])
         digest.update(TestData.BYTES_MEDIUM)
+        digest.update(TestData.BYTES_MEDIUM, 100, 1_000)
         val actual = digest.digest().encodeToString(TestData.base16)
         assertEquals(expectedUpdateMediumHash, actual)
     }

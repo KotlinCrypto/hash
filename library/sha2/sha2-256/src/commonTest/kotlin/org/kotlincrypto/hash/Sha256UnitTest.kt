@@ -22,7 +22,7 @@ open class Sha256UnitTest: DigestUnitTest() {
     override val digest: Digest = Sha256()
     final override val expectedResetHash: String = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     final override val expectedUpdateSmallHash: String = "9e5271a0c245b7e73d5f7936a1c6897cc9f7e844a62a2e0dcc97fdd933295853"
-    final override val expectedUpdateMediumHash: String = "1e05b3a9562b8b00861d1c7fa48e3f91ae6d2bb447793973594045747f3259b6"
+    final override val expectedUpdateMediumHash: String = "b04e2d0ca3c0bd2027bbb58e9267ffb0f526953dd319545a89faf9f3e3b6d2fa"
 
     @Test
     override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
