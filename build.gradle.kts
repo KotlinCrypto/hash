@@ -14,26 +14,14 @@
  * limitations under the License.
  **/
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
-import org.gradle.api.tasks.testing.logging.TestLogEvent.STARTED
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
-buildscript {
-
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
-
-    dependencies {
-        classpath(libs.gradle.kotlin)
-        classpath(libs.gradle.maven.publish)
-        classpath(libs.gradle.versions)
-    }
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    alias(libs.plugins.multiplatform) apply(false)
+    alias(libs.plugins.binaryCompat)
+    alias(libs.plugins.gradleVersions)
 }
 
 allprojects {
@@ -46,27 +34,14 @@ allprojects {
         mavenCentral()
     }
 
-    tasks.withType<Test> {
-        testLogging {
-            exceptionFormat = TestExceptionFormat.FULL
-            events(STARTED, PASSED, SKIPPED, FAILED)
-            showStandardStreams = true
-        }
-    }
-
 }
 
 plugins.withType<YarnPlugin> {
     the<YarnRootExtension>().lockFileDirectory = rootDir.resolve(".kotlin-js-store")
 }
 
-plugins {
-    @Suppress("DSL_SCOPE_VIOLATION")
-    alias(libs.plugins.binaryCompat)
-}
-
-@Suppress("LocalVariableName")
 apiValidation {
+    @Suppress("LocalVariableName")
     val CHECK_PUBLICATION = findProperty("CHECK_PUBLICATION") as? String
 
     if (CHECK_PUBLICATION != null) {

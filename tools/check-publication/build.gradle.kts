@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.configuration)
+    id("configuration")
 }
 
 repositories {
@@ -36,33 +35,8 @@ repositories {
 }
 
 kmpConfiguration {
-    configure {
-        jvm {
-            target {
-                withJava()
-            }
-
-            kotlinJvmTarget = JavaVersion.VERSION_1_8
-            compileSourceCompatibility = JavaVersion.VERSION_1_8
-            compileTargetCompatibility = JavaVersion.VERSION_1_8
-        }
-
-        js()
-//        wasm()
-        wasmNativeAll()
-
-        androidNativeAll()
-
-        iosAll()
-        macosAll()
-        tvosAll()
-        watchosAll()
-
-        linuxAll()
-        mingwAll()
-
+    configureShared {
         common {
-
             sourceSetMain {
                 dependencies {
                     implementation(platform("$group:bom:$version"))

@@ -1,5 +1,14 @@
 rootProject.name = "hash"
 
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+includeBuild("build-logic")
+
 @Suppress("PrivatePropertyName")
 private val CHECK_PUBLICATION: String? by settings
 
