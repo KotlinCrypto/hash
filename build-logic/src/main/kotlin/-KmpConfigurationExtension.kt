@@ -20,6 +20,7 @@ import org.gradle.api.JavaVersion
 
 fun KmpConfigurationExtension.configureShared(
     publish: Boolean = false,
+    explicitApi: Boolean = true,
     action: Action<KmpConfigurationContainerDsl>
 ) {
     configure {
@@ -54,6 +55,12 @@ fun KmpConfigurationExtension.configureShared(
                 dependencies {
                     implementation(kotlin("test"))
                 }
+            }
+        }
+
+        if (explicitApi) {
+            kotlin {
+                explicitApi()
             }
         }
 

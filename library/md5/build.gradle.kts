@@ -31,9 +31,5 @@ kmpConfiguration {
                 }
             }
         }
-
-        kotlin {
-            explicitApi()
-        }
     }
 }

@@ -18,7 +18,7 @@ plugins {
 }
 
 kmpConfiguration {
-    configureShared {
+    configureShared(explicitApi = false) {
         common {
             sourceSetMain {
                 dependencies {
