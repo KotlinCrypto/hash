@@ -1,6 +1,6 @@
 [versions]
 binaryCompat = "0.13.0"
-configuration = "0.1.0-beta01"
+configuration = "0.1.0-beta02"
 cryptoCore = "0.1.1"
 encoding = "1.2.1"
 gradleVersions = "0.46.0"
@@ -8,15 +8,16 @@ kotlin = "1.8.10"
 publish = "0.24.0"
 
 [libraries]
-encoding-base16 = { module = "io.matthewnelson.kotlin-components:encoding-base16", version.ref = "encoding" }
-encoding-base64 = { module = "io.matthewnelson.kotlin-components:encoding-base64", version.ref = "encoding" }
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
+gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "configuration" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
-gradle-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradleVersions" }
+
+# Tests
+encoding-base16 = { module = "io.matthewnelson.kotlin-components:encoding-base16", version.ref = "encoding" }
+encoding-base64 = { module = "io.matthewnelson.kotlin-components:encoding-base64", version.ref = "encoding" }
 
 [plugins]
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompat" }
-publish = { id = "com.vanniktech.maven.publish", version.ref = "publish" }
-configuration = { id = "io.matthewnelson.kmp.configuration", version.ref = "configuration" }
+multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }

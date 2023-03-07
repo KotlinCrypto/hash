@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED
+import org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED
+import org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+import org.gradle.api.tasks.testing.logging.TestLogEvent.STARTED
+
 plugins {
-    id("publication")
-    id("java-platform")
+    id("io.matthewnelson.kmp.configuration")
 }
 
-dependencies {
-    constraints {
-        rootProject.subprojects.forEach {
-            if (
-                it.path.startsWith(":library:")
-                && evaluationDependsOn(it.path).plugins.hasPlugin("configuration")
-            ) {
-                api(project(it.path))
-            }
-        }
+tasks.withType<Test> {
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+        events(STARTED, PASSED, SKIPPED, FAILED)
+        showStandardStreams = true
     }
 }
