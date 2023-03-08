@@ -1,0 +1,7 @@
+public abstract class org/kotlincrypto/hash/Sha2LongDigest : org/kotlincrypto/core/Digest {
+	protected final fun compress ([B)V
+	protected final fun digest (JI[B)[B
+	protected abstract fun out (JJJJJJJJ)[B
+	protected final fun resetDigest ()V
+}
+
