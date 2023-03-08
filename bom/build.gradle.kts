@@ -23,7 +23,7 @@ dependencies {
         rootProject.subprojects.forEach {
             if (
                 it.path.startsWith(":library:")
-                && evaluationDependsOn(it.path).plugins.hasPlugin("configuration")
+                && evaluationDependsOn(it.path).plugins.hasPlugin("bom-include")
             ) {
                 api(project(it.path))
             }

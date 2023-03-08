@@ -42,7 +42,9 @@ kmpConfiguration {
                     implementation(platform("$group:bom:$version"))
                     implementation("$group:md5")
                     implementation("$group:sha1")
+                    implementation("$group:sha2-224")
                     implementation("$group:sha2-256")
+                    implementation("$group:sha2-384")
                     implementation("$group:sha2-512")
                 }
             }
