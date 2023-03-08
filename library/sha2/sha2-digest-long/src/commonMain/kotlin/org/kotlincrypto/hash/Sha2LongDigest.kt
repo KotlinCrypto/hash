@@ -18,6 +18,7 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import kotlin.jvm.JvmField
 
 /**
  * Core abstraction for SHA-384, SHA-512, and SHA-512/t
@@ -26,14 +27,14 @@ import org.kotlincrypto.core.internal.DigestState
 public abstract class Sha2LongDigest: Digest {
 
     // Initial values used to reset the Digest
-    protected var h0: Long
-    protected var h1: Long
-    protected var h2: Long
-    protected var h3: Long
-    protected var h4: Long
-    protected var h5: Long
-    protected var h6: Long
-    protected var h7: Long
+    @JvmField protected var h0: Long
+    @JvmField protected var h1: Long
+    @JvmField protected var h2: Long
+    @JvmField protected var h3: Long
+    @JvmField protected var h4: Long
+    @JvmField protected var h5: Long
+    @JvmField protected var h6: Long
+    @JvmField protected var h7: Long
 
     private val x: LongArray
     private val state: LongArray
