@@ -25,27 +25,27 @@ open class Sha256UnitTest: DigestUnitTest() {
     final override val expectedUpdateMediumHash: String = "b04e2d0ca3c0bd2027bbb58e9267ffb0f526953dd319545a89faf9f3e3b6d2fa"
 
     @Test
-    override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
         super.givenDigest_whenCopied_thenIsDifferentInstance()
     }
 
     @Test
-    override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
+    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
         super.givenDigest_whenDigested_thenLengthMatchesOutput()
     }
 

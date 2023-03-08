@@ -16,28 +16,7 @@
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
-import kotlin.test.Test
 
 class Md5JvmUnitTest: Md5UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
-
-    @Test
-    override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
 }
