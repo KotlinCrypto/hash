@@ -39,10 +39,15 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
+                    implementation("$group:sha2-digest-int:$version")
+                    implementation("$group:sha2-digest-long:$version")
+
                     implementation(platform("$group:bom:$version"))
                     implementation("$group:md5")
                     implementation("$group:sha1")
+                    implementation("$group:sha2-224")
                     implementation("$group:sha2-256")
+                    implementation("$group:sha2-384")
                     implementation("$group:sha2-512")
                 }
             }

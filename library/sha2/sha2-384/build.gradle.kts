@@ -15,6 +15,7 @@
  **/
 plugins {
     id("configuration")
+    id("bom-include")
 }
 
 kmpConfiguration {
@@ -22,7 +23,7 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    api(libs.kotlincrypto.core.digest)
+                    api(project(":library:sha2:sha2-digest-long"))
                 }
             }
             sourceSetTest {

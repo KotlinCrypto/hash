@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,16 @@
  * limitations under the License.
  **/
 plugins {
-    id("publication")
-    id("java-platform")
+    id("configuration")
 }
 
-dependencies {
-    constraints {
-        rootProject.subprojects.forEach {
-            if (
-                it.path.startsWith(":library:")
-                && evaluationDependsOn(it.path).plugins.hasPlugin("bom-include")
-            ) {
-                api(project(it.path))
+kmpConfiguration {
+    configureShared(publish = true) {
+        common {
+            sourceSetMain {
+                dependencies {
+                    api(libs.kotlincrypto.core.digest)
+                }
             }
         }
     }

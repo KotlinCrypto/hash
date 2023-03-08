@@ -15,6 +15,7 @@
  **/
 plugins {
     id("configuration")
+    id("bom-include")
 }
 
 kmpConfiguration {
