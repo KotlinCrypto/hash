@@ -27,7 +27,7 @@ public class Sha384: Digest {
     private val state: LongArray
 
     @OptIn(InternalKotlinCryptoApi::class)
-    public constructor(): super("SHA-384", 128, 32) {
+    public constructor(): super("SHA-384", 128, 48) {
         x = LongArray(80)
         state = longArrayOf(
             -3766243637369397544L,

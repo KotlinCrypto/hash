@@ -57,6 +57,7 @@ abstract class DigestUnitTest {
     }
 
     open fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-        assertEquals(digest.digest().encodeToString(TestData.base16).length, expectedResetHash.length)
+        val out = digest.digest()
+        assertEquals(digest.digestLength(), out.size)
     }
 }
