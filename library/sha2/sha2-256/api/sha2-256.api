@@ -1,4 +1,4 @@
-public final class org/kotlincrypto/hash/Sha256 : org/kotlincrypto/core/Digest {
+public final class org/kotlincrypto/hash/Sha256 : org/kotlincrypto/hash/Sha2IntDigest {
 	public fun <init> ()V
 }
 
