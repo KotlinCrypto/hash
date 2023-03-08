@@ -31,6 +31,8 @@ class TestJvmDigest: Digest {
 
     private val delegate: MessageDigest
 
+    constructor(digest: Digest): this(getInstance(digest.algorithm()), digest.blockSize())
+
     private constructor(
         digest: MessageDigest,
         blockSize: Int
@@ -51,30 +53,12 @@ class TestJvmDigest: Digest {
 
     override fun copy(state: DigestState): Digest = TestJvmDigest(state, this)
 
-    override fun compress(buffer: ByteArray) {
-        delegate.update(buffer)
-    }
+    override fun compress(buffer: ByteArray) { delegate.update(buffer) }
 
     override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
         delegate.update(buffer, 0, bufferOffset)
         return delegate.digest()
     }
 
-    override fun resetDigest() {
-        delegate.reset()
-    }
-
-    companion object {
-        @JvmStatic
-        fun md5() = TestJvmDigest(getInstance("MD5"), 64)
-
-        @JvmStatic
-        fun sha1() = TestJvmDigest(getInstance("SHA-1"), 64)
-
-        @JvmStatic
-        fun sha256() = TestJvmDigest(getInstance("SHA-256"), 64)
-
-        @JvmStatic
-        fun sha512() = TestJvmDigest(getInstance("SHA-512"), 128)
-    }
+    override fun resetDigest() { delegate.reset() }
 }

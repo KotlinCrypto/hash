@@ -19,7 +19,7 @@ import org.kotlincrypto.core.Digest
 import kotlin.test.Test
 
 class Md5JvmUnitTest: Md5UnitTest() {
-    override val digest: Digest = TestJvmDigest.md5()
+    override val digest: Digest = TestJvmDigest(super.digest)
 
     @Test
     override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {

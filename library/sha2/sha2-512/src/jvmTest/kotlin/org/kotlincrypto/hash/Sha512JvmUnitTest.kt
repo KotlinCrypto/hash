@@ -19,7 +19,7 @@ import org.kotlincrypto.core.Digest
 import kotlin.test.Test
 
 class Sha512JvmUnitTest: Sha512UnitTest() {
-    override val digest: Digest = TestJvmDigest.sha512()
+    override val digest: Digest = TestJvmDigest(super.digest)
 
     @Test
     override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
