@@ -1,23 +1,15 @@
 public abstract class org/kotlincrypto/hash/Sha2LongDigest : org/kotlincrypto/core/Digest {
+	protected field h0 J
+	protected field h1 J
+	protected field h2 J
+	protected field h3 J
+	protected field h4 J
+	protected field h5 J
+	protected field h6 J
+	protected field h7 J
 	protected final fun compress ([B)V
 	protected final fun digest (JI[B)[B
-	protected final fun getH0 ()J
-	protected final fun getH1 ()J
-	protected final fun getH2 ()J
-	protected final fun getH3 ()J
-	protected final fun getH4 ()J
-	protected final fun getH5 ()J
-	protected final fun getH6 ()J
-	protected final fun getH7 ()J
 	protected abstract fun out (JJJJJJJJ)[B
 	protected final fun resetDigest ()V
-	protected final fun setH0 (J)V
-	protected final fun setH1 (J)V
-	protected final fun setH2 (J)V
-	protected final fun setH3 (J)V
-	protected final fun setH4 (J)V
-	protected final fun setH5 (J)V
-	protected final fun setH6 (J)V
-	protected final fun setH7 (J)V
 }
 
