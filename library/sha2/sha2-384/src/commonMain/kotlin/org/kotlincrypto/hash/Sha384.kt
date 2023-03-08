@@ -29,6 +29,7 @@ public class Sha384: Sha2LongDigest {
     @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super(
         d = 384,
+        t = null,
         h0 = -3766243637369397544L,
         h1 = 7105036623409894663L,
         h2 = -7973340178411365097L,

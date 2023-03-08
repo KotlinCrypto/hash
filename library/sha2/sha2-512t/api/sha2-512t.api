@@ -1,0 +1,9 @@
+public final class org/kotlincrypto/hash/Sha512t : org/kotlincrypto/hash/Sha2LongDigest {
+	public fun <init> (I)V
+}
+
+public final class org/kotlincrypto/hash/Sha512tKt {
+	public static final fun Sha512_224 ()Lorg/kotlincrypto/hash/Sha512t;
+	public static final fun Sha512_256 ()Lorg/kotlincrypto/hash/Sha512t;
+}
+
