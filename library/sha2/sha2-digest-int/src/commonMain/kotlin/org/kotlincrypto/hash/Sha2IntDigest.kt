@@ -26,6 +26,7 @@ import org.kotlincrypto.core.internal.DigestState
  * */
 public abstract class Sha2IntDigest: Digest {
 
+    // Initial values used to reset the Digest
     private val h0: Int
     private val h1: Int
     private val h2: Int

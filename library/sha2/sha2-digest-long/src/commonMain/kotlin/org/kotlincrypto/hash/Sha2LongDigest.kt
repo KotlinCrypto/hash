@@ -18,20 +18,23 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import kotlin.jvm.JvmField
 
 /**
- * Core abstraction for SHA-384 and SHA-512 Digest implementations.
+ * Core abstraction for SHA-384, SHA-512, and SHA-512/t
+ * Digest implementations.
  * */
 public abstract class Sha2LongDigest: Digest {
 
-    private val h0: Long
-    private val h1: Long
-    private val h2: Long
-    private val h3: Long
-    private val h4: Long
-    private val h5: Long
-    private val h6: Long
-    private val h7: Long
+    // Initial values used to reset the Digest
+    @JvmField protected var h0: Long
+    @JvmField protected var h1: Long
+    @JvmField protected var h2: Long
+    @JvmField protected var h3: Long
+    @JvmField protected var h4: Long
+    @JvmField protected var h5: Long
+    @JvmField protected var h6: Long
+    @JvmField protected var h7: Long
 
     private val x: LongArray
     private val state: LongArray
@@ -41,10 +44,16 @@ public abstract class Sha2LongDigest: Digest {
      *
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
+     *  - [t] is greater than or equal to 512
+     *  - [t] is expressed when [d] != 512
+     *  - [t] is not a factor of 8
+     *  - [t] is 384
      * */
     @InternalKotlinCryptoApi
+    @Throws(IllegalArgumentException::class)
     protected constructor(
         d: Int,
+        t: Int?,
         h0: Long,
         h1: Long,
         h2: Long,
@@ -53,7 +62,18 @@ public abstract class Sha2LongDigest: Digest {
         h5: Long,
         h6: Long,
         h7: Long,
-    ): super("SHA-$d", 128, d / 8) {
+    ): super(
+        algorithm = "SHA-$d" + (t?.let { "/$it" } ?: ""),
+        blockSize = 128,
+        digestLength = (t ?: d) / 8,
+    ) {
+        if (t != null) {
+            require(d == 512) { "t can only be expressed for SHA-512" }
+            require(t % 8 == 0) { "t must be a factor of 8" }
+            require(t < 512) { "t must be less than 512" }
+            require(t != 384) { "t cannot be 384" }
+        }
+
         this.h0 = h0
         this.h1 = h1
         this.h2 = h2

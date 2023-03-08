@@ -29,6 +29,7 @@ public class Sha512: Sha2LongDigest {
     @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super(
         d = 512,
+        t = null,
         h0 = 7640891576956012808L,
         h1 = -4942790177534073029L,
         h2 = 4354685564936845355L,
