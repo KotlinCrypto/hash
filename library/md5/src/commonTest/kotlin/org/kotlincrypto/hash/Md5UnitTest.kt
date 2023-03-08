@@ -25,27 +25,27 @@ open class Md5UnitTest: DigestUnitTest() {
     final override val expectedUpdateMediumHash: String = "9fcb20905157e9afaa264a1e26762308"
 
     @Test
-    override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
     }
 
     @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
         super.givenDigest_whenCopied_thenIsDifferentInstance()
     }
 
     @Test
-    override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
+    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
         super.givenDigest_whenDigested_thenLengthMatchesOutput()
     }
 

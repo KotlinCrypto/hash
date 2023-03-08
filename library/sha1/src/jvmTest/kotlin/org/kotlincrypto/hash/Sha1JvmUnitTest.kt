@@ -16,28 +16,7 @@
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
-import kotlin.test.Test
 
 class Sha1JvmUnitTest: Sha1UnitTest() {
-    override val digest: Digest = TestJvmDigest.sha1()
-
-    @Test
-    override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
+    override val digest: Digest = TestJvmDigest(super.digest)
 }

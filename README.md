@@ -59,6 +59,9 @@ fun main() {
 
 <!-- TAG_VERSION -->
 
+<!-- TODO: Add sha2-224 -->
+<!-- TODO: Add sha2-384 -->
+
 ```kotlin
 // build.gradle.kts
 dependencies {

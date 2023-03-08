@@ -17,6 +17,6 @@ package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
 
-class Sha256JvmUnitTest: Sha256UnitTest() {
+class Sha384JvmUnitTest: Sha384UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
 }
