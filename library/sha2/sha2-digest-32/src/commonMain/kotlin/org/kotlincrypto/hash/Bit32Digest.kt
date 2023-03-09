@@ -24,7 +24,7 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * Core abstraction for SHA-224 and SHA-256 Digest implementations.
  * */
-public abstract class Sha2IntDigest: Digest {
+public abstract class Bit32Digest: Digest {
 
     // Initial values used to reset the Digest
     private val h0: Int
@@ -40,7 +40,7 @@ public abstract class Sha2IntDigest: Digest {
     private val state: IntArray
 
     /**
-     * Primary constructor for creating a new [Sha2IntDigest] instance
+     * Primary constructor for creating a new [Bit32Digest] instance
      *
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
@@ -73,11 +73,11 @@ public abstract class Sha2IntDigest: Digest {
     /**
      * Secondary constructor for implementing [copy].
      *
-     * Implementors of [Sha2IntDigest] should have a private secondary constructor
+     * Implementors of [Bit32Digest] should have a private secondary constructor
      * that is utilized by its [copy] implementation.
      * */
     @InternalKotlinCryptoApi
-    protected constructor(state: DigestState, digest: Sha2IntDigest): super(state) {
+    protected constructor(state: DigestState, digest: Bit32Digest): super(state) {
         this.h0 = digest.h0
         this.h1 = digest.h1
         this.h2 = digest.h2

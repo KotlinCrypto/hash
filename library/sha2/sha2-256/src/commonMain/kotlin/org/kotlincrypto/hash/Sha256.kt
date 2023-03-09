@@ -24,7 +24,7 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * SHA-256 implementation
  * */
-public class Sha256: Sha2IntDigest {
+public class Sha256: Bit32Digest {
 
     @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super(

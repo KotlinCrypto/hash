@@ -1,4 +1,4 @@
-public abstract class org/kotlincrypto/hash/Sha2LongDigest : org/kotlincrypto/core/Digest {
+public abstract class org/kotlincrypto/hash/Bit64Digest : org/kotlincrypto/core/Digest {
 	protected field h0 J
 	protected field h1 J
 	protected field h2 J

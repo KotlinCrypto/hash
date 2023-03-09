@@ -24,7 +24,7 @@ import kotlin.jvm.JvmField
  * Core abstraction for SHA-384, SHA-512, and SHA-512/t
  * Digest implementations.
  * */
-public abstract class Sha2LongDigest: Digest {
+public abstract class Bit64Digest: Digest {
 
     // Initial values used to reset the Digest
     @JvmField protected var h0: Long
@@ -40,7 +40,7 @@ public abstract class Sha2LongDigest: Digest {
     private val state: LongArray
 
     /**
-     * Primary constructor for creating a new [Sha2LongDigest] instance
+     * Primary constructor for creating a new [Bit64Digest] instance
      *
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
@@ -89,11 +89,11 @@ public abstract class Sha2LongDigest: Digest {
     /**
      * Secondary constructor for implementing [copy].
      *
-     * Implementors of [Sha2LongDigest] should have a private secondary constructor
+     * Implementors of [Bit64Digest] should have a private secondary constructor
      * that is utilized by its [copy] implementation.
      * */
     @InternalKotlinCryptoApi
-    protected constructor(state: DigestState, digest: Sha2LongDigest): super(state) {
+    protected constructor(state: DigestState, digest: Bit64Digest): super(state) {
         this.h0 = digest.h0
         this.h1 = digest.h1
         this.h2 = digest.h2

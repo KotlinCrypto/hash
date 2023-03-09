@@ -34,7 +34,7 @@ public fun Sha512_256(): Sha512t = Sha512t(256)
 /**
  * SHA-512/t implementation
  * */
-public class Sha512t: Sha2LongDigest {
+public class Sha512t: Bit64Digest {
 
     private var isInitialized: Boolean
 
