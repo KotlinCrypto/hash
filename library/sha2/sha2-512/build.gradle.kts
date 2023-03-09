@@ -23,7 +23,7 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    api(project(":library:sha2:sha2-digest-long"))
+                    api(project(":library:sha2:sha2-digest-64"))
                 }
             }
             sourceSetTest {

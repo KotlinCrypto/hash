@@ -19,7 +19,7 @@ if (CHECK_PUBLICATION != null) {
         "md5",
         "sha1",
         "sha2:sha2-digest-32",
-        "sha2:sha2-digest-long",
+        "sha2:sha2-digest-64",
         "sha2:sha2-224",
         "sha2:sha2-256",
         "sha2:sha2-384",
