@@ -18,7 +18,7 @@ if (CHECK_PUBLICATION != null) {
     listOf(
         "md5",
         "sha1",
-        "sha2:sha2-digest-int",
+        "sha2:sha2-digest-32",
         "sha2:sha2-digest-long",
         "sha2:sha2-224",
         "sha2:sha2-256",
