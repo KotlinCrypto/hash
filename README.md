@@ -30,6 +30,8 @@ If you are looking for Encoding (`Base16` a.k.a. `hex`, `Base32`, `Base64`, etc)
 
 ### Usage
 
+<!-- TODO: Update examples with new naming conventions -->
+
 ```kotlin
 fun main() {
     val random = Random.Default.nextBytes(615)

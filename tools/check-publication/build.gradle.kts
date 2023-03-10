@@ -43,6 +43,8 @@ kmpConfiguration {
                     implementation("$group:md5")
                     implementation("$group:sha1")
                     implementation("$group:sha2")
+                    implementation("$group:sha2-256")
+                    implementation("$group:sha2-512")
                 }
             }
         }

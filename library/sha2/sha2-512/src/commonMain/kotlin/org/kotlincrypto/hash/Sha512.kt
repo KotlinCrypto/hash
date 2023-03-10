@@ -15,13 +15,18 @@
  **/
 package org.kotlincrypto.hash
 
-import org.kotlincrypto.hash.sha1.SHA1
+import org.kotlincrypto.hash.sha2.SHA512
 
 @Deprecated(
-    message = "Sha1 was renamed to SHA1",
+    message = """
+        Sha512 was renamed to SHA512 and moved to the sha2 module.
+        
+        Step 1: Use ReplaceWith feature to update name to SHA512
+        Step 2: Replace dependency on `sha2-512` with `sha2`
+    """,
     replaceWith = ReplaceWith(
-        expression = "SHA1",
-        imports = [ "org.kotlincrypto.hash.sha1.SHA1" ]
+        expression = "SHA512",
+        imports = [ "org.kotlincrypto.hash.sha2.SHA512" ]
     )
 )
-public typealias Sha1 = SHA1
+public typealias Sha512 = SHA512

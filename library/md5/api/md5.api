@@ -1,4 +1,4 @@
-public final class org/kotlincrypto/hash/Md5 : org/kotlincrypto/core/Digest {
+public final class org/kotlincrypto/hash/md/MD5 : org/kotlincrypto/core/Digest {
 	public fun <init> ()V
 }
 

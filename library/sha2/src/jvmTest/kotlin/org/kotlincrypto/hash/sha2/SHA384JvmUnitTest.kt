@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.hash.sha1.SHA1
+import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.TestJvmDigest
 
-@Deprecated(
-    message = "Sha1 was renamed to SHA1",
-    replaceWith = ReplaceWith(
-        expression = "SHA1",
-        imports = [ "org.kotlincrypto.hash.sha1.SHA1" ]
-    )
-)
-public typealias Sha1 = SHA1
+class SHA384JvmUnitTest: SHA384UnitTest() {
+    override val digest: Digest = TestJvmDigest(super.digest)
+}
