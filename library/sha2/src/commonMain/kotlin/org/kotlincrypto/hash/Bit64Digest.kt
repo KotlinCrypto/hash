@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("UnnecessaryOptInAnnotation")
+
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
@@ -24,7 +26,7 @@ import kotlin.jvm.JvmField
  * Core abstraction for SHA-384, SHA-512, and SHA-512/t
  * Digest implementations.
  * */
-public abstract class Bit64Digest: Digest {
+public sealed class Bit64Digest: Digest {
 
     // Initial values used to reset the Digest
     @JvmField protected var h0: Long
@@ -49,7 +51,7 @@ public abstract class Bit64Digest: Digest {
      *  - [t] is not a factor of 8
      *  - [t] is 384
      * */
-    @InternalKotlinCryptoApi
+    @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     protected constructor(
         d: Int,
@@ -92,7 +94,7 @@ public abstract class Bit64Digest: Digest {
      * Implementors of [Bit64Digest] should have a private secondary constructor
      * that is utilized by its [copy] implementation.
      * */
-    @InternalKotlinCryptoApi
+    @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(state: DigestState, digest: Bit64Digest): super(state) {
         this.h0 = digest.h0
         this.h1 = digest.h1

@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
 
 /**
@@ -26,7 +23,6 @@ import org.kotlincrypto.core.internal.DigestState
  * */
 public class Sha256: Bit32Digest {
 
-    @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super(
         d = 256,
         h0 = 1779033703,
@@ -39,7 +35,6 @@ public class Sha256: Bit32Digest {
         h7 = 1541459225,
     )
 
-    @OptIn(InternalKotlinCryptoApi::class)
     private constructor(state: DigestState, sha256: Sha256): super(state, sha256)
 
     protected override fun copy(state: DigestState): Digest = Sha256(state, this)

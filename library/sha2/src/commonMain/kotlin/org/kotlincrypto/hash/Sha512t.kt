@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation", "FunctionName")
+@file:Suppress("FunctionName")
 
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
 
 /**
@@ -49,7 +48,6 @@ public class Sha512t: Bit64Digest {
      *  - [t] is not a factor of 8
      *  - [t] is 384
      * */
-    @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     public constructor(t: Int): super(
         d = 512,
@@ -91,7 +89,6 @@ public class Sha512t: Bit64Digest {
         digest()
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
     private constructor(state: DigestState, sha512t: Sha512t): super(state, sha512t) {
         isInitialized = true
     }

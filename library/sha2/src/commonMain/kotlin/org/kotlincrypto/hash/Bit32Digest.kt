@@ -24,7 +24,7 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * Core abstraction for SHA-224 and SHA-256 Digest implementations.
  * */
-public abstract class Bit32Digest: Digest {
+public sealed class Bit32Digest: Digest {
 
     // Initial values used to reset the Digest
     private val h0: Int
@@ -45,7 +45,7 @@ public abstract class Bit32Digest: Digest {
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
      * */
-    @InternalKotlinCryptoApi
+    @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     protected constructor(
         d: Int,
@@ -76,7 +76,7 @@ public abstract class Bit32Digest: Digest {
      * Implementors of [Bit32Digest] should have a private secondary constructor
      * that is utilized by its [copy] implementation.
      * */
-    @InternalKotlinCryptoApi
+    @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(state: DigestState, digest: Bit32Digest): super(state) {
         this.h0 = digest.h0
         this.h1 = digest.h1
