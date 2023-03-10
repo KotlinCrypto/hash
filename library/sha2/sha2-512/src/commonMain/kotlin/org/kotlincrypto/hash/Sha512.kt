@@ -20,7 +20,7 @@ package org.kotlincrypto.hash
         Sha512 was renamed to SHA512 and moved to the sha2 module.
         
         Step 1: Use ReplaceWith feature to update name to SHA512
-        Step 2: Replace dependency on `sha2-256` with `sha2`
+        Step 2: Replace dependency on `sha2-512` with `sha2`
     """,
     replaceWith = ReplaceWith(
         expression = "SHA512",
