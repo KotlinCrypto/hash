@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.md
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.DigestUnitTest
 import kotlin.test.Test
 
-open class SHA256UnitTest: DigestUnitTest() {
-    override val digest: Digest = SHA256()
-    final override val expectedResetHash: String = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    final override val expectedUpdateSmallHash: String = "9e5271a0c245b7e73d5f7936a1c6897cc9f7e844a62a2e0dcc97fdd933295853"
-    final override val expectedUpdateMediumHash: String = "b04e2d0ca3c0bd2027bbb58e9267ffb0f526953dd319545a89faf9f3e3b6d2fa"
+open class MD5UnitTest: DigestUnitTest() {
+    override val digest: Digest = MD5()
+    final override val expectedResetHash: String = "d41d8cd98f00b204e9800998ecf8427e"
+    final override val expectedUpdateSmallHash: String = "a0b0f0ae132fe7c79c678fddda4309ba"
+    final override val expectedUpdateMediumHash: String = "9fcb20905157e9afaa264a1e26762308"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {

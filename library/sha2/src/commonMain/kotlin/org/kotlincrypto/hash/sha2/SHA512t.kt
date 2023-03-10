@@ -15,7 +15,7 @@
  **/
 @file:Suppress("FunctionName")
 
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.internal.DigestState

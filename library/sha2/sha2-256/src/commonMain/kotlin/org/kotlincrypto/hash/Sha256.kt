@@ -15,6 +15,8 @@
  **/
 package org.kotlincrypto.hash
 
+import org.kotlincrypto.hash.sha2.SHA256
+
 @Deprecated(
     message = """
         Sha256 was renamed to SHA256 and moved to the sha2 module
@@ -24,7 +26,7 @@ package org.kotlincrypto.hash
     """,
     replaceWith = ReplaceWith(
         expression = "SHA256",
-        imports = [ "org.kotlincrypto.hash.SHA256" ]
+        imports = [ "org.kotlincrypto.hash.sha2.SHA256" ]
     )
 )
 public typealias Sha256 = SHA256

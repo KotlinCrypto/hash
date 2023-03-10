@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha1
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.TestJvmDigest
 
-class SHA384JvmUnitTest: SHA384UnitTest() {
+class SHA1JvmUnitTest: SHA1UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
 }

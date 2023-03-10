@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.TestJvmDigest
 
-class SHA224JvmUnitTest: SHA224UnitTest() {
+@Suppress("ClassName")
+class SHA512_256Jvm256UnitTest: SHA512_256UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
 }

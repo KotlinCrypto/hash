@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.DigestUnitTest
 import kotlin.test.Test
 
-@Suppress("ClassName")
-open class SHA512_256UnitTest: DigestUnitTest() {
-    override val digest: Digest = SHA512_256()
-    final override val expectedResetHash: String = "c672b8d1ef56ed28ab87c3622c5114069bdd3ad7b8f9737498d0c01ecef0967a"
-    final override val expectedUpdateSmallHash: String = "49a4cf33a539e4819ff6ef478ef24f307379efb33b296e97a19497135314d1e0"
-    final override val expectedUpdateMediumHash: String = "85fcfb43e87203b9c795e2251e2490d1f3db3a7679cb0f6ebada4104bcc34fa9"
+open class SHA256UnitTest: DigestUnitTest() {
+    override val digest: Digest = SHA256()
+    final override val expectedResetHash: String = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    final override val expectedUpdateSmallHash: String = "9e5271a0c245b7e73d5f7936a1c6897cc9f7e844a62a2e0dcc97fdd933295853"
+    final override val expectedUpdateMediumHash: String = "b04e2d0ca3c0bd2027bbb58e9267ffb0f526953dd319545a89faf9f3e3b6d2fa"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
@@ -49,4 +49,5 @@ open class SHA512_256UnitTest: DigestUnitTest() {
     final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
         super.givenDigest_whenDigested_thenLengthMatchesOutput()
     }
+
 }

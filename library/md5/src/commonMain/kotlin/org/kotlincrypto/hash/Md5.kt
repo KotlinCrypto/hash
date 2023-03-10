@@ -15,11 +15,13 @@
  **/
 package org.kotlincrypto.hash
 
+import org.kotlincrypto.hash.md.MD5
+
 @Deprecated(
     message = "Md5 was renamed to MD5",
     replaceWith = ReplaceWith(
         expression = "MD5",
-        imports = [ "org.kotlincrypto.hash.MD5" ]
+        imports = [ "org.kotlincrypto.hash.md.MD5" ]
     )
 )
 public typealias Md5 = MD5

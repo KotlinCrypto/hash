@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.DigestUnitTest
 import kotlin.test.Test
 
-open class SHA384UnitTest: DigestUnitTest() {
-    override val digest: Digest = SHA384()
-    final override val expectedResetHash: String = "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b"
-    final override val expectedUpdateSmallHash: String = "7a806422b07e7d139dc6201efafeb7fecaafeca412ed5ad1fae08e48ac14bdbfd75466c7f89a0d4425563522837dc99b"
-    final override val expectedUpdateMediumHash: String = "196631c49831ab81a8002873897234945df585a0f58ceca0bd9357ccdf4eb4a9f30f5845001c7b6ac41816c0a12517d4"
+open class SHA512UnitTest: DigestUnitTest() {
+    override val digest: Digest = SHA512()
+    final override val expectedResetHash: String = "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"
+    final override val expectedUpdateSmallHash: String = "6f23b0a36ea92b792dc6b19739ea4b9ee565478e3107016bf7749898b963b1247cdccf39f63f97703a001e2f97a859d31f39d5c277e0594ad06677242ed93fd8"
+    final override val expectedUpdateMediumHash: String = "47689826e2d98e51e325c1b66723fa08fde6e894b8fe1bc7f1ae2860d9c709776f77bfca856a0688c29a275c72d8738d6afc62e808ac8f01ef29a29381078719"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {

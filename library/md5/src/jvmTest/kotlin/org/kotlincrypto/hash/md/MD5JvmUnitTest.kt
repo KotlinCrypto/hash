@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.md
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.hash.TestJvmDigest
 
-@Suppress("ClassName")
-class SHA512_224JvmUnitTest: SHA512_224UnitTest() {
+class MD5JvmUnitTest: MD5UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
 }

@@ -15,11 +15,13 @@
  **/
 package org.kotlincrypto.hash
 
+import org.kotlincrypto.hash.sha1.SHA1
+
 @Deprecated(
     message = "Sha1 was renamed to SHA1",
     replaceWith = ReplaceWith(
         expression = "SHA1",
-        imports = [ "org.kotlincrypto.hash.SHA1" ]
+        imports = [ "org.kotlincrypto.hash.sha1.SHA1" ]
     )
 )
 public typealias Sha1 = SHA1
