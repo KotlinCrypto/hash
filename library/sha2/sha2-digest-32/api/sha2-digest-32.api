@@ -1,7 +1,0 @@
-public abstract class org/kotlincrypto/hash/Bit32Digest : org/kotlincrypto/core/Digest {
-	protected final fun compress ([B)V
-	protected final fun digest (JI[B)[B
-	protected abstract fun out (IIIIIIII)[B
-	protected final fun resetDigest ()V
-}
-

@@ -59,8 +59,9 @@ fun main() {
 
 <!-- TAG_VERSION -->
 
-<!-- TODO: Add sha2-224 -->
-<!-- TODO: Add sha2-384 -->
+<!-- TODO: Add sha2 -->
+<!-- TODO: Remove sha2-256 -->
+<!-- TODO: Remove sha2-512 -->
 
 ```kotlin
 // build.gradle.kts

@@ -1,4 +1,0 @@
-public final class org/kotlincrypto/hash/Sha512 : org/kotlincrypto/hash/Bit64Digest {
-	public fun <init> ()V
-}
-

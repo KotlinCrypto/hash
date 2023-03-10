@@ -15,34 +15,20 @@
  **/
 plugins {
     id("configuration")
-}
-
-repositories {
-    val host = "https://s01.oss.sonatype.org"
-
-    if (version.toString().endsWith("-SNAPSHOT")) {
-        maven("$host/content/repositories/snapshots/")
-    } else {
-        maven("$host/content/groups/staging") {
-            val p = rootProject.properties
-
-            credentials {
-                username = p["mavenCentralUsername"]?.toString()
-                password = p["mavenCentralPassword"]?.toString()
-            }
-        }
-    }
+    id("bom-include")
 }
 
 kmpConfiguration {
-    configureShared(explicitApi = false) {
+    configureShared(publish = true) {
         common {
             sourceSetMain {
                 dependencies {
-                    implementation(platform("$group:bom:$version"))
-                    implementation("$group:md5")
-                    implementation("$group:sha1")
-                    implementation("$group:sha2")
+                    api(libs.kotlincrypto.core.digest)
+                }
+            }
+            sourceSetTest {
+                dependencies {
+                    implementation(project(":tools:testing"))
                 }
             }
         }
