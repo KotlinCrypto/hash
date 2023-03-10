@@ -17,6 +17,6 @@ package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Digest
 
-class Md5JvmUnitTest: Md5UnitTest() {
+class MD5JvmUnitTest: MD5UnitTest() {
     override val digest: Digest = TestJvmDigest(super.digest)
 }

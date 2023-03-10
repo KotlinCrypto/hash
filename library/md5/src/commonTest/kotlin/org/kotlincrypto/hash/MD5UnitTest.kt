@@ -18,8 +18,8 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Digest
 import kotlin.test.Test
 
-open class Md5UnitTest: DigestUnitTest() {
-    override val digest: Digest = Md5()
+open class MD5UnitTest: DigestUnitTest() {
+    override val digest: Digest = MD5()
     final override val expectedResetHash: String = "d41d8cd98f00b204e9800998ecf8427e"
     final override val expectedUpdateSmallHash: String = "a0b0f0ae132fe7c79c678fddda4309ba"
     final override val expectedUpdateMediumHash: String = "9fcb20905157e9afaa264a1e26762308"
