@@ -1,0 +1,47 @@
+public abstract class org/kotlincrypto/hash/Bit32Digest : org/kotlincrypto/core/Digest {
+	protected final fun compress ([B)V
+	protected final fun digest (JI[B)[B
+	protected abstract fun out (IIIIIIII)[B
+	protected final fun resetDigest ()V
+}
+
+public abstract class org/kotlincrypto/hash/Bit64Digest : org/kotlincrypto/core/Digest {
+	protected field h0 J
+	protected field h1 J
+	protected field h2 J
+	protected field h3 J
+	protected field h4 J
+	protected field h5 J
+	protected field h6 J
+	protected field h7 J
+	protected final fun compress ([B)V
+	protected final fun digest (JI[B)[B
+	protected abstract fun out (JJJJJJJJ)[B
+	protected final fun resetDigest ()V
+}
+
+public final class org/kotlincrypto/hash/Sha224 : org/kotlincrypto/hash/Bit32Digest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/Sha256 : org/kotlincrypto/hash/Bit32Digest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/Sha384 : org/kotlincrypto/hash/Bit64Digest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/Sha512 : org/kotlincrypto/hash/Bit64Digest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/Sha512t : org/kotlincrypto/hash/Bit64Digest {
+	public fun <init> (I)V
+}
+
+public final class org/kotlincrypto/hash/Sha512tKt {
+	public static final fun Sha512_224 ()Lorg/kotlincrypto/hash/Sha512t;
+	public static final fun Sha512_256 ()Lorg/kotlincrypto/hash/Sha512t;
+}
+
