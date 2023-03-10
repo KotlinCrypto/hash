@@ -21,7 +21,7 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * SHA-384 implementation
  * */
-public class Sha384: Bit64Digest {
+public class SHA384: Bit64Digest {
 
     public constructor(): super(
         d = 384,
@@ -36,9 +36,9 @@ public class Sha384: Bit64Digest {
         h7 = 5167115440072839076L,
     )
 
-    private constructor(state: DigestState, sha384: Sha384): super(state, sha384)
+    private constructor(state: DigestState, sha384: SHA384): super(state, sha384)
 
-    protected override fun copy(state: DigestState): Digest = Sha384(state, this)
+    protected override fun copy(state: DigestState): Digest = SHA384(state, this)
 
     protected override fun out(a: Long, b: Long, c: Long, d: Long, e: Long, f: Long, g: Long, h: Long): ByteArray {
         return byteArrayOf(

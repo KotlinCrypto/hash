@@ -18,12 +18,11 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Digest
 import kotlin.test.Test
 
-@Suppress("ClassName")
-open class Sha512_224UnitTest: DigestUnitTest() {
-    override val digest: Digest = Sha512_224()
-    final override val expectedResetHash: String = "6ed0dd02806fa89e25de060c19d3ac86cabb87d6a0ddd05c333b84f4"
-    final override val expectedUpdateSmallHash: String = "d45c8e42b7a6a28123e5026f8d55acdd9b2e8738e4b65fe65c86f5c4"
-    final override val expectedUpdateMediumHash: String = "ac0a3c03de7ca29bcb05f1d5f1ad074da0002bcda21b05637c25099f"
+open class SHA384UnitTest: DigestUnitTest() {
+    override val digest: Digest = SHA384()
+    final override val expectedResetHash: String = "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b"
+    final override val expectedUpdateSmallHash: String = "7a806422b07e7d139dc6201efafeb7fecaafeca412ed5ad1fae08e48ac14bdbfd75466c7f89a0d4425563522837dc99b"
+    final override val expectedUpdateMediumHash: String = "196631c49831ab81a8002873897234945df585a0f58ceca0bd9357ccdf4eb4a9f30f5845001c7b6ac41816c0a12517d4"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
@@ -49,4 +48,5 @@ open class Sha512_224UnitTest: DigestUnitTest() {
     final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
         super.givenDigest_whenDigested_thenLengthMatchesOutput()
     }
+
 }

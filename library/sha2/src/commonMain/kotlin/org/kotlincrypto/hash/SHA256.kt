@@ -19,25 +19,25 @@ import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.internal.DigestState
 
 /**
- * SHA-224 implementation
+ * SHA-256 implementation
  * */
-public class Sha224: Bit32Digest {
+public class SHA256: Bit32Digest {
 
     public constructor(): super(
-        d = 224,
-        h0 = -1056596264,
-        h1 = 914150663,
-        h2 = 812702999,
-        h3 = -150054599,
-        h4 = -4191439,
-        h5 = 1750603025,
-        h6 = 1694076839,
-        h7 = -1090891868,
+        d = 256,
+        h0 = 1779033703,
+        h1 = -1150833019,
+        h2 = 1013904242,
+        h3 = -1521486534,
+        h4 = 1359893119,
+        h5 = -1694144372,
+        h6 = 528734635,
+        h7 = 1541459225,
     )
 
-    private constructor(state: DigestState, sha224: Sha224): super(state, sha224)
+    private constructor(state: DigestState, sha256: SHA256): super(state, sha256)
 
-    protected override fun copy(state: DigestState): Digest = Sha224(state, this)
+    protected override fun copy(state: DigestState): Digest = SHA256(state, this)
 
     protected override fun out(a: Int, b: Int, c: Int, d: Int, e: Int, f: Int, g: Int, h: Int): ByteArray {
         return byteArrayOf(
@@ -69,6 +69,10 @@ public class Sha224: Bit32Digest {
             (g shr 16).toByte(),
             (g shr  8).toByte(),
             (g       ).toByte(),
+            (h shr 24).toByte(),
+            (h shr 16).toByte(),
+            (h shr  8).toByte(),
+            (h       ).toByte()
         )
     }
 }

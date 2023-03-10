@@ -24,28 +24,28 @@ public abstract class org/kotlincrypto/hash/Bit64Digest : org/kotlincrypto/core/
 	protected final fun resetDigest ()V
 }
 
-public final class org/kotlincrypto/hash/Sha224 : org/kotlincrypto/hash/Bit32Digest {
+public final class org/kotlincrypto/hash/SHA224 : org/kotlincrypto/hash/Bit32Digest {
 	public fun <init> ()V
 }
 
-public final class org/kotlincrypto/hash/Sha256 : org/kotlincrypto/hash/Bit32Digest {
+public final class org/kotlincrypto/hash/SHA256 : org/kotlincrypto/hash/Bit32Digest {
 	public fun <init> ()V
 }
 
-public final class org/kotlincrypto/hash/Sha384 : org/kotlincrypto/hash/Bit64Digest {
+public final class org/kotlincrypto/hash/SHA384 : org/kotlincrypto/hash/Bit64Digest {
 	public fun <init> ()V
 }
 
-public final class org/kotlincrypto/hash/Sha512 : org/kotlincrypto/hash/Bit64Digest {
+public final class org/kotlincrypto/hash/SHA512 : org/kotlincrypto/hash/Bit64Digest {
 	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/SHA512tKt {
+	public static final fun SHA512_224 ()Lorg/kotlincrypto/hash/Sha512t;
+	public static final fun SHA512_256 ()Lorg/kotlincrypto/hash/Sha512t;
 }
 
 public final class org/kotlincrypto/hash/Sha512t : org/kotlincrypto/hash/Bit64Digest {
 	public fun <init> (I)V
-}
-
-public final class org/kotlincrypto/hash/Sha512tKt {
-	public static final fun Sha512_224 ()Lorg/kotlincrypto/hash/Sha512t;
-	public static final fun Sha512_256 ()Lorg/kotlincrypto/hash/Sha512t;
 }
 

@@ -23,12 +23,12 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * SHA-512/224
  * */
-public fun Sha512_224(): Sha512t = Sha512t(224)
+public fun SHA512_224(): Sha512t = Sha512t(224)
 
 /**
  * SHA-512/256
  * */
-public fun Sha512_256(): Sha512t = Sha512t(256)
+public fun SHA512_256(): Sha512t = Sha512t(256)
 
 /**
  * SHA-512/t implementation
@@ -40,8 +40,8 @@ public class Sha512t: Bit64Digest {
     /**
      * Primary constructor for creating a new [Sha512t] instance
      *
-     * @see [Sha512_224]
-     * @see [Sha512_256]
+     * @see [SHA512_224]
+     * @see [SHA512_256]
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
      *  - [t] is greater than or equal to 512
