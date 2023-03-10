@@ -23,22 +23,22 @@ import org.kotlincrypto.core.internal.DigestState
 /**
  * SHA-512/224
  * */
-public fun SHA512_224(): Sha512t = Sha512t(224)
+public fun SHA512_224(): SHA512t = SHA512t(224)
 
 /**
  * SHA-512/256
  * */
-public fun SHA512_256(): Sha512t = Sha512t(256)
+public fun SHA512_256(): SHA512t = SHA512t(256)
 
 /**
  * SHA-512/t implementation
  * */
-public class Sha512t: Bit64Digest {
+public class SHA512t: Bit64Digest {
 
     private var isInitialized: Boolean
 
     /**
-     * Primary constructor for creating a new [Sha512t] instance
+     * Primary constructor for creating a new [SHA512t] instance
      *
      * @see [SHA512_224]
      * @see [SHA512_256]
@@ -89,11 +89,11 @@ public class Sha512t: Bit64Digest {
         digest()
     }
 
-    private constructor(state: DigestState, sha512t: Sha512t): super(state, sha512t) {
+    private constructor(state: DigestState, sha512t: SHA512t): super(state, sha512t) {
         isInitialized = true
     }
 
-    protected override fun copy(state: DigestState): Digest = Sha512t(state, this)
+    protected override fun copy(state: DigestState): Digest = SHA512t(state, this)
 
     protected override fun out(a: Long, b: Long, c: Long, d: Long, e: Long, f: Long, g: Long, h: Long): ByteArray {
         if (!isInitialized) {

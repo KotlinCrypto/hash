@@ -40,12 +40,12 @@ public final class org/kotlincrypto/hash/SHA512 : org/kotlincrypto/hash/Bit64Dig
 	public fun <init> ()V
 }
 
-public final class org/kotlincrypto/hash/SHA512tKt {
-	public static final fun SHA512_224 ()Lorg/kotlincrypto/hash/Sha512t;
-	public static final fun SHA512_256 ()Lorg/kotlincrypto/hash/Sha512t;
+public final class org/kotlincrypto/hash/SHA512t : org/kotlincrypto/hash/Bit64Digest {
+	public fun <init> (I)V
 }
 
-public final class org/kotlincrypto/hash/Sha512t : org/kotlincrypto/hash/Bit64Digest {
-	public fun <init> (I)V
+public final class org/kotlincrypto/hash/SHA512tKt {
+	public static final fun SHA512_224 ()Lorg/kotlincrypto/hash/SHA512t;
+	public static final fun SHA512_256 ()Lorg/kotlincrypto/hash/SHA512t;
 }
 
