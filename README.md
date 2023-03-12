@@ -30,19 +30,21 @@ If you are looking for Encoding (`Base16` a.k.a. `hex`, `Base32`, `Base64`, etc)
 
 ### Usage
 
-<!-- TODO: Update examples with new naming conventions -->
-
 ```kotlin
 fun main() {
     val random = Random.Default.nextBytes(615)
 
-    Md5().apply { update(random) }.digest()
+    MD5().apply { update(random) }.digest()
 
-    Sha1().digest(random)
+    SHA1().digest(random)
 
-    Sha256().apply { update(random) }.digest(random)
+    SHA224().digest(random)
+    
+    SHA256().apply { update(random) }.digest(random)
+    
+    SHA384().digest(random)
 
-    val sha512 = Sha512()
+    val sha512 = SHA512()
     
     val sha512Bytes = sha512.apply {
         update(random[0])
@@ -54,6 +56,9 @@ fun main() {
     val sha512Copy = sha512.apply { update(random) }.copy()
     val copyBytes = sha512Copy.digest()
     val resetBytes = sha512.reset().digest()
+    
+    SHA512_224().digest(random)
+    SHA512_256().digest(random)
 }
 ```
 
@@ -61,26 +66,27 @@ fun main() {
 
 <!-- TAG_VERSION -->
 
-<!-- TODO: Add sha2 -->
-<!-- TODO: Remove sha2-256 -->
-<!-- TODO: Remove sha2-512 -->
-
 ```kotlin
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.1.2"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.2.0"))
 
     // define artifacts without version
+    
+    // MD5
     implementation("org.kotlincrypto.hash:md5")
+
+    // SHA-1
     implementation("org.kotlincrypto.hash:sha1")
-    implementation("org.kotlincrypto.hash:sha2-256")
-    implementation("org.kotlincrypto.hash:sha2-512")
+    
+    // SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256
+    implementation("org.kotlincrypto.hash:sha2")
 }
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.1.2-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.0-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
