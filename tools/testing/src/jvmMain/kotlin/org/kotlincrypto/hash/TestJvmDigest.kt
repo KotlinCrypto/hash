@@ -53,7 +53,7 @@ class TestJvmDigest: Digest {
 
     override fun copy(state: DigestState): Digest = TestJvmDigest(state, this)
 
-    override fun compress(buffer: ByteArray) { delegate.update(buffer) }
+    override fun compress(input: ByteArray, offset: Int) { delegate.update(input, offset, blockSize()) }
 
     override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
         delegate.update(buffer, 0, bufferOffset)

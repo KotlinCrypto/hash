@@ -28,34 +28,28 @@ public class SHA1: Digest {
 
     @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super("SHA-1", 64, 20) {
-        x = IntArray(80)
-        state = intArrayOf(
-            1732584193,
-            -271733879,
-            -1732584194,
-            271733878,
-            -1009589776,
-        )
+        this.x = IntArray(80)
+        this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878, -1009589776)
     }
 
     @OptIn(InternalKotlinCryptoApi::class)
     private constructor(state: DigestState, digest: SHA1): super(state) {
-        x = digest.x.copyOf()
+        this.x = digest.x.copyOf()
         this.state = digest.state.copyOf()
     }
 
     protected override fun copy(state: DigestState): Digest = SHA1(state, this)
 
-    protected override fun compress(buffer: ByteArray) {
+    protected override fun compress(input: ByteArray, offset: Int) {
         val x = x
 
-        var bI = 0
+        var bI = offset
         for (i in 0 until 16) {
             x[i] =
-                ((buffer[bI++].toInt() and 0xff) shl 24) or
-                ((buffer[bI++].toInt() and 0xff) shl 16) or
-                ((buffer[bI++].toInt() and 0xff) shl  8) or
-                ((buffer[bI++].toInt() and 0xff)       )
+                ((input[bI++].toInt() and 0xff) shl 24) or
+                ((input[bI++].toInt() and 0xff) shl 16) or
+                ((input[bI++].toInt() and 0xff) shl  8) or
+                ((input[bI++].toInt() and 0xff)       )
         }
 
         for (i in 16 until 80) {
@@ -112,7 +106,7 @@ public class SHA1: Digest {
         val size = bufferOffset + 1
         if (size > 56) {
             buffer.fill(0, size, blockSize())
-            compress(buffer)
+            compress(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 56)
@@ -127,7 +121,7 @@ public class SHA1: Digest {
         buffer[62] = (bitLength ushr  8).toByte()
         buffer[63] = (bitLength        ).toByte()
 
-        compress(buffer)
+        compress(buffer, 0)
 
         val a = state[0]
         val b = state[1]

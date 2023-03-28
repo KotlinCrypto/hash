@@ -108,20 +108,20 @@ public sealed class Bit64Digest: Digest {
         this.state = digest.state.copyOf()
     }
 
-    protected final override fun compress(buffer: ByteArray) {
+    protected final override fun compress(input: ByteArray, offset: Int) {
         val x = x
 
-        var bI = 0
+        var bI = offset
         for (i in 0 until 16) {
             x[i] =
-                ((buffer[bI++].toLong() and 0xff) shl 56) or
-                ((buffer[bI++].toLong() and 0xff) shl 48) or
-                ((buffer[bI++].toLong() and 0xff) shl 40) or
-                ((buffer[bI++].toLong() and 0xff) shl 32) or
-                ((buffer[bI++].toLong() and 0xff) shl 24) or
-                ((buffer[bI++].toLong() and 0xff) shl 16) or
-                ((buffer[bI++].toLong() and 0xff) shl  8) or
-                ((buffer[bI++].toLong() and 0xff)       )
+                ((input[bI++].toLong() and 0xff) shl 56) or
+                ((input[bI++].toLong() and 0xff) shl 48) or
+                ((input[bI++].toLong() and 0xff) shl 40) or
+                ((input[bI++].toLong() and 0xff) shl 32) or
+                ((input[bI++].toLong() and 0xff) shl 24) or
+                ((input[bI++].toLong() and 0xff) shl 16) or
+                ((input[bI++].toLong() and 0xff) shl  8) or
+                ((input[bI++].toLong() and 0xff)       )
         }
 
         for (i in 16 until 80) {
@@ -181,7 +181,7 @@ public sealed class Bit64Digest: Digest {
         val size = bufferOffset + 1
         if (size > 112) {
             buffer.fill(0, size, 128)
-            compress(buffer)
+            compress(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 120)
@@ -196,7 +196,7 @@ public sealed class Bit64Digest: Digest {
         buffer[126] = (bitLength ushr  8).toByte()
         buffer[127] = (bitLength        ).toByte()
 
-        compress(buffer)
+        compress(buffer, 0)
 
         return out(
             a = state[0],
