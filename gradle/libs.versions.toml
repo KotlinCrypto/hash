@@ -1,7 +1,7 @@
 [versions]
 binaryCompat = "0.13.0"
 configuration = "0.1.0-beta02"
-cryptoCore = "0.1.1"
+cryptoCore = "0.2.0"
 encoding = "1.2.1"
 gradleVersions = "0.46.0"
 kotlin = "1.8.10"

@@ -28,24 +28,19 @@ public class MD5: Digest {
 
     @OptIn(InternalKotlinCryptoApi::class)
     public constructor(): super("MD5", 64, 16) {
-        x = IntArray(16)
-        state = intArrayOf(
-            1732584193,
-            -271733879,
-            -1732584194,
-            271733878,
-        )
+        this.x = IntArray(16)
+        this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878)
     }
 
     @OptIn(InternalKotlinCryptoApi::class)
     private constructor(state: DigestState, digest: MD5): super(state) {
-        x = digest.x.copyOf()
+        this.x = digest.x.copyOf()
         this.state = digest.state.copyOf()
     }
 
     protected override fun copy(state: DigestState): Digest = MD5(state, this)
 
-    protected override fun compress(buffer: ByteArray) {
+    protected override fun compress(input: ByteArray, offset: Int) {
         val k = K
         val s = S
 
@@ -59,12 +54,12 @@ public class MD5: Digest {
         for (i in 0 until blockSize()) {
             when {
                 i < 16 -> {
-                    var bI = i * 4
+                    var bI = (i * 4) + offset
                     x[i] =
-                        ((buffer[bI++].toInt() and 0xff)       ) or
-                        ((buffer[bI++].toInt() and 0xff) shl  8) or
-                        ((buffer[bI++].toInt() and 0xff) shl 16) or
-                        ((buffer[bI  ].toInt() and 0xff) shl 24)
+                        ((input[bI++].toInt() and 0xff)       ) or
+                        ((input[bI++].toInt() and 0xff) shl  8) or
+                        ((input[bI++].toInt() and 0xff) shl 16) or
+                        ((input[bI  ].toInt() and 0xff) shl 24)
 
                     val g = i + 0
                     val f = ((b and c) or (b.inv() and d)) + a + k[i] + x[g]
@@ -112,7 +107,7 @@ public class MD5: Digest {
         val size = bufferOffset + 1
         if (size > 56) {
             buffer.fill(0, size, blockSize())
-            compress(buffer)
+            compress(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 56)
@@ -127,7 +122,7 @@ public class MD5: Digest {
         buffer[62] = (bitLength ushr 48).toByte()
         buffer[63] = (bitLength ushr 56).toByte()
 
-        compress(buffer)
+        compress(buffer, 0)
 
         val a = state[0]
         val b = state[1]
