@@ -43,13 +43,13 @@ public class SHA1: Digest {
     protected override fun compress(input: ByteArray, offset: Int) {
         val x = x
 
-        var bI = offset
+        var j = offset
         for (i in 0 until 16) {
             x[i] =
-                ((input[bI++].toInt() and 0xff) shl 24) or
-                ((input[bI++].toInt() and 0xff) shl 16) or
-                ((input[bI++].toInt() and 0xff) shl  8) or
-                ((input[bI++].toInt() and 0xff)       )
+                ((input[j++].toInt() and 0xff) shl 24) or
+                ((input[j++].toInt() and 0xff) shl 16) or
+                ((input[j++].toInt() and 0xff) shl  8) or
+                ((input[j++].toInt() and 0xff)       )
         }
 
         for (i in 16 until 80) {

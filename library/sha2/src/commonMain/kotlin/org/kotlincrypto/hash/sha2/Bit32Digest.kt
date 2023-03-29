@@ -22,7 +22,9 @@ import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
 
 /**
- * Core abstraction for SHA-224 and SHA-256 Digest implementations.
+ * Core abstraction for:
+ *  - SHA-224
+ *  - SHA-256
  * */
 public sealed class Bit32Digest: Digest {
 
@@ -39,12 +41,6 @@ public sealed class Bit32Digest: Digest {
     private val x: IntArray
     private val state: IntArray
 
-    /**
-     * Primary constructor for creating a new [Bit32Digest] instance
-     *
-     * @throws [IllegalArgumentException] when:
-     *  - [digestLength] is less than or equal to 0
-     * */
     @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     protected constructor(
@@ -70,12 +66,6 @@ public sealed class Bit32Digest: Digest {
         this.state = intArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
     }
 
-    /**
-     * Secondary constructor for implementing [copy].
-     *
-     * Implementors of [Bit32Digest] should have a private secondary constructor
-     * that is utilized by its [copy] implementation.
-     * */
     @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(state: DigestState, digest: Bit32Digest): super(state) {
         this.h0 = digest.h0
@@ -93,13 +83,13 @@ public sealed class Bit32Digest: Digest {
     protected final override fun compress(input: ByteArray, offset: Int) {
         val x = x
 
-        var bI = offset
+        var j = offset
         for (i in 0 until 16) {
             x[i] =
-                ((input[bI++].toInt() and 0xff) shl 24) or
-                ((input[bI++].toInt() and 0xff) shl 16) or
-                ((input[bI++].toInt() and 0xff) shl  8) or
-                ((input[bI++].toInt() and 0xff)       )
+                ((input[j++].toInt() and 0xff) shl 24) or
+                ((input[j++].toInt() and 0xff) shl 16) or
+                ((input[j++].toInt() and 0xff) shl  8) or
+                ((input[j++].toInt() and 0xff)       )
         }
 
         for (i in 16 until 64) {

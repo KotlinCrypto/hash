@@ -23,8 +23,10 @@ import org.kotlincrypto.core.internal.DigestState
 import kotlin.jvm.JvmField
 
 /**
- * Core abstraction for SHA-384, SHA-512, and SHA-512/t
- * Digest implementations.
+ * Core abstraction for:
+ *  - SHA-384
+ *  - SHA-512
+ *  - SHA-512/t
  * */
 public sealed class Bit64Digest: Digest {
 
@@ -41,16 +43,6 @@ public sealed class Bit64Digest: Digest {
     private val x: LongArray
     private val state: LongArray
 
-    /**
-     * Primary constructor for creating a new [Bit64Digest] instance
-     *
-     * @throws [IllegalArgumentException] when:
-     *  - [digestLength] is less than or equal to 0
-     *  - [t] is greater than or equal to 512
-     *  - [t] is expressed when [d] != 512
-     *  - [t] is not a factor of 8
-     *  - [t] is 384
-     * */
     @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     protected constructor(
@@ -64,11 +56,7 @@ public sealed class Bit64Digest: Digest {
         h5: Long,
         h6: Long,
         h7: Long,
-    ): super(
-        algorithm = "SHA-$d" + (t?.let { "/$it" } ?: ""),
-        blockSize = 128,
-        digestLength = (t ?: d) / 8,
-    ) {
+    ): super("SHA-$d" + (t?.let { "/$it" } ?: ""), 128, (t ?: d) / 8) {
         if (t != null) {
             require(d == 512) { "t can only be expressed for SHA-512" }
             require(t % 8 == 0) { "t must be a factor of 8" }
@@ -88,12 +76,6 @@ public sealed class Bit64Digest: Digest {
         this.state = longArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
     }
 
-    /**
-     * Secondary constructor for implementing [copy].
-     *
-     * Implementors of [Bit64Digest] should have a private secondary constructor
-     * that is utilized by its [copy] implementation.
-     * */
     @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(state: DigestState, digest: Bit64Digest): super(state) {
         this.h0 = digest.h0
@@ -111,17 +93,17 @@ public sealed class Bit64Digest: Digest {
     protected final override fun compress(input: ByteArray, offset: Int) {
         val x = x
 
-        var bI = offset
+        var j = offset
         for (i in 0 until 16) {
             x[i] =
-                ((input[bI++].toLong() and 0xff) shl 56) or
-                ((input[bI++].toLong() and 0xff) shl 48) or
-                ((input[bI++].toLong() and 0xff) shl 40) or
-                ((input[bI++].toLong() and 0xff) shl 32) or
-                ((input[bI++].toLong() and 0xff) shl 24) or
-                ((input[bI++].toLong() and 0xff) shl 16) or
-                ((input[bI++].toLong() and 0xff) shl  8) or
-                ((input[bI++].toLong() and 0xff)       )
+                ((input[j++].toLong() and 0xff) shl 56) or
+                ((input[j++].toLong() and 0xff) shl 48) or
+                ((input[j++].toLong() and 0xff) shl 40) or
+                ((input[j++].toLong() and 0xff) shl 32) or
+                ((input[j++].toLong() and 0xff) shl 24) or
+                ((input[j++].toLong() and 0xff) shl 16) or
+                ((input[j++].toLong() and 0xff) shl  8) or
+                ((input[j++].toLong() and 0xff)       )
         }
 
         for (i in 16 until 80) {

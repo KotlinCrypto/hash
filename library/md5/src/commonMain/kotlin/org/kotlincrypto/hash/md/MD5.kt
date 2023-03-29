@@ -54,12 +54,12 @@ public class MD5: Digest {
         for (i in 0 until blockSize()) {
             when {
                 i < 16 -> {
-                    var bI = (i * 4) + offset
+                    var j = (i * 4) + offset
                     x[i] =
-                        ((input[bI++].toInt() and 0xff)       ) or
-                        ((input[bI++].toInt() and 0xff) shl  8) or
-                        ((input[bI++].toInt() and 0xff) shl 16) or
-                        ((input[bI  ].toInt() and 0xff) shl 24)
+                        ((input[j++].toInt() and 0xff)       ) or
+                        ((input[j++].toInt() and 0xff) shl  8) or
+                        ((input[j++].toInt() and 0xff) shl 16) or
+                        ((input[j  ].toInt() and 0xff) shl 24)
 
                     val g = i + 0
                     val f = ((b and c) or (b.inv() and d)) + a + k[i] + x[g]
