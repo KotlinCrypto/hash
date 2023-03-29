@@ -17,10 +17,14 @@
 
 package org.kotlincrypto.hash
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
 import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
+import java.security.Security
+import kotlin.jvm.Throws
 
 /**
  * Simple test class that warps a [java.security.MessageDigest]
@@ -31,7 +35,7 @@ class TestJvmDigest: Digest {
 
     private val delegate: MessageDigest
 
-    constructor(digest: Digest): this(getInstance(digest.algorithm()), digest.blockSize())
+    constructor(digest: Digest): this(provideInstance(digest.algorithm()), digest.blockSize())
 
     private constructor(
         digest: MessageDigest,
@@ -61,4 +65,26 @@ class TestJvmDigest: Digest {
     }
 
     override fun resetDigest() { delegate.reset() }
+
+    private companion object {
+
+        /**
+         * Will fall back to using [BouncyCastleProvider] in the event
+         * an algorithm is not available via Java.
+         * */
+        @Throws(NoSuchAlgorithmException::class)
+        private fun provideInstance(algorithm: String): MessageDigest {
+            try {
+                return getInstance(algorithm)
+            } catch (_: NoSuchAlgorithmException) {
+                synchronized(this) {
+                    if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+                        Security.addProvider(BouncyCastleProvider())
+                    }
+
+                    return getInstance(algorithm)
+                }
+            }
+        }
+    }
 }

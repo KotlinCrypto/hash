@@ -1,5 +1,6 @@
 [versions]
 binaryCompat = "0.13.0"
+bouncyCastle = "1.72"
 configuration = "0.1.0-beta02"
 cryptoCore = "0.2.0"
 encoding = "1.2.1"
@@ -14,6 +15,7 @@ gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
 
 # Tests
+bouncyCastle = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncyCastle" }
 encoding-base16 = { module = "io.matthewnelson.kotlin-components:encoding-base16", version.ref = "encoding" }
 encoding-base64 = { module = "io.matthewnelson.kotlin-components:encoding-base64", version.ref = "encoding" }
 
