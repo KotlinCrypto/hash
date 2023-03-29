@@ -36,7 +36,7 @@ public class SHA384: Bit64Digest {
         h7 = 5167115440072839076L,
     )
 
-    private constructor(state: DigestState, sha384: SHA384): super(state, sha384)
+    private constructor(state: DigestState, digest: SHA384): super(state, digest)
 
     protected override fun copy(state: DigestState): Digest = SHA384(state, this)
 

@@ -35,7 +35,7 @@ public class SHA256: Bit32Digest {
         h7 = 1541459225,
     )
 
-    private constructor(state: DigestState, sha256: SHA256): super(state, sha256)
+    private constructor(state: DigestState, digest: SHA256): super(state, digest)
 
     protected override fun copy(state: DigestState): Digest = SHA256(state, this)
 
