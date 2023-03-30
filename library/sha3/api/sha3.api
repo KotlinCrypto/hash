@@ -1,0 +1,62 @@
+public final class org/kotlincrypto/hash/sha3/CSHAKE128 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public fun <init> ([B[B)V
+}
+
+public final class org/kotlincrypto/hash/sha3/CSHAKE256 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public fun <init> ([B[B)V
+}
+
+public final class org/kotlincrypto/hash/sha3/Keccak224 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/Keccak256 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/Keccak384 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/Keccak512 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public abstract class org/kotlincrypto/hash/sha3/KeccakDigest : org/kotlincrypto/core/Digest {
+	public synthetic fun <init> (Ljava/lang/String;IIBLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/KeccakDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected final fun compress ([BI)V
+	protected final fun digest (JI[B)[B
+	protected fun resetDigest ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHA3_224 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHA3_256 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHA3_384 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHA3_512 : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHAKE128 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/sha3/SHAKE256 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public fun <init> ()V
+}
+
+public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/hash/sha3/KeccakDigest {
+	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> ([B[BLjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected final fun resetDigest ()V
+}
+

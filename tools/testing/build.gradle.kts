@@ -22,7 +22,7 @@ kmpConfiguration {
         jvm {
             sourceSetMain {
                 dependencies {
-                    implementation(libs.bouncyCastle)
+                    api(libs.bouncyCastle)
                 }
             }
         }
