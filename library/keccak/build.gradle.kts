@@ -15,23 +15,15 @@
  **/
 plugins {
     id("configuration")
-    id("bom-include")
 }
 
 kmpConfiguration {
     configureShared(publish = true) {
         common {
-            sourceSetMain {
-                dependencies {
-                    api(libs.kotlincrypto.core.digest)
-
-                    // TODO: Move to separate repository
-                    implementation(project(":library:keccak"))
-                }
-            }
             sourceSetTest {
                 dependencies {
-                    implementation(project(":tools:testing"))
+                    implementation(project(":library:endians"))
+                    implementation(libs.encoding.base16)
                 }
             }
         }

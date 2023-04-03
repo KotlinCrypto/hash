@@ -24,6 +24,7 @@ if (CHECK_PUBLICATION != null) {
         "sha3",
 
         // TODO: Move to separate repositories
+        "keccak",
         "endians"
     ).forEach { name ->
         include(":library:$name")

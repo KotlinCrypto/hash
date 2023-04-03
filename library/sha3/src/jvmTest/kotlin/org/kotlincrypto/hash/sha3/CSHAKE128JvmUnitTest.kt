@@ -42,10 +42,10 @@ class CSHAKE128JvmUnitTest: CSHAKE128UnitTest() {
         super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
     }
 
-//    @Test
-//    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+    @Test
+    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
 //        super.givenDigest_whenCopied_thenIsDifferentInstance()
-//    }
+    }
 
     @Test
     final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {

@@ -20,6 +20,7 @@ package org.kotlincrypto.hash.sha3
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.keccak.F1600
 
 /**
  * Core abstraction for:
@@ -40,6 +41,7 @@ public sealed class KeccakDigest: Digest {
 
     // domain separation byte
     private val dsByte: Byte
+    private val state: F1600
 
     @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(
@@ -49,15 +51,13 @@ public sealed class KeccakDigest: Digest {
         dsByte: Byte,
     ): super(algorithm, blockSize, digestLength) {
         this.dsByte = dsByte
-
-        // TODO
+        this.state = F1600()
     }
 
     @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(state: DigestState, digest: KeccakDigest): super(state) {
         this.dsByte = digest.dsByte
-
-        // TODO
+        this.state = digest.state.copy()
     }
 
     protected final override fun compress(input: ByteArray, offset: Int) {
@@ -69,11 +69,8 @@ public sealed class KeccakDigest: Digest {
     }
 
     protected override fun resetDigest() {
-        TODO("Not yet implemented")
+        state.reset()
     }
-
-    @Suppress("NOTHING_TO_INLINE", "KotlinRedundantDiagnosticSuppress")
-    private inline infix fun Long.rotateLeft(n: Int): Long = (this shl n) or (this ushr -n)
 
     internal companion object {
         internal const val KECCAK: String = "Keccak"
@@ -81,14 +78,5 @@ public sealed class KeccakDigest: Digest {
 
         internal const val PAD_KECCAK: Byte = 0x01
         internal const val PAD_SHA3: Byte = 0x06
-
-        private val RC = longArrayOf(
-            1L, 32898L, -9223372036854742902L, -9223372034707259392L,
-            32907L, 2147483649L, -9223372034707259263L, -9223372036854743031L,
-            138L, 136L, 2147516425L, 2147483658L,
-            2147516555L, -9223372036854775669L, -9223372036854742903L, -9223372036854743037L,
-            -9223372036854743038L, -9223372036854775680L, 32778L, -9223372034707292150L,
-            -9223372034707259263L, -9223372036854742912L, 2147483649L, -9223372034707259384L
-        )
     }
 }
