@@ -22,6 +22,9 @@ if (CHECK_PUBLICATION != null) {
         "sha2:sha2-256",
         "sha2:sha2-512",
         "sha3",
+
+        // TODO: Move to separate repositories
+        "endians"
     ).forEach { name ->
         include(":library:$name")
     }
