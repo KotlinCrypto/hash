@@ -25,8 +25,9 @@ kmpConfiguration {
                 dependencies {
                     api(libs.kotlincrypto.core.digest)
 
-                    // TODO: Move to separate repository
+                    // TODO: Move to separate repositories
                     implementation(project(":library:keccak"))
+                    implementation(project(":library:endians"))
                 }
             }
             sourceSetTest {

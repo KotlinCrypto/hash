@@ -15,37 +15,9 @@
  **/
 package org.kotlincrypto.hash.sha3
 
-import org.junit.Test
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.hash.TestJvmDigest
 
 class SHAKE128JvmUnitTest: SHAKE128UnitTest() {
-
     override val digest: Digest = TestJvmDigest(super.digest)
-
-    @Test
-    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
-
-    @Test
-    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-        super.givenDigest_whenDigested_thenLengthMatchesOutput()
-    }
-
 }

@@ -20,7 +20,11 @@ package org.kotlincrypto.hash.sha3
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.endians.LittleEndian
+import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.keccak.F1600
+import org.kotlincrypto.keccak.KeccakP
+import kotlin.experimental.xor
 
 /**
  * Core abstraction for:
@@ -34,6 +38,8 @@ import org.kotlincrypto.keccak.F1600
  *  - SHA3-512
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+ *
+ * TODO: Add urls for endians and keccak repositories once they are moved
  *
  * @see [SHAKEDigest]
  * */
@@ -61,11 +67,50 @@ public sealed class KeccakDigest: Digest {
     }
 
     protected final override fun compress(input: ByteArray, offset: Int) {
-        TODO("Not yet implemented")
+        val A = state
+        val b = input
+
+        var i = 0
+        var o = offset
+        val limit = o + blockSize()
+
+        // Max blockSize is 168 (SHAKE128), so at a maximum only
+        // 21 out of 25 state values will ever be modified with
+        // input for each compression/permutation.
+        while (o < limit) {
+            A.addData(i++, LittleEndian.bytesToLong(b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++]))
+        }
+
+        KeccakP(A)
     }
 
     protected final override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        TODO("Not yet implemented")
+        buffer[bufferOffset] = dsByte
+        buffer.fill(0, bufferOffset + 1)
+        buffer[buffer.lastIndex] = buffer.last() xor 0x80.toByte()
+        compress(buffer, 0)
+
+        val out = ByteArray(digestLength())
+
+        try {
+            val A = state
+            var o = 0
+            for (i in 0 until A.size) {
+                val data = A[i].toLittleEndian()
+                out[o++] = data[0]
+                out[o++] = data[1]
+                out[o++] = data[2]
+                out[o++] = data[3]
+                out[o++] = data[4]
+                out[o++] = data[5]
+                out[o++] = data[6]
+                out[o++] = data[7]
+            }
+        } catch (_: IndexOutOfBoundsException) {
+            // ignore
+        }
+
+        return out
     }
 
     protected override fun resetDigest() {

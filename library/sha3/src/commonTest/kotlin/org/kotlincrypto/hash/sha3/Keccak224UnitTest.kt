@@ -24,30 +24,30 @@ open class Keccak224UnitTest: DigestUnitTest() {
     final override val expectedResetHash: String = "f71837502ba8e10837bdd8d365adb85591895602fc552b48b7390abd"
     final override val expectedUpdateSmallHash: String = "20f33d3e558dc42e091d6181a8cd93be377faec004599ae2789d23d0"
     final override val expectedUpdateMediumHash: String = "68cba72dfecc8c2c925ea08f2d41a4567fe79d8e98dd2e583a2524ee"
-//
-//    @Test
-//    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-//        super.givenDigest_whenDigested_thenLengthMatchesOutput()
-//    }
-//
+
+    @Test
+    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+        super.givenDigest_whenCopied_thenIsDifferentInstance()
+    }
+
+    @Test
+    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
+        super.givenDigest_whenDigested_thenLengthMatchesOutput()
+    }
+
 }
