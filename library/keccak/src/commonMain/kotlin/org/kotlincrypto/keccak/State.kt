@@ -55,7 +55,7 @@ public sealed class State<N: Number, T: State<N, T>>(
 
     internal abstract fun <T: Any?> withContext(block: Context<N>.() -> T): T
 
-    internal interface Context<N: Number> {
+    internal sealed interface Context<N: Number> {
         fun and(a: N, other: N): N
         fun inv(a: N): N
         fun xor(a: N, other: N): N
