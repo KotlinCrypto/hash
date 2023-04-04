@@ -34,6 +34,7 @@ public abstract class org/kotlincrypto/keccak/State : java/util/Collection, kotl
 	public fun add (Ljava/lang/Number;)Z
 	public synthetic fun add (Ljava/lang/Object;)Z
 	public fun addAll (Ljava/util/Collection;)Z
+	public final fun addData (ILjava/lang/Number;)V
 	public fun clear ()V
 	public final fun contains (Ljava/lang/Number;)Z
 	public final fun contains (Ljava/lang/Object;)Z
@@ -50,7 +51,6 @@ public abstract class org/kotlincrypto/keccak/State : java/util/Collection, kotl
 	public fun removeIf (Ljava/util/function/Predicate;)Z
 	public final fun reset ()V
 	public fun retainAll (Ljava/util/Collection;)Z
-	public final fun set (ILjava/lang/Number;)V
 	public final fun size ()I
 	public fun toArray ()[Ljava/lang/Object;
 	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;

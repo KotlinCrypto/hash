@@ -18,12 +18,14 @@ package org.kotlincrypto.keccak
 import kotlin.experimental.and
 import kotlin.experimental.inv
 import kotlin.experimental.xor
+import kotlin.jvm.JvmSynthetic
 
 public class F400: State<Short, F400> {
     public constructor(): super(roundCount = 20, state = Array(PLEN) { 0 })
     private constructor(state: F400): super(state.roundCount, state.state.copyOf())
     public override fun copy(): F400 = F400(this)
 
+    @JvmSynthetic
     internal override fun <T: Any?> withContext(block: Context<Short>.() -> T): T = block(F400Context)
 
     private object F400Context: Context<Short> {

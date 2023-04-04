@@ -15,11 +15,14 @@
  **/
 package org.kotlincrypto.keccak
 
+import kotlin.jvm.JvmSynthetic
+
 public class F800: State<Int, F800> {
     public constructor(): super(roundCount = 22, state = Array(PLEN) { 0 })
     private constructor(state: F800): super(state.roundCount, state.state.copyOf())
     public override fun copy(): F800 = F800(this)
 
+    @JvmSynthetic
     internal override fun <T: Any?> withContext(block: Context<Int>.() -> T): T = block(F800Context)
 
     private object F800Context: Context<Int> {

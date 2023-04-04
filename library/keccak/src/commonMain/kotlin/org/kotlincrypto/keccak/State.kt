@@ -15,6 +15,8 @@
  **/
 package org.kotlincrypto.keccak
 
+import kotlin.jvm.JvmSynthetic
+
 /**
  * Core abstraction for [KeccakP] state
  *
@@ -28,8 +30,21 @@ public sealed class State<N: Number, T: State<N, T>>(
     protected val state: Array<N>,
 ): Collection<N> {
 
+    init {
+        require(state.size == PLEN) { "state.size must equal $PLEN" }
+    }
+
+    @Throws(IndexOutOfBoundsException::class)
     public operator fun get(index: Int): N = state[index]
-    public operator fun set(index: Int, value: N) { state[index] = value }
+
+    @JvmSynthetic
+    @Throws(IndexOutOfBoundsException::class)
+    internal operator fun set(index: Int, value: N) { state[index] = value }
+
+    @Throws(IndexOutOfBoundsException::class)
+    public fun addData(index: Int, data: N) {
+        withContext { state[index] = xor(state[index], data) }
+    }
 
     public abstract fun copy(): T
     public fun reset() {
@@ -53,6 +68,7 @@ public sealed class State<N: Number, T: State<N, T>>(
         return true
     }
 
+    @JvmSynthetic
     internal abstract fun <T: Any?> withContext(block: Context<N>.() -> T): T
 
     internal sealed interface Context<N: Number> {
