@@ -66,7 +66,7 @@ class KeccakPUnitTest {
             "633E", "58EE", "71FF", "714C", "B38E",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1])
+            BigEndian.bytesToShort(b[0], b[1])
         }
 
         val permutation2 = listOf(
@@ -77,7 +77,7 @@ class KeccakPUnitTest {
             "5BA6", "CA29", "C224", "B85C", "097C",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1])
+            BigEndian.bytesToShort(b[0], b[1])
         }
 
         assertKeccakP(F400(), permutation1, permutation2)
@@ -94,7 +94,7 @@ class KeccakPUnitTest {
             "34001A98", "4119EFF3", "930A0E76", "87B28070", "11EFE996",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1], b[2], b[3])
+            BigEndian.bytesToInt(b[0], b[1], b[2], b[3])
         }
 
         val permutation2 = listOf(
@@ -105,7 +105,7 @@ class KeccakPUnitTest {
             "772DA259", "1DB35DF7", "5AA60162", "358825D5", "B3783BAB",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1], b[2], b[3])
+            BigEndian.bytesToInt(b[0], b[1], b[2], b[3])
         }
 
         assertKeccakP(F800(), permutation1, permutation2)
@@ -122,7 +122,7 @@ class KeccakPUnitTest {
             "940C7922AE3A2614", "1841F924A2C509E4", "16F53526E70465C2", "75F644E97F30A13B", "EAF1FF7B5CECA249",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7])
+            BigEndian.bytesToLong(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7])
         }
 
         val permutation2 = listOf(
@@ -133,7 +133,7 @@ class KeccakPUnitTest {
             "900E3129E7BADD7B", "202A9EC5FAA3CCE8", "5B3402464E1C3DB6", "609F4E62A44C1059", "20D06CD26A8FBF5C",
         ).map {
             val b = it.decodeToByteArray(BASE_16)
-            BigEndian.bytesTo(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7])
+            BigEndian.bytesToLong(b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7])
         }
 
         assertKeccakP(F1600(), permutation1, permutation2)

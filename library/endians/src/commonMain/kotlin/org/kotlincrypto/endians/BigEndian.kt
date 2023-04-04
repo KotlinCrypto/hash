@@ -25,7 +25,9 @@ import kotlin.jvm.JvmStatic
  * The [data] held is "immutable" in nature.
  *
  * @see [toBigEndian]
- * @see [bytesTo]
+ * @see [bytesToShort]
+ * @see [bytesToInt]
+ * @see [bytesToLong]
  * */
 @JvmInline
 public value class BigEndian private constructor(private val data: ByteArray) {
@@ -151,9 +153,9 @@ public value class BigEndian private constructor(private val data: ByteArray) {
 
     private fun toNumber(): Number {
         return when (size) {
-            2 -> bytesTo(data[0], data[1])
-            4 -> bytesTo(data[0], data[1], data[2], data[3])
-            else -> bytesTo(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7])
+            2 -> bytesToShort(data[0], data[1])
+            4 -> bytesToInt(data[0], data[1], data[2], data[3])
+            else -> bytesToLong(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7])
         }
     }
 
@@ -203,7 +205,7 @@ public value class BigEndian private constructor(private val data: ByteArray) {
          * Converts 2 [Byte]s with [BigEndian] ordering to a [Short]
          * */
         @JvmStatic
-        public fun bytesTo(b0: Byte, b1: Byte): Short {
+        public fun bytesToShort(b0: Byte, b1: Byte): Short {
             return  (
                         ((b0.toInt() and 0xff) shl  8) or
                         ((b1.toInt() and 0xff)       )
@@ -214,7 +216,7 @@ public value class BigEndian private constructor(private val data: ByteArray) {
          * Converts 4 [Byte]s with [BigEndian] ordering to a [Int]
          * */
         @JvmStatic
-        public fun bytesTo(b0: Byte, b1: Byte, b2: Byte, b3: Byte): Int {
+        public fun bytesToInt(b0: Byte, b1: Byte, b2: Byte, b3: Byte): Int {
             return  ((b0.toInt()         ) shl 24) or
                     ((b1.toInt() and 0xff) shl 16) or
                     ((b2.toInt() and 0xff) shl  8) or
@@ -225,9 +227,9 @@ public value class BigEndian private constructor(private val data: ByteArray) {
          * Converts 8 [Byte]s with [BigEndian] ordering to a [Long]
          * */
         @JvmStatic
-        public fun bytesTo(b0: Byte, b1: Byte, b2: Byte, b3: Byte, b4: Byte, b5: Byte, b6: Byte, b7: Byte): Long {
-            val hi = bytesTo(b0, b1, b2, b3)
-            val lo = bytesTo(b4, b5, b6, b7)
+        public fun bytesToLong(b0: Byte, b1: Byte, b2: Byte, b3: Byte, b4: Byte, b5: Byte, b6: Byte, b7: Byte): Long {
+            val hi = bytesToInt(b0, b1, b2, b3)
+            val lo = bytesToInt(b4, b5, b6, b7)
 
             return  ((hi.toLong() and 0xffffffff) shl 32) or
                     ((lo.toLong() and 0xffffffff)       )
