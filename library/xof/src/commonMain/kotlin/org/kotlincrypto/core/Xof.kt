@@ -15,6 +15,7 @@
  **/
 package org.kotlincrypto.core
 
+import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
 /**
@@ -59,14 +60,21 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
     public abstract inner class Reader {
 
         /**
+         * The total amount of bytes read for this [Reader] instance
+         * */
+        @get:JvmName("bytesRead")
+        public var bytesRead: Long = 0
+            private set
+
+        /**
          * Reads the [Xof] snapshot's state for when [Reader] was
          * produced, filling the provided [out] array. This can be
          * called multiple times.
          *
          * @param [out] The array to fill
-         * @return The number of bytes written for this read
+         * @return The number of bytes written to [out]
          * */
-        public fun read(out: ByteArray): Int = readProtected(out, 0, out.size)
+        public fun read(out: ByteArray): Int = read(out, 0, out.size)
 
         /**
          * Reads the [Xof] snapshot's state for when [Reader] was
@@ -76,7 +84,7 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
          * @param [out] The array to put the data into
          * @param [offset] The index for [out] to start putting data
          * @param [len] The number of bytes to put into [out]
-         * @return The number of bytes written for this read
+         * @return The number of bytes written to [out]
          * */
         @Throws(IllegalArgumentException::class, IndexOutOfBoundsException::class)
         public fun read(out: ByteArray, offset: Int, len: Int): Int {
@@ -84,10 +92,12 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
             if (len == 0) return 0
             if (offset < 0 || len < 0 || offset > out.size - len) throw IndexOutOfBoundsException()
 
-            return readProtected(out, offset, len)
+            readProtected(out, offset, len, bytesRead)
+            bytesRead += len
+            return len
         }
 
-        protected abstract fun readProtected(out: ByteArray, offset: Int, len: Int): Int
+        protected abstract fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long)
 
         public final override fun toString(): String = "${this@Xof}.Reader@${hashCode()}"
     }

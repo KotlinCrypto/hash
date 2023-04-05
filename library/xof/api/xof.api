@@ -7,9 +7,10 @@ public abstract class org/kotlincrypto/core/Xof : org/kotlincrypto/core/Algorith
 
 public abstract class org/kotlincrypto/core/Xof$Reader {
 	public fun <init> (Lorg/kotlincrypto/core/Xof;)V
+	public final fun bytesRead ()J
 	public final fun read ([B)I
 	public final fun read ([BII)I
-	protected abstract fun readProtected ([BII)I
+	protected abstract fun readProtected ([BIIJ)V
 	public final fun toString ()Ljava/lang/String;
 }
 

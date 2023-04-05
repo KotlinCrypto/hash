@@ -18,6 +18,7 @@ package org.kotlincrypto.hash.sha3
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
+import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.keccak.F1600
 import kotlin.jvm.JvmStatic
 
@@ -34,6 +35,7 @@ import kotlin.jvm.JvmStatic
 public sealed class SHAKEDigest: KeccakDigest {
 
     private val xOfMode: Boolean
+    private var isReadingXof: Boolean
 
     protected constructor(
         N: ByteArray?,
@@ -44,28 +46,39 @@ public sealed class SHAKEDigest: KeccakDigest {
         digestLength: Int,
     ): super(algorithm, blockSize, digestLength, dsByteFromInput(N, S)) {
         this.xOfMode = xOfMode
-
+        this.isReadingXof = false
         // TODO
     }
 
     protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
         this.xOfMode = digest.xOfMode
-
+        this.isReadingXof = digest.isReadingXof
         // TODO
     }
 
-    protected final override fun out(A: F1600, outLength: Int): ByteArray {
-        return if (xOfMode) {
-            // newReader called digest(). Snipe the output
+    protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+        return if (xOfMode && !isReadingXof) {
+            // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
-            super.out(A, A.size * Long.SIZE_BYTES)
+            val newOut = ByteArray(A.size * Long.SIZE_BYTES)
+            for (i in 0 until A.size) {
+                A[i].toLittleEndian().copyInto(newOut, i * Long.SIZE_BYTES)
+            }
+            isReadingXof = true
+            return newOut
         } else {
-            super.out(A, outLength)
+            super.extract(A, out, offset, len, bytesRead)
         }
     }
 
     protected final override fun resetDigest() {
         super.resetDigest()
+
+        // Don't want to ever reset isReadingXof b/c Xof mode
+        // uses a copy of the digest in an isolated Reader environment.
+        // The copy created for that Xof.Reader will never go back to
+        // being updated, nor will it be copied again.
+//        isReadingXof = false
         // TODO
     }
 
@@ -81,20 +94,22 @@ public sealed class SHAKEDigest: KeccakDigest {
                 // of its final state such that it can be rebuilt here in
                 // order to be used for variable output length reads.
                 val state: F1600 = delegateCopy.digest().let { A ->
-                    val s = F1600()
+                    val f1600 = F1600()
 
                     var b = 0
-                    for (i in s.indices) {
-                        val d = LittleEndian.bytesToLong(A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++])
-                        s.addData(i, d)
+                    for (i in f1600.indices) {
+                        f1600.addData(
+                            i,
+                            LittleEndian.bytesToLong(A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++])
+                        )
                     }
 
-                    s
+                    f1600
                 }
 
                 return object : Reader() {
-                    protected override fun readProtected(out: ByteArray, offset: Int, len: Int): Int {
-                        TODO("Not yet implemented")
+                    override fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long) {
+                        delegateCopy.extract(state, out, offset, len, bytesRead)
                     }
                 }
             }

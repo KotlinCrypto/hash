@@ -24,7 +24,6 @@ import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.keccak.F1600
 import org.kotlincrypto.keccak.KeccakP
-import org.kotlincrypto.keccak.State
 import kotlin.experimental.xor
 
 /**
@@ -91,28 +90,56 @@ public sealed class KeccakDigest: Digest {
         buffer[buffer.lastIndex] = buffer.last() xor 0x80.toByte()
         compress(buffer, 0)
 
-        return out(state, digestLength())
+        return extract(state, ByteArray(digestLength()), 0, digestLength(), 0L)
     }
 
-    // TODO: Refactor to account for XOFs
-    protected open fun out(A: F1600, outLength: Int): ByteArray {
-        val out = ByteArray(outLength)
+    protected open fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+        val spongeSize: Int = blockSize()
 
-        try {
-            var o = 0
-            for (i in 0 until A.size) {
-                val data = A[i].toLittleEndian()
-                out[o++] = data[0]
-                out[o++] = data[1]
-                out[o++] = data[2]
-                out[o++] = data[3]
-                out[o++] = data[4]
-                out[o++] = data[5]
-                out[o++] = data[6]
-                out[o++] = data[7]
+        // Bytes remaining in the sponge to be extracted
+        // before a permutation is needed
+        var spongeRemaining: Int = spongeSize - (bytesRead % spongeSize).toInt()
+
+        var b = offset
+        val limit = b + len
+
+        fun writeData(data: LittleEndian): Int {
+            var j = if (spongeRemaining < data.size) {
+                // if there is 6 bytes remaining in the sponge
+                // 8 - 6 = 2
+                // j: 2, 3, 4, 5, 6, 7 = 6 bytes written
+                //
+                // if there is 0 bytes remaining in the sponge
+                // 8 - 0 = 8
+                // j > 8 so no bytes will be written
+                data.size - spongeRemaining
+            } else {
+                // more than 8 bytes remain,
+                // read in the entire data set
+                0
             }
-        } catch (_: IndexOutOfBoundsException) {
-            // ignore
+
+            var written = 0
+            while (b < limit && j < data.size) {
+                out[b++] = data[j++]
+                written++
+            }
+
+            spongeRemaining -= written
+            return written
+        }
+
+        var i = (spongeSize - spongeRemaining) / Long.SIZE_BYTES
+        while (b < limit) {
+            while (i < A.size) {
+                if (writeData(A[i++].toLittleEndian()) == 0) break
+            }
+
+            if (spongeRemaining == 0) {
+                KeccakP(A)
+                i = 0
+                spongeRemaining = spongeSize
+            }
         }
 
         return out
