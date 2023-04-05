@@ -16,7 +16,7 @@
 package org.kotlincrypto.core
 
 import kotlin.jvm.JvmName
-import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmSynthetic
 
 /**
  * Extend-Output Function (i.e. XOF)
@@ -28,33 +28,45 @@ import kotlin.jvm.JvmOverloads
  *
  *     val xof = SHAKE128.xOf()
  *     xof.update(Random.Default.nextBytes(500))
- *     val reader = xof.reader()
  *
  *     val out1 = ByteArray(64)
  *     val out2 = ByteArray(out1.size * 2)
- *     reader.read(out1)
- *     reader.read(out2)
+ *     xof.use(resetXof = false) { read(out1); read(out2) }
+ *
+ *     val out3 = ByteArray(out1.size)
+ *     val out4 = ByteArray(out2.size)
+ *     xof.use { read(out3); read(out4) }
+ *
+ *     assertContentEquals(out1, out3)
+ *     assertContentEquals(out2, out4)
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
- * @see [reader]
+ * @see [use]
  * @see [Reader]
  * */
 public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, Updatable {
 
     /**
      * Takes a snapshot of the current [Xof]'s state and produces
-     * a [Reader]. The [Xof] can continue to be updated with new
+     * a [Reader]. [Reader] is automatically closed after [action]
+     * completes such that reading from it again will throw exception.
+     *
+     * The [Xof] can continue to be updated with new
      * data and/or re-used if desired.
      *
      * @param [resetXof] if true, also resets the [Xof] to its initial
-     *   state after producing a [Reader] for its current state.
+     *   state after [action] completes.
      * */
-    @JvmOverloads
-    public fun reader(resetXof: Boolean = true): Reader {
+    public fun <T: Any?> use(resetXof: Boolean = true, action: Reader.() -> T): T {
         val reader = newReader()
-        if (resetXof) reset()
-        return reader
+
+        return try {
+            action(reader)
+        } finally {
+            reader.close()
+            if (resetXof) reset()
+        }
     }
 
     public abstract inner class Reader {
@@ -67,13 +79,22 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
             private set
 
         /**
+         * If the reader is closed or not
+         * */
+        @get:JvmName("isClosed")
+        public var isClosed: Boolean = false
+            private set
+
+        /**
          * Reads the [Xof] snapshot's state for when [Reader] was
          * produced, filling the provided [out] array. This can be
          * called multiple times.
          *
          * @param [out] The array to fill
          * @return The number of bytes written to [out]
+         * @throws [IllegalStateException] if [isClosed] is true
          * */
+        @Throws(IllegalStateException::class)
         public fun read(out: ByteArray): Int = read(out, 0, out.size)
 
         /**
@@ -85,9 +106,13 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
          * @param [offset] The index for [out] to start putting data
          * @param [len] The number of bytes to put into [out]
          * @return The number of bytes written to [out]
+         * @throws [IllegalArgumentException] if [offset] and/or [len] are inappropriate
+         * @throws [IllegalStateException] if [isClosed] is true
+         * @throws [IndexOutOfBoundsException] if [offset] and/or [len] are inappropriate
          * */
-        @Throws(IllegalArgumentException::class, IndexOutOfBoundsException::class)
+        @Throws(IllegalArgumentException::class, IllegalStateException::class, IndexOutOfBoundsException::class)
         public fun read(out: ByteArray, offset: Int, len: Int): Int {
+            if (isClosed) throw IllegalStateException("Reader is closed")
             if (out.size - offset < len) throw IllegalArgumentException("out is too short")
             if (len == 0) return 0
             if (offset < 0 || len < 0 || offset > out.size - len) throw IndexOutOfBoundsException()
@@ -97,6 +122,14 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
             return len
         }
 
+        @JvmSynthetic
+        internal fun close() {
+            if (isClosed) return
+            closeProtected()
+            isClosed = true
+        }
+
+        protected abstract fun closeProtected()
         protected abstract fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long)
 
         public final override fun toString(): String = "${this@Xof}.Reader@${hashCode()}"

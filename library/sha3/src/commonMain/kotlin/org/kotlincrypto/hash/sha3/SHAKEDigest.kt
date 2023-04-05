@@ -111,6 +111,13 @@ public sealed class SHAKEDigest: KeccakDigest {
                     override fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long) {
                         delegateCopy.extract(state, out, offset, len, bytesRead)
                     }
+
+                    override fun closeProtected() {
+                        // delegateCopy was already reset when digest()
+                        // was called in order to pass state.
+
+                        state.reset()
+                    }
                 }
             }
 
