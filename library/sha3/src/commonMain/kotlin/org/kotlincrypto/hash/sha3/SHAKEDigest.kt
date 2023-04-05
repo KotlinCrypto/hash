@@ -104,6 +104,8 @@ public sealed class SHAKEDigest: KeccakDigest {
                         )
                     }
 
+                    A.fill(0)
+
                     f1600
                 }
 
