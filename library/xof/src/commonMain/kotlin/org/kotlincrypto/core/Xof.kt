@@ -49,14 +49,18 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
 
     /**
      * Takes a snapshot of the current [Xof]'s state and produces
-     * a [Reader]. [Reader] is automatically closed after [action]
-     * completes such that reading from it again will throw exception.
+     * a [Reader].
      *
-     * The [Xof] can continue to be updated with new
-     * data and/or re-used if desired.
+     * [Reader] is automatically closed after [action] completes
+     * such that reading from the closed [Reader] will throw
+     * exception; another [Reader] must be produced if further
+     * reading is required.
      *
-     * @param [resetXof] if true, also resets the [Xof] to its initial
-     *   state after [action] completes.
+     * The [Xof] can continue to be updated with new data or read
+     * from again as it is unaffected by [Reader] [action]s.
+     *
+     * @param [resetXof] if true, also resets the [Xof] to its
+     *   initial state after [action] completes.
      * */
     public fun <T: Any?> use(resetXof: Boolean = true, action: Reader.() -> T): T {
         val reader = newReader()
@@ -87,8 +91,10 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
 
         /**
          * Reads the [Xof] snapshot's state for when [Reader] was
-         * produced, filling the provided [out] array. This can be
-         * called multiple times.
+         * produced, filling the provided [out] array completely.
+         *
+         * This can be called multiple times within the [Xof.use]
+         * block (before [close] is automatically called).
          *
          * @param [out] The array to fill
          * @return The number of bytes written to [out]
@@ -99,8 +105,11 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
 
         /**
          * Reads the [Xof] snapshot's state for when [Reader] was
-         * produced, into the provided [out] array. This can be
-         * called multiple times.
+         * produced, filling the provided [out] array for specified
+         * [offset] and [len] arguments.
+         *
+         * This can be called multiple times within the [Xof.use]
+         * block (before [close] is automatically called).
          *
          * @param [out] The array to put the data into
          * @param [offset] The index for [out] to start putting data

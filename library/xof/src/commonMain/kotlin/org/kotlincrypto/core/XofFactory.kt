@@ -20,7 +20,7 @@ package org.kotlincrypto.core
  *
  * e.g.
  *
- *     SHAKE128: SHAKEDigest {
+ *     class SHAKE128: SHAKEDigest {
  *
  *         // ...
  *

@@ -61,7 +61,7 @@ public sealed class SHAKEDigest: KeccakDigest {
             // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
             val newOut = ByteArray(A.size * Long.SIZE_BYTES)
-            for (i in 0 until A.size) {
+            for (i in A.indices) {
                 A[i].toLittleEndian().copyInto(newOut, i * Long.SIZE_BYTES)
             }
             isReadingXof = true

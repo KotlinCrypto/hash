@@ -132,7 +132,10 @@ public sealed class KeccakDigest: Digest {
         var i = (spongeSize - spongeRemaining) / Long.SIZE_BYTES
         while (b < limit) {
             while (i < A.size) {
-                if (writeData(A[i++].toLittleEndian()) == 0) break
+                val data = A[i++].toLittleEndian()
+
+                // Either no more room in out, or sponge was exhausted
+                if (writeData(data) < data.size) break
             }
 
             if (spongeRemaining == 0) {
