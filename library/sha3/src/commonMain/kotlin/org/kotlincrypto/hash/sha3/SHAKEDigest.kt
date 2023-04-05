@@ -15,7 +15,10 @@
  **/
 package org.kotlincrypto.hash.sha3
 
+import org.kotlincrypto.core.*
 import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.endians.LittleEndian
+import org.kotlincrypto.keccak.F1600
 import kotlin.jvm.JvmStatic
 
 /**
@@ -30,18 +33,35 @@ import kotlin.jvm.JvmStatic
  * */
 public sealed class SHAKEDigest: KeccakDigest {
 
+    private val xOfMode: Boolean
+
     protected constructor(
         N: ByteArray?,
         S: ByteArray?,
+        xOfMode: Boolean,
         algorithm: String,
         blockSize: Int,
         digestLength: Int,
     ): super(algorithm, blockSize, digestLength, dsByteFromInput(N, S)) {
+        this.xOfMode = xOfMode
+
         // TODO
     }
 
     protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
+        this.xOfMode = digest.xOfMode
+
         // TODO
+    }
+
+    protected final override fun out(A: F1600, outLength: Int): ByteArray {
+        return if (xOfMode) {
+            // newReader called digest(). Snipe the output
+            // and pass it the current state in bytes.
+            super.out(A, A.size * Long.SIZE_BYTES)
+        } else {
+            super.out(A, outLength)
+        }
     }
 
     protected final override fun resetDigest() {
@@ -49,11 +69,42 @@ public sealed class SHAKEDigest: KeccakDigest {
         // TODO
     }
 
-    // TODO: XOF (Extendable-Output Functions)
-    //  https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
-    //  https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
+    @OptIn(InternalKotlinCryptoApi::class)
+    public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
 
-    internal companion object {
+        protected inner class SHAKEXof(delegate: A) : XofFactory<A>.BaseXof(delegate) {
+            protected override fun newReader(delegateCopy: A): Xof<A>.Reader {
+
+                // Calling digest() will flush the copy's buffered input and
+                // apply padding and final permutation(s). Because it is in
+                // xOfMode, the returned bytes will be the entire contents
+                // of its final state such that it can be rebuilt here in
+                // order to be used for variable output length reads.
+                val state: F1600 = delegateCopy.digest().let { A ->
+                    val s = F1600()
+
+                    var b = 0
+                    for (i in s.indices) {
+                        val d = LittleEndian.bytesToLong(A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++])
+                        s.addData(i, d)
+                    }
+
+                    s
+                }
+
+                return object : Reader() {
+                    protected override fun readProtected(out: ByteArray, offset: Int, len: Int): Int {
+                        TODO("Not yet implemented")
+                    }
+                }
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            public override fun copy(): Xof<A> = SHAKEXof(delegate.copy() as A)
+        }
+    }
+
+    protected companion object {
         internal const val SHAKE: String = "SHAKE"
         internal const val CSHAKE: String = "C$SHAKE"
 

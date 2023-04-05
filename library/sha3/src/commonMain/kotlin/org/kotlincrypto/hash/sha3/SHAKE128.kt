@@ -16,18 +16,37 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.Xof
 import org.kotlincrypto.core.internal.DigestState
+import kotlin.jvm.JvmStatic
 
 /**
  * SHAKE128 implementation
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+ *
+ * @see [xOf]
  * */
 public class SHAKE128: SHAKEDigest {
 
-    public constructor(): super(null, null, "${SHAKE}128", 168, 32)
+    /**
+     * Primary constructor for creating a new [SHAKE128] [Digest]
+     * instance with a fixed output [digestLength].
+     * */
+    public constructor(): this(xOfMode = false)
+
+    private constructor(xOfMode: Boolean): super(null, null, xOfMode, "${SHAKE}128", 168, 32)
 
     private constructor(state: DigestState, digest: SHAKE128): super(state, digest)
 
     protected override fun copy(state: DigestState): Digest = SHAKE128(state, this)
+
+    public companion object: SHAKEXofFactory<SHAKE128>() {
+
+        /**
+         * Produces a new [Xof] (Extended-Output Function) for [SHAKE128]
+         * */
+        @JvmStatic
+        public fun xOf(): Xof<SHAKE128> = SHAKEXof(SHAKE128(xOfMode = true))
+    }
 }

@@ -15,7 +15,6 @@
  **/
 plugins {
     id("configuration")
-    id("bom-include")
 }
 
 kmpConfiguration {
@@ -23,19 +22,7 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    api(libs.kotlincrypto.core.digest)
-
-                    // TODO: Move to separate repositories
-                    implementation(project(":library:keccak"))
-                    implementation(project(":library:endians"))
-
-                    // TODO: Move to core repository
-                    api(project(":library:xof"))
-                }
-            }
-            sourceSetTest {
-                dependencies {
-                    implementation(project(":tools:testing"))
+                    api(libs.kotlincrypto.core.common)
                 }
             }
         }

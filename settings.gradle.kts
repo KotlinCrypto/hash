@@ -25,7 +25,10 @@ if (CHECK_PUBLICATION != null) {
 
         // TODO: Move to separate repositories
         "keccak",
-        "endians"
+        "endians",
+
+        // TODO: Move to core repository
+        "xof",
     ).forEach { name ->
         include(":library:$name")
     }

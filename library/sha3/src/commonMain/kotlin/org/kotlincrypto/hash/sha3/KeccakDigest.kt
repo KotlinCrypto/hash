@@ -24,6 +24,7 @@ import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.keccak.F1600
 import org.kotlincrypto.keccak.KeccakP
+import org.kotlincrypto.keccak.State
 import kotlin.experimental.xor
 
 /**
@@ -90,10 +91,14 @@ public sealed class KeccakDigest: Digest {
         buffer[buffer.lastIndex] = buffer.last() xor 0x80.toByte()
         compress(buffer, 0)
 
-        val out = ByteArray(digestLength())
+        return out(state, digestLength())
+    }
+
+    // TODO: Refactor to account for XOFs
+    protected open fun out(A: F1600, outLength: Int): ByteArray {
+        val out = ByteArray(outLength)
 
         try {
-            val A = state
             var o = 0
             for (i in 0 until A.size) {
                 val data = A[i].toLittleEndian()
@@ -117,7 +122,7 @@ public sealed class KeccakDigest: Digest {
         state.reset()
     }
 
-    internal companion object {
+    protected companion object {
         internal const val KECCAK: String = "Keccak"
         internal const val SHA3: String = "SHA3"
 

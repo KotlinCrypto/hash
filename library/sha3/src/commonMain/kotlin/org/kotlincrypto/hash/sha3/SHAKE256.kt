@@ -16,18 +16,37 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.Xof
 import org.kotlincrypto.core.internal.DigestState
+import kotlin.jvm.JvmStatic
 
 /**
  * SHAKE256 implementation
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+ *
+ * @see [xOf]
  * */
 public class SHAKE256: SHAKEDigest {
 
-    public constructor(): super(null, null, "${SHAKE}256", 136, 64)
+    /**
+     * Primary constructor for creating a new [SHAKE256] [Digest]
+     * instance with a fixed output [digestLength].
+     * */
+    public constructor(): this(xOfMode = false)
+
+    private constructor(xOfMode: Boolean): super(null, null, xOfMode, "${SHAKE}256", 136, 64)
 
     private constructor(state: DigestState, digest: SHAKE256): super(state, digest)
 
     protected override fun copy(state: DigestState): Digest = SHAKE256(state, this)
+
+    public companion object: SHAKEXofFactory<SHAKE256>() {
+
+        /**
+         * Produces a new [Xof] (Extended-Output Function) for [SHAKE256]
+         * */
+        @JvmStatic
+        public fun xOf(): Xof<SHAKE256> = SHAKEXof(SHAKE256(xOfMode = true))
+    }
 }
