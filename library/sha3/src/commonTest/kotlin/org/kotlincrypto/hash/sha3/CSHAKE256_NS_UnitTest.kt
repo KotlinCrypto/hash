@@ -21,9 +21,9 @@ import kotlin.test.Test
 @Suppress("ClassName")
 open class CSHAKE256_NS_UnitTest: CSHAKE256UnitTest() {
     override val digest: Digest = CSHAKE256(N, S)
-    final override val expectedResetHash: String = "827baa5be4bacc6136e063c7d520532d1627a3af6868daf59e49a7c0a28749086087b4cb2db1c775829d97e897bd77292c7fac07f76035a033df8ed992ee4679"
-    final override val expectedUpdateSmallHash: String = "c3292bf661657b567ef39c356032deab239b8c7ab493f536ff8c2e6f109a19be1e3632cca9a796049296f1401edd276213ca736765ef17310b655b15bbcf741d"
-    final override val expectedUpdateMediumHash: String = "65e926d03ca2a10d8c65d16fd61f6bc19563e41bd47905e38a33e435cfc45ca24f35d0f5d3ba921d4da99f099dd6215d3b9133691bf8814c76d4e989f5ec49b8"
+    final override val expectedResetHash: String = "2a46f1df815e8cd2f645df371d97989fa31ff99c80731c1f6ec2d3e48b183193524742eb87c5007edd1549feaaddbff2623cd16f3b5f8506e438d6aad8476107"
+    final override val expectedUpdateSmallHash: String = "69269d2e388a5b116b70ed4d8ce8eb5f964e8236d25e7e29bbf251f990fc99036ab170a1ba47eeca03581741b420167bc806634af4387753eaac0a77e6fa06e4"
+    final override val expectedUpdateMediumHash: String = "2d555623df2198f3fd36f5f5a79190eb06b6ce38bfe10cc9f1ff86542a2511babe79fd1b0c0d0b6d9d9941a131a69a4ea90483e7dc592848e03a0703f112d717"
 
     @Test
     override fun givenDigest_whenCopied_thenIsDifferentInstance() {

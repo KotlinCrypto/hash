@@ -22,9 +22,9 @@ import kotlin.test.Test
 
 open class CSHAKE128_N_UnitTest: CSHAKE128UnitTest() {
     override val digest: Digest = CSHAKE128(N, null)
-    final override val expectedResetHash: String = "a310f48745f5546f73dcbbd2b26e02c4242628f447530566cafe58e3dcc2786d"
-    final override val expectedUpdateSmallHash: String = "f4161585d94be8b4ba5f9e6d4814361c42fdcfbb605477f547f73a8fa6f83da8"
-    final override val expectedUpdateMediumHash: String = "b8113406bf27e08c46d3f8588bdb2380be03ea6d63ff25821c8fcf41150abf1b"
+    final override val expectedResetHash: String = "63e5b592ba16aef96e22c02f995e04421df9ec14be1b5e82d4da9af10ff2a8c0"
+    final override val expectedUpdateSmallHash: String = "d72243337762656b8d1d48f0ba502468590745e825f6fcfb5c031ff458c2a1e6"
+    final override val expectedUpdateMediumHash: String = "8110a0f4e6886075dc1d11372a3760868ca6b719cace7a95b75a69583021637f"
 
     @Test
     override fun givenDigest_whenCopied_thenIsDifferentInstance() {

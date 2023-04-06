@@ -20,7 +20,12 @@ import org.kotlincrypto.hash.DigestUnitTest
 import kotlin.test.Test
 
 open class CSHAKE256UnitTest: DigestUnitTest() {
-    protected val N = "SOMETHING".encodeToByteArray()
+    // Will ensure that an "N" only test's initBlock
+    // is perfectly sized to the blockSize in order
+    // to check if additional padding is NOT applied.
+    //
+    // blockSize - (encoding sizes)
+    protected val N = ByteArray(136 - 2 - 3 - 2) { 5 }
     protected val S = "Test CSHAKE".encodeToByteArray()
     override val digest: Digest = CSHAKE256(null, null)
     override val expectedResetHash: String = "46b9dd2b0ba88d13233b3feb743eeb243fcd52ea62b81b82b50c27646ed5762fd75dc4ddd8c0f200cb05019d67b592f6fc821c49479ab48640292eacb3b7c4be"

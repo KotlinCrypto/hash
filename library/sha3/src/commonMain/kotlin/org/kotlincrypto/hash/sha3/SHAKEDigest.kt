@@ -17,6 +17,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.endians.BigEndian.Companion.toBigEndian
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.keccak.F1600
@@ -34,6 +35,7 @@ import kotlin.jvm.JvmStatic
  * */
 public sealed class SHAKEDigest: KeccakDigest {
 
+    private val initBlock: ByteArray?
     private val xOfMode: Boolean
     private var isReadingXof: Boolean
 
@@ -47,13 +49,32 @@ public sealed class SHAKEDigest: KeccakDigest {
     ): super(algorithm, blockSize, digestLength, dsByteFromInput(N, S)) {
         this.xOfMode = xOfMode
         this.isReadingXof = false
-        // TODO
+        this.initBlock = if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) {
+            // Prepare encodings
+            val bE = blockSize.toLong().leftEncode()
+            val nE = ((N?.size ?: 0) * 8L).leftEncode()
+            val sE = ((S?.size ?: 0) * 8L).leftEncode()
+
+            val b = ByteArray(bE.size + nE.size + (N?.size ?: 0) + sE.size + (S?.size ?: 0))
+
+            bE.copyInto(b)
+            nE.copyInto(b, bE.size)
+            N?.copyInto(b, bE.size + nE.size)
+            sE.copyInto(b, bE.size + nE.size + (N?.size ?: 0))
+            S?.copyInto(b, bE.size + nE.size + (N?.size ?: 0) + sE.size)
+
+            b
+        } else {
+            null
+        }
+
+        initBlock?.bytepad()
     }
 
     protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
         this.xOfMode = digest.xOfMode
         this.isReadingXof = digest.isReadingXof
-        // TODO
+        this.initBlock = digest.initBlock?.copyOf()
     }
 
     protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
@@ -73,13 +94,48 @@ public sealed class SHAKEDigest: KeccakDigest {
 
     protected final override fun resetDigest() {
         super.resetDigest()
+        initBlock?.bytepad()
 
         // Don't want to ever reset isReadingXof b/c Xof mode
         // uses a copy of the digest in an isolated Reader environment.
         // The copy created for that Xof.Reader will never go back to
         // being updated, nor will it be copied again.
 //        isReadingXof = false
-        // TODO
+    }
+
+    private fun ByteArray.bytepad() {
+        update(this)
+
+        val remainder = size % blockSize()
+
+        // No padding is needed
+        if (remainder == 0) return
+
+        repeat(blockSize() - remainder) {
+            update(0)
+        }
+    }
+
+    private fun Long.leftEncode(): ByteArray {
+        // If it's zero, return early
+        if (this == 0L) return ByteArray(2).apply { this[0] = 1 }
+
+        val be = toBigEndian()
+
+        // Find index of first non-zero byte
+        var i = 0
+        while (i < be.size && be[i] == 0.toByte()) {
+            i++
+        }
+
+        val b = ByteArray(be.size - i + 1)
+
+        // Prepend with number of non-zero bytes
+        b[0] = (be.size - i).toByte()
+
+        be.copyInto(b, 1, i)
+
+        return b
     }
 
     @OptIn(InternalKotlinCryptoApi::class)
