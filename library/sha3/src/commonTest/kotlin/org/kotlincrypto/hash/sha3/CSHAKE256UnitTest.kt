@@ -17,37 +17,39 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.hash.DigestUnitTest
+import kotlin.test.Test
 
 open class CSHAKE256UnitTest: DigestUnitTest() {
+    protected val N = "SOMETHING".encodeToByteArray()
     protected val S = "Test CSHAKE".encodeToByteArray()
-    override val digest: Digest = CSHAKE256(null, S)
-    final override val expectedResetHash: String = "3d79db7f3aaef4585ef784a9765ded61b069986184806de469e73fd3aaa854aaabd507ed16f87c0cb54e4f3cfbd9da9241476220f47a04eb4da29f514df65627"
-    final override val expectedUpdateSmallHash: String = "bf7058871040867ebe9d2de8714273c4068d85704d959160914c24c4061654ff5f39759cc4af9480bf75b4d7e9e68031159aec1b1ebee2ef0ffc83c7970a9b0a"
-    final override val expectedUpdateMediumHash: String = "2430b7216231190dc13970c1fb1d8b4d64c6f2e02e6b0392d6a491bebba8668b6d0de4500e949c20d6986f069e52a1cd04a694a00021fa11e42e92d493a16f78"
-//
-//    @Test
-//    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-//        super.givenDigest_whenDigested_thenLengthMatchesOutput()
-//    }
-//
+    override val digest: Digest = CSHAKE256(null, null)
+    override val expectedResetHash: String = "46b9dd2b0ba88d13233b3feb743eeb243fcd52ea62b81b82b50c27646ed5762fd75dc4ddd8c0f200cb05019d67b592f6fc821c49479ab48640292eacb3b7c4be"
+    override val expectedUpdateSmallHash: String = "030f4a342728ddc61799a29afb8f904a3276e04ead3c3fb0f3ef2fb2ec9c85a3cd87c6549a17c727c3d544def386d005751a06cc2a96c489b48ce270762e7794"
+    override val expectedUpdateMediumHash: String = "42dacceebb007046252e70a319ab2e162cd0ffb3b3e6fcf0e865fbf3763fa7325d4add48be7917c2bfb09e6fa0a197cbece5a1ee5b7e1a554b514197e84b7f46"
+
+    @Test
+    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+        super.givenDigest_whenCopied_thenIsDifferentInstance()
+    }
+
+    @Test
+    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
+        super.givenDigest_whenDigested_thenLengthMatchesOutput()
+    }
+
 }

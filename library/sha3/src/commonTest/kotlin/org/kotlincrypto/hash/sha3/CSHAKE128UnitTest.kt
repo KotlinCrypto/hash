@@ -17,37 +17,39 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.hash.DigestUnitTest
+import kotlin.test.Test
 
 open class CSHAKE128UnitTest: DigestUnitTest() {
+    protected val N = "SOMETHING".encodeToByteArray()
     protected val S = "Test CSHAKE".encodeToByteArray()
-    override val digest: Digest = CSHAKE128(null, S)
-    final override val expectedResetHash: String = "4f3047dee03c3b698f2b6da12bffe7ff89bb5c5bb0bc4e4a8a2ba77c12d70af6"
-    final override val expectedUpdateSmallHash: String = "42de220e99553116a60d6316540774d2e9984419cffe5ac2fc62cf0b41227ac3"
-    final override val expectedUpdateMediumHash: String = "1379ca33af3ec1032c51eed4c3996c18f90e3121d8ce8ef36323fa159045472f"
-//
-//    @Test
-//    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-//        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
-//    }
-//
-//    @Test
-//    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-//        super.givenDigest_whenDigested_thenLengthMatchesOutput()
-//    }
-//
+    override val digest: Digest = CSHAKE128(null, null)
+    override val expectedResetHash: String = "7f9c2ba4e88f827d616045507605853ed73b8093f6efbc88eb1a6eacfa66ef26"
+    override val expectedUpdateSmallHash: String = "0b33a664b281d9a38638832fd314444c2fa5865072e61505d0776c5cdd322ca3"
+    override val expectedUpdateMediumHash: String = "9bf64f28a64f294769abd18b8903820453c9f31fe1bf620f95dede8f0b5d9f56"
+
+    @Test
+    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+        super.givenDigest_whenCopied_thenIsDifferentInstance()
+    }
+
+    @Test
+    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
+        super.givenDigest_whenDigested_thenLengthMatchesOutput()
+    }
+
 }

@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("ClassName")
+
 package org.kotlincrypto.hash.sha3
 
 import org.bouncycastle.crypto.digests.CSHAKEDigest
@@ -20,8 +22,8 @@ import org.junit.Test
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.hash.TestBCDigest
 
-class CSHAKE128JvmUnitTest: CSHAKE128UnitTest() {
-    override val digest: Digest = TestBCDigest(CSHAKEDigest(128, null, null)) {
+class CSHAKE128_N_JvmUnitTest: CSHAKE128_N_UnitTest() {
+    override val digest: Digest = TestBCDigest(CSHAKEDigest(128, N, null)) {
         throw AssertionError("Unable to copy CSHAKE digest")
     }
 

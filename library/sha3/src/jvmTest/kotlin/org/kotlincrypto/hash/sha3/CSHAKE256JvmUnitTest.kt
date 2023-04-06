@@ -19,37 +19,15 @@ import org.bouncycastle.crypto.digests.CSHAKEDigest
 import org.junit.Test
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.hash.TestBCDigest
-import org.kotlincrypto.hash.TestJvmDigest
 
 class CSHAKE256JvmUnitTest: CSHAKE256UnitTest() {
-
-    override val digest: Digest = TestBCDigest(CSHAKEDigest(256, null, S)) {
+    override val digest: Digest = TestBCDigest(CSHAKEDigest(256, null, null)) {
         throw AssertionError("Unable to copy CSHAKE digest")
     }
 
     @Test
-    final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-        super.givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected()
-    }
-
-    @Test
-    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
 //        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
-
-    @Test
-    final override fun givenDigest_whenDigested_thenLengthMatchesOutput() {
-        super.givenDigest_whenDigested_thenLengthMatchesOutput()
     }
 
 }

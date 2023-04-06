@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("ClassName")
+
 package org.kotlincrypto.hash.sha3
 
-import org.bouncycastle.crypto.digests.CSHAKEDigest
-import org.junit.Test
 import org.kotlincrypto.core.Digest
-import org.kotlincrypto.hash.TestBCDigest
+import kotlin.test.Test
 
-class CSHAKE128JvmUnitTest: CSHAKE128UnitTest() {
-    override val digest: Digest = TestBCDigest(CSHAKEDigest(128, null, null)) {
-        throw AssertionError("Unable to copy CSHAKE digest")
-    }
+open class CSHAKE128_N_UnitTest: CSHAKE128UnitTest() {
+    override val digest: Digest = CSHAKE128(N, null)
+    final override val expectedResetHash: String = "a310f48745f5546f73dcbbd2b26e02c4242628f447530566cafe58e3dcc2786d"
+    final override val expectedUpdateSmallHash: String = "f4161585d94be8b4ba5f9e6d4814361c42fdcfbb605477f547f73a8fa6f83da8"
+    final override val expectedUpdateMediumHash: String = "b8113406bf27e08c46d3f8588bdb2380be03ea6d63ff25821c8fcf41150abf1b"
 
     @Test
     override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
+        super.givenDigest_whenCopied_thenIsDifferentInstance()
     }
 
 }
