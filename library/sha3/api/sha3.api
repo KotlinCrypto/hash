@@ -101,7 +101,7 @@ protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$Companion {
 public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory : org/kotlincrypto/core/XofFactory {
 }
 
-protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory$SHAKEXof : org/kotlincrypto/core/XofFactory$BaseXof {
+protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory$SHAKEXof : org/kotlincrypto/core/XofFactory$XofDelegate {
 	public fun <init> (Lorg/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;)V
 	public synthetic fun copy ()Ljava/lang/Object;
 	public fun copy ()Lorg/kotlincrypto/core/Xof;

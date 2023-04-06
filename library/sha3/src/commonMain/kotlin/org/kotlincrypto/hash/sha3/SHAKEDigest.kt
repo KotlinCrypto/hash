@@ -85,7 +85,7 @@ public sealed class SHAKEDigest: KeccakDigest {
     @OptIn(InternalKotlinCryptoApi::class)
     public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
 
-        protected inner class SHAKEXof(delegate: A) : XofFactory<A>.BaseXof(delegate) {
+        protected inner class SHAKEXof(delegate: A) : XofFactory<A>.XofDelegate(delegate) {
             protected override fun newReader(delegateCopy: A): Xof<A>.Reader {
 
                 // Calling digest() will flush the copy's buffered input and

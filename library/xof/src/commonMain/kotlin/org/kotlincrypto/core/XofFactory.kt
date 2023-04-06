@@ -16,7 +16,10 @@
 package org.kotlincrypto.core
 
 /**
- * Factory class for implementors to create new [Xof]'s.
+ * Factory class for implementors of Digest or Mac to wrap them
+ * in [XofDelegate] such that there is a distinct separation of
+ * functionality between those class types and [Xof]s, while
+ * still being able to share similarities/capabilities.
  *
  * e.g.
  *
@@ -27,13 +30,13 @@ package org.kotlincrypto.core
  *         @OptIn(InternalKotlinCryptoApi::class)
  *         companion object: XofFactory<SHAKE128>() {
  *             @JvmStatic
- *             fun xOf(): Xof<SHAKE128> = object : BaseXof(SHAKE128()) {
+ *             fun xOf(): Xof<SHAKE128> = object : XofDelegate(SHAKE128()) {
  *                 // ...
  *             }
  *         }
  *     }
  *
- * @see [BaseXof]
+ * @see [XofDelegate]
  * */
 public abstract class XofFactory<A: Algorithm>
 @InternalKotlinCryptoApi
@@ -41,7 +44,8 @@ public constructor()
 {
 
     /**
-     * The primary abstraction of [Xof] for implementors
+     * Wrapper for a Digest, Mac, etc. to act as a delegate to
+     * the [Xof].
      *
      * @throws [ClassCastException] if [delegate] is:
      *   - Not an instance of [Resettable]
@@ -50,7 +54,7 @@ public constructor()
      *   - Not an instance of [Copyable]
      *   - An instance of [Xof]
      * */
-    protected abstract inner class BaseXof
+    protected abstract inner class XofDelegate
     @Throws(ClassCastException::class, IllegalArgumentException::class)
     protected constructor(
         protected val delegate: A
@@ -77,9 +81,8 @@ public constructor()
         protected abstract fun newReader(delegateCopy: A): Reader
 
         public final override fun equals(other: Any?): Boolean {
-            return other is XofFactory<*>.BaseXof && other.delegate == delegate
+            return other is XofFactory<*>.XofDelegate && other.delegate == delegate
         }
         public final override fun hashCode(): Int = delegate.hashCode()
-        public final override fun toString(): String = "Xof[${algorithm()}]@${hashCode()}"
     }
 }

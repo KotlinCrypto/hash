@@ -145,4 +145,6 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
     }
 
     protected abstract fun newReader(): Reader
+
+    public final override fun toString(): String = "Xof[${algorithm()}]@${hashCode()}"
 }
