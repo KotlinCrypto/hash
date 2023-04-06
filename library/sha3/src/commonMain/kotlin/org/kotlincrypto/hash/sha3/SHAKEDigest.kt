@@ -20,7 +20,7 @@ import org.kotlincrypto.core.internal.DigestState
 import org.kotlincrypto.endians.BigEndian.Companion.toBigEndian
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
-import org.kotlincrypto.keccak.F1600
+import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
 
 /**

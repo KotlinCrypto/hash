@@ -13,12 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.keccak
+package org.kotlincrypto.sponges.keccak
 
 import kotlin.jvm.JvmSynthetic
 
+/**
+ * [State] for Keccak-f[800]
+ * */
 public class F800: State<Int, F800> {
-    public constructor(): super(roundCount = 22, state = Array(PLEN) { 0 })
+    public constructor(): super(roundCount = 22, state = Array(P_LEN) { 0 })
     private constructor(state: F800): super(state.roundCount, state.state.copyOf())
     public override fun copy(): F800 = F800(this)
 

@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.keccak
+package org.kotlincrypto.sponges.keccak
 
 import kotlin.experimental.and
 import kotlin.experimental.inv
 import kotlin.experimental.xor
 import kotlin.jvm.JvmSynthetic
 
+/**
+ * [State] for Keccak-f[400]
+ * */
 public class F400: State<Short, F400> {
-    public constructor(): super(roundCount = 20, state = Array(PLEN) { 0 })
+    public constructor(): super(roundCount = 20, state = Array(P_LEN) { 0 })
     private constructor(state: F400): super(state.roundCount, state.state.copyOf())
     public override fun copy(): F400 = F400(this)
 

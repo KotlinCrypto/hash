@@ -13,25 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.keccak
+package org.kotlincrypto.sponges.keccak
 
+import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 
 /**
- * Core abstraction for [KeccakP] state
+ * Core abstraction for Keccak-p[b, nr] state, or "lanes".
  *
+ * @see [addData]
  * @see [F200]
  * @see [F400]
  * @see [F800]
  * @see [F1600]
  * */
 public sealed class State<N: Number, T: State<N, T>>(
+    /**
+     * The maximum number of rounds for Keccak-p
+     * */
+    @JvmField
     public val roundCount: Byte,
+
+    @JvmField
     protected val state: Array<N>,
 ): Collection<N> {
 
     init {
-        require(state.size == PLEN) { "state.size must equal $PLEN" }
+        // state.size will always be 25
+        require(state.size == P_LEN) { "state.size must equal $P_LEN" }
     }
 
     @Throws(IndexOutOfBoundsException::class)
@@ -41,6 +50,9 @@ public sealed class State<N: Number, T: State<N, T>>(
     @Throws(IndexOutOfBoundsException::class)
     internal operator fun set(index: Int, value: N) { state[index] = value }
 
+    /**
+     * Adds [data] to [state] at the provided [index]
+     * */
     @Throws(IndexOutOfBoundsException::class)
     public fun addData(index: Int, data: N) {
         withContext { state[index] = xor(state[index], data) }
@@ -56,7 +68,7 @@ public sealed class State<N: Number, T: State<N, T>>(
         }
     }
 
-    final override val size: Int get() = PLEN
+    final override val size: Int get() = P_LEN
     final override fun isEmpty(): Boolean = false
     final override operator fun contains(element: N): Boolean = state.contains(element)
     final override fun iterator(): Iterator<N> = state.iterator()
@@ -80,7 +92,7 @@ public sealed class State<N: Number, T: State<N, T>>(
     }
 
     protected companion object {
-        internal const val PLEN: Int = 25
+        internal const val P_LEN: Int = 25
 
         internal val RC = longArrayOf(
             // 0x0000000000000001, 0x0000000000008082, 0x800000000000808a, 0x8000000080008000,

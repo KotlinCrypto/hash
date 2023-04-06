@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.keccak
+package org.kotlincrypto.sponges.keccak
 
 import kotlin.jvm.JvmOverloads
 
 /**
- * Implementation of Keccak Permutation over the provided [State].
+ * Implementation of the Keccak-p function
  *
  * @see [State]
+ * @throws [IllegalArgumentException] If [numRounds] exceeds [State.roundCount]
  * */
 @JvmOverloads
 @Throws(IllegalArgumentException::class)

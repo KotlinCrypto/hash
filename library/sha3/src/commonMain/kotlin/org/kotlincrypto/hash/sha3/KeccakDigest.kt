@@ -22,8 +22,8 @@ import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
-import org.kotlincrypto.keccak.F1600
-import org.kotlincrypto.keccak.KeccakP
+import org.kotlincrypto.sponges.keccak.F1600
+import org.kotlincrypto.sponges.keccak.KeccakP
 import kotlin.experimental.xor
 
 /**

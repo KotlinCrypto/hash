@@ -1,35 +1,37 @@
-public final class org/kotlincrypto/keccak/F1600 : org/kotlincrypto/keccak/State {
+public final class org/kotlincrypto/sponges/keccak/F1600 : org/kotlincrypto/sponges/keccak/State {
 	public fun <init> ()V
-	public fun copy ()Lorg/kotlincrypto/keccak/F1600;
-	public synthetic fun copy ()Lorg/kotlincrypto/keccak/State;
+	public fun copy ()Lorg/kotlincrypto/sponges/keccak/F1600;
+	public synthetic fun copy ()Lorg/kotlincrypto/sponges/keccak/State;
 }
 
-public final class org/kotlincrypto/keccak/F200 : org/kotlincrypto/keccak/State {
+public final class org/kotlincrypto/sponges/keccak/F200 : org/kotlincrypto/sponges/keccak/State {
 	public fun <init> ()V
-	public fun copy ()Lorg/kotlincrypto/keccak/F200;
-	public synthetic fun copy ()Lorg/kotlincrypto/keccak/State;
+	public fun copy ()Lorg/kotlincrypto/sponges/keccak/F200;
+	public synthetic fun copy ()Lorg/kotlincrypto/sponges/keccak/State;
 }
 
-public final class org/kotlincrypto/keccak/F400 : org/kotlincrypto/keccak/State {
+public final class org/kotlincrypto/sponges/keccak/F400 : org/kotlincrypto/sponges/keccak/State {
 	public fun <init> ()V
-	public fun copy ()Lorg/kotlincrypto/keccak/F400;
-	public synthetic fun copy ()Lorg/kotlincrypto/keccak/State;
+	public fun copy ()Lorg/kotlincrypto/sponges/keccak/F400;
+	public synthetic fun copy ()Lorg/kotlincrypto/sponges/keccak/State;
 }
 
-public final class org/kotlincrypto/keccak/F800 : org/kotlincrypto/keccak/State {
+public final class org/kotlincrypto/sponges/keccak/F800 : org/kotlincrypto/sponges/keccak/State {
 	public fun <init> ()V
-	public fun copy ()Lorg/kotlincrypto/keccak/F800;
-	public synthetic fun copy ()Lorg/kotlincrypto/keccak/State;
+	public fun copy ()Lorg/kotlincrypto/sponges/keccak/F800;
+	public synthetic fun copy ()Lorg/kotlincrypto/sponges/keccak/State;
 }
 
-public final class org/kotlincrypto/keccak/KeccakPKt {
-	public static final fun KeccakP (Lorg/kotlincrypto/keccak/State;)V
-	public static final fun KeccakP (Lorg/kotlincrypto/keccak/State;B)V
-	public static synthetic fun KeccakP$default (Lorg/kotlincrypto/keccak/State;BILjava/lang/Object;)V
+public final class org/kotlincrypto/sponges/keccak/KeccakPKt {
+	public static final fun KeccakP (Lorg/kotlincrypto/sponges/keccak/State;)V
+	public static final fun KeccakP (Lorg/kotlincrypto/sponges/keccak/State;B)V
+	public static synthetic fun KeccakP$default (Lorg/kotlincrypto/sponges/keccak/State;BILjava/lang/Object;)V
 }
 
-public abstract class org/kotlincrypto/keccak/State : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
-	protected static final field Companion Lorg/kotlincrypto/keccak/State$Companion;
+public abstract class org/kotlincrypto/sponges/keccak/State : java/util/Collection, kotlin/jvm/internal/markers/KMappedMarker {
+	protected static final field Companion Lorg/kotlincrypto/sponges/keccak/State$Companion;
+	public final field roundCount B
+	protected final field state [Ljava/lang/Number;
 	public synthetic fun <init> (B[Ljava/lang/Number;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun add (Ljava/lang/Number;)Z
 	public synthetic fun add (Ljava/lang/Object;)Z
@@ -39,11 +41,9 @@ public abstract class org/kotlincrypto/keccak/State : java/util/Collection, kotl
 	public final fun contains (Ljava/lang/Number;)Z
 	public final fun contains (Ljava/lang/Object;)Z
 	public final fun containsAll (Ljava/util/Collection;)Z
-	public abstract fun copy ()Lorg/kotlincrypto/keccak/State;
+	public abstract fun copy ()Lorg/kotlincrypto/sponges/keccak/State;
 	public final fun get (I)Ljava/lang/Number;
-	public final fun getRoundCount ()B
 	public final fun getSize ()I
-	protected final fun getState ()[Ljava/lang/Number;
 	public final fun isEmpty ()Z
 	public final fun iterator ()Ljava/util/Iterator;
 	public fun remove (Ljava/lang/Object;)Z
@@ -56,6 +56,6 @@ public abstract class org/kotlincrypto/keccak/State : java/util/Collection, kotl
 	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
 }
 
-protected final class org/kotlincrypto/keccak/State$Companion {
+protected final class org/kotlincrypto/sponges/keccak/State$Companion {
 }
 

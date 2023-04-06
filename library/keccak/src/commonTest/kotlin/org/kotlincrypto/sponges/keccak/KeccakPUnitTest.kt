@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.keccak
+package org.kotlincrypto.sponges.keccak
 
 import io.matthewnelson.encoding.builders.Base16
 import io.matthewnelson.encoding.core.Decoder.Companion.decodeToByteArray
