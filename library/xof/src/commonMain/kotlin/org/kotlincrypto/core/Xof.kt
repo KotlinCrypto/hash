@@ -19,7 +19,7 @@ import kotlin.jvm.JvmName
 import kotlin.jvm.JvmSynthetic
 
 /**
- * Extend-Output Function (i.e. XOF)
+ * Extendable-Output Function (i.e. XOF)
  *
  * FIPS PUB 202 introduced XOFs where output for certain cryptographic functions can be
  * variable in length. This is an implementation which provides such functionality.

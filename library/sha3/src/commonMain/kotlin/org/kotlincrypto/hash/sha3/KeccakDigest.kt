@@ -104,19 +104,28 @@ public sealed class KeccakDigest: Digest {
         val limit = b + len
 
         fun writeData(data: LittleEndian): Int {
-            var j = if (spongeRemaining < data.size) {
-                // if there is 6 bytes remaining in the sponge
-                // 8 - 6 = 2
-                // j: 2, 3, 4, 5, 6, 7 = 6 bytes written
-                //
-                // if there is 0 bytes remaining in the sponge
-                // 8 - 0 = 8
-                // j > 8 so no bytes will be written
-                data.size - spongeRemaining
-            } else {
-                // more than 8 bytes remain,
-                // read in the entire data set
-                0
+            var j = when {
+                spongeRemaining < data.size -> {
+                    // if there is 6 bytes remaining in the sponge
+                    // 8 - 6 = 2
+                    // j: 2, 3, 4, 5, 6, 7 = 6 bytes written
+                    //
+                    // if there is 0 bytes remaining in the sponge
+                    // 8 - 0 = 8
+                    // j > 8 so no bytes will be written
+                    data.size - spongeRemaining
+                }
+                b == offset -> {
+                    // Must check first block of the extraction
+                    // if it is a partial read (e.g. last read was
+                    // 10 bytes, leaving 6 bytes of the next block
+                    // in the sponge remaining to be used for this
+                    // read).
+                    val remainder = spongeRemaining % data.size
+
+                    if (remainder == 0) 0 else data.size - remainder
+                }
+                else -> 0
             }
 
             var written = 0
@@ -131,11 +140,11 @@ public sealed class KeccakDigest: Digest {
 
         var i = (spongeSize - spongeRemaining) / Long.SIZE_BYTES
         while (b < limit) {
-            while (i < A.size) {
+            while (true) {
                 val data = A[i++].toLittleEndian()
 
                 // Either no more room in out, or sponge was exhausted
-                if (writeData(data) < data.size) break
+                if (writeData(data) == 0) break
             }
 
             if (spongeRemaining == 0) {

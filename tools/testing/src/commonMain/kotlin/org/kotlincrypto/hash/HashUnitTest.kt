@@ -18,6 +18,7 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Updatable
 
 abstract class HashUnitTest {
+    abstract val expectedResetHash: String
     abstract val expectedUpdateSmallHash: String
     abstract val expectedUpdateMediumHash: String
 

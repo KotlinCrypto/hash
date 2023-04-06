@@ -44,7 +44,7 @@ public class SHAKE128: SHAKEDigest {
     public companion object: SHAKEXofFactory<SHAKE128>() {
 
         /**
-         * Produces a new [Xof] (Extended-Output Function) for [SHAKE128]
+         * Produces a new [Xof] (Extendable-Output Function) for [SHAKE128]
          * */
         @JvmStatic
         public fun xOf(): Xof<SHAKE128> = SHAKEXof(SHAKE128(xOfMode = true))

@@ -44,7 +44,7 @@ public class SHAKE256: SHAKEDigest {
     public companion object: SHAKEXofFactory<SHAKE256>() {
 
         /**
-         * Produces a new [Xof] (Extended-Output Function) for [SHAKE256]
+         * Produces a new [Xof] (Extendable-Output Function) for [SHAKE256]
          * */
         @JvmStatic
         public fun xOf(): Xof<SHAKE256> = SHAKEXof(SHAKE256(xOfMode = true))

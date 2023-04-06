@@ -22,7 +22,6 @@ import kotlin.test.assertNotEquals
 
 abstract class DigestUnitTest: HashUnitTest() {
     abstract val digest: Digest
-    abstract val expectedResetHash: String
 
     open fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         updateSmall(digest)

@@ -57,7 +57,7 @@ public class CSHAKE256: SHAKEDigest {
     public companion object: SHAKEXofFactory<CSHAKE256>() {
 
         /**
-         * Produces a new [Xof] (Extended-Output Function) for [CSHAKE256]
+         * Produces a new [Xof] (Extendable-Output Function) for [CSHAKE256]
          *
          * @param [N] A function-name bit string, used by NIST to define functions
          *   based on CSHAKE. Usage should be avoided when not required.
