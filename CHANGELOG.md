@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.2.2 (2023-04-07)
+ - Adds `SHA3`
+ - Updates `kotlincrypto.core` to `0.2.2`
+
 ## Version 0.2.1 (2023-03-28)
  - Updates `kotlincrypto.core` to `0.2.0`
      - Updates the `Digest.compress` function with API change
