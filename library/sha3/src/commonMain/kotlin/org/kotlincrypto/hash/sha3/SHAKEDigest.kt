@@ -50,18 +50,21 @@ public sealed class SHAKEDigest: KeccakDigest {
         this.xOfMode = xOfMode
         this.isReadingXof = false
         this.initBlock = if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) {
+            val nSize = N?.size ?: 0
+            val sSize = S?.size ?: 0
+
             // Prepare encodings
             val bE = blockSize.toLong().leftEncode()
-            val nE = ((N?.size ?: 0) * 8L).leftEncode()
-            val sE = ((S?.size ?: 0) * 8L).leftEncode()
+            val nE = (nSize * 8L).leftEncode()
+            val sE = (sSize * 8L).leftEncode()
 
-            val b = ByteArray(bE.size + nE.size + (N?.size ?: 0) + sE.size + (S?.size ?: 0))
+            val b = ByteArray(bE.size + nE.size + nSize + sE.size + sSize)
 
             bE.copyInto(b)
             nE.copyInto(b, bE.size)
             N?.copyInto(b, bE.size + nE.size)
-            sE.copyInto(b, bE.size + nE.size + (N?.size ?: 0))
-            S?.copyInto(b, bE.size + nE.size + (N?.size ?: 0) + sE.size)
+            sE.copyInto(b, bE.size + nE.size + nSize)
+            S?.copyInto(b, bE.size + nE.size + nSize + sE.size)
 
             b
         } else {
@@ -117,7 +120,7 @@ public sealed class SHAKEDigest: KeccakDigest {
     }
 
     private fun Long.leftEncode(): ByteArray {
-        // If it's zero, return early
+        // If it's zero, return early with [1, 0]
         if (this == 0L) return ByteArray(2).apply { this[0] = 1 }
 
         val be = toBigEndian()
