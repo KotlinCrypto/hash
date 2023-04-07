@@ -39,8 +39,7 @@ import kotlin.jvm.JvmStatic
  *     val out4 = ByteArray(out2.size)
  *     val reader = xof.reader()
  *     reader.read(out3)
- *     reader.read(out4, 0, out4.size)
- *     reader.close()
+ *     reader.use { read(out4, 0, out4.size) }
  *
  *     assertContentEquals(out1, out3)
  *     assertContentEquals(out2, out4)
@@ -66,19 +65,10 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
      * from again as it is unaffected by [Reader] [action]s.
      *
      * @param [resetXof] if true, also resets the [Xof] to its
-     *   initial state after [action] completes.
+     *   initial state.
      * */
     @JvmOverloads
-    public fun <T: Any?> use(resetXof: Boolean = true, action: Reader.() -> T): T {
-        val reader = newReader()
-
-        return try {
-            action(reader)
-        } finally {
-            reader.close()
-            if (resetXof) reset()
-        }
-    }
+    public fun <T: Any?> use(resetXof: Boolean = true, action: Reader.() -> T): T = reader(resetXof).use(action)
 
     /**
      * Takes a snapshot of the current [Xof]'s state and produces
@@ -96,10 +86,17 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
     @JvmOverloads
     public fun reader(resetXof: Boolean = true): Reader {
         val reader = newReader()
+
+        // newReader() takes copy of Xof at its curren
+        // state, so calling reset() _after_ is ok.
         if (resetXof) reset()
+
         return reader
     }
 
+    /**
+     * Reads the [Xof] snapshot.
+     * */
     public abstract inner class Reader {
 
         /**
@@ -115,6 +112,18 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
         @get:JvmName("isClosed")
         public var isClosed: Boolean = false
             private set
+
+        /**
+         * Helper function which automatically calls [close]
+         * once [action] completes.
+         * */
+        public fun <T: Any?> use(action: Reader.() -> T): T {
+            return try {
+                action(this)
+            } finally {
+                close()
+            }
+        }
 
         /**
          * Reads the [Xof] snapshot's state for when [Reader] was
@@ -160,6 +169,8 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
 
         /**
          * Closes the [Reader], rendering it no-longer usable for [read]s.
+         *
+         * Successive calls after initial closure do nothing.
          * */
         public fun close() {
             if (isClosed) return
