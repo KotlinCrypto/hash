@@ -2,7 +2,7 @@
 binaryCompat = "0.13.0"
 bouncyCastle = "1.72"
 configuration = "0.1.0-beta02"
-cryptoCore = "0.2.0"
+cryptoCore = "0.2.2"
 encoding = "1.2.1"
 endians = "0.1.0"
 gradleVersions = "0.46.0"
@@ -12,6 +12,7 @@ sponges = "0.1.0"
 
 [libraries]
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
+kotlincrypto-core-xof = { module = "org.kotlincrypto.core:xof", version.ref = "cryptoCore" }
 kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "endians"}
 kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", version.ref = "sponges" }
 gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "configuration" }
