@@ -27,6 +27,10 @@ open class SHAKE128XofUnitTest: XofUnitTest() {
         (xof as Xof<*>).use { args.forEach { read(it) } }
     }
 
+    override fun partialRead(out: ByteArray, offset: Int, len: Int) {
+        (xof as Xof<*>).use { read(out, offset, len) }
+    }
+
     override fun reset() {
         (xof as Xof<*>).reset()
     }
@@ -34,6 +38,11 @@ open class SHAKE128XofUnitTest: XofUnitTest() {
     @Test
     final override fun givenXof_whenReset_thenReadReturnsExected() {
         super.givenXof_whenReset_thenReadReturnsExected()
+    }
+
+    @Test
+    final override fun givenXof_whenPartialRead_thenReadReturnsExpected() {
+        super.givenXof_whenPartialRead_thenReadReturnsExpected()
     }
 
     @Test
@@ -86,6 +95,15 @@ open class SHAKE128XofUnitTest: XofUnitTest() {
         d2501a3283cc0ffc0fdcc031fe8d865e77fae5d6bb73815d9ae376006d0ae320
         0c24d84c6b14a8471845a7522e7c3d0db9aea0cfce467be633d4d46a5086814d
         a467dc73403c987d8f
+    """.trimIndent()
+    final override val expectedPartialReadHash: String = """
+        000000000000000000000b33a664b281d9a38638832fd314444c2fa5865072e6
+        1505d0776c5cdd322ca3348d78e8721923f52450326a89b88c532ceddaf1b0e3
+        2c47fee10aedfb35beec7cb3fb91b2497e4c228b286341e5a1b1348c2d1c8155
+        8f0c6cf69ad2fac04d451407194f404e92922439824c1a32e77d7372316d2916
+        074f2ed536883ed3b648c4b65cd8d6438419fe12230a50dac11952632676165e
+        8d69f0d3fa0bf1c2cb6960be8d849a7e88da942c142ccb14db5e484808860000
+        0000000000000000
     """.trimIndent()
     final override val expectedUpdateSmallHash: String = """
         0b33a664b281d9a38638832fd314444c2fa5865072e61505d0776c5cdd322ca3

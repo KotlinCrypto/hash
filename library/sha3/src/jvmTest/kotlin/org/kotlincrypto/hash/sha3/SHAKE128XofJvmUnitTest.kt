@@ -32,6 +32,10 @@ class SHAKE128XofJvmUnitTest: SHAKE128XofUnitTest() {
         }
     }
 
+    override fun partialRead(out: ByteArray, offset: Int, len: Int) {
+        digest.doOutput(out, offset, len)
+    }
+
     override fun reset() {
         digest.reset()
     }

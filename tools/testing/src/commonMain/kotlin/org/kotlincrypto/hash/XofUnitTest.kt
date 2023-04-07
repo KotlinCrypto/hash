@@ -24,7 +24,10 @@ import kotlin.test.assertEquals
 abstract class XofUnitTest: HashUnitTest(), Resettable {
     abstract val xof: Updatable
 
+    abstract val expectedPartialReadHash: String
+
     abstract fun read(vararg args: ByteArray)
+    abstract fun partialRead(out: ByteArray, offset: Int, len: Int)
 
     open fun givenXof_whenReset_thenReadReturnsExected() {
         updateSmall(xof)
@@ -39,6 +42,20 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
 
         val actual = b.encodeToString(base16)
         assertEquals(expectedResetHash, actual)
+    }
+
+    open fun givenXof_whenPartialRead_thenReadReturnsExpected() {
+        updateSmall(xof)
+        val r = ByteArray(200)
+        partialRead(r, 10, r.size - 20)
+        for (i in 0 until 10) {
+            assertEquals(0, r[i])
+        }
+        for (i in (r.size - 10) until r.size) {
+            assertEquals(0, r[i])
+        }
+        val actual = r.encodeToString(base16)
+        assertEquals(expectedPartialReadHash, actual)
     }
 
     open fun givenXof_whenUpdatedSmall_thenReadReturnsExpected() {
