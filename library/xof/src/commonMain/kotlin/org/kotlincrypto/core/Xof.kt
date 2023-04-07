@@ -87,7 +87,7 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
     public fun reader(resetXof: Boolean = true): Reader {
         val reader = newReader()
 
-        // newReader() takes copy of Xof at its curren
+        // newReader() takes copy of Xof at its current
         // state, so calling reset() _after_ is ok.
         if (resetXof) reset()
 

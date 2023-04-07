@@ -67,6 +67,17 @@ public value class BigEndian private constructor(private val data: ByteArray) {
     public val sizeBits: Int get() = size * Byte.SIZE_BITS
 
     public fun iterator(): ByteIterator = data.iterator()
+
+    /**
+     * Copies [data] into [destination]
+     *
+     * @throws [IllegalArgumentException] when [startIndex] or [endIndex] is
+     *   out of range of [data], or when startIndex > endIndex.
+     * @throws [IndexOutOfBoundsException] when the subrange doesn't fit into
+     *   [destination] starting at the specified [destinationOffset], or when
+     *   [destinationOffset] is outside of the [destination] indices.
+     * */
+    @Throws(IllegalArgumentException::class, IndexOutOfBoundsException::class)
     public fun copyInto(
         destination: ByteArray,
         destinationOffset: Int = 0,
