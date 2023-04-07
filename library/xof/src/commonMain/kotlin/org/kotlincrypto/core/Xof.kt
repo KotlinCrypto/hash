@@ -213,5 +213,28 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
 
             return b
         }
+
+        @JvmStatic
+        public fun rightEncode(value: Long): ByteArray {
+            // If it's zero, return early with [0, 1]
+            if (value == 0L) return ByteArray(2).apply { this[1] = 1 }
+
+            val be = value.toBigEndian()
+
+            // Find index of first non-zero byte
+            var i = 0
+            while (i < be.size && be[i] == 0.toByte()) {
+                i++
+            }
+
+            val b = ByteArray(be.size - i + 1)
+
+            // Append with number of non-zero bytes
+            b[b.lastIndex] = (be.size - i).toByte()
+
+            be.copyInto(b, 0, i)
+
+            return b
+        }
     }
 }
