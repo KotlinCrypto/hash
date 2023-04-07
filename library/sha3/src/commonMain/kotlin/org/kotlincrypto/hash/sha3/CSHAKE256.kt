@@ -48,13 +48,16 @@ public class CSHAKE256: SHAKEDigest {
         N: ByteArray?,
         S: ByteArray?,
         xOfMode: Boolean,
-    ): super(N, S, xOfMode, "${CSHAKE}256", 136, 64)
+    ): super(N, S, xOfMode, "${CSHAKE}256", BLOCK_SIZE, DIGEST_LENGTH)
 
     private constructor(state: DigestState, digest: CSHAKE256): super(state, digest)
 
     protected override fun copy(state: DigestState): Digest = CSHAKE256(state, this)
 
     public companion object: SHAKEXofFactory<CSHAKE256>() {
+
+        public const val BLOCK_SIZE: Int = 136
+        public const val DIGEST_LENGTH: Int = 64
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [CSHAKE256]

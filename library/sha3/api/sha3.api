@@ -1,5 +1,7 @@
 public final class org/kotlincrypto/hash/sha3/CSHAKE128 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public static final field BLOCK_SIZE I
 	public static final field Companion Lorg/kotlincrypto/hash/sha3/CSHAKE128$Companion;
+	public static final field DIGEST_LENGTH I
 	public fun <init> ([B[B)V
 	public synthetic fun <init> ([B[BZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
@@ -10,7 +12,9 @@ public final class org/kotlincrypto/hash/sha3/CSHAKE128$Companion : org/kotlincr
 }
 
 public final class org/kotlincrypto/hash/sha3/CSHAKE256 : org/kotlincrypto/hash/sha3/SHAKEDigest {
+	public static final field BLOCK_SIZE I
 	public static final field Companion Lorg/kotlincrypto/hash/sha3/CSHAKE256$Companion;
+	public static final field DIGEST_LENGTH I
 	public fun <init> ([B[B)V
 	public synthetic fun <init> ([B[BZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
