@@ -22,7 +22,8 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    api(libs.kotlincrypto.core.common)
+                    val core = libs.versions.cryptoCore.get()
+                    api("org.kotlincrypto.core:common:$core")
                 }
             }
         }

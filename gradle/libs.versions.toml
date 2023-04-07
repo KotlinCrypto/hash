@@ -9,7 +9,6 @@ kotlin = "1.8.10"
 publish = "0.24.0"
 
 [libraries]
-kotlincrypto-core-common = { module = "org.kotlincrypto.core:common", version.ref = "cryptoCore" }
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
 gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "configuration" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
