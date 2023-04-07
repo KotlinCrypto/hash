@@ -23,9 +23,6 @@ if (CHECK_PUBLICATION != null) {
         "sha2:sha2-512",
         "sha3",
 
-        // TODO: Move to separate repository
-        "keccak",
-
         // TODO: Move to core repository
         "xof",
     ).forEach { name ->

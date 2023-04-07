@@ -41,7 +41,7 @@ import kotlin.experimental.xor
  *
  * Also see support libraries utilized:
  *  - https://github.com/KotlinCrypto/endians
- *  - TODO: Add url for sponges repository once keccak is moved
+ *  - https://github.com/KotlinCrypto/sponges
  *
  * @see [SHAKEDigest]
  * */

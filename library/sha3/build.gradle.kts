@@ -24,13 +24,11 @@ kmpConfiguration {
             sourceSetMain {
                 dependencies {
                     api(libs.kotlincrypto.core.digest)
-
-                    // TODO: Move to separate repositories
-                    implementation(project(":library:keccak"))
-                    implementation(libs.kotlincrypto.endians.endians)
-
                     // TODO: Move to core repository
                     api(project(":library:xof"))
+
+                    implementation(libs.kotlincrypto.sponges.keccak)
+                    implementation(libs.kotlincrypto.endians.endians)
                 }
             }
             sourceSetTest {
