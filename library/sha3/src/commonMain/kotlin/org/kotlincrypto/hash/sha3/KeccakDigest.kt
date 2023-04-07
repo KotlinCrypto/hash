@@ -138,9 +138,10 @@ public sealed class KeccakDigest: Digest {
             return written
         }
 
+        val iLimit = (blockSize() / Long.SIZE_BYTES) + 1
         var i = (spongeSize - spongeRemaining) / Long.SIZE_BYTES
         while (b < limit) {
-            while (true) {
+            while (i < iLimit) {
                 val data = A[i++].toLittleEndian()
 
                 // Either no more room in out, or sponge was exhausted
