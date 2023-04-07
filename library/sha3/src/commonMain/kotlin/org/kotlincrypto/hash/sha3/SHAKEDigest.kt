@@ -31,6 +31,10 @@ import kotlin.jvm.JvmStatic
  *
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#3%20cSHAKE
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+ *
+ * Also see support libraries utilized:
+ *  - https://github.com/KotlinCrypto/endians
+ *  - TODO: Add url for sponges repository once keccak is moved
  * */
 public sealed class SHAKEDigest: KeccakDigest {
 

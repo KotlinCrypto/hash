@@ -39,7 +39,9 @@ import kotlin.experimental.xor
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
- * TODO: Add urls for endians and keccak repositories once they are moved
+ * Also see support libraries utilized:
+ *  - https://github.com/KotlinCrypto/endians
+ *  - TODO: Add url for sponges repository once keccak is moved
  *
  * @see [SHAKEDigest]
  * */

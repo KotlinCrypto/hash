@@ -22,7 +22,7 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    implementation(project(":library:endians"))
+                    implementation(libs.kotlincrypto.endians.endians)
 
                     val core = libs.versions.cryptoCore.get()
                     api("org.kotlincrypto.core:common:$core")

@@ -27,7 +27,7 @@ kmpConfiguration {
 
                     // TODO: Move to separate repositories
                     implementation(project(":library:keccak"))
-                    implementation(project(":library:endians"))
+                    implementation(libs.kotlincrypto.endians.endians)
 
                     // TODO: Move to core repository
                     api(project(":library:xof"))

@@ -4,12 +4,14 @@ bouncyCastle = "1.72"
 configuration = "0.1.0-beta02"
 cryptoCore = "0.2.0"
 encoding = "1.2.1"
+endians = "0.1.0"
 gradleVersions = "0.46.0"
 kotlin = "1.8.10"
 publish = "0.24.0"
 
 [libraries]
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
+kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "endians"}
 gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "configuration" }
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
