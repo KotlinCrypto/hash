@@ -16,7 +16,7 @@
 package org.kotlincrypto.core
 
 import kotlin.jvm.JvmName
-import kotlin.jvm.JvmSynthetic
+import kotlin.jvm.JvmOverloads
 
 /**
  * Extendable-Output Function (i.e. XOF)
@@ -35,7 +35,10 @@ import kotlin.jvm.JvmSynthetic
  *
  *     val out3 = ByteArray(out1.size)
  *     val out4 = ByteArray(out2.size)
- *     xof.use { read(out3); read(out4) }
+ *     val reader = xof.reader()
+ *     reader.read(out3)
+ *     reader.read(out4, 0, out4.size)
+ *     reader.close()
  *
  *     assertContentEquals(out1, out3)
  *     assertContentEquals(out2, out4)
@@ -43,6 +46,7 @@ import kotlin.jvm.JvmSynthetic
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
  * @see [use]
+ * @see [reader]
  * @see [Reader]
  * */
 public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, Updatable {
@@ -62,6 +66,7 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
      * @param [resetXof] if true, also resets the [Xof] to its
      *   initial state after [action] completes.
      * */
+    @JvmOverloads
     public fun <T: Any?> use(resetXof: Boolean = true, action: Reader.() -> T): T {
         val reader = newReader()
 
@@ -71,6 +76,26 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
             reader.close()
             if (resetXof) reset()
         }
+    }
+
+    /**
+     * Takes a snapshot of the current [Xof]'s state and produces
+     * a [Reader].
+     *
+     * The [Reader] remains open and will continue to produce new
+     * output until [Reader.close] is explicitly called.
+     *
+     * The [Xof] can continue to be updated with new data or read
+     * from again as it is unaffected by [Reader.read]s.
+     *
+     * @param [resetXof] if true, also resets the [Xof] to its
+     *   initial state.
+     * */
+    @JvmOverloads
+    public fun reader(resetXof: Boolean = true): Reader {
+        val reader = newReader()
+        if (resetXof) reset()
+        return reader
     }
 
     public abstract inner class Reader {
@@ -131,8 +156,10 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
             return len
         }
 
-        @JvmSynthetic
-        internal fun close() {
+        /**
+         * Closes the [Reader], rendering it no-longer usable for [read]s.
+         * */
+        public fun close() {
             if (isClosed) return
             closeProtected()
             isClosed = true
