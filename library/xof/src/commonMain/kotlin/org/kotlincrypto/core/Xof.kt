@@ -15,8 +15,10 @@
  **/
 package org.kotlincrypto.core
 
+import org.kotlincrypto.endians.BigEndian.Companion.toBigEndian
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
+import kotlin.jvm.JvmStatic
 
 /**
  * Extendable-Output Function (i.e. XOF)
@@ -174,4 +176,31 @@ public sealed class Xof<A: Algorithm>: Algorithm, Copyable<Xof<A>>, Resettable, 
     protected abstract fun newReader(): Reader
 
     public final override fun toString(): String = "Xof[${algorithm()}]@${hashCode()}"
+
+    @InternalKotlinCryptoApi
+    public object Utils {
+
+        @JvmStatic
+        public fun leftEncode(value: Long): ByteArray {
+            // If it's zero, return early with [1, 0]
+            if (value == 0L) return ByteArray(2).apply { this[0] = 1 }
+
+            val be = value.toBigEndian()
+
+            // Find index of first non-zero byte
+            var i = 0
+            while (i < be.size && be[i] == 0.toByte()) {
+                i++
+            }
+
+            val b = ByteArray(be.size - i + 1)
+
+            // Prepend with number of non-zero bytes
+            b[0] = (be.size - i).toByte()
+
+            be.copyInto(b, 1, i)
+
+            return b
+        }
+    }
 }

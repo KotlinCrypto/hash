@@ -17,7 +17,6 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.internal.DigestState
-import org.kotlincrypto.endians.BigEndian.Companion.toBigEndian
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
@@ -49,14 +48,16 @@ public sealed class SHAKEDigest: KeccakDigest {
     ): super(algorithm, blockSize, digestLength, dsByteFromInput(N, S)) {
         this.xOfMode = xOfMode
         this.isReadingXof = false
+
+        @OptIn(InternalKotlinCryptoApi::class)
         this.initBlock = if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) {
             val nSize = N?.size ?: 0
             val sSize = S?.size ?: 0
 
             // Prepare encodings
-            val bE = blockSize.toLong().leftEncode()
-            val nE = (nSize * 8L).leftEncode()
-            val sE = (sSize * 8L).leftEncode()
+            val bE = Xof.Utils.leftEncode(blockSize.toLong())
+            val nE = Xof.Utils.leftEncode((nSize * 8L))
+            val sE = Xof.Utils.leftEncode((sSize * 8L))
 
             val b = ByteArray(bE.size + nE.size + nSize + sE.size + sSize)
 
@@ -117,28 +118,6 @@ public sealed class SHAKEDigest: KeccakDigest {
         repeat(blockSize() - remainder) {
             update(0)
         }
-    }
-
-    private fun Long.leftEncode(): ByteArray {
-        // If it's zero, return early with [1, 0]
-        if (this == 0L) return ByteArray(2).apply { this[0] = 1 }
-
-        val be = toBigEndian()
-
-        // Find index of first non-zero byte
-        var i = 0
-        while (i < be.size && be[i] == 0.toByte()) {
-            i++
-        }
-
-        val b = ByteArray(be.size - i + 1)
-
-        // Prepend with number of non-zero bytes
-        b[0] = (be.size - i).toByte()
-
-        be.copyInto(b, 1, i)
-
-        return b
     }
 
     @OptIn(InternalKotlinCryptoApi::class)
