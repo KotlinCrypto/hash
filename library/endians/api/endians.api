@@ -9,7 +9,6 @@ public final class org/kotlincrypto/endians/BigEndian {
 	public static fun constructor-impl (BBBBBBBB)[B
 	public static final fun copyInto-impl ([B[BIII)[B
 	public static synthetic fun copyInto-impl$default ([B[BIIIILjava/lang/Object;)[B
-	public static final fun div-GdhwqRY ([B[B)[B
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl ([BLjava/lang/Object;)Z
 	public static final fun equals-impl0 ([B[B)Z
@@ -21,11 +20,7 @@ public final class org/kotlincrypto/endians/BigEndian {
 	public fun hashCode ()I
 	public static fun hashCode-impl ([B)I
 	public static final fun iterator-impl ([B)Lkotlin/collections/ByteIterator;
-	public static final fun minus-GdhwqRY ([B[B)[B
-	public static final fun plus-GdhwqRY ([B[B)[B
 	public static final fun plus-impl ([B[B)[B
-	public static final fun rem-GdhwqRY ([B[B)[B
-	public static final fun times-GdhwqRY ([B[B)[B
 	public static final fun toBigEndian-OUA1zfc (I)[B
 	public static final fun toBigEndian-OUA1zfc (J)[B
 	public static final fun toBigEndian-OUA1zfc (S)[B
@@ -60,7 +55,6 @@ public final class org/kotlincrypto/endians/LittleEndian {
 	public static fun constructor-impl (BBBBBBBB)[B
 	public static final fun copyInto-impl ([B[BIII)[B
 	public static synthetic fun copyInto-impl$default ([B[BIIIILjava/lang/Object;)[B
-	public static final fun div-6xMBtxY ([B[B)[B
 	public fun equals (Ljava/lang/Object;)Z
 	public static fun equals-impl ([BLjava/lang/Object;)Z
 	public static final fun equals-impl0 ([B[B)Z
@@ -72,11 +66,7 @@ public final class org/kotlincrypto/endians/LittleEndian {
 	public fun hashCode ()I
 	public static fun hashCode-impl ([B)I
 	public static final fun iterator-impl ([B)Lkotlin/collections/ByteIterator;
-	public static final fun minus-6xMBtxY ([B[B)[B
-	public static final fun plus-6xMBtxY ([B[B)[B
 	public static final fun plus-impl ([B[B)[B
-	public static final fun rem-6xMBtxY ([B[B)[B
-	public static final fun times-6xMBtxY ([B[B)[B
 	public static final fun toBigEndian-90RowRo ([B)[B
 	public static final fun toByte-impl ([B)B
 	public static final fun toByteArray-impl ([B)[B

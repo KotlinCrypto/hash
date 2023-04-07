@@ -15,7 +15,6 @@
  **/
 package org.kotlincrypto.endians
 
-import org.kotlincrypto.endians.internal.ifMaxElse
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmStatic
 
@@ -63,61 +62,6 @@ public value class BigEndian private constructor(private val data: ByteArray) {
      * Adds [data] with another [ByteArray], creating a new [ByteArray]
      * */
     public operator fun plus(other: ByteArray): ByteArray = data.plus(other)
-
-    /**
-     * Addition with another [BigEndian], creating a new [BigEndian]
-     * */
-    public operator fun plus(other: BigEndian): BigEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().plus(other.toShort())).toBigEndian()
-            4 -> (toInt().plus(other.toInt())).toBigEndian()
-            else -> (toLong().plus(other.toLong())).toBigEndian()
-        }
-    }
-
-    /**
-     * Subtraction with another [BigEndian], creating a new [BigEndian]
-     * */
-    public operator fun minus(other: BigEndian): BigEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().minus(other.toShort())).toBigEndian()
-            4 -> (toInt().minus(other.toInt())).toBigEndian()
-            else -> (toLong().minus(other.toLong())).toBigEndian()
-        }
-    }
-
-    /**
-     * Multiplication with another [BigEndian], creating a new [BigEndian]
-     * */
-    public operator fun times(other: BigEndian): BigEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().times(other.toShort())).toBigEndian()
-            4 -> (toInt().times(other.toInt())).toBigEndian()
-            else -> (toLong().times(other.toLong())).toBigEndian()
-        }
-    }
-
-    /**
-     * Division with another [BigEndian], creating a new [BigEndian]
-     * */
-    public operator fun div(other: BigEndian): BigEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().div(other.toShort())).toBigEndian()
-            4 -> (toInt().div(other.toInt())).toBigEndian()
-            else -> (toLong().div(other.toLong())).toBigEndian()
-        }
-    }
-
-    /**
-     * Remainder of with another [BigEndian], creating a new [BigEndian]
-     * */
-    public operator fun rem(other: BigEndian): BigEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().rem(other.toShort())).toBigEndian()
-            4 -> (toInt().rem(other.toInt())).toBigEndian()
-            else -> (toLong().rem(other.toLong())).toBigEndian()
-        }
-    }
 
     public val size: Int get() = data.size
     public val sizeBits: Int get() = size * Byte.SIZE_BITS

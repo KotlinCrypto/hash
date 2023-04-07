@@ -25,10 +25,6 @@ class LittleEndianUnitTest {
         private const val SM = Short.MAX_VALUE
         private const val IM = Int.MAX_VALUE
         private const val LM = Long.MAX_VALUE
-
-        private const val S5: Short = 5
-        private const val I5: Int = S5.toInt()
-        private const val L5: Long = S5.toLong()
     }
 
     @Test
@@ -101,62 +97,6 @@ class LittleEndianUnitTest {
             } else {
                 assertEquals(aExpect, byte)
             }
-        }
-    }
-
-    @Test
-    fun givenLittleEndian_whenPlusLittleEndian_thenIsAdded() {
-        assertOperation(S5, { it + it }, { it + it })
-        assertOperation(I5, { it + it }, { it + it })
-        assertOperation(L5, { it + it }, { it + it })
-    }
-
-    @Test
-    fun givenLittleEndian_whenMinusLittleEndian_thenIsSubtracted() {
-        assertOperation(S5, { it - it }, { it - it })
-        assertOperation(I5, { it - it }, { it - it })
-        assertOperation(L5, { it - it }, { it - it })
-    }
-
-    @Test
-    fun givenLittleEndian_whenTimesLittleEndian_thenIsMultiplied() {
-        assertOperation(S5, { it * it }, { it * it })
-        assertOperation(I5, { it * it }, { it * it })
-        assertOperation(L5, { it * it }, { it * it })
-    }
-
-    @Test
-    fun givenLittleEndian_whenDivideLittleEndian_thenIsDivided() {
-        assertOperation(S5, { it / it }, { it / it })
-        assertOperation(I5, { it / it }, { it / it })
-        assertOperation(L5, { it / it }, { it / it })
-    }
-
-    private inline fun <reified N: Number> assertOperation(
-        number: N,
-        expect: (N) -> Number,
-        actual: (le: LittleEndian) -> LittleEndian
-    ) {
-        when (number) {
-           is Short -> {
-               val e = expect.invoke(number)
-               val a = actual.invoke(number.toLittleEndian())
-               assertEquals(e.toInt(), a.toInt())
-               assertEquals(4, a.size)
-           }
-           is Int -> {
-               val e = expect.invoke(number)
-               val a = actual.invoke(number.toLittleEndian())
-               assertEquals(e.toInt(), a.toInt())
-               assertEquals(4, a.size)
-           }
-           is Long -> {
-               val e = expect.invoke(number)
-               val a = actual.invoke(number.toLittleEndian())
-               assertEquals(e.toLong(), a.toLong())
-               assertEquals(8, a.size)
-           }
-           else -> throw AssertionError("Type ${number::class.simpleName} not supported")
         }
     }
 }

@@ -15,7 +15,6 @@
  **/
 package org.kotlincrypto.endians
 
-import org.kotlincrypto.endians.internal.ifMaxElse
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmStatic
 
@@ -63,61 +62,6 @@ public value class LittleEndian private constructor(private val data: ByteArray)
      * Adds [data] with another [ByteArray], creating a new [ByteArray]
      * */
     public operator fun plus(other: ByteArray): ByteArray = data.plus(other)
-
-    /**
-     * Addition with another [LittleEndian], creating a new [LittleEndian]
-     * */
-    public operator fun plus(other: LittleEndian): LittleEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().plus(other.toShort())).toLittleEndian()
-            4 -> (toInt().plus(other.toInt())).toLittleEndian()
-            else -> (toLong().plus(other.toLong())).toLittleEndian()
-        }
-    }
-
-    /**
-     * Subtraction with another [LittleEndian], creating a new [LittleEndian]
-     * */
-    public operator fun minus(other: LittleEndian): LittleEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().minus(other.toShort())).toLittleEndian()
-            4 -> (toInt().minus(other.toInt())).toLittleEndian()
-            else -> (toLong().minus(other.toLong())).toLittleEndian()
-        }
-    }
-
-    /**
-     * Multiplication with another [LittleEndian], creating a new [LittleEndian]
-     * */
-    public operator fun times(other: LittleEndian): LittleEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().times(other.toShort())).toLittleEndian()
-            4 -> (toInt().times(other.toInt())).toLittleEndian()
-            else -> (toLong().times(other.toLong())).toLittleEndian()
-        }
-    }
-
-    /**
-     * Division with another [LittleEndian], creating a new [LittleEndian]
-     * */
-    public operator fun div(other: LittleEndian): LittleEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().div(other.toShort())).toLittleEndian()
-            4 -> (toInt().div(other.toInt())).toLittleEndian()
-            else -> (toLong().div(other.toLong())).toLittleEndian()
-        }
-    }
-
-    /**
-     * Remainder of with another [LittleEndian], creating a new [LittleEndian]
-     * */
-    public operator fun rem(other: LittleEndian): LittleEndian {
-        return when (size.ifMaxElse(other.size)) {
-            2 -> (toShort().rem(other.toShort())).toLittleEndian()
-            4 -> (toInt().rem(other.toInt())).toLittleEndian()
-            else -> (toLong().rem(other.toLong())).toLittleEndian()
-        }
-    }
 
     public val size: Int get() = data.size
     public val sizeBits: Int get() = size * Byte.SIZE_BITS
