@@ -39,6 +39,14 @@ fun main() {
     MD5().apply { update(random) }.digest()
 
     SHA1().digest(random)
+}
+```
+
+`SHA-2`
+
+```kotlin
+fun main() {
+    val random = Random.Default.nextBytes(615)
 
     SHA224().digest(random)
     
@@ -64,6 +72,70 @@ fun main() {
 }
 ```
 
+<!-- TODO: Uncomment
+`SHA-3` `Digest`s
+
+```kotlin
+fun main() {
+    Keccak224()
+    Keccak256()
+    Keccak384()
+    Keccak512()
+    SHA3_224()
+    SHA3_256()
+    SHA3_384()
+    SHA3_512()
+
+    SHAKE128()
+    SHAKE256()
+    val S = "My Customization".encodeToByteArray()
+    CSHAKE128(null, S)
+    CSHAKE256(null, S)
+}
+```
+
+`SHA-3` `XOF`s (i.e. [Extendable-Output Functions][url-fips-202]) 
+
+`XOF`s are very similar to `Digest` and `Mac`, except instead of calling `digest()` 
+or `doFinal()` which returns a fixed sized `ByteArray`, their output can be however 
+long you wish. 
+
+As such, `KotlinCrypto` takes the approach of making them distinctly separate from 
+those while implementing the same interfaces (`Algorithm`, `Copyable`, `Resettable`, 
+and `Updatable`). The only thing that is different is how the output is retrieved. 
+
+`Xof`s are read, instead. 
+
+More detail can be found in the documentation [HERE][url-xof].
+
+```kotlin
+fun main() {
+    SHAKE128.xOf()
+    SHAKE256.xOf()
+    
+    val S = "My Customization".encodeToByteArray()
+    CSHAKE128.xOf(null, S)
+
+    val xof = CSHAKE256.xOf(null, S)
+    
+    xof.update(Random.Default.nextBytes(615))
+    xof.reset()
+    xof.update(Random.Default.nextBytes(615))
+    
+    val out1 = ByteArray(1_000)
+    xof.use(resetXof = false) { read(out1) }
+    
+    val out2 = ByteArray(out1.size / 2)
+    val out3 = ByteArray(out1.size / 2)
+    val reader = xof.reader(resetXof = true)
+    reader.use { read(out2, 0, out2.size); read(out3) }
+    
+    assertContentEquals(out1, out2 + out3)
+}
+```
+
+-->
+
 ### Get Started
 
 The best way to keep `KotlinCrypto` dependencies up to date is by using the 
@@ -71,6 +143,13 @@ The best way to keep `KotlinCrypto` dependencies up to date is by using the
 shown below.
 
 <!-- TAG_VERSION -->
+<!-- TODO: Add
+    // Keccak-224, Keccak-256, Keccak-384, Keccak-512
+    // SHA3-224, SHA3-256, SHA3-384, SHA3-512
+    // SHAKE128, SHAKE256
+    // CSHAKE128, CSHAKE256
+    implementation("org.kotlincrypto.hash:sha3")
+-->
 
 ```kotlin
 // build.gradle.kts
@@ -125,3 +204,5 @@ dependencies {
 [url-macs]: https://github.com/KotlinCrypto/MACs
 [url-version-catalog]: https://github.com/KotlinCrypto/version-catalog
 [url-secure-random]: https://github.com/KotlinCrypto/secure-random
+[url-xof]: https://github.com/KotlinCrypto/core/blob/master/library/xof/src/commonMain/kotlin/org/kotlincrypto/core/Xof.kt
+[url-fips-202]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf

@@ -89,7 +89,7 @@ public class SHA512t: Bit64Digest {
         digest()
     }
 
-    private constructor(state: DigestState, sha512t: SHA512t): super(state, sha512t) {
+    private constructor(state: DigestState, digest: SHA512t): super(state, digest) {
         isInitialized = true
     }
 

@@ -20,36 +20,31 @@ import org.kotlincrypto.core.Digest
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-abstract class DigestUnitTest {
+abstract class DigestUnitTest: HashUnitTest() {
     abstract val digest: Digest
-    abstract val expectedResetHash: String
-    abstract val expectedUpdateSmallHash: String
-    abstract val expectedUpdateMediumHash: String
 
     open fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
-        digest.update(TestData.BYTES_SMALL)
+        updateSmall(digest)
         digest.reset()
         val actual = digest.digest().encodeToString(TestData.base16)
         assertEquals(expectedResetHash, actual)
     }
 
     open fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
-        digest.update(TestData.BYTES_SMALL)
+        updateSmall(digest)
         val actual = digest.digest().encodeToString(TestData.base16)
         assertEquals(expectedUpdateSmallHash, actual)
     }
 
     open fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
-        digest.update(TestData.BYTES_MEDIUM[0])
-        digest.update(TestData.BYTES_MEDIUM)
-        digest.update(TestData.BYTES_MEDIUM, 100, 1_000)
+        updateMedium(digest)
         val actual = digest.digest().encodeToString(TestData.base16)
         assertEquals(expectedUpdateMediumHash, actual)
     }
 
     open fun givenDigest_whenCopied_thenIsDifferentInstance() {
         val copy = digest.copy()
-        digest.update(TestData.BYTES_SMALL)
+        updateSmall(digest)
         assertNotEquals(copy, digest)
         assertEquals(expectedResetHash, copy.digest().encodeToString(TestData.base16))
         assertEquals(expectedUpdateSmallHash, digest.digest().encodeToString(TestData.base16))

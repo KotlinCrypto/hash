@@ -19,6 +19,14 @@ plugins {
 
 kmpConfiguration {
     configureShared(explicitApi = false) {
+        jvm {
+            sourceSetMain {
+                dependencies {
+                    api(libs.bouncyCastle)
+                }
+            }
+        }
+
         common {
             sourceSetMain {
                 dependencies {

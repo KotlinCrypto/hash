@@ -21,6 +21,7 @@ if (CHECK_PUBLICATION != null) {
         "sha2",
         "sha2:sha2-256",
         "sha2:sha2-512",
+        "sha3",
     ).forEach { name ->
         include(":library:$name")
     }
