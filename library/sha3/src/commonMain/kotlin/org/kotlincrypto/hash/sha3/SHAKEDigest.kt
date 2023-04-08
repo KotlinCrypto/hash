@@ -36,7 +36,7 @@ import kotlin.jvm.JvmStatic
  *  - https://github.com/KotlinCrypto/endians
  *  - https://github.com/KotlinCrypto/sponges
  * */
-public sealed class SHAKEDigest: KeccakDigest {
+public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 
     private val initBlock: ByteArray?
     private val xOfMode: Boolean
