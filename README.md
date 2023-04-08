@@ -147,7 +147,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.2.2"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.2.3"))
 
     // define artifacts without version
     
@@ -169,12 +169,12 @@ dependencies {
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.2-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.3-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.2.2-blue.svg
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.2.3-blue.svg
 [badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.1.0-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.1.0-blue.svg
 

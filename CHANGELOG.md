@@ -1,14 +1,17 @@
 # CHANGELOG
 
+## Version 0.2.3 (2023-04-08)
+ - Updates `kotlincrypto.core` to `0.2.3` [[#31]][31]
+
 ## Version 0.2.2 (2023-04-07)
- - Adds `SHA3`
+ - Adds `SHA3` [[#29]][29]
  - Updates `kotlincrypto.core` to `0.2.2`
 
 ## Version 0.2.1 (2023-03-28)
  - Updates `kotlincrypto.core` to `0.2.0`
      - Updates the `Digest.compress` function with API change
      - Consumers of `hash` lib are not affected (internal changes only)
-     - See [[core #21]][core-pr-21] for more info
+     - See [[core #21]][core-21] for more info
 
 ## Version 0.2.0 (2023-03-12)
  - Adds `SHA-224` algorithm
@@ -33,4 +36,6 @@
 ## Version 0.1.0 (2023-03-04)
  - Initial Release
 
-[core-pr-21]: https://github.com/KotlinCrypto/core/pull/21
+[core-21]: https://github.com/KotlinCrypto/core/pull/21
+[29]: https://github.com/KotlinCrypto/hash/pull/29
+[31]: https://github.com/KotlinCrypto/hash/pull/31
