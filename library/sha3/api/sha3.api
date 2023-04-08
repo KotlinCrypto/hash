@@ -91,7 +91,7 @@ public final class org/kotlincrypto/hash/sha3/SHAKE256$Companion : org/kotlincry
 	public final fun xOf ()Lorg/kotlincrypto/core/Xof;
 }
 
-public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/hash/sha3/KeccakDigest {
+public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/hash/sha3/KeccakDigest, org/kotlincrypto/core/XofAlgorithm {
 	protected static final field Companion Lorg/kotlincrypto/hash/sha3/SHAKEDigest$Companion;
 	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([B[BZLjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -109,6 +109,6 @@ protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory$SHA
 	public fun <init> (Lorg/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;)V
 	public synthetic fun copy ()Ljava/lang/Object;
 	public fun copy ()Lorg/kotlincrypto/core/Xof;
-	public synthetic fun newReader (Lorg/kotlincrypto/core/Algorithm;)Lorg/kotlincrypto/core/Xof$Reader;
+	public synthetic fun newReader (Lorg/kotlincrypto/core/XofAlgorithm;)Lorg/kotlincrypto/core/Xof$Reader;
 }
 
