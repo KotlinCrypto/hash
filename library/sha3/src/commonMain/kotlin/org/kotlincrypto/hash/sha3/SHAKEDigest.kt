@@ -82,7 +82,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
         this.xOfMode = digest.xOfMode
         this.isReadingXof = digest.isReadingXof
-        this.initBlock = digest.initBlock?.copyOf()
+        this.initBlock = digest.initBlock
     }
 
     protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
@@ -127,7 +127,14 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     @OptIn(InternalKotlinCryptoApi::class)
     public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
 
-        protected inner class SHAKEXof(delegate: A) : XofFactory<A>.XofDelegate(delegate) {
+        protected inner class SHAKEXof
+        @Throws(IllegalArgumentException::class)
+        constructor(delegate: A) : XofFactory<A>.XofDelegate(delegate) {
+
+            init {
+                require(delegate.xOfMode) { "xOfMode must be true" }
+            }
+
             protected override fun newReader(delegateCopy: A): Xof<A>.Reader {
 
                 // Calling digest() will flush the copy's buffered input and
