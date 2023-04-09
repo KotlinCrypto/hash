@@ -26,55 +26,37 @@
 
 Cryptographic hash functions for Kotlin Multiplatform
 
-If you are looking for `Mac` algorithms (e.g. `HmacSHA256`, `HmacSHA512`, etc), see the [MACs repo][url-macs].
-
-If you are looking for `Encoding` (`Base16` a.k.a. `hex`, `Base32`, `Base64`, etc), see the [encoding repo][url-encoding].
-
-If you are looking for `SecureRandom`, see the [secure-random repo][url-secure-random].
+Utilized by [KotlinCrypto/MACs][url-macs]
 
 ### Usage
 
-```kotlin
-fun main() {
-    val random = Random.Default.nextBytes(615)
-
-    MD5().apply { update(random) }.digest()
-
-    SHA1().digest(random)
-}
-```
-
-`SHA-2`
+See [HERE][url-core-usage] for basic usage example for `Digest`.
 
 ```kotlin
 fun main() {
-    val random = Random.Default.nextBytes(615)
-
-    SHA224().digest(random)
-    
-    SHA256().apply { update(random) }.digest(random)
-    
-    SHA384().digest(random)
-
-    val sha512 = SHA512()
-    
-    val sha512Bytes = sha512.apply {
-        update(random[0])
-        update(random[20])
-        update(random, 25, 88)
-    }.digest() // is automatically reset for re-use when digest() is called
-    
-    // All digests are copyable
-    val sha512Copy = sha512.apply { update(random) }.copy()
-    val copyBytes = sha512Copy.digest()
-    val resetBytes = sha512.reset().digest()
-    
-    SHA512_224().digest(random)
-    SHA512_256().digest(random)
+    // Digests that may be needed for backward compatibility but 
+    // should no longer be utilized because they have been broken.
+    MD5()
+    SHA1()
 }
 ```
 
-`SHA-3` `Digest`s
+`SHA2 Digests`
+
+```kotlin
+fun main() {
+    SHA224()
+    SHA256()
+    SHA384()
+    SHA512()
+
+    SHA512_224()
+    SHA512_256()
+    SHA512t(504)
+}
+```
+
+`SHA3 Digests`
 
 ```kotlin
 fun main() {
@@ -95,19 +77,9 @@ fun main() {
 }
 ```
 
-`SHA-3` `XOF`s (i.e. [Extendable-Output Functions][url-fips-202]) 
+`SHA3 XOFs` (i.e. [Extendable-Output Functions][url-pub-xof])
 
-`XOF`s are very similar to `Digest` and `Mac`, except instead of calling `digest()` 
-or `doFinal()` which returns a fixed sized `ByteArray`, their output can be however 
-long you wish. 
-
-As such, `KotlinCrypto` takes the approach of making them distinctly separate from 
-those while implementing the same interfaces (`Algorithm`, `Copyable`, `Resettable`, 
-and `Updatable`). The only thing that is different is how the output is retrieved. 
-
-`Xof`s are read, instead. 
-
-More detail can be found in the documentation [HERE][url-xof].
+See [HERE][url-core-usage] for details on what `XOFs` are, and a basic usage example for `Xof`.
 
 ```kotlin
 fun main() {
@@ -116,22 +88,7 @@ fun main() {
     
     val S = "My Customization".encodeToByteArray()
     CSHAKE128.xOf(null, S)
-
-    val xof = CSHAKE256.xOf(null, S)
-    
-    xof.update(Random.Default.nextBytes(615))
-    xof.reset()
-    xof.update(Random.Default.nextBytes(615))
-    
-    val out1 = ByteArray(1_000)
-    xof.use(resetXof = false) { read(out1) }
-    
-    val out2 = ByteArray(out1.size / 2)
-    val out3 = ByteArray(out1.size / 2)
-    val reader = xof.reader(resetXof = true)
-    reader.use { read(out2, 0, out2.size); read(out3) }
-    
-    assertContentEquals(out1, out2 + out3)
+    CSHAKE256.xOf(null, S)
 }
 ```
 
@@ -200,11 +157,9 @@ dependencies {
 [url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt
 [url-kotlin]: https://kotlinlang.org
 [url-core]: https://github.com/KotlinCrypto/core
+[url-core-usage]: https://github.com/KotlinCrypto/core#usage
 [url-endians]: https://github.com/KotlinCrypto/endians
 [url-sponges]: https://github.com/KotlinCrypto/sponges
-[url-encoding]: https://github.com/05nelsonm/encoding
 [url-macs]: https://github.com/KotlinCrypto/MACs
 [url-version-catalog]: https://github.com/KotlinCrypto/version-catalog
-[url-secure-random]: https://github.com/KotlinCrypto/secure-random
-[url-xof]: https://github.com/KotlinCrypto/core/blob/master/library/xof/src/commonMain/kotlin/org/kotlincrypto/core/Xof.kt
-[url-fips-202]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+[url-pub-xof]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
