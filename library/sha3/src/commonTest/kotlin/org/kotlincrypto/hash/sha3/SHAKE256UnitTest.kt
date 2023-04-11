@@ -22,12 +22,18 @@ import org.kotlincrypto.hash.DigestUnitTest
 open class SHAKE256UnitTest: DigestUnitTest() {
     override val digest: Digest = SHAKE256()
     final override val expectedResetHash: String = "46b9dd2b0ba88d13233b3feb743eeb243fcd52ea62b81b82b50c27646ed5762fd75dc4ddd8c0f200cb05019d67b592f6fc821c49479ab48640292eacb3b7c4be"
+    final override val expectedMultiBlockHash: String = "2cc1a8692a767fe3122b42e66567694729325de26b01e1e1acfba8b47d79f8e550bcd93e17bdcea0d25b1040f000a6895cba15fb5631a10a5817dacd22c642cd"
     final override val expectedUpdateSmallHash: String = "030f4a342728ddc61799a29afb8f904a3276e04ead3c3fb0f3ef2fb2ec9c85a3cd87c6549a17c727c3d544def386d005751a06cc2a96c489b48ce270762e7794"
     final override val expectedUpdateMediumHash: String = "42dacceebb007046252e70a319ab2e162cd0ffb3b3e6fcf0e865fbf3763fa7325d4add48be7917c2bfb09e6fa0a197cbece5a1ee5b7e1a554b514197e84b7f46"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected()
     }
 
     @Test

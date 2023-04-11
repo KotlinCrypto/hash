@@ -22,12 +22,18 @@ import kotlin.test.Test
 open class SHA224UnitTest: DigestUnitTest() {
     override val digest: Digest = SHA224()
     final override val expectedResetHash: String = "d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f"
+    final override val expectedMultiBlockHash: String = "1ad34335a940dcc00053422a06a233445ce0f7b511481d3416e0f539"
     final override val expectedUpdateSmallHash: String = "bda63b682436fa6767ad866fb78c48da5da268a80e49fa91b2a1349d"
     final override val expectedUpdateMediumHash: String = "190464776331b2a2d618bb82e3567c4de96c7d23bd7ea0376d8cabc8"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected()
     }
 
     @Test

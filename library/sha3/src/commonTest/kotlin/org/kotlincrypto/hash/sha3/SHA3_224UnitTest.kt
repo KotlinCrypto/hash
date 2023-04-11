@@ -23,12 +23,18 @@ import org.kotlincrypto.hash.DigestUnitTest
 open class SHA3_224UnitTest: DigestUnitTest() {
     override val digest: Digest = SHA3_224()
     final override val expectedResetHash: String = "6b4e03423667dbb73b6e15454f0eb1abd4597f9a1b078e3f5b5a6bc7"
+    final override val expectedMultiBlockHash: String = "b21e3044cc8b1396fc53d9f9150b47294d8a670a31fb09486db70cc3"
     final override val expectedUpdateSmallHash: String = "d167147af05bbf46f5c730dc69fad8ed64e2afa900b8e4ebde4d8e00"
     final override val expectedUpdateMediumHash: String = "ac05fe6c9eedb6c000204443aeb3c2c99d38d20b4bd97c315d814202"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected()
     }
 
     @Test

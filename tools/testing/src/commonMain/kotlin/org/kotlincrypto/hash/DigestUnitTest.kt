@@ -22,12 +22,30 @@ import kotlin.test.assertNotEquals
 
 abstract class DigestUnitTest: HashUnitTest() {
     abstract val digest: Digest
+    abstract val expectedMultiBlockHash: String
 
     open fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         updateSmall(digest)
         digest.reset()
         val actual = digest.digest().encodeToString(TestData.base16)
         assertEquals(expectedResetHash, actual)
+    }
+
+    open fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        val sizes = (digest.blockSize() - 10)..(digest.blockSize() + 10)
+
+        val outputs = mutableListOf<ByteArray>()
+        for (size in sizes) {
+            val digested = digest.digest(TestData.BYTES_MEDIUM.copyOf(size))
+            outputs.add(digested)
+        }
+
+        for (output in outputs) {
+            digest.update(output)
+        }
+
+        val actual = digest.digest().encodeToString(TestData.base16)
+        assertEquals(expectedMultiBlockHash, actual)
     }
 
     open fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {

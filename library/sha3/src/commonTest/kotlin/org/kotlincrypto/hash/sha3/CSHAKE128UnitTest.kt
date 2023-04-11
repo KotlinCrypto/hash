@@ -29,12 +29,18 @@ open class CSHAKE128UnitTest: DigestUnitTest() {
     protected val S = "Test CSHAKE".encodeToByteArray()
     override val digest: Digest = CSHAKE128(null, null)
     override val expectedResetHash: String = "7f9c2ba4e88f827d616045507605853ed73b8093f6efbc88eb1a6eacfa66ef26"
+    override val expectedMultiBlockHash: String = "e1b0a326f24f23ef3a861fef0c2835b489c533e58b898f4d0ccf873ea03cfa40"
     override val expectedUpdateSmallHash: String = "0b33a664b281d9a38638832fd314444c2fa5865072e61505d0776c5cdd322ca3"
     override val expectedUpdateMediumHash: String = "9bf64f28a64f294769abd18b8903820453c9f31fe1bf620f95dede8f0b5d9f56"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected()
     }
 
     @Test
