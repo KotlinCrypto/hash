@@ -22,12 +22,18 @@ import org.kotlincrypto.hash.DigestUnitTest
 open class Keccak256UnitTest: DigestUnitTest() {
     override val digest: Digest = Keccak256()
     final override val expectedResetHash: String = "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470"
+    final override val expectedMultiBlockHash: String = "157e0f9078dd4e59644d0e55c8377bb1079388e330cf30ec17a5aabaedf96ed1"
     final override val expectedUpdateSmallHash: String = "8da7db9b1b86176084b942444756fd50f17afd89a16f9df1de1d1a0a8903c583"
     final override val expectedUpdateMediumHash: String = "06c89b5c8b7f8e6ad6480b29b50180cbfc92c3c2c9b2954833289e695c9eec0b"
 
     @Test
     final override fun givenDigest_whenReset_thenDigestDigestReturnsExpected() {
         super.givenDigest_whenReset_thenDigestDigestReturnsExpected()
+    }
+
+    @Test
+    final override fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
+        super.givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected()
     }
 
     @Test
