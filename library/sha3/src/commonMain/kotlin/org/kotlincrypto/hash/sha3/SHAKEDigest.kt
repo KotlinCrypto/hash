@@ -20,7 +20,6 @@ import org.kotlincrypto.core.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
-import kotlin.jvm.JvmField
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.JvmSynthetic
 
@@ -45,8 +44,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 
     private val initBlock: ByteArray?
     private var isReadingXof: Boolean
-    @JvmField
-    protected val xOfMode: Boolean
+    private val xOfMode: Boolean
 
     protected constructor(
         N: ByteArray?,
@@ -139,6 +137,11 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 
             init {
                 require(delegate.xOfMode) { "xOfMode must be true" }
+
+                // Some algorithms for the SHA3 derived functions require encoding
+                // the final output length before outputting data. While in XOF mode,
+                // the arbitrary output length, L, is represented as 0.
+                require(delegate.digestLength() == 0) { "digestLength must be 0" }
             }
 
             protected override fun newReader(delegateCopy: A): Xof<A>.Reader {
@@ -199,9 +202,9 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         internal const val BLOCK_SIZE_BIT_256 = 136
 
         // default digestLength for bitStrength of 128
-        internal const val DIGEST_LENGTH_BIT_128 = BIT_STRENGTH_128 / 4
+        internal const val DIGEST_LENGTH_BIT_128 = 32
         // default digestLength for bitStrength of 256
-        internal const val DIGEST_LENGTH_BIT_256 = BIT_STRENGTH_256 / 4
+        internal const val DIGEST_LENGTH_BIT_256 = 64
 
         /**
          * Given that [N] and [S] are both null and/or empty, CSHAKE is
