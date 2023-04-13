@@ -35,7 +35,9 @@ public class SHAKE256: SHAKEDigest {
      * */
     public constructor(): this(xOfMode = false)
 
-    private constructor(xOfMode: Boolean): super(null, null, xOfMode, "${SHAKE}256", 136, 64)
+    private constructor(
+        xOfMode: Boolean
+    ): super(null, null, xOfMode, SHAKE + BIT_STRENGTH_256, BLOCK_SIZE_BIT_256, DIGEST_LENGTH_BIT_256)
 
     private constructor(state: DigestState, digest: SHAKE256): super(state, digest)
 

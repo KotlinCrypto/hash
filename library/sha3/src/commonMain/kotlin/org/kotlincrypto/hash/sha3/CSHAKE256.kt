@@ -48,7 +48,7 @@ public class CSHAKE256: SHAKEDigest {
         N: ByteArray?,
         S: ByteArray?,
         xOfMode: Boolean,
-    ): super(N, S, xOfMode, "${CSHAKE}256", BLOCK_SIZE, DIGEST_LENGTH)
+    ): super(N, S, xOfMode, CSHAKE + BIT_STRENGTH_256, BLOCK_SIZE, DIGEST_LENGTH)
 
     private constructor(state: DigestState, digest: CSHAKE256): super(state, digest)
 
@@ -56,8 +56,15 @@ public class CSHAKE256: SHAKEDigest {
 
     public companion object: SHAKEXofFactory<CSHAKE256>() {
 
-        public const val BLOCK_SIZE: Int = 136
-        public const val DIGEST_LENGTH: Int = 64
+        /**
+         * The block size for this algorithm
+         * */
+        public const val BLOCK_SIZE: Int = BLOCK_SIZE_BIT_256
+
+        /**
+         * The default number of bytes output when [digest] is called
+         * */
+        public const val DIGEST_LENGTH: Int = DIGEST_LENGTH_BIT_256
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [CSHAKE256]

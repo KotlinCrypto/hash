@@ -25,6 +25,8 @@ internal object TestData {
     internal val base16 = Base16 { encodeToLowercase = true }
     internal val base64 = Base64 { lineBreakInterval = 64 }
 
+    internal val BYTES_EMPTY = ByteArray(0)
+
     // 50 bytes
     internal val BYTES_SMALL: ByteArray = """
         jIV557p7t4uY4z1u2YX3XgNd0Q/MWkSG9rR8hnbS/betAxGQ39Jfn3/P4/jp5Vy1

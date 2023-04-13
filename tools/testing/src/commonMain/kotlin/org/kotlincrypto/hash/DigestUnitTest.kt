@@ -65,8 +65,10 @@ abstract class DigestUnitTest: HashUnitTest() {
         updateSmall(digest)
         assertNotEquals(copy, digest)
         assertEquals(expectedResetHash, copy.digest().encodeToString(TestData.base16))
+
+        updateSmall(copy)
         assertEquals(expectedUpdateSmallHash, digest.digest().encodeToString(TestData.base16))
-        assertEquals(expectedUpdateSmallHash, copy.digest(TestData.BYTES_SMALL).encodeToString(TestData.base16))
+        assertEquals(expectedUpdateSmallHash, copy.digest().encodeToString(TestData.base16))
     }
 
     open fun givenDigest_whenDigested_thenLengthMatchesOutput() {

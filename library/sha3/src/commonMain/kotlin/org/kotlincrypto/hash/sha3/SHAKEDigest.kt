@@ -20,7 +20,9 @@ import org.kotlincrypto.core.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
+import kotlin.jvm.JvmField
 import kotlin.jvm.JvmStatic
+import kotlin.jvm.JvmSynthetic
 
 /**
  * Core abstraction for:
@@ -29,18 +31,22 @@ import kotlin.jvm.JvmStatic
  *  - SHAKE128
  *  - SHAKE256
  *
- * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#3%20cSHAKE
+ * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
  * Also see support libraries utilized:
  *  - https://github.com/KotlinCrypto/endians
  *  - https://github.com/KotlinCrypto/sponges
+ *
+ * @see [ParallelDigest]
+ * @see [TupleDigest]
  * */
 public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 
     private val initBlock: ByteArray?
-    private val xOfMode: Boolean
     private var isReadingXof: Boolean
+    @JvmField
+    protected val xOfMode: Boolean
 
     protected constructor(
         N: ByteArray?,
@@ -100,7 +106,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         }
     }
 
-    protected final override fun resetDigest() {
+    protected override fun resetDigest() {
         super.resetDigest()
         initBlock?.bytepad()
 
@@ -112,7 +118,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     }
 
     private fun ByteArray.bytepad() {
-        update(this)
+        super.updateDigest(this, 0, size)
 
         val remainder = size % blockSize()
 
@@ -120,7 +126,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         if (remainder == 0) return
 
         repeat(blockSize() - remainder) {
-            update(0)
+            super.updateDigest(0)
         }
     }
 
@@ -184,6 +190,19 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         private const val PAD_SHAKE: Byte = 0x1f
         private const val PAD_CSHAKE: Byte = 0x04
 
+        internal const val  BIT_STRENGTH_128 = 128
+        internal const val  BIT_STRENGTH_256 = 256
+
+        // blockSize for bitStrength of 128
+        internal const val BLOCK_SIZE_BIT_128 = 168
+        // blockSize for bitStrength of 256
+        internal const val BLOCK_SIZE_BIT_256 = 136
+
+        // default digestLength for bitStrength of 128
+        internal const val DIGEST_LENGTH_BIT_128 = BIT_STRENGTH_128 / 4
+        // default digestLength for bitStrength of 256
+        internal const val DIGEST_LENGTH_BIT_256 = BIT_STRENGTH_256 / 4
+
         /**
          * Given that [N] and [S] are both null and/or empty, CSHAKE is
          * functionally equivalent to SHAKE and thus the [dsByte] must
@@ -192,6 +211,17 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         @JvmStatic
         private fun dsByteFromInput(N: ByteArray?, S: ByteArray?): Byte {
             return if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) PAD_CSHAKE else PAD_SHAKE
+        }
+
+        @JvmStatic
+        @JvmSynthetic
+        @Throws(IllegalArgumentException::class)
+        internal fun blockSizeFromBitStrength(bitStrength: Int): Int {
+            return when (bitStrength) {
+                BIT_STRENGTH_128 -> BLOCK_SIZE_BIT_128
+                BIT_STRENGTH_256 -> BLOCK_SIZE_BIT_256
+                else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
+            }
         }
     }
 }
