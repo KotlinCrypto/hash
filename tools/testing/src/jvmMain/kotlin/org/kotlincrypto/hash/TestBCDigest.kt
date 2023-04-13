@@ -20,6 +20,7 @@ package org.kotlincrypto.hash
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import java.lang.IllegalStateException
 
 @OptIn(InternalKotlinCryptoApi::class)
 class TestBCDigest<T: org.bouncycastle.crypto.ExtendedDigest>: Digest {
@@ -47,14 +48,16 @@ class TestBCDigest<T: org.bouncycastle.crypto.ExtendedDigest>: Digest {
 
     override fun copy(state: DigestState): Digest = TestBCDigest<T>(state, this)
 
-    override fun compress(input: ByteArray, offset: Int) { delegate.update(input, offset, blockSize()) }
+    override fun compress(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
     override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        delegate.update(buffer, 0, bufferOffset)
         val out = ByteArray(digestLength())
         delegate.doFinal(out, 0)
         return out
     }
+
+    override fun updateDigest(input: Byte) { delegate.update(input) }
+    override fun updateDigest(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
 
     override fun resetDigest() { delegate.reset() }
 }

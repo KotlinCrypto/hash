@@ -28,6 +28,12 @@ abstract class HashUnitTest {
         }
 
         fun updateMedium(updatable: Updatable) {
+            // Some algorithms don't discard 0 length input, effecting
+            // the end result (e.g. TupleHash). This ensures that, if
+            // that's the case, it is exercised in testing.
+            updatable.update(TestData.BYTES_EMPTY)
+            updatable.update(TestData.BYTES_EMPTY, 0, TestData.BYTES_EMPTY.size)
+
             updatable.update(TestData.BYTES_MEDIUM[0])
             updatable.update(TestData.BYTES_MEDIUM)
             updatable.update(TestData.BYTES_MEDIUM, 100, 1_000)

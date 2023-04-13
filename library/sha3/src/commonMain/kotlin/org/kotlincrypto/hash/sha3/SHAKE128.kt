@@ -35,7 +35,9 @@ public class SHAKE128: SHAKEDigest {
      * */
     public constructor(): this(xOfMode = false)
 
-    private constructor(xOfMode: Boolean): super(null, null, xOfMode, "${SHAKE}128", 168, 32)
+    private constructor(
+        xOfMode: Boolean
+    ): super(null, null, xOfMode, SHAKE + BIT_STRENGTH_128, BLOCK_SIZE_BIT_128, DIGEST_LENGTH_BIT_128)
 
     private constructor(state: DigestState, digest: SHAKE128): super(state, digest)
 

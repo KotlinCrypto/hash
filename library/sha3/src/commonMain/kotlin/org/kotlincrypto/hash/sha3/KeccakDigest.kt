@@ -86,7 +86,7 @@ public sealed class KeccakDigest: Digest {
         KeccakP(A)
     }
 
-    protected final override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
+    protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
         buffer[bufferOffset] = dsByte
         buffer.fill(0, bufferOffset + 1)
         buffer[buffer.lastIndex] = buffer.last() xor 0x80.toByte()

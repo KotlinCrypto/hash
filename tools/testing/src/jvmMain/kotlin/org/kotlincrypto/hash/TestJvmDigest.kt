@@ -21,6 +21,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.internal.DigestState
+import java.lang.IllegalStateException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.security.Security
@@ -40,11 +41,7 @@ class TestJvmDigest: Digest {
     private constructor(
         digest: MessageDigest,
         blockSize: Int
-    ): super(
-        digest.algorithm,
-        blockSize,
-        digest.digestLength
-    ) {
+    ): super(digest.algorithm, blockSize, digest.digestLength) {
         delegate = digest
     }
 
@@ -57,12 +54,13 @@ class TestJvmDigest: Digest {
 
     override fun copy(state: DigestState): Digest = TestJvmDigest(state, this)
 
-    override fun compress(input: ByteArray, offset: Int) { delegate.update(input, offset, blockSize()) }
+    override fun compress(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
-    override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        delegate.update(buffer, 0, bufferOffset)
-        return delegate.digest()
-    }
+    override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray = delegate.digest()
+
+    override fun updateDigest(input: Byte) { delegate.update(input) }
+
+    override fun updateDigest(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
 
     override fun resetDigest() { delegate.reset() }
 
