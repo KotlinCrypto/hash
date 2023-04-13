@@ -30,8 +30,8 @@ import kotlin.jvm.JvmStatic
 public class ParallelHash128: ParallelDigest {
 
     /**
-     * Creates a new [ParallelHash128] [Digest] instance with a fixed output
-     * [digestLength].
+     * Creates a new [ParallelHash128] [Digest] instance with a default output
+     * length of 32 bytes.
      *
      * @param [S] A user selected customization bit string to define a variant
      *   of the function. When no customization is desired, [S] is set to an
@@ -40,13 +40,36 @@ public class ParallelHash128: ParallelDigest {
      * @throws [IllegalArgumentException] If [B] is less than 1
      * */
     @Throws(IllegalArgumentException::class)
-    public constructor(S: ByteArray?, B: Int): this(S, B, xOfMode = false)
+    public constructor(
+        S: ByteArray?,
+        B: Int,
+    ): this(S, B, DIGEST_LENGTH_BIT_128)
+
+    /**
+     * Creates a new [ParallelHash128] [Digest] instance with a non-default output
+     * length.
+     *
+     * @param [S] A user selected customization bit string to define a variant
+     *   of the function. When no customization is desired, [S] is set to an
+     *   empty or null value. (e.g. "My Customization".encodeToByteArray())
+     * @param [B] The block size for the inner hash function in bytes
+     * @param [outputLength] The number of bytes returned when [digest] is invoked
+     * @throws [IllegalArgumentException] If [B] is less than 1, or [outputLength]
+     *   is negative
+     * */
+    @Throws(IllegalArgumentException::class)
+    public constructor(
+        S: ByteArray?,
+        B: Int,
+        outputLength: Int,
+    ): this(S, B, outputLength, xOfMode = false)
 
     private constructor(
         S: ByteArray?,
         B: Int,
+        outputLength: Int,
         xOfMode: Boolean,
-    ): super(S, B, xOfMode, BIT_STRENGTH_128, DIGEST_LENGTH_BIT_128)
+    ): super(S, B, xOfMode, BIT_STRENGTH_128, outputLength)
 
     private constructor(state: DigestState, digest: ParallelHash128): super(state, digest)
 
@@ -65,6 +88,6 @@ public class ParallelHash128: ParallelDigest {
          * */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash128> = SHAKEXof(ParallelHash128(S, B, xOfMode = true))
+        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash128> = SHAKEXof(ParallelHash128(S, B, 0, xOfMode = true))
     }
 }

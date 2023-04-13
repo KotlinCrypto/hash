@@ -30,14 +30,27 @@ import kotlin.jvm.JvmStatic
 public class SHAKE128: SHAKEDigest {
 
     /**
-     * Primary constructor for creating a new [SHAKE128] [Digest]
-     * instance with a fixed output [digestLength].
+     * Creates a new [SHAKE128] [Digest] instance with a default output
+     * length of 32 bytes.
      * */
-    public constructor(): this(xOfMode = false)
+    public constructor(): this(DIGEST_LENGTH_BIT_128)
+
+    /**
+     * Creates a new [SHAKE128] [Digest] instance with a non-default output
+     * length.
+     *
+     * @param [outputLength] The number of bytes returned when [digest] is invoked
+     * @throws [IllegalArgumentException] If [outputLength] is negative
+     * */
+    @Throws(IllegalArgumentException::class)
+    public constructor(
+        outputLength: Int,
+    ): this(outputLength, xOfMode = false)
 
     private constructor(
-        xOfMode: Boolean
-    ): super(null, null, xOfMode, SHAKE + BIT_STRENGTH_128, BLOCK_SIZE_BIT_128, DIGEST_LENGTH_BIT_128)
+        outputLength: Int,
+        xOfMode: Boolean,
+    ): super(null, null, xOfMode, SHAKE + BIT_STRENGTH_128, BLOCK_SIZE_BIT_128, outputLength)
 
     private constructor(state: DigestState, digest: SHAKE128): super(state, digest)
 
@@ -49,6 +62,6 @@ public class SHAKE128: SHAKEDigest {
          * Produces a new [Xof] (Extendable-Output Function) for [SHAKE128]
          * */
         @JvmStatic
-        public fun xOf(): Xof<SHAKE128> = SHAKEXof(SHAKE128(xOfMode = true))
+        public fun xOf(): Xof<SHAKE128> = SHAKEXof(SHAKE128(0, xOfMode = true))
     }
 }

@@ -88,9 +88,7 @@ public sealed class ParallelDigest: SHAKEDigest {
         }
 
         @OptIn(InternalKotlinCryptoApi::class)
-        val final = buffered +
-                Xof.Utils.rightEncode(processCount) +
-                Xof.Utils.rightEncode(if (xOfMode) 0L else digestLength() * 8L)
+        val final = buffered + Xof.Utils.rightEncode(processCount) + Xof.Utils.rightEncode(digestLength() * 8L)
 
         val size = bufferOffset + final.size
         val newBitLength = bitLength + (final.size * 8)

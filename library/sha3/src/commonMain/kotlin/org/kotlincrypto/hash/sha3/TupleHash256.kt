@@ -31,19 +31,36 @@ import kotlin.jvm.JvmStatic
 public class TupleHash256: TupleDigest {
 
     /**
-     * Creates a new [TupleHash256] [Digest] instance with a fixed output
-     * [digestLength].
+     * Creates a new [TupleHash256] [Digest] instance with a default output
+     * length of 64 bytes.
      *
      * @param [S] A user selected customization bit string to define a variant
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * */
-    public constructor(S: ByteArray?): this(S, xOfMode = false)
+    public constructor(S: ByteArray?): this(S, DIGEST_LENGTH_BIT_256)
+
+    /**
+     * Creates a new [TupleHash256] [Digest] instance with a non-default output
+     * length.
+     *
+     * @param [S] A user selected customization bit string to define a variant
+     *   of the function. When no customization is desired, [S] is set to an
+     *   empty or null value. (e.g. "My Customization".encodeToByteArray())
+     * @param [outputLength] The number of bytes returned when [digest] is invoked
+     * @throws [IllegalArgumentException] If [outputLength] is negative
+     * */
+    @Throws(IllegalArgumentException::class)
+    public constructor(
+        S: ByteArray?,
+        outputLength: Int,
+    ): this(S, outputLength, xOfMode = false)
 
     private constructor(
         S: ByteArray?,
+        outputLength: Int,
         xOfMode: Boolean,
-    ): super(S, xOfMode, BIT_STRENGTH_256, DIGEST_LENGTH_BIT_256)
+    ): super(S, xOfMode, BIT_STRENGTH_256, outputLength)
 
     private constructor(state: DigestState, digest: TupleHash256): super(state, digest)
 
@@ -60,6 +77,6 @@ public class TupleHash256: TupleDigest {
          * */
         @JvmStatic
         @JvmOverloads
-        public fun xOf(S: ByteArray? = null): Xof<TupleHash256> = SHAKEXof(TupleHash256(S, xOfMode = true))
+        public fun xOf(S: ByteArray? = null): Xof<TupleHash256> = SHAKEXof(TupleHash256(S, 0, xOfMode = true))
     }
 }

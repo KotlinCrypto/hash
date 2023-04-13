@@ -50,7 +50,7 @@ public sealed class TupleDigest: SHAKEDigest {
 
     protected final override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
         @OptIn(InternalKotlinCryptoApi::class)
-        val encL = Xof.Utils.rightEncode(if (xOfMode) 0L else digestLength() * 8L)
+        val encL = Xof.Utils.rightEncode(digestLength() * 8L)
 
         val size = bufferOffset + encL.size
         val newBitLength = bitLength + (encL.size * 8)
