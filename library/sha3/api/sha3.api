@@ -69,10 +69,12 @@ public final class org/kotlincrypto/hash/sha3/ParallelHash128 : org/kotlincrypto
 	public fun <init> ([BI)V
 	public fun <init> ([BII)V
 	public synthetic fun <init> ([BIIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun xOf (I)Lorg/kotlincrypto/core/Xof;
 	public static final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/ParallelHash128$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
+	public final fun xOf (I)Lorg/kotlincrypto/core/Xof;
 	public final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
 }
 
@@ -81,10 +83,12 @@ public final class org/kotlincrypto/hash/sha3/ParallelHash256 : org/kotlincrypto
 	public fun <init> ([BI)V
 	public fun <init> ([BII)V
 	public synthetic fun <init> ([BIIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun xOf (I)Lorg/kotlincrypto/core/Xof;
 	public static final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/ParallelHash256$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
+	public final fun xOf (I)Lorg/kotlincrypto/core/Xof;
 	public final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
 }
 

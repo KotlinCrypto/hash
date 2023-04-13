@@ -80,6 +80,16 @@ public class ParallelHash128: ParallelDigest {
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash128]
          *
+         * @param [B] The block size for the inner hash function in bytes
+         * @throws [IllegalArgumentException] If [B] is less than 1
+         * */
+        @JvmStatic
+        @Throws(IllegalArgumentException::class)
+        public fun xOf(B: Int): Xof<ParallelHash128> = xOf(null, B)
+
+        /**
+         * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash128]
+         *
          * @param [S] A user selected customization bit string to define a variant
          *   of the function. When no customization is desired, [S] is set to an
          *   empty or null value. (e.g. "My Customization".encodeToByteArray())
