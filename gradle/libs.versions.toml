@@ -2,7 +2,7 @@
 binaryCompat = "0.13.0"
 bouncyCastle = "1.72"
 configuration = "0.1.0-beta02"
-cryptoCore = "0.2.4-SNAPSHOT"
+cryptoCore = "0.2.4"
 encoding = "1.2.1"
 endians = "0.1.0"
 gradleVersions = "0.46.0"

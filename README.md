@@ -70,10 +70,16 @@ fun main() {
     SHA3_512()
 
     SHAKE128()
-    SHAKE256()
+    SHAKE256(outputLength = 640) // returns 640 bytes instead of the default when digest() is invoked
+    
+    // NIST.SP.800-185 derived functions
     val S = "My Customization".encodeToByteArray()
-    CSHAKE128(null, S)
+    CSHAKE128(null, S, outputLength = 128)
     CSHAKE256(null, S)
+    ParallelHash128(null, B = 123)
+    ParallelHash256(S, B = 456, outputLength = 123)
+    TupleHash128(S, outputLength = 320)
+    TupleHash256(null)
 }
 ```
 
@@ -85,10 +91,15 @@ See [HERE][url-core-usage] for details on what `XOFs` are, and a basic usage exa
 fun main() {
     SHAKE128.xOf()
     SHAKE256.xOf()
-    
+
+    // NIST.SP.800-185 derived functions
     val S = "My Customization".encodeToByteArray()
     CSHAKE128.xOf(null, S)
     CSHAKE256.xOf(null, S)
+    ParallelHash128.xOf(S, B = 123)
+    ParallelHash256.xOf(B = 654)
+    TupleHash128.xOf(S)
+    TupleHash256.xOf()
 }
 ```
 
@@ -104,7 +115,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.2.3"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.2.4"))
 
     // define artifacts without version
     
@@ -114,24 +125,26 @@ dependencies {
     // SHA-1
     implementation("org.kotlincrypto.hash:sha1")
     
-    // SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256
+    // SHA-224, SHA-256, SHA-384, SHA-512, , SHA-512/t, SHA-512/224, SHA-512/256
     implementation("org.kotlincrypto.hash:sha2")
 
     // Keccak-224, Keccak-256, Keccak-384, Keccak-512
     // SHA3-224, SHA3-256, SHA3-384, SHA3-512
     // SHAKE128, SHAKE256
     // CSHAKE128, CSHAKE256
+    // ParallelHash128, ParallelHash256
+    // TupleHash128, TupleHash256
     implementation("org.kotlincrypto.hash:sha3")
 }
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.3-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.4-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.10-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.2.3-blue.svg
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.2.4-blue.svg
 [badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.1.0-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.1.0-blue.svg
 
