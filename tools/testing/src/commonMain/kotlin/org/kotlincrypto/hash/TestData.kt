@@ -17,13 +17,12 @@
 
 package org.kotlincrypto.hash
 
+import io.matthewnelson.encoding.base64.Base64
 import io.matthewnelson.encoding.builders.Base16
-import io.matthewnelson.encoding.builders.Base64
 import io.matthewnelson.encoding.core.Decoder.Companion.decodeToByteArray
 
 internal object TestData {
     internal val base16 = Base16 { encodeToLowercase = true }
-    internal val base64 = Base64 { lineBreakInterval = 64 }
 
     internal val BYTES_EMPTY = ByteArray(0)
 
@@ -31,7 +30,7 @@ internal object TestData {
     internal val BYTES_SMALL: ByteArray = """
         jIV557p7t4uY4z1u2YX3XgNd0Q/MWkSG9rR8hnbS/betAxGQ39Jfn3/P4/jp5Vy1
         OSU=
-    """.trimIndent().decodeToByteArray(base64)
+    """.trimIndent().decodeToByteArray(Base64.Default)
 
     // 100_000 bytes
     internal val BYTES_MEDIUM = """
@@ -2119,5 +2118,5 @@ internal object TestData {
         ANQJRnNt8rfktf/Kkdk/bKNG9NfRcloSS8WJwyGJuIlw9AwjmKxQb8YaJRw0GZZz
         o5pbO4mTTk1Y7z25K/rjEWwL1GuC75tZuvGTahwVlsMvzdjfZIdhpAYuqKlIzbWl
         OY0RF5toPP6hvSb36/QuZg==
-    """.trimIndent().decodeToByteArray(base64)
+    """.trimIndent().decodeToByteArray(Base64.Default)
 }

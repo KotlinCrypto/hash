@@ -1,13 +1,13 @@
 [versions]
-binaryCompat = "0.13.0"
-bouncyCastle = "1.72"
-configuration = "0.1.0-beta02"
-cryptoCore = "0.2.4"
-encoding = "1.2.1"
+binaryCompat = "0.13.2"
+bouncyCastle = "1.73"
+configuration = "0.1.0"
+cryptoCore = "0.2.5"
+encoding = "1.2.2"
 endians = "0.1.0"
 gradleVersions = "0.46.0"
-kotlin = "1.8.10"
-publish = "0.24.0"
+kotlin = "1.8.21"
+publish = "0.25.2"
 sponges = "0.1.0"
 
 [libraries]
