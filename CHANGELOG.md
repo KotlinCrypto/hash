@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.2.5 (2023-06-07)
+ - Updates `kotlincrypto.core` to `0.2.5` [[#43]][43]
+ - Updates `kotlin` to `1.8.21` [[#43]][43]
+
 ## Version 0.2.4 (2023-04-16)
  - Updates `kotlincrypto.core` to `0.2.4`
  - Implements `SHA3` derived functions [[#38]][38]
@@ -63,3 +67,4 @@
 [31]: https://github.com/KotlinCrypto/hash/pull/31
 [38]: https://github.com/KotlinCrypto/hash/pull/38
 [39]: https://github.com/KotlinCrypto/hash/pull/39
+[43]: https://github.com/KotlinCrypto/hash/pull/43
