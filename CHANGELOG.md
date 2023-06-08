@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version 0.2.5 (2023-06-08)
+## Version 0.2.6 (2023-06-08)
  - Updates `kotlincrypto.core` to `0.2.6`
 
 ## Version 0.2.5 (2023-06-07)
