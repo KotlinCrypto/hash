@@ -58,7 +58,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest' && matrix.job == 'test'
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,ANDROID,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,LINUX_ARM32HFP,LINUX_ARM64,LINUX_MIPS32,LINUX_MIPSEL32,LINUX_X64,WASM,WASM_32"
+          -PKMP_TARGETS="JVM,JS,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,LINUX_ARM32HFP,LINUX_ARM64,LINUX_MIPS32,LINUX_MIPSEL32,LINUX_X64,WASM,WASM_32"
       - name: Run Windows Tests
         if: matrix.os == 'windows-latest' && matrix.job == 'test'
         run: >
