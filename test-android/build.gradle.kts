@@ -46,6 +46,11 @@ kmpConfiguration {
             }
 
             sourceSetTestInstrumented {
+                kotlin.srcDir("src/androidInstrumentedTest/md5")
+                kotlin.srcDir("src/androidInstrumentedTest/sha1")
+                kotlin.srcDir("src/androidInstrumentedTest/sha2")
+                kotlin.srcDir("src/androidInstrumentedTest/sha3")
+
                 dependencies {
                     implementation(libs.androidx.test.runner)
                     implementation(kotlin("test"))
