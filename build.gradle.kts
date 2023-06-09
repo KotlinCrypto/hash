@@ -20,6 +20,7 @@ import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform) apply(false)
+    alias(libs.plugins.android.library) apply(false)
     alias(libs.plugins.binaryCompat)
     alias(libs.plugins.gradleVersions)
 }

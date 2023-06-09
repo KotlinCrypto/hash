@@ -4,6 +4,7 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
+        google()
     }
 }
 
@@ -28,4 +29,5 @@ if (CHECK_PUBLICATION != null) {
 
     include(":bom")
     include(":tools:testing")
+    include(":test-android")
 }

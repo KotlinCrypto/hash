@@ -1,4 +1,6 @@
 [versions]
+android = "7.4.2"
+androidxTestRunner = "1.5.2"
 binaryCompat = "0.13.2"
 bouncyCastle = "1.73"
 configuration = "0.1.0"
@@ -20,11 +22,13 @@ gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.
 gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
 
 # Tests
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
 bouncyCastle = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncyCastle" }
 encoding-base16 = { module = "io.matthewnelson.kotlin-components:encoding-base16", version.ref = "encoding" }
 encoding-base64 = { module = "io.matthewnelson.kotlin-components:encoding-base64", version.ref = "encoding" }
 
 [plugins]
+android-library = { id = "com.android.library", version.ref = "android" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompat" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }
