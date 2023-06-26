@@ -16,9 +16,8 @@
 package org.kotlincrypto.hash.sha3
 
 import org.bouncycastle.crypto.digests.ParallelHash
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.TestBCDigest
-import org.kotlincrypto.hash.TestJvmDigest
 
 class ParallelHash128JvmUnitTest: ParallelHash128UnitTest() {
     override val digest: Digest = TestBCDigest(ParallelHash(128, null, B)) {

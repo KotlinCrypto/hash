@@ -16,7 +16,8 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.*
-import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.core.digest.internal.DigestState
+import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600

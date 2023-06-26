@@ -17,8 +17,8 @@
 
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.Digest
-import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.core.digest.internal.DigestState
 
 /**
  * SHA-512/224

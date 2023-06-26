@@ -15,7 +15,7 @@
  **/
 package org.kotlincrypto.hash.md
 
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.DigestUnitTest
 import kotlin.test.Test
 

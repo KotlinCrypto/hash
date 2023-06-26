@@ -17,7 +17,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.bouncycastle.crypto.digests.CSHAKEDigest
 import org.junit.Test
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.TestBCDigest
 
 class CSHAKE256JvmUnitTest: CSHAKE256UnitTest() {

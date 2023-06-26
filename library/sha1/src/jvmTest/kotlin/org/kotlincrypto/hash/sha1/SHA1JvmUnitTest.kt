@@ -15,7 +15,7 @@
  **/
 package org.kotlincrypto.hash.sha1
 
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.TestJvmDigest
 
 class SHA1JvmUnitTest: SHA1UnitTest() {

@@ -16,7 +16,7 @@
 package org.kotlincrypto.hash.sha3
 
 import kotlin.test.Test
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.DigestUnitTest
 
 open class SHAKE128UnitTest: DigestUnitTest() {
