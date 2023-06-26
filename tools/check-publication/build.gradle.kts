@@ -40,6 +40,7 @@ kmpConfiguration {
             sourceSetMain {
                 dependencies {
                     implementation(platform("$group:bom:$version"))
+                    implementation("$group:md")
                     implementation("$group:md5")
                     implementation("$group:sha1")
                     implementation("$group:sha2")
