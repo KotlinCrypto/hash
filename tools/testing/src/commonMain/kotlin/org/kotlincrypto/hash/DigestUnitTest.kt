@@ -16,7 +16,7 @@
 package org.kotlincrypto.hash
 
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
-import org.kotlincrypto.core.Digest
+import org.kotlincrypto.core.digest.Digest
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 

@@ -23,12 +23,7 @@ kmpConfiguration {
         common {
             sourceSetMain {
                 dependencies {
-                    api(libs.kotlincrypto.core.digest)
-                }
-            }
-            sourceSetTest {
-                dependencies {
-                    implementation(project(":tools:testing"))
+                    api(project(":library:md"))
                 }
             }
         }

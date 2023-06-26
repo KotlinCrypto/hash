@@ -17,9 +17,9 @@
 
 package org.kotlincrypto.hash.sha1
 
-import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
-import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.core.digest.internal.DigestState
 
 public class SHA1: Digest {
 

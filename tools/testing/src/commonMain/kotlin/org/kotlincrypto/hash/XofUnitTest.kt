@@ -15,7 +15,7 @@
  **/
 package org.kotlincrypto.hash
 
-import io.matthewnelson.encoding.builders.Base16
+import io.matthewnelson.encoding.base16.Base16
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
 import org.kotlincrypto.core.Resettable
 import org.kotlincrypto.core.Updatable

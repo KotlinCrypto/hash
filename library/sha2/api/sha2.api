@@ -1,13 +1,13 @@
-public abstract class org/kotlincrypto/hash/sha2/Bit32Digest : org/kotlincrypto/core/Digest {
+public abstract class org/kotlincrypto/hash/sha2/Bit32Digest : org/kotlincrypto/core/digest/Digest {
 	public synthetic fun <init> (IIIIIIIIILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha2/Bit32Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha2/Bit32Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun compress ([BI)V
 	protected final fun digest (JI[B)[B
 	protected abstract fun out (IIIIIIII)[B
 	protected final fun resetDigest ()V
 }
 
-public abstract class org/kotlincrypto/hash/sha2/Bit64Digest : org/kotlincrypto/core/Digest {
+public abstract class org/kotlincrypto/hash/sha2/Bit64Digest : org/kotlincrypto/core/digest/Digest {
 	protected field h0 J
 	protected field h1 J
 	protected field h2 J
@@ -17,7 +17,7 @@ public abstract class org/kotlincrypto/hash/sha2/Bit64Digest : org/kotlincrypto/
 	protected field h6 J
 	protected field h7 J
 	public synthetic fun <init> (ILjava/lang/Integer;JJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha2/Bit64Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha2/Bit64Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun compress ([BI)V
 	protected final fun digest (JI[B)[B
 	protected abstract fun out (JJJJJJJJ)[B

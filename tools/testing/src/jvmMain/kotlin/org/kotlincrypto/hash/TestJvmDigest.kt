@@ -18,9 +18,9 @@
 package org.kotlincrypto.hash
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.kotlincrypto.core.Digest
 import org.kotlincrypto.core.InternalKotlinCryptoApi
-import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.core.digest.internal.DigestState
 import java.lang.IllegalStateException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -29,7 +29,7 @@ import kotlin.jvm.Throws
 
 /**
  * Simple test class that warps a [java.security.MessageDigest]
- * with [org.kotlincrypto.core.Digest]
+ * with [org.kotlincrypto.core.digest.Digest]
  * */
 @OptIn(InternalKotlinCryptoApi::class)
 class TestJvmDigest: Digest {

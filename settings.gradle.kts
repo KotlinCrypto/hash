@@ -17,6 +17,7 @@ if (CHECK_PUBLICATION != null) {
     include(":tools:check-publication")
 } else {
     listOf(
+        "md",
         "md5",
         "sha1",
         "sha2",

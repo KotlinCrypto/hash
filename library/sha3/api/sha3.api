@@ -5,11 +5,11 @@ public final class org/kotlincrypto/hash/sha3/CSHAKE128 : org/kotlincrypto/hash/
 	public fun <init> ([B[B)V
 	public fun <init> ([B[BI)V
 	public synthetic fun <init> ([B[BIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/CSHAKE128$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ([B[B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/CSHAKE256 : org/kotlincrypto/hash/sha3/SHAKEDigest {
@@ -19,11 +19,11 @@ public final class org/kotlincrypto/hash/sha3/CSHAKE256 : org/kotlincrypto/hash/
 	public fun <init> ([B[B)V
 	public fun <init> ([B[BI)V
 	public synthetic fun <init> ([B[BIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ([B[B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/CSHAKE256$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ([B[B)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ([B[B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/Keccak224 : org/kotlincrypto/hash/sha3/KeccakDigest {
@@ -42,10 +42,10 @@ public final class org/kotlincrypto/hash/sha3/Keccak512 : org/kotlincrypto/hash/
 	public fun <init> ()V
 }
 
-public abstract class org/kotlincrypto/hash/sha3/KeccakDigest : org/kotlincrypto/core/Digest {
+public abstract class org/kotlincrypto/hash/sha3/KeccakDigest : org/kotlincrypto/core/digest/Digest {
 	protected static final field Companion Lorg/kotlincrypto/hash/sha3/KeccakDigest$Companion;
 	public synthetic fun <init> (Ljava/lang/String;IIBLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/KeccakDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha3/KeccakDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun compress ([BI)V
 	protected fun digest (JI[B)[B
 	protected fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;[BIIJ)[B
@@ -56,7 +56,7 @@ protected final class org/kotlincrypto/hash/sha3/KeccakDigest$Companion {
 }
 
 public abstract class org/kotlincrypto/hash/sha3/ParallelDigest : org/kotlincrypto/hash/sha3/SHAKEDigest {
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/ParallelDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha3/ParallelDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([BIZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun digest (JI[B)[B
 	protected final fun resetDigest ()V
@@ -69,13 +69,13 @@ public final class org/kotlincrypto/hash/sha3/ParallelHash128 : org/kotlincrypto
 	public fun <init> ([BI)V
 	public fun <init> ([BII)V
 	public synthetic fun <init> ([BIIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf (I)Lorg/kotlincrypto/core/Xof;
-	public static final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf (I)Lorg/kotlincrypto/core/xof/Xof;
+	public static final fun xOf ([BI)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/ParallelHash128$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf (I)Lorg/kotlincrypto/core/Xof;
-	public final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf (I)Lorg/kotlincrypto/core/xof/Xof;
+	public final fun xOf ([BI)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/ParallelHash256 : org/kotlincrypto/hash/sha3/ParallelDigest {
@@ -83,13 +83,13 @@ public final class org/kotlincrypto/hash/sha3/ParallelHash256 : org/kotlincrypto
 	public fun <init> ([BI)V
 	public fun <init> ([BII)V
 	public synthetic fun <init> ([BIIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf (I)Lorg/kotlincrypto/core/Xof;
-	public static final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf (I)Lorg/kotlincrypto/core/xof/Xof;
+	public static final fun xOf ([BI)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/ParallelHash256$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf (I)Lorg/kotlincrypto/core/Xof;
-	public final fun xOf ([BI)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf (I)Lorg/kotlincrypto/core/xof/Xof;
+	public final fun xOf ([BI)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/SHA3_224 : org/kotlincrypto/hash/sha3/KeccakDigest {
@@ -113,11 +113,11 @@ public final class org/kotlincrypto/hash/sha3/SHAKE128 : org/kotlincrypto/hash/s
 	public fun <init> ()V
 	public fun <init> (I)V
 	public synthetic fun <init> (IZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ()Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/SHAKE128$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ()Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/SHAKE256 : org/kotlincrypto/hash/sha3/SHAKEDigest {
@@ -125,16 +125,16 @@ public final class org/kotlincrypto/hash/sha3/SHAKE256 : org/kotlincrypto/hash/s
 	public fun <init> ()V
 	public fun <init> (I)V
 	public synthetic fun <init> (IZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ()Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/SHAKE256$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ()Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
 }
 
-public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/hash/sha3/KeccakDigest, org/kotlincrypto/core/XofAlgorithm {
+public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/hash/sha3/KeccakDigest, org/kotlincrypto/core/xof/XofAlgorithm {
 	protected static final field Companion Lorg/kotlincrypto/hash/sha3/SHAKEDigest$Companion;
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([B[BZLjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final synthetic fun blockSizeFromBitStrength$sha3 (I)I
 	protected final fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;[BIIJ)[B
@@ -144,18 +144,18 @@ public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/
 protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$Companion {
 }
 
-public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory : org/kotlincrypto/core/XofFactory {
+public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory : org/kotlincrypto/core/xof/XofFactory {
 }
 
-protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory$SHAKEXof : org/kotlincrypto/core/XofFactory$XofDelegate {
+protected final class org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory$SHAKEXof : org/kotlincrypto/core/xof/XofFactory$XofDelegate {
 	public fun <init> (Lorg/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory;Lorg/kotlincrypto/hash/sha3/SHAKEDigest;)V
 	public synthetic fun copy ()Ljava/lang/Object;
-	public fun copy ()Lorg/kotlincrypto/core/Xof;
-	public synthetic fun newReader (Lorg/kotlincrypto/core/XofAlgorithm;)Lorg/kotlincrypto/core/Xof$Reader;
+	public fun copy ()Lorg/kotlincrypto/core/xof/Xof;
+	public synthetic fun newReader (Lorg/kotlincrypto/core/xof/XofAlgorithm;)Lorg/kotlincrypto/core/xof/Xof$Reader;
 }
 
 public abstract class org/kotlincrypto/hash/sha3/TupleDigest : org/kotlincrypto/hash/sha3/SHAKEDigest {
-	public synthetic fun <init> (Lorg/kotlincrypto/core/internal/DigestState;Lorg/kotlincrypto/hash/sha3/TupleDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/core/digest/internal/DigestState;Lorg/kotlincrypto/hash/sha3/TupleDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([BZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun digest (JI[B)[B
 	protected final fun updateDigest (B)V
@@ -167,14 +167,14 @@ public final class org/kotlincrypto/hash/sha3/TupleHash128 : org/kotlincrypto/ha
 	public fun <init> ([B)V
 	public fun <init> ([BI)V
 	public synthetic fun <init> ([BIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ()Lorg/kotlincrypto/core/Xof;
-	public static final fun xOf ([B)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
+	public static final fun xOf ([B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/TupleHash128$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ()Lorg/kotlincrypto/core/Xof;
-	public final fun xOf ([B)Lorg/kotlincrypto/core/Xof;
-	public static synthetic fun xOf$default (Lorg/kotlincrypto/hash/sha3/TupleHash128$Companion;[BILjava/lang/Object;)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
+	public final fun xOf ([B)Lorg/kotlincrypto/core/xof/Xof;
+	public static synthetic fun xOf$default (Lorg/kotlincrypto/hash/sha3/TupleHash128$Companion;[BILjava/lang/Object;)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/TupleHash256 : org/kotlincrypto/hash/sha3/TupleDigest {
@@ -182,13 +182,13 @@ public final class org/kotlincrypto/hash/sha3/TupleHash256 : org/kotlincrypto/ha
 	public fun <init> ([B)V
 	public fun <init> ([BI)V
 	public synthetic fun <init> ([BIZLkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun xOf ()Lorg/kotlincrypto/core/Xof;
-	public static final fun xOf ([B)Lorg/kotlincrypto/core/Xof;
+	public static final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
+	public static final fun xOf ([B)Lorg/kotlincrypto/core/xof/Xof;
 }
 
 public final class org/kotlincrypto/hash/sha3/TupleHash256$Companion : org/kotlincrypto/hash/sha3/SHAKEDigest$SHAKEXofFactory {
-	public final fun xOf ()Lorg/kotlincrypto/core/Xof;
-	public final fun xOf ([B)Lorg/kotlincrypto/core/Xof;
-	public static synthetic fun xOf$default (Lorg/kotlincrypto/hash/sha3/TupleHash256$Companion;[BILjava/lang/Object;)Lorg/kotlincrypto/core/Xof;
+	public final fun xOf ()Lorg/kotlincrypto/core/xof/Xof;
+	public final fun xOf ([B)Lorg/kotlincrypto/core/xof/Xof;
+	public static synthetic fun xOf$default (Lorg/kotlincrypto/hash/sha3/TupleHash256$Companion;[BILjava/lang/Object;)Lorg/kotlincrypto/core/xof/Xof;
 }
 

@@ -13,15 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash
+package org.kotlincrypto.hash.md5
 
-import org.kotlincrypto.hash.sha1.SHA1
-
-@Deprecated(
-    message = "Sha1 was renamed to SHA1",
-    replaceWith = ReplaceWith(
-        expression = "SHA1",
-        imports = [ "org.kotlincrypto.hash.sha1.SHA1" ]
-    )
-)
-public typealias Sha1 = SHA1
+internal fun stub() { /* no-op */ }

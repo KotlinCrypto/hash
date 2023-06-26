@@ -15,9 +15,9 @@
  **/
 package org.kotlincrypto.hash.sha3
 
-import org.kotlincrypto.core.Digest
-import org.kotlincrypto.core.Xof
-import org.kotlincrypto.core.internal.DigestState
+import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.core.digest.internal.DigestState
+import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 

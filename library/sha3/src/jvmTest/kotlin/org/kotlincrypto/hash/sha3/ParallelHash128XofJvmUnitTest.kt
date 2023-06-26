@@ -16,7 +16,6 @@
 package org.kotlincrypto.hash.sha3
 
 import org.bouncycastle.crypto.digests.ParallelHash
-import org.bouncycastle.crypto.digests.TupleHash
 import org.kotlincrypto.core.Updatable
 
 class ParallelHash128XofJvmUnitTest: ParallelHash128XofUnitTest() {

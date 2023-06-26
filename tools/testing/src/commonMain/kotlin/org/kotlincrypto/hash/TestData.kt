@@ -18,7 +18,7 @@
 package org.kotlincrypto.hash
 
 import io.matthewnelson.encoding.base64.Base64
-import io.matthewnelson.encoding.builders.Base16
+import io.matthewnelson.encoding.base16.Base16
 import io.matthewnelson.encoding.core.Decoder.Companion.decodeToByteArray
 
 internal object TestData {
