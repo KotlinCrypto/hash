@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Version 0.3.0 (2023-06-28)
+ - Fixes JPMS split packages [[#49]][49]
+     - **API BREAKING CHANGES**
+     - `org.kotlincrypto.hash.Sha1` typealias was removed
+ - The MavenCentral dependency `org.kotlincrypto.hash:md5` is now deprecated, 
+   in favor of `org.kotlincrypto.hash:md`
+     - `md5` dependency now simply provides the `md` dependency and 
+       will continue to be published until the next major version release.
+     - This was done in order to minimize breakage while still fixing 
+       the underlying JPMS issues.
+ - The following MavenCentral dependencies (previously deprecated) have 
+   been removed from publication [[#50]][50]
+     - `org.kotlincrypto.hash:sha2-256`
+     - `org.kotlincrypto.hash:sha2-512`
+ - See the [ANNOUNCEMENT][discussion-3] for more information on `0.3.0` release
+
 ## Version 0.2.7 (2023-06-09)
  - Updates `kotlincrypto.core` to `0.2.7`
 
@@ -68,9 +84,12 @@
 ## Version 0.1.0 (2023-03-04)
  - Initial Release
 
+[discussion-3]: https://github.com/orgs/KotlinCrypto/discussions/3
 [core-21]: https://github.com/KotlinCrypto/core/pull/21
 [29]: https://github.com/KotlinCrypto/hash/pull/29
 [31]: https://github.com/KotlinCrypto/hash/pull/31
 [38]: https://github.com/KotlinCrypto/hash/pull/38
 [39]: https://github.com/KotlinCrypto/hash/pull/39
 [43]: https://github.com/KotlinCrypto/hash/pull/43
+[49]: https://github.com/KotlinCrypto/hash/pull/49
+[50]: https://github.com/KotlinCrypto/hash/pull/50

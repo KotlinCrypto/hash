@@ -115,17 +115,18 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.2.7"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.3.0"))
 
     // define artifacts without version
     
     // MD5
-    implementation("org.kotlincrypto.hash:md5")
+    implementation("org.kotlincrypto.hash:md")
 
     // SHA-1
     implementation("org.kotlincrypto.hash:sha1")
     
-    // SHA-224, SHA-256, SHA-384, SHA-512, , SHA-512/t, SHA-512/224, SHA-512/256
+    // SHA-224, SHA-256, SHA-384, SHA-512
+    // SHA-512/t, SHA-512/224, SHA-512/256
     implementation("org.kotlincrypto.hash:sha2")
 
     // Keccak-224, Keccak-256, Keccak-384, Keccak-512
@@ -139,12 +140,12 @@ dependencies {
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.2.7-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.3.0-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.21-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.2.7-blue.svg
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.3.0-blue.svg
 [badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.1.0-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.1.0-blue.svg
 
