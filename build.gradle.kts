@@ -17,7 +17,6 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.multiplatform) apply(false)
     alias(libs.plugins.android.library) apply(false)
@@ -82,6 +81,7 @@ tasks.withType<DependencyUpdatesTask> {
     // Example 3: using the full syntax
     resolutionStrategy {
         componentSelection {
+            @Suppress("RedundantSamConstructor")
             all(Action {
                 if (isNonStable(candidate.version) && !isNonStable(currentVersion)) {
                     reject("Release candidate")
