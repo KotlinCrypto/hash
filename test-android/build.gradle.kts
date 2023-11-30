@@ -22,7 +22,7 @@ repositories {
 }
 
 kmpConfiguration {
-    this.configure {
+    configure {
         androidLibrary {
             kotlinJvmTarget = JavaVersion.VERSION_11
             compileSourceCompatibility = JavaVersion.VERSION_11
@@ -36,12 +36,6 @@ kmpConfiguration {
                     minSdk = 14
 
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-                }
-
-                libraryVariants.all {
-                    generateBuildConfigProvider.configure {
-                        enabled = false
-                    }
                 }
             }
 

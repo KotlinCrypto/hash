@@ -1,16 +1,16 @@
 [versions]
-android = "7.4.2"
+android = "8.1.4"
 androidxTestRunner = "1.5.2"
 binaryCompat = "0.13.2"
 bouncyCastle = "1.73"
-configuration = "0.1.1"
-cryptoCore = "0.3.0"
-encoding = "2.0.0"
-endians = "0.1.0"
-gradleVersions = "0.46.0"
-kotlin = "1.8.21"
-publish = "0.25.2"
-sponges = "0.1.0"
+configuration = "0.1.5"
+cryptoCore = "0.4.0"
+encoding = "2.1.0"
+endians = "0.2.0"
+gradleVersions = "0.50.0"
+kotlin = "1.9.21"
+publish = "0.25.3"
+sponges = "0.2.0"
 
 [libraries]
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }

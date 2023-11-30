@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
-        job: [ test ]
 
     runs-on: ${{ matrix.os }}
 
@@ -47,23 +46,23 @@ jobs:
         uses: actions/setup-java@v3.4.0
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
 
       - name: Run macOS Tests
-        if: matrix.os == 'macos-latest' && matrix.job == 'test'
+        if: matrix.os == 'macos-latest'
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,IOS_ARM32,IOS_ARM64,IOS_X64,IOS_SIMULATOR_ARM64,MACOS_ARM64,MACOS_X64,TVOS_ARM64,TVOS_X64,TVOS_SIMULATOR_ARM64,WATCHOS_ARM32,WATCHOS_ARM64,WATCHOS_DEVICE_ARM64,WATCHOS_X64,WATCHOS_X86,WATCHOS_SIMULATOR_ARM64,WASM,WASM_32"
+          -PKMP_TARGETS="JVM,JS,IOS_ARM64,IOS_X64,IOS_SIMULATOR_ARM64,MACOS_ARM64,MACOS_X64,TVOS_ARM64,TVOS_X64,TVOS_SIMULATOR_ARM64,WATCHOS_ARM32,WATCHOS_ARM64,WATCHOS_DEVICE_ARM64,WATCHOS_X64,WATCHOS_SIMULATOR_ARM64,WASM_JS,WASM_WASI"
       - name: Run Linux Tests
-        if: matrix.os == 'ubuntu-latest' && matrix.job == 'test'
+        if: matrix.os == 'ubuntu-latest'
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,LINUX_ARM32HFP,LINUX_ARM64,LINUX_MIPS32,LINUX_MIPSEL32,LINUX_X64,WASM,WASM_32"
+          -PKMP_TARGETS="JVM,JS,ANDROID,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,LINUX_ARM64,LINUX_X64,WASM_JS,WASM_WASI"
       - name: Run Windows Tests
-        if: matrix.os == 'windows-latest' && matrix.job == 'test'
+        if: matrix.os == 'windows-latest'
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,MINGW_X64,MINGW_X86,WASM,WASM_32"
+          -PKMP_TARGETS="JVM,JS,MINGW_X64,WASM_JS,WASM_WASI"
 
   emulator:
     runs-on: macos-latest
