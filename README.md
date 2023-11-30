@@ -16,13 +16,15 @@
 ![badge-platform-ios]
 ![badge-platform-tvos]
 ![badge-platform-watchos]
-![badge-platform-wasm]
 ![badge-platform-windows]
 ![badge-support-android-native]
 ![badge-support-apple-silicon]
 ![badge-support-js-ir]
 ![badge-support-linux-arm]
-![badge-support-linux-mips]
+
+<!--
+![badge-platform-wasm]
+-->
 
 Cryptographic hash functions for Kotlin Multiplatform
 
@@ -115,7 +117,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.3.0"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.4.0"))
 
     // define artifacts without version
     
@@ -140,14 +142,14 @@ dependencies {
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.3.0-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.4.0-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
-[badge-kotlin]: https://img.shields.io/badge/kotlin-1.8.21-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.3.0-blue.svg
-[badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.1.0-blue.svg
-[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.1.0-blue.svg
+[badge-kotlin]: https://img.shields.io/badge/kotlin-1.9.21-blue.svg?logo=kotlin
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.4.0-blue.svg
+[badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.2.0-blue.svg
+[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.2.0-blue.svg
 
 <!-- TAG_PLATFORMS -->
 [badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
