@@ -105,6 +105,22 @@ fun main() {
 }
 ```
 
+`SipHash`
+
+```kotlin
+fun main() {
+    // specify the key and data pair
+    val key = "0123456789ABCDEF".encodeToByteArray()
+    val data = "my-input".encodeToByteArray()
+
+    // hash using default compression (2-4)
+    val hash1 = SipHasher.hash(key, data)
+
+    // you can also specify compression rounds
+    val hash2 = SipHasher.hash(key, data, 2, 4)
+}
+```
+
 ### Get Started
 
 The best way to keep `KotlinCrypto` dependencies up to date is by using the 
@@ -138,6 +154,9 @@ dependencies {
     // ParallelHash128, ParallelHash256
     // TupleHash128, TupleHash256
     implementation("org.kotlincrypto.hash:sha3")
+
+    // SipHash
+    implementation("org.kotlincrypto.hash:siphash")
 }
 ```
 

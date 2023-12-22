@@ -22,6 +22,7 @@ if (CHECK_PUBLICATION != null) {
         "sha1",
         "sha2",
         "sha3",
+        "siphash",
     ).forEach { name ->
         include(":library:$name")
     }

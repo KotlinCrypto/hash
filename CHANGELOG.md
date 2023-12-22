@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## Version 0.5.0 (2023-12-22)
+ - Adds `Siphash`
+
 ## Version 0.4.0 (2023-11-30)
  - Updates `kotlincrypto.core` to `0.4.0` [[#53]][53]
  - Updates `kotlincrypto.endians` to `0.2.0` [[#53]][53]

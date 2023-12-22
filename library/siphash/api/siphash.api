@@ -1,0 +1,28 @@
+public final class org/kotlincrypto/hash/siphash/SipHasher {
+	public static final field Companion Lorg/kotlincrypto/hash/siphash/SipHasher$Companion;
+	public fun <init> ()V
+}
+
+public final class org/kotlincrypto/hash/siphash/SipHasher$Companion {
+	public final fun bytesToLong ([BI)J
+	public final fun container ([B)Lorg/kotlincrypto/hash/siphash/SipHasherContainer;
+	public final fun hash ([B[B)J
+	public final fun hash ([B[BII)J
+	public final fun init ([B)Lorg/kotlincrypto/hash/siphash/SipHasherStream;
+	public final fun init ([BII)Lorg/kotlincrypto/hash/siphash/SipHasherStream;
+	public final fun toHexString (J)Ljava/lang/String;
+}
+
+public final class org/kotlincrypto/hash/siphash/SipHasherContainer {
+	public fun <init> ([B)V
+	public final fun hash ([B)J
+	public final fun hash ([BII)J
+}
+
+public final class org/kotlincrypto/hash/siphash/SipHasherStream {
+	public fun <init> ([BII)V
+	public final fun digest ()J
+	public final fun update (B)Lorg/kotlincrypto/hash/siphash/SipHasherStream;
+	public final fun update ([B)Lorg/kotlincrypto/hash/siphash/SipHasherStream;
+}
+
