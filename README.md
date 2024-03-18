@@ -146,10 +146,10 @@ dependencies {
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
-[badge-kotlin]: https://img.shields.io/badge/kotlin-1.9.21-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.4.0-blue.svg
-[badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.2.0-blue.svg
-[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.2.0-blue.svg
+[badge-kotlin]: https://img.shields.io/badge/kotlin-1.9.23-blue.svg?logo=kotlin
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.5.0-blue.svg
+[badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.3.0-blue.svg
+[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.3.0-blue.svg
 
 <!-- TAG_PLATFORMS -->
 [badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
