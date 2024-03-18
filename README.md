@@ -11,6 +11,7 @@
 ![badge-platform-jvm]
 ![badge-platform-js]
 ![badge-platform-js-node]
+![badge-platform-wasm]
 ![badge-platform-linux]
 ![badge-platform-macos]
 ![badge-platform-ios]
@@ -21,10 +22,6 @@
 ![badge-support-apple-silicon]
 ![badge-support-js-ir]
 ![badge-support-linux-arm]
-
-<!--
-![badge-platform-wasm]
--->
 
 Cryptographic hash functions for Kotlin Multiplatform
 
@@ -117,7 +114,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.4.0"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.5.1"))
 
     // define artifacts without version
     
@@ -142,7 +139,7 @@ dependencies {
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.4.0-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.5.1-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
