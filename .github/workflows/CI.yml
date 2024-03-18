@@ -42,11 +42,20 @@ jobs:
           key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('gradle/libs.versions.toml') }}
           restore-keys: ${{ runner.os }}-gradle-caches-
 
-      - name: Setup JDK
+      # Windows does not build ANDROID, but needs Java 11 for JPMS Multi-Release Jar build
+      - name: Setup JDK 11
+        if: matrix.os == 'windows-latest'
         uses: actions/setup-java@v3.4.0
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 11
+
+      - name: Setup JDK 19
+        if: matrix.os != 'windows-latest'
+        uses: actions/setup-java@v3.4.0
+        with:
+          distribution: 'zulu'
+          java-version: 19
 
       - name: Run macOS Tests
         if: matrix.os == 'macos-latest'
@@ -65,7 +74,7 @@ jobs:
           -PKMP_TARGETS="JVM,JS,MINGW_X64,WASM_JS,WASM_WASI"
 
   emulator:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -75,6 +84,12 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
@@ -82,7 +97,7 @@ jobs:
         uses: actions/setup-java@v3.11.0
         with:
           distribution: 'zulu'
-          java-version: 19
+          java-version: 17
 
       - name: Build
         uses: gradle/gradle-build-action@v2

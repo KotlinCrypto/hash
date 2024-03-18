@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+import io.matthewnelson.kmp.configuration.ExperimentalKmpConfigurationApi
 import io.matthewnelson.kmp.configuration.extension.KmpConfigurationExtension
 import io.matthewnelson.kmp.configuration.extension.container.target.KmpConfigurationContainerDsl
 import org.gradle.api.Action
@@ -20,17 +21,19 @@ import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 fun KmpConfigurationExtension.configureShared(
+    java9ModuleName: String? = null,
     publish: Boolean = false,
     explicitApi: Boolean = true,
     action: Action<KmpConfigurationContainerDsl>
 ) {
     configure {
         jvm {
-            target { withJava() }
-
             kotlinJvmTarget = JavaVersion.VERSION_1_8
             compileSourceCompatibility = JavaVersion.VERSION_1_8
             compileTargetCompatibility = JavaVersion.VERSION_1_8
+
+            @OptIn(ExperimentalKmpConfigurationApi::class)
+            java9MultiReleaseModuleInfo(java9ModuleName)
         }
 
         js()

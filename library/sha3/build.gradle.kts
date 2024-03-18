@@ -19,7 +19,7 @@ plugins {
 }
 
 kmpConfiguration {
-    configureShared(publish = true) {
+    configureShared(java9ModuleName = "org.kotlincrypto.hash.sha3", publish = true) {
         common {
             sourceSetMain {
                 dependencies {
