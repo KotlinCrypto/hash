@@ -147,7 +147,7 @@ dependencies {
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-1.9.23-blue.svg?logo=kotlin
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.5.0-blue.svg
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.5.1-blue.svg
 [badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.3.0-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.3.0-blue.svg
 
