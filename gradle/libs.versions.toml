@@ -1,16 +1,15 @@
 [versions]
 android = "8.1.4"
 androidxTestRunner = "1.5.2"
-binaryCompat = "0.13.2"
+binaryCompat = "0.14.0"
 bouncyCastle = "1.73"
-configuration = "0.1.5"
-cryptoCore = "0.4.0"
-encoding = "2.1.0"
-endians = "0.2.0"
-gradleVersions = "0.50.0"
-kotlin = "1.9.21"
-publish = "0.25.3"
-sponges = "0.2.0"
+configuration = "0.2.1"
+cryptoCore = "0.5.0"
+encoding = "2.2.1"
+endians = "0.3.0"
+kotlin = "1.9.23"
+publish = "0.27.0"
+sponges = "0.3.0"
 
 [libraries]
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
@@ -31,4 +30,3 @@ encoding-base64 = { module = "io.matthewnelson.encoding:base64", version.ref = "
 android-library = { id = "com.android.library", version.ref = "android" }
 binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompat" }
 multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }
