@@ -1,0 +1,23 @@
+public final class org/kotlincrypto/hash/blake2b/Blake2b {
+	public static final field Companion Lorg/kotlincrypto/hash/blake2b/Blake2b$Companion;
+	public fun <init> (I)V
+	public synthetic fun <init> (IILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lorg/kotlincrypto/hash/blake2b/Blake2b;)V
+	public fun <init> ([B)V
+	public fun <init> ([BI[B[B)V
+	public final fun clearKey ()V
+	public final fun clearSalt ()V
+	public final fun doFinal ([BI)I
+	public final fun getDigestLength ()I
+	public final fun reset ()V
+	public final fun update (B)V
+	public final fun update ([BII)V
+	public static synthetic fun update$default (Lorg/kotlincrypto/hash/blake2b/Blake2b;[BIIILjava/lang/Object;)V
+}
+
+public final class org/kotlincrypto/hash/blake2b/Blake2b$Companion {
+	public final fun blake2bHash160 ([B)[B
+	public final fun blake2bHash224 ([B)[B
+	public final fun blake2bHash256 ([B)[B
+}
+
