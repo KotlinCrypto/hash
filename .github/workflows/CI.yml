@@ -11,6 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-latest, windows-latest ]
+        java-version: [ 11, 19 ]
 
     runs-on: ${{ matrix.os }}
 
@@ -42,33 +43,43 @@ jobs:
           key: ${{ runner.os }}-gradle-caches-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('gradle/libs.versions.toml') }}
           restore-keys: ${{ runner.os }}-gradle-caches-
 
-      # Windows does not build ANDROID, but needs Java 11 for JPMS Multi-Release Jar build
-      - name: Setup JDK 11
-        if: matrix.os == 'windows-latest'
+      - name: Setup JDK
         uses: actions/setup-java@v3.4.0
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: ${{ matrix.java-version }}
 
-      - name: Setup JDK 19
-        if: matrix.os != 'windows-latest'
-        uses: actions/setup-java@v3.4.0
-        with:
-          distribution: 'zulu'
-          java-version: 19
+      - name: Check API Compatibility
+        if: matrix.os == 'macos-latest' && matrix.java-version == 19
+        run: >
+          ./gradlew apiCheck --stacktrace
 
       - name: Run macOS Tests
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-latest' && matrix.java-version == 19
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,IOS_ARM64,IOS_X64,IOS_SIMULATOR_ARM64,MACOS_ARM64,MACOS_X64,TVOS_ARM64,TVOS_X64,TVOS_SIMULATOR_ARM64,WATCHOS_ARM32,WATCHOS_ARM64,WATCHOS_DEVICE_ARM64,WATCHOS_X64,WATCHOS_SIMULATOR_ARM64,WASM_JS,WASM_WASI"
+          -PKMP_TARGETS="IOS_ARM64,IOS_X64,IOS_SIMULATOR_ARM64,JVM,MACOS_ARM64,MACOS_X64,TVOS_ARM64,TVOS_X64,TVOS_SIMULATOR_ARM64,WATCHOS_ARM32,WATCHOS_ARM64,WATCHOS_DEVICE_ARM64,WATCHOS_X64,WATCHOS_SIMULATOR_ARM64"
+
+      - name: Run macOS Java11 Tests
+        if: matrix.os == 'macos-latest' && matrix.java-version == 11
+        run: >
+          ./gradlew check --stacktrace
+          -PKMP_TARGETS="JS,JVM,WASM_JS,WASM_WASI"
+
       - name: Run Linux Tests
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-latest' && matrix.java-version == 19
         run: >
           ./gradlew check --stacktrace
-          -PKMP_TARGETS="JVM,JS,ANDROID,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,LINUX_ARM64,LINUX_X64,WASM_JS,WASM_WASI"
+          -PKMP_TARGETS="ANDROID,ANDROID_ARM32,ANDROID_ARM64,ANDROID_X64,ANDROID_X86,JVM,LINUX_ARM64,LINUX_X64"
+
+      - name: Run Linux Java11 Tests
+        if: matrix.os == 'ubuntu-latest' && matrix.java-version == 11
+        run: >
+          ./gradlew check --stacktrace
+          -PKMP_TARGETS="JS,JVM,WASM_JS,WASM_WASI"
+
       - name: Run Windows Tests
-        if: matrix.os == 'windows-latest'
+        if: matrix.os == 'windows-latest' && matrix.java-version == 11
         run: >
           ./gradlew check --stacktrace
           -PKMP_TARGETS="JVM,JS,MINGW_X64,WASM_JS,WASM_WASI"
