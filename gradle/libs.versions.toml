@@ -5,9 +5,9 @@ gradle-kmp-configuration = "0.3.2"
 gradle-kotlin = "1.9.24"
 gradle-publish-maven = "0.29.0"
 
-kotlincrypto-core = "0.5.1"
-kotlincrypto-endians = "0.3.0"
-kotlincrypto-sponges = "0.3.0"
+kotlincrypto-core = "0.5.3"
+kotlincrypto-endians = "0.3.1"
+kotlincrypto-sponges = "0.3.1"
 
 # tests
 androidx-test-runner = "1.5.2"

@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## Version 0.5.3 (2024-08-31)
+ - Updates `kotlincrypto.core` to `0.5.3`
+ - Updates `kotlincrypto.endians` to `0.3.1`
+ - Updates `kotlincrypto.sponges` to `0.3.1`
+ - Updates `kotlin` to `1.9.24` [[#65]][65]
+ - Fixes multiplatform metadata manifest `unique_name` parameter for 
+   all source sets to be truly unique. [[#65]][65]
+ - Updates jvm `.kotlin_module` with truly unique file name. [[#65]][65]
+
 ## Version 0.5.1 (2024-03-18)
 - Updates `kotlincrypto.core` to `0.5.1` [[#58]][58]
 - Updates `kotlincrypto.endians` to `0.3.0` [[#58]][58]
