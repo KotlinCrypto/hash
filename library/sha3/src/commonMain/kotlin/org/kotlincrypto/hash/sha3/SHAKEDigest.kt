@@ -217,7 +217,6 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             return if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) PAD_CSHAKE else PAD_SHAKE
         }
 
-        @JvmStatic
         @JvmSynthetic
         @Throws(IllegalArgumentException::class)
         internal fun blockSizeFromBitStrength(bitStrength: Int): Int {
