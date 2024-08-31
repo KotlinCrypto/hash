@@ -1,4 +1,4 @@
-@SuppressWarnings("JavaModuleNaming")
+@SuppressWarnings("module")
 module org.kotlincrypto.hash.sha2 {
     requires kotlin.stdlib;
     requires transitive org.kotlincrypto.core.digest;

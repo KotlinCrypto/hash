@@ -23,17 +23,25 @@ import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 fun KmpConfigurationExtension.configureShared(
     java9ModuleName: String? = null,
     publish: Boolean = false,
-    explicitApi: Boolean = true,
     action: Action<KmpConfigurationContainerDsl>
 ) {
+//    TODO: Enable once module :library:md5 is removed
+//    if (publish) {
+//        require(!java9ModuleName.isNullOrBlank()) { "publications must specify a module-info name" }
+//    }
+
     configure {
+        options {
+            useUniqueModuleNames = true
+        }
+
         jvm {
             kotlinJvmTarget = JavaVersion.VERSION_1_8
             compileSourceCompatibility = JavaVersion.VERSION_1_8
             compileTargetCompatibility = JavaVersion.VERSION_1_8
 
             @OptIn(ExperimentalKmpConfigurationApi::class)
-            java9MultiReleaseModuleInfo(java9ModuleName)
+            java9ModuleInfoName = java9ModuleName
         }
 
         js()
@@ -46,11 +54,7 @@ fun KmpConfigurationExtension.configureShared(
                         useMocha { timeout = "30s" }
                     }
                 }
-                nodejs {
-                    testTask {
-                        useMocha { timeout = "30s" }
-                    }
-                }
+                nodejs()
             }
         }
 
@@ -72,7 +76,7 @@ fun KmpConfigurationExtension.configureShared(
         mingwAll()
 
         common {
-            if (publish) { pluginIds("publication") }
+            if (publish) pluginIds("publication")
 
             sourceSetTest {
                 dependencies {
@@ -81,7 +85,7 @@ fun KmpConfigurationExtension.configureShared(
             }
         }
 
-        if (explicitApi) { kotlin { explicitApi() } }
+        if (publish) kotlin { explicitApi() }
 
         action.execute(this)
     }

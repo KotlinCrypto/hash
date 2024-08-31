@@ -1,32 +1,36 @@
 [versions]
-android = "8.1.4"
-androidxTestRunner = "1.5.2"
-binaryCompat = "0.14.0"
-bouncyCastle = "1.73"
-configuration = "0.2.1"
-cryptoCore = "0.5.1"
-encoding = "2.2.1"
-endians = "0.3.0"
-kotlin = "1.9.23"
-publish = "0.27.0"
-sponges = "0.3.0"
+gradle-android = "8.2.2"
+gradle-binary-compat = "0.14.0"
+gradle-kmp-configuration = "0.3.2"
+gradle-kotlin = "1.9.24"
+gradle-publish-maven = "0.29.0"
+
+kotlincrypto-core = "0.5.1"
+kotlincrypto-endians = "0.3.0"
+kotlincrypto-sponges = "0.3.0"
+
+# tests
+androidx-test-runner = "1.5.2"
+bouncy-castle = "1.73"
+encoding = "2.2.2"
 
 [libraries]
-kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "cryptoCore" }
-kotlincrypto-core-xof = { module = "org.kotlincrypto.core:xof", version.ref = "cryptoCore" }
-kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "endians"}
-kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", version.ref = "sponges" }
-gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "configuration" }
-gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-gradle-maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "publish" }
+gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "gradle-kmp-configuration" }
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradle-kotlin" }
+gradle-publish-maven = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-publish-maven" }
 
-# Tests
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
-bouncyCastle = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncyCastle" }
+kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "kotlincrypto-core" }
+kotlincrypto-core-xof = { module = "org.kotlincrypto.core:xof", version.ref = "kotlincrypto-core" }
+kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "kotlincrypto-endians"}
+kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", version.ref = "kotlincrypto-sponges" }
+
+# tests
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+bouncy-castle = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncy-castle" }
 encoding-base16 = { module = "io.matthewnelson.encoding:base16", version.ref = "encoding" }
 encoding-base64 = { module = "io.matthewnelson.encoding:base64", version.ref = "encoding" }
 
 [plugins]
-android-library = { id = "com.android.library", version.ref = "android" }
-binaryCompat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompat" }
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "gradle-android" }
+binary-compat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "gradle-binary-compat" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "gradle-kotlin" }

@@ -35,7 +35,7 @@ repositories {
 }
 
 kmpConfiguration {
-    configureShared(explicitApi = false) {
+    configureShared {
         common {
             sourceSetMain {
                 dependencies {
