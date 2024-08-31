@@ -1,0 +1,75 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.kotlincrypto.hash:sha2>
+final class org.kotlincrypto.hash.sha2/SHA224 : org.kotlincrypto.hash.sha2/Bit32Digest { // org.kotlincrypto.hash.sha2/SHA224|null[0]
+    constructor <init>() // org.kotlincrypto.hash.sha2/SHA224.<init>|<init>(){}[0]
+}
+
+final class org.kotlincrypto.hash.sha2/SHA256 : org.kotlincrypto.hash.sha2/Bit32Digest { // org.kotlincrypto.hash.sha2/SHA256|null[0]
+    constructor <init>() // org.kotlincrypto.hash.sha2/SHA256.<init>|<init>(){}[0]
+}
+
+final class org.kotlincrypto.hash.sha2/SHA384 : org.kotlincrypto.hash.sha2/Bit64Digest { // org.kotlincrypto.hash.sha2/SHA384|null[0]
+    constructor <init>() // org.kotlincrypto.hash.sha2/SHA384.<init>|<init>(){}[0]
+}
+
+final class org.kotlincrypto.hash.sha2/SHA512 : org.kotlincrypto.hash.sha2/Bit64Digest { // org.kotlincrypto.hash.sha2/SHA512|null[0]
+    constructor <init>() // org.kotlincrypto.hash.sha2/SHA512.<init>|<init>(){}[0]
+}
+
+final class org.kotlincrypto.hash.sha2/SHA512t : org.kotlincrypto.hash.sha2/Bit64Digest { // org.kotlincrypto.hash.sha2/SHA512t|null[0]
+    constructor <init>(kotlin/Int) // org.kotlincrypto.hash.sha2/SHA512t.<init>|<init>(kotlin.Int){}[0]
+}
+
+sealed class org.kotlincrypto.hash.sha2/Bit32Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha2/Bit32Digest|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.<init>|<init>(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(org.kotlincrypto.core.digest.internal/DigestState, org.kotlincrypto.hash.sha2/Bit32Digest) // org.kotlincrypto.hash.sha2/Bit32Digest.<init>|<init>(org.kotlincrypto.core.digest.internal.DigestState;org.kotlincrypto.hash.sha2.Bit32Digest){}[0]
+
+    abstract fun out(kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit32Digest.out|out(kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int){}[0]
+    final fun compress(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.compress|compress(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digest(kotlin/Long, kotlin/Int, kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit32Digest.digest|digest(kotlin.Long;kotlin.Int;kotlin.ByteArray){}[0]
+    final fun resetDigest() // org.kotlincrypto.hash.sha2/Bit32Digest.resetDigest|resetDigest(){}[0]
+}
+
+sealed class org.kotlincrypto.hash.sha2/Bit64Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha2/Bit64Digest|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int?, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.<init>|<init>(kotlin.Int;kotlin.Int?;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+    constructor <init>(org.kotlincrypto.core.digest.internal/DigestState, org.kotlincrypto.hash.sha2/Bit64Digest) // org.kotlincrypto.hash.sha2/Bit64Digest.<init>|<init>(org.kotlincrypto.core.digest.internal.DigestState;org.kotlincrypto.hash.sha2.Bit64Digest){}[0]
+
+    final var h0 // org.kotlincrypto.hash.sha2/Bit64Digest.h0|{}h0[0]
+        final fun <get-h0>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h0.<get-h0>|<get-h0>(){}[0]
+        final fun <set-h0>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h0.<set-h0>|<set-h0>(kotlin.Long){}[0]
+    final var h1 // org.kotlincrypto.hash.sha2/Bit64Digest.h1|{}h1[0]
+        final fun <get-h1>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h1.<get-h1>|<get-h1>(){}[0]
+        final fun <set-h1>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h1.<set-h1>|<set-h1>(kotlin.Long){}[0]
+    final var h2 // org.kotlincrypto.hash.sha2/Bit64Digest.h2|{}h2[0]
+        final fun <get-h2>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h2.<get-h2>|<get-h2>(){}[0]
+        final fun <set-h2>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h2.<set-h2>|<set-h2>(kotlin.Long){}[0]
+    final var h3 // org.kotlincrypto.hash.sha2/Bit64Digest.h3|{}h3[0]
+        final fun <get-h3>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h3.<get-h3>|<get-h3>(){}[0]
+        final fun <set-h3>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h3.<set-h3>|<set-h3>(kotlin.Long){}[0]
+    final var h4 // org.kotlincrypto.hash.sha2/Bit64Digest.h4|{}h4[0]
+        final fun <get-h4>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h4.<get-h4>|<get-h4>(){}[0]
+        final fun <set-h4>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h4.<set-h4>|<set-h4>(kotlin.Long){}[0]
+    final var h5 // org.kotlincrypto.hash.sha2/Bit64Digest.h5|{}h5[0]
+        final fun <get-h5>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h5.<get-h5>|<get-h5>(){}[0]
+        final fun <set-h5>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h5.<set-h5>|<set-h5>(kotlin.Long){}[0]
+    final var h6 // org.kotlincrypto.hash.sha2/Bit64Digest.h6|{}h6[0]
+        final fun <get-h6>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h6.<get-h6>|<get-h6>(){}[0]
+        final fun <set-h6>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h6.<set-h6>|<set-h6>(kotlin.Long){}[0]
+    final var h7 // org.kotlincrypto.hash.sha2/Bit64Digest.h7|{}h7[0]
+        final fun <get-h7>(): kotlin/Long // org.kotlincrypto.hash.sha2/Bit64Digest.h7.<get-h7>|<get-h7>(){}[0]
+        final fun <set-h7>(kotlin/Long) // org.kotlincrypto.hash.sha2/Bit64Digest.h7.<set-h7>|<set-h7>(kotlin.Long){}[0]
+
+    abstract fun out(kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long, kotlin/Long): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit64Digest.out|out(kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long;kotlin.Long){}[0]
+    final fun compress(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit64Digest.compress|compress(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digest(kotlin/Long, kotlin/Int, kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit64Digest.digest|digest(kotlin.Long;kotlin.Int;kotlin.ByteArray){}[0]
+    final fun resetDigest() // org.kotlincrypto.hash.sha2/Bit64Digest.resetDigest|resetDigest(){}[0]
+}
+
+final fun org.kotlincrypto.hash.sha2/SHA512_224(): org.kotlincrypto.hash.sha2/SHA512t // org.kotlincrypto.hash.sha2/SHA512_224|SHA512_224(){}[0]
+final fun org.kotlincrypto.hash.sha2/SHA512_256(): org.kotlincrypto.hash.sha2/SHA512t // org.kotlincrypto.hash.sha2/SHA512_256|SHA512_256(){}[0]

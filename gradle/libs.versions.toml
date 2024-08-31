@@ -1,6 +1,6 @@
 [versions]
 gradle-android = "8.2.2"
-gradle-binary-compat = "0.14.0"
+gradle-binary-compat = "0.16.3"
 gradle-kmp-configuration = "0.3.2"
 gradle-kotlin = "1.9.24"
 gradle-publish-maven = "0.29.0"
