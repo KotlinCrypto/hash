@@ -127,3 +127,4 @@
 [53]: https://github.com/KotlinCrypto/hash/pull/53
 [58]: https://github.com/KotlinCrypto/hash/pull/58
 [59]: https://github.com/KotlinCrypto/hash/pull/59
+[65]: https://github.com/KotlinCrypto/hash/pull/65
