@@ -5,7 +5,7 @@
  - Updates `kotlincrypto.sponges` to `0.3.2`
  - Adds benchmarking to repository [[#69]][69]
      - Benchmark comparisons using `core` and `sponges` performance 
-       improvements can be veiwed in [PR #70][70-comment]
+       improvements can be viewed in [PR #70][70-comment]
      - TL;DR huge gains for `sha3`
 
 ## Version 0.5.3 (2024-08-31)
