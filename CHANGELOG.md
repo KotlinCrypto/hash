@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Version 0.5.4 (2024-12-19)
+ - Updates `kotlincrypto.core` to `0.5.4`
+ - Updates `kotlincrypto.sponges` to `0.3.2`
+ - Adds benchmarking to repository [[#69]][69]
+     - Benchmark comparisons using `core` and `sponges` performance 
+       improvements can be veiwed in [PR #70][70-comment]
+     - TL;DR huge gains for `sha3`
+
 ## Version 0.5.3 (2024-08-31)
  - Updates `kotlincrypto.core` to `0.5.3`
  - Updates `kotlincrypto.endians` to `0.3.1`
@@ -128,3 +136,5 @@
 [58]: https://github.com/KotlinCrypto/hash/pull/58
 [59]: https://github.com/KotlinCrypto/hash/pull/59
 [65]: https://github.com/KotlinCrypto/hash/pull/65
+[69]: https://github.com/KotlinCrypto/hash/pull/69
+[70-comment]: https://github.com/KotlinCrypto/hash/pull/70#issuecomment-2554683182
