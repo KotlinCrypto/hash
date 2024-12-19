@@ -12,9 +12,9 @@ gradle-kmp-configuration = "0.3.2"
 gradle-kotlin = "1.9.24"
 gradle-publish-maven = "0.29.0"
 
-kotlincrypto-core = "0.5.3"
+kotlincrypto-core = "0.5.4"
 kotlincrypto-endians = "0.3.1"
-kotlincrypto-sponges = "0.3.1"
+kotlincrypto-sponges = "0.3.2"
 
 [libraries]
 gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "gradle-kmp-configuration" }

@@ -23,7 +23,7 @@ import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
-import org.kotlincrypto.sponges.keccak.KeccakP
+import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
 
 /**
@@ -83,7 +83,7 @@ public sealed class KeccakDigest: Digest {
             A.addData(i++, LittleEndian.bytesToLong(b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++]))
         }
 
-        KeccakP(A)
+        A.keccakP()
     }
 
     protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
@@ -151,7 +151,7 @@ public sealed class KeccakDigest: Digest {
             }
 
             if (spongeRemaining == 0) {
-                KeccakP(A)
+                A.keccakP()
                 i = 0
                 spongeRemaining = spongeSize
             }
