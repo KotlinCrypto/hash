@@ -26,6 +26,7 @@ if (CHECK_PUBLICATION != null) {
         include(":library:$name")
     }
 
+    include(":benchmarks")
     include(":bom")
     include(":tools:testing")
     include(":test-android")
