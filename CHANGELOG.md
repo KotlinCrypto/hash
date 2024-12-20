@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 0.5.5 (2024-12-20)
+ - Updates `kotlincrypto.core` to `0.5.5`
+ - Updates `kotlincrypto.sponges` to `0.3.3`
+ - Fixes `sha3` performance issues for Jvm [[#71]][71]
+
 ## Version 0.5.4 (2024-12-19)
  - Updates `kotlincrypto.core` to `0.5.4`
  - Updates `kotlincrypto.sponges` to `0.3.2`
@@ -138,3 +143,4 @@
 [65]: https://github.com/KotlinCrypto/hash/pull/65
 [69]: https://github.com/KotlinCrypto/hash/pull/69
 [70-comment]: https://github.com/KotlinCrypto/hash/pull/70#issuecomment-2554683182
+[71]: https://github.com/KotlinCrypto/hash/pull/71
