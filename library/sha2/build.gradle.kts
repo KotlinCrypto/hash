@@ -32,5 +32,18 @@ kmpConfiguration {
                 }
             }
         }
+
+        kotlin {
+            with(sourceSets) {
+                val nonJsSources = listOf("jvm", "native", "wasmJs", "wasmWasi").mapNotNull {
+                    findByName(it + "Main")
+                }
+                if (nonJsSources.isEmpty()) return@kotlin
+                val nonJsMain = maybeCreate("nonJsMain").apply {
+                    dependsOn(getByName("commonMain"))
+                }
+                nonJsSources.forEach { it.dependsOn(nonJsMain) }
+            }
+        }
     }
 }

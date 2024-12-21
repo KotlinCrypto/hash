@@ -20,6 +20,7 @@ package org.kotlincrypto.hash.sha2
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.digest.internal.DigestState
+import org.kotlincrypto.hash.sha2.internal.rotateRight
 import kotlin.jvm.JvmField
 
 /**
@@ -214,9 +215,6 @@ public sealed class Bit64Digest: Digest {
         state[6] = h6
         state[7] = h7
     }
-
-    @Suppress("NOTHING_TO_INLINE", "KotlinRedundantDiagnosticSuppress")
-    private inline infix fun Long.rotateRight(n: Int): Long = (this ushr n) or (this shl (64 - n))
 
     private companion object {
         private val K = longArrayOf(
