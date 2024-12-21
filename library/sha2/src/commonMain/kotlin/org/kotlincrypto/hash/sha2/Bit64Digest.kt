@@ -94,7 +94,7 @@ public sealed class Bit64Digest: Digest {
         val x = x
 
         var j = offset
-        for (i in 0 until 16) {
+        for (i in 0..<16) {
             x[i] =
                 ((input[j++].toLong() and 0xff) shl 56) or
                 ((input[j++].toLong() and 0xff) shl 48) or
@@ -106,11 +106,11 @@ public sealed class Bit64Digest: Digest {
                 ((input[j++].toLong() and 0xff)       )
         }
 
-        for (i in 16 until 80) {
+        for (i in 16..<80) {
             val x15 = x[i - 15]
-            val s0 = (x15 rotateRight 1) xor (x15 rotateRight 8) xor (x15 ushr 7)
+            val s0 = (x15.rotateRight(1)) xor (x15.rotateRight(8)) xor (x15 ushr 7)
             val x2 = x[i - 2]
-            val s1 = (x2 rotateRight 19) xor (x2 rotateRight 61) xor (x2 ushr 6)
+            val s1 = (x2.rotateRight(19)) xor (x2.rotateRight(61)) xor (x2 ushr 6)
             val x16 = x[i - 16]
             val x7 = x[i - 7]
             x[i] = x16 + s0 + x7 + s1
@@ -127,9 +127,9 @@ public sealed class Bit64Digest: Digest {
         var g = state[6]
         var h = state[7]
 
-        for (i in 0 until 80) {
-            val s0 = (a rotateRight 28) xor (a rotateRight 34) xor (a rotateRight 39)
-            val s1 = (e rotateRight 14) xor (e rotateRight 18) xor (e rotateRight 41)
+        for (i in 0..<80) {
+            val s0 = (a.rotateRight(28)) xor (a.rotateRight(34)) xor (a.rotateRight(39))
+            val s1 = (e.rotateRight(14)) xor (e.rotateRight(18)) xor (e.rotateRight(41))
 
             val ch = (e and f) xor (e.inv() and g)
             val maj = (a and b) xor (a and c) xor (b and c)

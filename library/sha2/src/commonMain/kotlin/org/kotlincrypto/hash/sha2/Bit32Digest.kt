@@ -84,7 +84,7 @@ public sealed class Bit32Digest: Digest {
         val x = x
 
         var j = offset
-        for (i in 0 until 16) {
+        for (i in 0..<16) {
             x[i] =
                 ((input[j++].toInt() and 0xff) shl 24) or
                 ((input[j++].toInt() and 0xff) shl 16) or
@@ -92,7 +92,7 @@ public sealed class Bit32Digest: Digest {
                 ((input[j++].toInt() and 0xff)       )
         }
 
-        for (i in 16 until 64) {
+        for (i in 16..<64) {
             val x15 = x[i - 15]
             val s0 =
                 ((x15 ushr  7) or (x15 shl 25)) xor
@@ -119,7 +119,7 @@ public sealed class Bit32Digest: Digest {
         var g = state[6]
         var h = state[7]
 
-        for (i in 0 until 64) {
+        for (i in 0..<64) {
             val s0 =
                 ((a ushr  2) or (a shl 30)) xor
                 ((a ushr 13) or (a shl 19)) xor
