@@ -19,7 +19,6 @@ import org.kotlincrypto.core.*
 import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.endians.LittleEndian
-import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.JvmSynthetic
@@ -95,8 +94,16 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
             val newOut = ByteArray(A.size * Long.SIZE_BYTES)
-            for (i in A.indices) {
-                A[i].toLittleEndian().copyInto(newOut, i * Long.SIZE_BYTES)
+            var j = 0
+            A.forEach { lane ->
+                newOut[j++] = (lane        ).toByte()
+                newOut[j++] = (lane ushr  8).toByte()
+                newOut[j++] = (lane ushr 16).toByte()
+                newOut[j++] = (lane ushr 24).toByte()
+                newOut[j++] = (lane ushr 32).toByte()
+                newOut[j++] = (lane ushr 40).toByte()
+                newOut[j++] = (lane ushr 48).toByte()
+                newOut[j++] = (lane ushr 56).toByte()
             }
             isReadingXof = true
             return newOut
@@ -152,32 +159,41 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                 // xOfMode, the returned bytes will be the entire contents
                 // of its final state such that it can be rebuilt here in
                 // order to be used for variable output length reads.
-                val state: F1600 = delegateCopy.digest().let { A ->
-                    val f1600 = F1600()
+                val A: F1600 = delegateCopy.digest().let { b ->
+                    val new = F1600()
 
-                    var b = 0
-                    for (i in f1600.indices) {
-                        f1600.addData(
-                            i,
-                            LittleEndian.bytesToLong(A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++], A[b++])
+                    var j = 0
+                    for (i in new.indices) {
+                        new.addData(
+                            index = i,
+                            data = LittleEndian.bytesToLong(
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                                b[j++],
+                            )
                         )
                     }
 
-                    A.fill(0)
+                    b.fill(0)
 
-                    f1600
+                    new
                 }
 
                 return object : Reader() {
                     override fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long) {
-                        delegateCopy.extract(state, out, offset, len, bytesRead)
+                        delegateCopy.extract(A, out, offset, len, bytesRead)
                     }
 
                     override fun closeProtected() {
                         // delegateCopy was already reset when digest()
                         // was called in order to pass state.
 
-                        state.reset()
+                        A.reset()
                     }
                 }
             }

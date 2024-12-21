@@ -13,17 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash.benchmarks
+@file:Suppress("KotlinRedundantDiagnosticSuppress")
 
-import kotlinx.benchmark.*
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.hash.sha1.SHA1
+package org.kotlincrypto.hash.sha2.internal
 
-@State(Scope.Benchmark)
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
-@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
-@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHA1Benchmark: DigestBenchmarkBase() {
-    override val d: Digest = SHA1()
-}
+@Suppress("NOTHING_TO_INLINE")
+internal actual inline fun Long.rotateRight(n: Int): Long = (this ushr n) or (this shl (64 - n))

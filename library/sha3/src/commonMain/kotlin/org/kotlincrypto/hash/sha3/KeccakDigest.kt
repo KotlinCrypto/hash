@@ -21,7 +21,6 @@ import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
-import org.kotlincrypto.endians.LittleEndian.Companion.toLittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
@@ -70,17 +69,28 @@ public sealed class KeccakDigest: Digest {
 
     protected final override fun compress(input: ByteArray, offset: Int) {
         val A = state
-        val b = input
 
-        var i = 0
-        var o = offset
-        val limit = o + blockSize()
+        var APos = 0
+        var inputPos = offset
+        val inputLimit = inputPos + blockSize()
 
         // Max blockSize is 168 (SHAKE128), so at a maximum only
         // 21 out of 25 state values will ever be modified with
-        // input for each compression/permutation.
-        while (o < limit) {
-            A.addData(i++, LittleEndian.bytesToLong(b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++], b[o++]))
+        // input for each permutation.
+        while (inputPos < inputLimit) {
+            A.addData(
+                index = APos++,
+                data = LittleEndian.bytesToLong(
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                    input[inputPos++],
+                )
+            )
         }
 
         A.keccakP()
@@ -89,80 +99,82 @@ public sealed class KeccakDigest: Digest {
     protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
         buffer[bufferOffset] = dsByte
         buffer.fill(0, bufferOffset + 1)
-        buffer[buffer.lastIndex] = buffer.last() xor 0x80.toByte()
+        val iLast = buffer.lastIndex
+        buffer[iLast] = buffer[iLast] xor 0x80.toByte()
         compress(buffer, 0)
 
-        return extract(state, ByteArray(digestLength()), 0, digestLength(), 0L)
+        val len = digestLength()
+        return extract(state, ByteArray(len), 0, len, 0L)
     }
 
     protected open fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
-        val spongeSize: Int = blockSize()
+        var outPos = offset
+        val outLimit = outPos + len
 
-        // Bytes remaining in the sponge to be extracted
-        // before a permutation is needed
-        var spongeRemaining: Int = spongeSize - (bytesRead % spongeSize).toInt()
+        val spongeSize = blockSize()
+        val spongeLimit = (spongeSize / Long.SIZE_BYTES) + 1
 
-        var b = offset
-        val limit = b + len
+        // Bytes available in the sponge for extraction before another permutation is needed
+        var spongeRem = spongeSize - (bytesRead % spongeSize).toInt()
+        var spongePos = (spongeSize - spongeRem) / Long.SIZE_BYTES
 
-        fun writeData(data: LittleEndian): Int {
-            var j = when {
-                spongeRemaining < data.size -> {
-                    // if there is 6 bytes remaining in the sponge
-                    // 8 - 6 = 2
-                    // j: 2, 3, 4, 5, 6, 7 = 6 bytes written
-                    //
-                    // if there is 0 bytes remaining in the sponge
-                    // 8 - 0 = 8
-                    // j > 8 so no bytes will be written
-                    data.size - spongeRemaining
+        while (outPos < outLimit) {
+            while (spongePos < spongeLimit) {
+                val lane = A[spongePos++]
+
+                val laneOffset = when {
+                    spongeRem < Long.SIZE_BYTES -> {
+                        // If there is 6 bytes remaining in the sponge
+                        // 8 - 6 = 2
+                        // indices: 2, 3, 4, 5, 6, 7 = 6 bytes to read out
+                        //
+                        // If there is 0 bytes remaining in the sponge
+                        // 8 - 0 = 8
+                        // indices: 8 so no bytes will be written
+                        Long.SIZE_BYTES - spongeRem
+                    }
+                    outPos == offset -> {
+                        // Must check first block of the extraction
+                        // if it is a partial read (e.g. prior extract
+                        // call was for 10 bytes, leaving 6 remaining
+                        // in this block of the sponge).
+                        val priorRem = spongeRem % Long.SIZE_BYTES
+                        if (priorRem == 0) {
+                            // Full block. Copy all of it.
+                            0
+                        } else {
+                            // Partial block. Copy remainder.
+                            Long.SIZE_BYTES - priorRem
+                        }
+                    }
+                    else -> 0
                 }
-                b == offset -> {
-                    // Must check first block of the extraction
-                    // if it is a partial read (e.g. last read was
-                    // 10 bytes, leaving 6 bytes of the next block
-                    // in the sponge remaining to be used for this
-                    // read).
-                    val remainder = spongeRemaining % data.size
 
-                    if (remainder == 0) 0 else data.size - remainder
+                var i = 0
+                while (outPos < outLimit && (laneOffset + i) < Long.SIZE_BYTES) {
+                    val bits = (laneOffset + i++) * Long.SIZE_BYTES
+                    out[outPos++] = (lane ushr bits).toByte()
                 }
-                else -> 0
+
+                if (i == 0) {
+                    // Either sponge is exhausted, or out is full.
+                    break
+                }
+                spongeRem -= i
             }
 
-            var written = 0
-            while (b < limit && j < data.size) {
-                out[b++] = data[j++]
-                written++
-            }
-
-            spongeRemaining -= written
-            return written
-        }
-
-        val iLimit = (blockSize() / Long.SIZE_BYTES) + 1
-        var i = (spongeSize - spongeRemaining) / Long.SIZE_BYTES
-        while (b < limit) {
-            while (i < iLimit) {
-                val data = A[i++].toLittleEndian()
-
-                // Either no more room in out, or sponge was exhausted
-                if (writeData(data) == 0) break
-            }
-
-            if (spongeRemaining == 0) {
+            if (spongeRem == 0) {
+                // Do another permutation to refill the sponge
                 A.keccakP()
-                i = 0
-                spongeRemaining = spongeSize
+                spongePos = 0
+                spongeRem = spongeSize
             }
         }
 
         return out
     }
 
-    protected override fun resetDigest() {
-        state.reset()
-    }
+    protected override fun resetDigest() { state.reset() }
 
     protected companion object {
         internal const val KECCAK: String = "Keccak"

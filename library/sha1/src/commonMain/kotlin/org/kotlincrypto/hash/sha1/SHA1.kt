@@ -44,7 +44,7 @@ public class SHA1: Digest {
         val x = x
 
         var j = offset
-        for (i in 0 until 16) {
+        for (i in 0..<16) {
             x[i] =
                 ((input[j++].toInt() and 0xff) shl 24) or
                 ((input[j++].toInt() and 0xff) shl 16) or
@@ -52,7 +52,7 @@ public class SHA1: Digest {
                 ((input[j++].toInt() and 0xff)       )
         }
 
-        for (i in 16 until 80) {
+        for (i in 16..<80) {
             x[i] = (x[i - 3] xor x[i - 8] xor x[i - 14] xor x[i - 16]) rotateLeft 1
         }
 
@@ -62,7 +62,7 @@ public class SHA1: Digest {
         var d = state[3]
         var e = state[4]
 
-        for (i in 0 until 80) {
+        for (i in 0..<80) {
             val a2 = when {
                 i < 20 -> {
                     val f = d xor (b and (c xor d))

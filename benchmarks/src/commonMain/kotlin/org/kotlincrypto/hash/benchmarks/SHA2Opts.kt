@@ -19,6 +19,7 @@ import kotlinx.benchmark.*
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
+import org.kotlincrypto.hash.sha2.SHA512_224
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
@@ -36,4 +37,13 @@ open class SHA256Benchmark: DigestBenchmarkBase() {
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
 open class SHA512Benchmark: DigestBenchmarkBase() {
     override val d: Digest = SHA512()
+}
+
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
+@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
+open class SHA512_224Benchmark: DigestBenchmarkBase() {
+    override val d: Digest = SHA512_224()
 }

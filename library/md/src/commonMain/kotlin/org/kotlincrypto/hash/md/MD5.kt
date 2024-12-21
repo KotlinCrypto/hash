@@ -51,7 +51,7 @@ public class MD5: Digest {
         var c = state[2]
         var d = state[3]
 
-        for (i in 0 until blockSize()) {
+        for (i in 0..<blockSize()) {
             when {
                 i < 16 -> {
                     var j = (i * 4) + offset
