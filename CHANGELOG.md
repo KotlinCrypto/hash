@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Version 0.5.6 (2024-12-20)
+## Version 0.5.6 (2024-12-28)
  - Updates `kotlincrypto.sponges` to `0.3.4` [[#74]][74]
      - See [discussions-75][discussions-75]
 
