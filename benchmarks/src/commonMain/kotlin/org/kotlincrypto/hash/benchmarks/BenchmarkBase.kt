@@ -24,14 +24,29 @@ const val ITERATIONS = 5
 const val TIME_WARMUP = 2
 const val TIME_MEASURE = 4
 
-abstract class DigestBenchmarkBase {
+abstract class HashBenchmarkBase(private val blockSize: Int) {
 
-    protected abstract val d: Digest
-    private val bytes by lazy { Random.Default.nextBytes((d.blockSize() * 2) + 10) }
+    abstract fun update(input: ByteArray, offset: Int, len: Int)
+    abstract fun digest(input: ByteArray): ByteArray
+
+    // Number of bytes is based off of the algorithm's block size in
+    // order to fairly benchmark the Digest implementation such that 2
+    // full compressions + overflow input are processed.
+    private val bytes = Random.Default.nextBytes((blockSize * 2) + (blockSize / 4))
 
     @Setup
-    fun setup() { d.update(bytes, 0, d.blockSize()) }
+    fun setup() { update(bytes, 0, blockSize) }
 
     @Benchmark
-    fun digest() = d.digest(bytes)
+    fun digest() { digest(bytes) }
+}
+
+abstract class DigestBenchmarkBase(private val d: Digest): HashBenchmarkBase(d.blockSize()) {
+
+    final override fun digest(input: ByteArray): ByteArray {
+        return d.digest(input)
+    }
+    final override fun update(input: ByteArray, offset: Int, len: Int) {
+        d.update(input, offset, len)
+    }
 }
