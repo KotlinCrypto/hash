@@ -33,7 +33,14 @@ kmpConfiguration {
             target { benchmarks.targets.register(name) }
         }
 
-        jvm { register() }
+        jvm {
+            register()
+            sourceSetMain {
+                dependencies {
+                    implementation(libs.bouncy.castle)
+                }
+            }
+        }
 
         js { target { browser(); nodejs() }; register() }
         wasmJs { target { browser(); nodejs() }; register() }

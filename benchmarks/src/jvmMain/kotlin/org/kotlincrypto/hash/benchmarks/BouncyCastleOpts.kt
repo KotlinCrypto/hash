@@ -13,39 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("ClassName")
+
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.hash.sha3.ParallelHash128
+import org.kotlincrypto.hash.sha2.SHA256
+import org.kotlincrypto.hash.sha2.SHA512
 import org.kotlincrypto.hash.sha3.SHA3_256
 import org.kotlincrypto.hash.sha3.SHAKE128
-import org.kotlincrypto.hash.sha3.TupleHash128
+
+// Comparative benchmarks for JVM
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHA3_256Benchmark: DigestBenchmarkBase(SHA3_256())
+open class SHA256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = SHA256())
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHAKE128Benchmark: DigestBenchmarkBase(SHAKE128())
+open class SHA512Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = SHA512())
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class ParallelHash128Benchmark: DigestBenchmarkBase(ParallelHash128(null, 64))
+open class SHA3_256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = SHA3_256())
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class TupleHash128Benchmark: DigestBenchmarkBase(TupleHash128(null))
+open class SHAKE128Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = SHAKE128())
