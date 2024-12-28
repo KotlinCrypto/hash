@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Version 0.5.6 (2024-12-20)
+ - Updates `kotlincrypto.sponges` to `0.3.4` [[#74]][74]
+     - See [discussions-75][discussions-75]
+
 ## Version 0.5.5 (2024-12-20)
  - Updates `kotlincrypto.core` to `0.5.5`
  - Updates `kotlincrypto.sponges` to `0.3.3`
@@ -144,3 +148,5 @@
 [69]: https://github.com/KotlinCrypto/hash/pull/69
 [70-comment]: https://github.com/KotlinCrypto/hash/pull/70#issuecomment-2554683182
 [71]: https://github.com/KotlinCrypto/hash/pull/71
+[74]: https://github.com/KotlinCrypto/hash/pull/74
+[discussions-75]: https://github.com/KotlinCrypto/hash/discussions/75
