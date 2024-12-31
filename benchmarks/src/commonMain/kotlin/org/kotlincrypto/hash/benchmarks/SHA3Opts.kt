@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("ClassName")
+
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
-import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.sha3.ParallelHash128
 import org.kotlincrypto.hash.sha3.SHA3_256
 import org.kotlincrypto.hash.sha3.SHAKE128

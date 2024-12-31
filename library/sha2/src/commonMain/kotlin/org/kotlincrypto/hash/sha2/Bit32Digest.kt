@@ -28,7 +28,6 @@ import org.kotlincrypto.core.digest.internal.DigestState
  * */
 public sealed class Bit32Digest: Digest {
 
-    // Initial values used to reset the Digest
     private val h0: Int
     private val h1: Int
     private val h2: Int
@@ -109,6 +108,7 @@ public sealed class Bit32Digest: Digest {
         }
 
         val k = K
+        val state = state
 
         var a = state[0]
         var b = state[1]
@@ -167,17 +167,21 @@ public sealed class Bit32Digest: Digest {
             buffer.fill(0, size, 56)
         }
 
-        buffer[56] = (bitLength ushr 56).toByte()
-        buffer[57] = (bitLength ushr 48).toByte()
-        buffer[58] = (bitLength ushr 40).toByte()
-        buffer[59] = (bitLength ushr 32).toByte()
-        buffer[60] = (bitLength ushr 24).toByte()
-        buffer[61] = (bitLength ushr 16).toByte()
-        buffer[62] = (bitLength ushr  8).toByte()
-        buffer[63] = (bitLength        ).toByte()
+        val lo = bitLength.toInt()
+        val hi = bitLength.rotateLeft(32).toInt()
+
+        buffer[56] = (hi ushr 24).toByte()
+        buffer[57] = (hi ushr 16).toByte()
+        buffer[58] = (hi ushr  8).toByte()
+        buffer[59] = (hi        ).toByte()
+        buffer[60] = (lo ushr 24).toByte()
+        buffer[61] = (lo ushr 16).toByte()
+        buffer[62] = (lo ushr  8).toByte()
+        buffer[63] = (lo        ).toByte()
 
         compress(buffer, 0)
 
+        val state = state
         return out(
            a = state[0],
            b = state[1],
@@ -202,6 +206,7 @@ public sealed class Bit32Digest: Digest {
     ): ByteArray
 
     protected final override fun resetDigest() {
+        val state = state
         x.fill(0)
         state[0] = h0
         state[1] = h1
@@ -215,14 +220,22 @@ public sealed class Bit32Digest: Digest {
 
     private companion object {
         private val K = intArrayOf(
-            1116352408, 1899447441, -1245643825, -373957723, 961987163, 1508970993, -1841331548, -1424204075,
-            -670586216, 310598401, 607225278, 1426881987, 1925078388, -2132889090, -1680079193, -1046744716,
-            -459576895, -272742522, 264347078, 604807628, 770255983, 1249150122, 1555081692, 1996064986,
-            -1740746414, -1473132947, -1341970488, -1084653625, -958395405, -710438585, 113926993, 338241895,
-            666307205, 773529912, 1294757372, 1396182291, 1695183700, 1986661051, -2117940946, -1838011259,
-            -1564481375, -1474664885, -1035236496, -949202525, -778901479, -694614492, -200395387, 275423344,
-            430227734, 506948616, 659060556, 883997877, 958139571, 1322822218, 1537002063, 1747873779,
-            1955562222, 2024104815, -2067236844, -1933114872, -1866530822, -1538233109, -1090935817, -965641998,
+             1116352408,  1899447441, -1245643825,  -373957723,
+              961987163,  1508970993, -1841331548, -1424204075,
+             -670586216,   310598401,   607225278,  1426881987,
+             1925078388, -2132889090, -1680079193, -1046744716,
+             -459576895,  -272742522,   264347078,   604807628,
+              770255983,  1249150122,  1555081692,  1996064986,
+            -1740746414, -1473132947, -1341970488, -1084653625,
+             -958395405,  -710438585,   113926993,   338241895,
+              666307205,   773529912,  1294757372,  1396182291,
+             1695183700,  1986661051, -2117940946, -1838011259,
+            -1564481375, -1474664885, -1035236496,  -949202525,
+             -778901479,  -694614492,  -200395387,   275423344,
+              430227734,   506948616,   659060556,   883997877,
+              958139571,  1322822218,  1537002063,  1747873779,
+             1955562222,  2024104815, -2067236844, -1933114872,
+            -1866530822, -1538233109, -1090935817,  -965641998,
         )
     }
 }
