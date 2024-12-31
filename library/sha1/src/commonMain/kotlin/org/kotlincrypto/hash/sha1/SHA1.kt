@@ -53,42 +53,56 @@ public class SHA1: Digest {
         }
 
         for (i in 16..<80) {
-            x[i] = (x[i - 3] xor x[i - 8] xor x[i - 14] xor x[i - 16]) rotateLeft 1
+            x[i] = (x[i - 3] xor x[i - 8] xor x[i - 14] xor x[i - 16]).rotateLeft(1)
         }
 
+        val state = state
         var a = state[0]
         var b = state[1]
         var c = state[2]
         var d = state[3]
         var e = state[4]
 
-        for (i in 0..<80) {
-            val a2 = when {
-                i < 20 -> {
-                    val f = d xor (b and (c xor d))
-                    val k = 1518500249
-                    (a rotateLeft 5) + f + e + k + x[i]
-                }
-                i < 40 -> {
-                    val f = b xor c xor d
-                    val k = 1859775393
-                    (a rotateLeft 5) + f + e + k + x[i]
-                }
-                i < 60 -> {
-                    val f = (b and c) or (b and d) or (c and d)
-                    val k = -1894007588
-                    (a rotateLeft 5) + f + e + k + x[i]
-                }
-                else -> {
-                    val f = b xor c xor d
-                    val k = -899497514
-                    (a rotateLeft 5) + f + e + k + x[i]
-                }
-            }
-
+        for (i in 0..<20) {
+            val f = d xor (b and (c xor d))
+            val k = 1518500249
+            val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
             e = d
             d = c
-            c = b rotateLeft 30
+            c = b.rotateLeft(30)
+            b = a
+            a = a2
+        }
+
+        for (i in 20..<40) {
+            val f = b xor c xor d
+            val k = 1859775393
+            val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
+            e = d
+            d = c
+            c = b.rotateLeft(30)
+            b = a
+            a = a2
+        }
+
+        for (i in 40..<60) {
+            val f = (b and c) or (b and d) or (c and d)
+            val k = -1894007588
+            val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
+            e = d
+            d = c
+            c = b.rotateLeft(30)
+            b = a
+            a = a2
+        }
+
+        for (i in 60..<80) {
+            val f = b xor c xor d
+            val k = -899497514
+            val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
+            e = d
+            d = c
+            c = b.rotateLeft(30)
             b = a
             a = a2
         }
@@ -123,6 +137,7 @@ public class SHA1: Digest {
 
         compress(buffer, 0)
 
+        val state = state
         val a = state[0]
         val b = state[1]
         val c = state[2]
@@ -154,6 +169,7 @@ public class SHA1: Digest {
     }
 
     protected override fun resetDigest() {
+        val state = state
         x.fill(0)
         state[0] = 1732584193
         state[1] = -271733879
@@ -161,7 +177,4 @@ public class SHA1: Digest {
         state[3] = 271733878
         state[4] = -1009589776
     }
-
-    @Suppress("NOTHING_TO_INLINE", "KotlinRedundantDiagnosticSuppress")
-    private inline infix fun Int.rotateLeft(n: Int): Int = (this shl n) or (this ushr (32 - n))
 }
