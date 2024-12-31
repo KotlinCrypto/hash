@@ -13,12 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("ClassName")
+
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
+import org.kotlincrypto.hash.md.MD5
+import org.kotlincrypto.hash.sha1.SHA1
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
 import org.kotlincrypto.hash.sha2.SHA512_224
+
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
+@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
+open class MD5Benchmark: DigestBenchmarkBase(MD5())
+
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
+@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
+open class SHA1Benchmark: DigestBenchmarkBase(SHA1())
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
