@@ -52,25 +52,18 @@ public class SHA512t: Bit64Digest {
     public constructor(t: Int): super(
         d = 512,
         t = t,
-        h0 = 7640891576956012808L  xor -6510615555426900571L,
+        h0 =  7640891576956012808L xor -6510615555426900571L,
         h1 = -4942790177534073029L xor -6510615555426900571L,
-        h2 = 4354685564936845355L  xor -6510615555426900571L,
+        h2 =  4354685564936845355L xor -6510615555426900571L,
         h3 = -6534734903238641935L xor -6510615555426900571L,
-        h4 = 5840696475078001361L  xor -6510615555426900571L,
+        h4 =  5840696475078001361L xor -6510615555426900571L,
         h5 = -7276294671716946913L xor -6510615555426900571L,
-        h6 = 2270897969802886507L  xor -6510615555426900571L,
-        h7 = 6620516959819538809L  xor -6510615555426900571L,
+        h6 =  2270897969802886507L xor -6510615555426900571L,
+        h7 =  6620516959819538809L xor -6510615555426900571L,
     ) {
         isInitialized = false
 
-        update(0x53)
-        update(0x48)
-        update(0x41)
-        update(0x2D)
-        update(0x35)
-        update(0x31)
-        update(0x32)
-        update(0x2F)
+        update(INIT)
 
         var bitLength = t
 
@@ -95,9 +88,17 @@ public class SHA512t: Bit64Digest {
 
     protected override fun copy(state: DigestState): Digest = SHA512t(state, this)
 
-    protected override fun out(a: Long, b: Long, c: Long, d: Long, e: Long, f: Long, g: Long, h: Long): ByteArray {
+    protected override fun out(
+        a: Long,
+        b: Long,
+        c: Long,
+        d: Long,
+        e: Long,
+        f: Long,
+        g: Long,
+        h: Long,
+    ): ByteArray {
         if (!isInitialized) {
-
             h0 = a
             h1 = b
             h2 = c
@@ -106,9 +107,8 @@ public class SHA512t: Bit64Digest {
             h5 = f
             h6 = g
             h7 = h
-
             isInitialized = true
-            return ByteArray(0)
+            return INIT
         }
 
         val len = digestLength()
@@ -186,5 +186,9 @@ public class SHA512t: Bit64Digest {
         (h       ).putOut() ?: return out
 
         return out
+    }
+
+    private companion object {
+        private val INIT = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
     }
 }
