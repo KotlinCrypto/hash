@@ -23,12 +23,12 @@ import org.kotlincrypto.core.digest.internal.DigestState
 /**
  * SHA-512/224
  * */
-public fun SHA512_224(): SHA512t = SHA512t(224)
+public fun SHA512_224(): SHA512t = SHA512t(t = 224)
 
 /**
  * SHA-512/256
  * */
-public fun SHA512_256(): SHA512t = SHA512t(256)
+public fun SHA512_256(): SHA512t = SHA512t(t = 256)
 
 /**
  * SHA-512/t implementation

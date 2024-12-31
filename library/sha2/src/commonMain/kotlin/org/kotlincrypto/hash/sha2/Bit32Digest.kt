@@ -167,14 +167,17 @@ public sealed class Bit32Digest: Digest {
             buffer.fill(0, size, 56)
         }
 
-        buffer[56] = (bitLength ushr 56).toByte()
-        buffer[57] = (bitLength ushr 48).toByte()
-        buffer[58] = (bitLength ushr 40).toByte()
-        buffer[59] = (bitLength ushr 32).toByte()
-        buffer[60] = (bitLength ushr 24).toByte()
-        buffer[61] = (bitLength ushr 16).toByte()
-        buffer[62] = (bitLength ushr  8).toByte()
-        buffer[63] = (bitLength        ).toByte()
+        val lo = bitLength.toInt()
+        val hi = bitLength.rotateLeft(32).toInt()
+
+        buffer[56] = (hi ushr 24).toByte()
+        buffer[57] = (hi ushr 16).toByte()
+        buffer[58] = (hi ushr  8).toByte()
+        buffer[59] = (hi        ).toByte()
+        buffer[60] = (lo ushr 24).toByte()
+        buffer[61] = (lo ushr 16).toByte()
+        buffer[62] = (lo ushr  8).toByte()
+        buffer[63] = (lo        ).toByte()
 
         compress(buffer, 0)
 
