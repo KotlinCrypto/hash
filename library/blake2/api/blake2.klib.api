@@ -1,0 +1,27 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.kotlincrypto.hash:blake2>
+final class org.kotlincrypto.hash.blake2/Blake2b : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.blake2/Blake2b|null[0]
+    constructor <init>(kotlin/Int =...) // org.kotlincrypto.hash.blake2/Blake2b.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(org.kotlincrypto.hash.blake2/Blake2b) // org.kotlincrypto.hash.blake2/Blake2b.<init>|<init>(org.kotlincrypto.hash.blake2.Blake2b){}[0]
+
+    final object Companion { // org.kotlincrypto.hash.blake2/Blake2b.Companion|null[0]
+        final fun blake2bHash160(kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.blake2/Blake2b.Companion.blake2bHash160|blake2bHash160(kotlin.ByteArray){}[0]
+        final fun blake2bHash224(kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.blake2/Blake2b.Companion.blake2bHash224|blake2bHash224(kotlin.ByteArray){}[0]
+        final fun blake2bHash256(kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.blake2/Blake2b.Companion.blake2bHash256|blake2bHash256(kotlin.ByteArray){}[0]
+    }
+}
+
+final class org.kotlincrypto.hash.blake2/Blake2s : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.blake2/Blake2s|null[0]
+    constructor <init>(kotlin/Int =...) // org.kotlincrypto.hash.blake2/Blake2s.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(org.kotlincrypto.hash.blake2/Blake2s) // org.kotlincrypto.hash.blake2/Blake2s.<init>|<init>(org.kotlincrypto.hash.blake2.Blake2s){}[0]
+
+    final object Companion { // org.kotlincrypto.hash.blake2/Blake2s.Companion|null[0]
+        final fun blake2sHash128(kotlin/ByteArray): kotlin/ByteArray // org.kotlincrypto.hash.blake2/Blake2s.Companion.blake2sHash128|blake2sHash128(kotlin.ByteArray){}[0]
+    }
+}
