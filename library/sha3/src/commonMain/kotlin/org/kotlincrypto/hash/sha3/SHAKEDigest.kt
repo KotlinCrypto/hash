@@ -22,7 +22,6 @@ import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
-import kotlin.jvm.JvmSynthetic
 
 /**
  * Core abstraction for:
@@ -64,17 +63,17 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             val sSize = S?.size ?: 0
 
             // Prepare encodings
-            val bE = Xof.Utils.leftEncode(blockSize.toLong())
-            val nE = Xof.Utils.leftEncode((nSize * 8L))
-            val sE = Xof.Utils.leftEncode((sSize * 8L))
+            val encBlockSize = Xof.Utils.leftEncode(blockSize)
+            val encNSizeBits = nSize.leftEncodeBits()
+            val encSSizeBits = sSize.leftEncodeBits()
 
-            val b = ByteArray(bE.size + nE.size + nSize + sE.size + sSize)
+            val b = ByteArray(encBlockSize.size + encNSizeBits.size + nSize + encSSizeBits.size + sSize)
 
-            bE.copyInto(b)
-            nE.copyInto(b, bE.size)
-            N?.copyInto(b, bE.size + nE.size)
-            sE.copyInto(b, bE.size + nE.size + nSize)
-            S?.copyInto(b, bE.size + nE.size + nSize + sE.size)
+            encBlockSize.copyInto(b)
+            encNSizeBits.copyInto(b, encBlockSize.size)
+            N?.copyInto(b, encBlockSize.size + encNSizeBits.size)
+            encSSizeBits.copyInto(b, encBlockSize.size + encNSizeBits.size + nSize)
+            S?.copyInto(b, encBlockSize.size + encNSizeBits.size + nSize + encSSizeBits.size)
 
             b
         } else {
@@ -244,7 +243,6 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             return if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) PAD_CSHAKE else PAD_SHAKE
         }
 
-        @JvmSynthetic
         @Throws(IllegalArgumentException::class)
         internal fun blockSizeFromBitStrength(bitStrength: Int): Int {
             return when (bitStrength) {
@@ -252,6 +250,16 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                 BIT_STRENGTH_256 -> BLOCK_SIZE_BIT_256
                 else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
             }
+        }
+
+        internal fun Int.leftEncodeBits(): ByteArray {
+            @OptIn(InternalKotlinCryptoApi::class)
+            return Xof.Utils.leftEncode(lo = shl(3), hi = ushr(29))
+        }
+
+        internal fun Int.rightEncodeBits(): ByteArray {
+            @OptIn(InternalKotlinCryptoApi::class)
+            return Xof.Utils.rightEncode(lo = shl(3), hi = ushr(29))
         }
     }
 }

@@ -36,8 +36,8 @@ public sealed class ParallelDigest: SHAKEDigest {
     private val inner: SHAKEDigest
     private val innerBuf: ByteArray
     private var innerBufOffs: Int
-    // TODO: Replace with Counter.Bit32
-    private var processCount: Long
+    private var countLo: Int
+    private var countHi: Int
 
     protected constructor(
         S: ByteArray?,
@@ -62,7 +62,8 @@ public sealed class ParallelDigest: SHAKEDigest {
         }
         this.innerBuf = ByteArray(B)
         this.innerBufOffs = 0
-        this.processCount = 0L
+        this.countLo = 0
+        this.countHi = 0
 
         @OptIn(InternalKotlinCryptoApi::class)
         val encB = Xof.Utils.leftEncode(B)
@@ -73,7 +74,8 @@ public sealed class ParallelDigest: SHAKEDigest {
         this.inner = other.inner.copy()
         this.innerBuf = other.innerBuf.copyOf()
         this.innerBufOffs = other.innerBufOffs
-        this.processCount = other.processCount
+        this.countLo = other.countLo
+        this.countHi = other.countHi
     }
 
     public abstract override fun copy(): ParallelDigest
@@ -84,7 +86,7 @@ public sealed class ParallelDigest: SHAKEDigest {
             // process them to append them to the
             // buffer here as additional input.
             inner.update(innerBuf, 0, innerBufOffs)
-            processCount++
+            increment()
             innerBufOffs = 0
             inner.digest()
         } else {
@@ -92,7 +94,7 @@ public sealed class ParallelDigest: SHAKEDigest {
         }
 
         @OptIn(InternalKotlinCryptoApi::class)
-        val final = buffered + Xof.Utils.rightEncode(processCount) + Xof.Utils.rightEncode(digestLength() * 8L)
+        val final = buffered + Xof.Utils.rightEncode(lo = countLo, hi = countHi) + digestLength().rightEncodeBits()
 
         val size = offset + final.size
 
@@ -161,14 +163,15 @@ public sealed class ParallelDigest: SHAKEDigest {
     private fun processBlock(input: ByteArray, offset: Int) {
         inner.update(input, offset, innerBuf.size)
         super.updateProtected(inner.digest(), 0, inner.digestLength())
-        processCount++
+        increment()
     }
 
     protected final override fun resetProtected() {
         super.resetProtected()
         this.innerBuf.fill(0)
         this.innerBufOffs = 0
-        this.processCount = 0L
+        this.countLo = 0
+        this.countHi = 0
 
         // No need to reset inner as digest() is always called
         // when processing blocks which leaves it in a perpetually
@@ -176,9 +179,11 @@ public sealed class ParallelDigest: SHAKEDigest {
 //        this.inner.reset()
 
         @OptIn(InternalKotlinCryptoApi::class)
-        val encB = Xof.Utils.leftEncode(innerBuf.size)
-        super.updateProtected(encB, 0, encB.size)
+        val encBSize = Xof.Utils.leftEncode(innerBuf.size)
+        super.updateProtected(encBSize, 0, encBSize.size)
     }
+
+    private fun increment() { if (++countLo == 0) countHi++ }
 
     private companion object {
         private const val PARALLEL_HASH = "ParallelHash"

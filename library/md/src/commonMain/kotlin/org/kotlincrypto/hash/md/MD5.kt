@@ -120,7 +120,7 @@ public class MD5: Digest {
 
         // Convert to bits
         val bitsLo = bytesLo shl 3
-        val bitsHi = (bytesHi shl 3) or (bytesLo ushr (32 - 3))
+        val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
 
         buffer[offset] = 0x80.toByte()
 

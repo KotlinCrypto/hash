@@ -17,9 +17,6 @@
 
 package org.kotlincrypto.hash.sha3
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
-import org.kotlincrypto.core.xof.Xof
-
 /**
  * Core abstraction for:
  *  - TupleHash128
@@ -52,10 +49,8 @@ public sealed class TupleDigest: SHAKEDigest {
     public abstract override fun copy(): TupleDigest
 
     protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
-        @OptIn(InternalKotlinCryptoApi::class)
-        val encL = Xof.Utils.rightEncode(digestLength() * 8L)
-
-        val size = offset + encL.size
+        val encLenBits = digestLength().rightEncodeBits()
+        val size = offset + encLenBits.size
 
         // encL will be at MOST 9 bytes, which is less than the
         // blockSize. This means that no more than 1 compression
@@ -63,12 +58,12 @@ public sealed class TupleDigest: SHAKEDigest {
         // fit everything. So, we good.
         return if (size > buffer.lastIndex) {
             val i = buffer.size - offset
-            encL.copyInto(buffer, offset, 0, i)
+            encLenBits.copyInto(buffer, offset, 0, i)
             compressProtected(buffer, 0)
-            encL.copyInto(buffer, 0, i, encL.size)
+            encLenBits.copyInto(buffer, 0, i, encLenBits.size)
             super.digestProtected(buffer, size - buffer.size)
         } else {
-            encL.copyInto(buffer, offset)
+            encLenBits.copyInto(buffer, offset)
             super.digestProtected(buffer, size)
         }
     }
@@ -81,12 +76,8 @@ public sealed class TupleDigest: SHAKEDigest {
     }
 
     protected final override fun updateProtected(input: ByteArray, offset: Int, len: Int) {
-        // TODO: check size to see if can utilize Int
-        val numBits = len * 8L
-        @OptIn(InternalKotlinCryptoApi::class)
-        val enc = Xof.Utils.leftEncode(numBits)
-
-        super.updateProtected(enc, 0, enc.size)
+        val encLenBits = len.leftEncodeBits()
+        super.updateProtected(encLenBits, 0, encLenBits.size)
         super.updateProtected(input, offset, len)
     }
 
