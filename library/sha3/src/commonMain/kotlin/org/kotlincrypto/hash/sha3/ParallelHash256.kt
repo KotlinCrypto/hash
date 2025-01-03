@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmStatic
 
@@ -69,11 +70,17 @@ public class ParallelHash256: ParallelDigest {
         B: Int,
         outputLength: Int,
         xOfMode: Boolean,
-    ): super(S, B, xOfMode, BIT_STRENGTH_256, outputLength)
+    ): super(
+        S = S,
+        B = B,
+        xOfMode = xOfMode,
+        bitStrength = BIT_STRENGTH_256,
+        digestLength = outputLength,
+    )
 
-    private constructor(state: DigestState, digest: ParallelHash256): super(state, digest)
+    private constructor(other: ParallelHash256): super(other)
 
-    protected override fun copy(state: DigestState): Digest = ParallelHash256(state, this)
+    public override fun copy(): ParallelHash256 = ParallelHash256(other = this)
 
     public companion object: SHAKEXofFactory<ParallelHash256>() {
 
@@ -85,7 +92,7 @@ public class ParallelHash256: ParallelDigest {
          * */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        public fun xOf(B: Int): Xof<ParallelHash256> = xOf(null, B)
+        public fun xOf(B: Int): Xof<ParallelHash256> = xOf(S = null, B = B)
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash256]
@@ -98,6 +105,8 @@ public class ParallelHash256: ParallelDigest {
          * */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash256> = SHAKEXof(ParallelHash256(S, B, 0, xOfMode = true))
+        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash256> {
+            return SHAKEXof(ParallelHash256(S = S, B = B, outputLength = 0, xOfMode = true))
+        }
     }
 }

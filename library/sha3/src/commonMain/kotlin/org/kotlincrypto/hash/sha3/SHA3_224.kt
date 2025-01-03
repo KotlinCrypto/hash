@@ -17,9 +17,6 @@
 
 package org.kotlincrypto.hash.sha3
 
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
-
 /**
  * SHA3-224 implementation
  *
@@ -27,9 +24,14 @@ import org.kotlincrypto.core.digest.internal.DigestState
  * */
 public class SHA3_224: KeccakDigest {
 
-    public constructor(): super("${SHA3}-224", 144, 28, PAD_SHA3)
+    public constructor(): super(
+        algorithm = "${SHA3}-224",
+        blockSize = 144,
+        digestLength = 28,
+        dsByte = PAD_SHA3,
+    )
 
-    private constructor(state: DigestState, digest: SHA3_224): super(state, digest)
+    private constructor(other: SHA3_224): super(other)
 
-    protected override fun copy(state: DigestState): Digest = SHA3_224(state, this)
+    public override fun copy(): SHA3_224 = SHA3_224(other = this)
 }

@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import java.lang.IllegalStateException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -31,7 +27,6 @@ import kotlin.jvm.Throws
  * Simple test class that warps a [java.security.MessageDigest]
  * with [org.kotlincrypto.core.digest.Digest]
  * */
-@OptIn(InternalKotlinCryptoApi::class)
 class TestJvmDigest: Digest {
 
     private val delegate: MessageDigest
@@ -45,24 +40,21 @@ class TestJvmDigest: Digest {
         delegate = digest
     }
 
-    private constructor(
-        state: DigestState,
-        digest: TestJvmDigest,
-    ): super(state) {
-        delegate = digest.delegate.clone() as MessageDigest
+    private constructor(other: TestJvmDigest): super(other) {
+        delegate = other.delegate.clone() as MessageDigest
     }
 
-    override fun copy(state: DigestState): Digest = TestJvmDigest(state, this)
+    override fun copy(): Digest = TestJvmDigest(this)
 
-    override fun compress(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
+    override fun compressProtected(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
-    override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray = delegate.digest()
+    override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray = delegate.digest()
 
-    override fun updateDigest(input: Byte) { delegate.update(input) }
+    override fun updateProtected(input: Byte) { delegate.update(input) }
 
-    override fun updateDigest(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
+    override fun updateProtected(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
 
-    override fun resetDigest() { delegate.reset() }
+    override fun resetProtected() { delegate.reset() }
 
     private companion object {
 

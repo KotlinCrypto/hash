@@ -15,9 +15,6 @@
  **/
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
-
 /**
  * SHA-224 implementation
  * */
@@ -35,9 +32,9 @@ public class SHA224: Bit32Digest {
         h7 = -1090891868,
     )
 
-    private constructor(state: DigestState, digest: SHA224): super(state, digest)
+    private constructor(other: SHA224): super(other)
 
-    protected override fun copy(state: DigestState): Digest = SHA224(state, this)
+    public override fun copy(): SHA224 = SHA224(other = this)
 
     protected override fun out(
         a: Int,

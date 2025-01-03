@@ -13,12 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("ClassName")
-
 package org.kotlincrypto.hash.sha3
-
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 
 /**
  * Keccak-256 implementation
@@ -27,9 +22,14 @@ import org.kotlincrypto.core.digest.internal.DigestState
  * */
 public class Keccak256: KeccakDigest {
 
-    public constructor(): super("${KECCAK}-256", 136, 32, PAD_KECCAK)
+    public constructor(): super(
+        algorithm = "${KECCAK}-256",
+        blockSize = 136,
+        digestLength = 32,
+        dsByte = PAD_KECCAK,
+    )
 
-    private constructor(state: DigestState, digest: Keccak256): super(state, digest)
+    private constructor(other: Keccak256): super(other)
 
-    protected override fun copy(state: DigestState): Digest = Keccak256(state, this)
+    public override fun copy(): Keccak256 = Keccak256(other = this)
 }

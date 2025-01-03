@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
+@file:Suppress("LocalVariableName")
 
 package org.kotlincrypto.hash.sha3
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
@@ -50,7 +48,6 @@ public sealed class KeccakDigest: Digest {
     private val dsByte: Byte
     private val state: F1600
 
-    @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(
         algorithm: String,
         blockSize: Int,
@@ -61,13 +58,14 @@ public sealed class KeccakDigest: Digest {
         this.state = F1600()
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    protected constructor(state: DigestState, digest: KeccakDigest): super(state) {
-        this.dsByte = digest.dsByte
-        this.state = digest.state.copy()
+    protected constructor(other: KeccakDigest): super(other) {
+        this.dsByte = other.dsByte
+        this.state = other.state.copy()
     }
 
-    protected final override fun compress(input: ByteArray, offset: Int) {
+    public abstract override fun copy(): KeccakDigest
+
+    protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val A = state
 
         var APos = 0
@@ -96,12 +94,12 @@ public sealed class KeccakDigest: Digest {
         A.keccakP()
     }
 
-    protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        buffer[bufferOffset] = dsByte
-        buffer.fill(0, bufferOffset + 1)
+    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        buffer[offset] = dsByte
+        buffer.fill(0, offset + 1)
         val iLast = buffer.lastIndex
         buffer[iLast] = buffer[iLast] xor 0x80.toByte()
-        compress(buffer, 0)
+        compressProtected(buffer, 0)
 
         val len = digestLength()
         return extract(state, ByteArray(len), 0, len, 0L)
@@ -174,7 +172,9 @@ public sealed class KeccakDigest: Digest {
         return out
     }
 
-    protected override fun resetDigest() { state.reset() }
+    protected override fun resetProtected() {
+        state.reset()
+    }
 
     protected companion object {
         internal const val KECCAK: String = "Keccak"

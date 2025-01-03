@@ -12,7 +12,7 @@ gradle-kmp-configuration = "0.3.2"
 gradle-kotlin = "1.9.24"
 gradle-publish-maven = "0.29.0"
 
-kotlincrypto-core = "0.5.5"
+kotlincrypto-core = "1.0.0-alpha01-SNAPSHOT"
 kotlincrypto-endians = "0.3.1"
 kotlincrypto-sponges = "0.3.4"
 

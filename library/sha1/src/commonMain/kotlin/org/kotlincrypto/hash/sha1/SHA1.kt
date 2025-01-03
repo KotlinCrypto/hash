@@ -13,34 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash.sha1
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
+import org.kotlincrypto.core.Counter
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 
+/**
+ * SHA-1 implementation
+ * */
 public class SHA1: Digest {
 
     private val x: IntArray
     private val state: IntArray
+    private val count: Counter.Bit32
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    public constructor(): super("SHA-1", 64, 20) {
+    public constructor(): super(
+        algorithm = "SHA-1",
+        blockSize = 64,
+        digestLength = 20,
+    ) {
         this.x = IntArray(80)
         this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878, -1009589776)
+        this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    private constructor(state: DigestState, digest: SHA1): super(state) {
-        this.x = digest.x.copyOf()
-        this.state = digest.state.copyOf()
+    private constructor(other: SHA1): super(other) {
+        this.x = other.x.copyOf()
+        this.state = other.state.copyOf()
+        this.count = other.count.copy()
     }
 
-    protected override fun copy(state: DigestState): Digest = SHA1(state, this)
+    public override fun copy(): SHA1 = SHA1(other = this)
 
-    protected override fun compress(input: ByteArray, offset: Int) {
+    protected override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
         var j = offset
@@ -112,33 +117,45 @@ public class SHA1: Digest {
         state[2] += c
         state[3] += d
         state[4] += e
+
+        count.increment()
     }
 
-    protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        buffer[bufferOffset] = 0x80.toByte()
+    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        var bytesLo = count.lo
+        var bytesHi = count.hi
 
-        val size = bufferOffset + 1
+        // Add in unprocessed bytes from buffer
+        // that have yet to be counted as input.
+        val lt0 = bytesLo < 0
+        bytesLo += offset
+        if (lt0 && bytesLo >= 0) bytesHi++
+
+        // Convert to bits
+        val bitsLo = bytesLo shl 3
+        val bitsHi = (bytesHi shl 3) or (bytesLo ushr (32 - 3))
+
+        buffer[offset] = 0x80.toByte()
+
+        val size = offset + 1
         if (size > 56) {
             buffer.fill(0, size, blockSize())
-            compress(buffer, 0)
+            compressProtected(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 56)
         }
 
-        val lo = bitLength.toInt()
-        val hi = bitLength.rotateLeft(32).toInt()
+        buffer[56] = (bitsHi ushr 24).toByte()
+        buffer[57] = (bitsHi ushr 16).toByte()
+        buffer[58] = (bitsHi ushr  8).toByte()
+        buffer[59] = (bitsHi        ).toByte()
+        buffer[60] = (bitsLo ushr 24).toByte()
+        buffer[61] = (bitsLo ushr 16).toByte()
+        buffer[62] = (bitsLo ushr  8).toByte()
+        buffer[63] = (bitsLo        ).toByte()
 
-        buffer[56] = (hi ushr 24).toByte()
-        buffer[57] = (hi ushr 16).toByte()
-        buffer[58] = (hi ushr  8).toByte()
-        buffer[59] = (hi        ).toByte()
-        buffer[60] = (lo ushr 24).toByte()
-        buffer[61] = (lo ushr 16).toByte()
-        buffer[62] = (lo ushr  8).toByte()
-        buffer[63] = (lo        ).toByte()
-
-        compress(buffer, 0)
+        compressProtected(buffer, 0)
 
         val state = state
         val a = state[0]
@@ -171,7 +188,7 @@ public class SHA1: Digest {
         )
     }
 
-    protected override fun resetDigest() {
+    protected override fun resetProtected() {
         val state = state
         x.fill(0)
         state[0] = 1732584193
@@ -179,5 +196,6 @@ public class SHA1: Digest {
         state[2] = -1732584194
         state[3] = 271733878
         state[4] = -1009589776
+        count.reset()
     }
 }

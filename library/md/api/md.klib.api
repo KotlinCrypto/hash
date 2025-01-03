@@ -8,4 +8,6 @@
 // Library unique name: <org.kotlincrypto.hash:md>
 final class org.kotlincrypto.hash.md/MD5 : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.md/MD5|null[0]
     constructor <init>() // org.kotlincrypto.hash.md/MD5.<init>|<init>(){}[0]
+
+    final fun copy(): org.kotlincrypto.hash.md/MD5 // org.kotlincrypto.hash.md/MD5.copy|copy(){}[0]
 }

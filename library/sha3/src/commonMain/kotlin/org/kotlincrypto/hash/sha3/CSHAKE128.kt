@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName", "SpellCheckingInspection")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmStatic
 
@@ -67,11 +68,18 @@ public class CSHAKE128: SHAKEDigest {
         S: ByteArray?,
         outputLength: Int,
         xOfMode: Boolean,
-    ): super(N, S, xOfMode, CSHAKE + BIT_STRENGTH_128, BLOCK_SIZE, outputLength)
+    ): super(
+        N = N,
+        S = S,
+        xOfMode = xOfMode,
+        algorithm = CSHAKE + BIT_STRENGTH_128,
+        blockSize = BLOCK_SIZE,
+        digestLength = outputLength,
+    )
 
-    private constructor(state: DigestState, digest: CSHAKE128): super(state, digest)
+    private constructor(other: CSHAKE128): super(other)
 
-    protected override fun copy(state: DigestState): Digest = CSHAKE128(state, this)
+    public override fun copy(): CSHAKE128 = CSHAKE128(other = this)
 
     public companion object: SHAKEXofFactory<CSHAKE128>() {
 
@@ -95,6 +103,8 @@ public class CSHAKE128: SHAKEDigest {
          *   empty or null value. (e.g. "My Customization".encodeToByteArray())
          * */
         @JvmStatic
-        public fun xOf(N: ByteArray?, S: ByteArray?): Xof<CSHAKE128> = SHAKEXof(CSHAKE128(N, S, 0, xOfMode = true))
+        public fun xOf(N: ByteArray?, S: ByteArray?): Xof<CSHAKE128> {
+            return SHAKEXof(CSHAKE128(N, S, outputLength = 0, xOfMode = true))
+        }
     }
 }

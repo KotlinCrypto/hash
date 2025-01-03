@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName", "SpellCheckingInspection")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.*
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
@@ -83,11 +84,13 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         initBlock?.bytepad()
     }
 
-    protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
-        this.xOfMode = digest.xOfMode
-        this.isReadingXof = digest.isReadingXof
-        this.initBlock = digest.initBlock
+    protected constructor(other: SHAKEDigest): super(other) {
+        this.xOfMode = other.xOfMode
+        this.isReadingXof = other.isReadingXof
+        this.initBlock = other.initBlock
     }
+
+    public abstract override fun copy(): SHAKEDigest
 
     protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
         return if (xOfMode && !isReadingXof) {
@@ -112,8 +115,8 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         }
     }
 
-    protected override fun resetDigest() {
-        super.resetDigest()
+    protected override fun resetProtected() {
+        super.resetProtected()
         initBlock?.bytepad()
 
         // Don't want to ever reset isReadingXof b/c Xof mode
@@ -124,7 +127,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     }
 
     private fun ByteArray.bytepad() {
-        super.updateDigest(this, 0, size)
+        super.updateProtected(this, 0, size)
 
         val remainder = size % blockSize()
 
@@ -132,11 +135,10 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         if (remainder == 0) return
 
         repeat(blockSize() - remainder) {
-            super.updateDigest(0)
+            super.updateProtected(0)
         }
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
     public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
 
         protected inner class SHAKEXof
@@ -185,8 +187,10 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                 }
 
                 return object : Reader() {
-                    override fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long) {
+                    override fun readProtected(out: ByteArray, offset: Int, len: Int): Int {
+                        // TODO: Refactor out bytesRead usage
                         delegateCopy.extract(A, out, offset, len, bytesRead)
+                        return len
                     }
 
                     override fun closeProtected() {
