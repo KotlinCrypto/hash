@@ -161,8 +161,16 @@ sealed class org.kotlincrypto.hash.sha3/KeccakDigest : org.kotlincrypto.core.dig
     abstract fun copy(): org.kotlincrypto.hash.sha3/KeccakDigest // org.kotlincrypto.hash.sha3/KeccakDigest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha3/KeccakDigest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
     open fun digestProtected(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/KeccakDigest.digestProtected|digestProtected(kotlin.ByteArray;kotlin.Int){}[0]
-    open fun extract(org.kotlincrypto.sponges.keccak/F1600, kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/Long): kotlin/ByteArray // org.kotlincrypto.hash.sha3/KeccakDigest.extract|extract(org.kotlincrypto.sponges.keccak.F1600;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Long){}[0]
+    open fun extract(org.kotlincrypto.sponges.keccak/F1600, org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder?, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/KeccakDigest.extract|extract(org.kotlincrypto.sponges.keccak.F1600;org.kotlincrypto.hash.sha3.KeccakDigest.SpongeRemainder?;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     open fun resetProtected() // org.kotlincrypto.hash.sha3/KeccakDigest.resetProtected|resetProtected(){}[0]
+
+    final class SpongeRemainder { // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder|null[0]
+        constructor <init>(org.kotlincrypto.hash.sha3/KeccakDigest) // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.<init>|<init>(org.kotlincrypto.hash.sha3.KeccakDigest){}[0]
+
+        final var value // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value|<get-value>(){}[0]
+            final fun <get-value>(): kotlin/Int // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value.<get-value>|<get-value>(){}[0]
+            final fun <set-value>(kotlin/Int) // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value.<set-value>|<set-value>(kotlin.Int){}[0]
+    }
 
     final object Companion // org.kotlincrypto.hash.sha3/KeccakDigest.Companion|null[0]
 }
@@ -183,7 +191,7 @@ sealed class org.kotlincrypto.hash.sha3/SHAKEDigest : org.kotlincrypto.core.xof/
     constructor <init>(org.kotlincrypto.hash.sha3/SHAKEDigest) // org.kotlincrypto.hash.sha3/SHAKEDigest.<init>|<init>(org.kotlincrypto.hash.sha3.SHAKEDigest){}[0]
 
     abstract fun copy(): org.kotlincrypto.hash.sha3/SHAKEDigest // org.kotlincrypto.hash.sha3/SHAKEDigest.copy|copy(){}[0]
-    final fun extract(org.kotlincrypto.sponges.keccak/F1600, kotlin/ByteArray, kotlin/Int, kotlin/Int, kotlin/Long): kotlin/ByteArray // org.kotlincrypto.hash.sha3/SHAKEDigest.extract|extract(org.kotlincrypto.sponges.keccak.F1600;kotlin.ByteArray;kotlin.Int;kotlin.Int;kotlin.Long){}[0]
+    final fun extract(org.kotlincrypto.sponges.keccak/F1600, org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder?, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/SHAKEDigest.extract|extract(org.kotlincrypto.sponges.keccak.F1600;org.kotlincrypto.hash.sha3.KeccakDigest.SpongeRemainder?;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     open fun resetProtected() // org.kotlincrypto.hash.sha3/SHAKEDigest.resetProtected|resetProtected(){}[0]
 
     sealed class <#A1: org.kotlincrypto.hash.sha3/SHAKEDigest> SHAKEXofFactory : org.kotlincrypto.core.xof/XofFactory<#A1> { // org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory|null[0]

@@ -69,11 +69,16 @@ public abstract class org/kotlincrypto/hash/sha3/KeccakDigest : org/kotlincrypto
 	protected final fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha3/KeccakDigest;
 	protected fun digestProtected ([BI)[B
-	protected fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;[BIIJ)[B
+	protected fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;Lorg/kotlincrypto/hash/sha3/KeccakDigest$SpongeRemainder;[BII)[B
 	protected fun resetProtected ()V
 }
 
 protected final class org/kotlincrypto/hash/sha3/KeccakDigest$Companion {
+}
+
+protected final class org/kotlincrypto/hash/sha3/KeccakDigest$SpongeRemainder {
+	public field value I
+	public fun <init> (Lorg/kotlincrypto/hash/sha3/KeccakDigest;)V
 }
 
 public abstract class org/kotlincrypto/hash/sha3/ParallelDigest : org/kotlincrypto/hash/sha3/SHAKEDigest {
@@ -189,7 +194,7 @@ public abstract class org/kotlincrypto/hash/sha3/SHAKEDigest : org/kotlincrypto/
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/sha3/SHAKEDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([B[BZLjava/lang/String;IILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha3/SHAKEDigest;
-	protected final fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;[BIIJ)[B
+	protected final fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;Lorg/kotlincrypto/hash/sha3/KeccakDigest$SpongeRemainder;[BII)[B
 	protected fun resetProtected ()V
 }
 

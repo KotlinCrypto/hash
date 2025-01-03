@@ -92,7 +92,13 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 
     public abstract override fun copy(): SHAKEDigest
 
-    protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+    protected final override fun extract(
+        A: F1600,
+        r: SpongeRemainder?,
+        out: ByteArray,
+        offset: Int,
+        len: Int,
+    ): ByteArray {
         return if (xOfMode && !isReadingXof) {
             // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
@@ -111,7 +117,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             isReadingXof = true
             return newOut
         } else {
-            super.extract(A, out, offset, len, bytesRead)
+            super.extract(A, r, out, offset, len)
         }
     }
 
@@ -186,10 +192,11 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                     new
                 }
 
+                val remainder = SpongeRemainder(d = delegateCopy)
+
                 return object : Reader() {
                     override fun readProtected(out: ByteArray, offset: Int, len: Int): Int {
-                        // TODO: Refactor out bytesRead usage
-                        delegateCopy.extract(A, out, offset, len, bytesRead)
+                        delegateCopy.extract(A, remainder, out, offset, len)
                         return len
                     }
 

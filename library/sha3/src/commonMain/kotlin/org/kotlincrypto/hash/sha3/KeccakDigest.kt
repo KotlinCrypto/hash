@@ -22,6 +22,7 @@ import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
+import kotlin.jvm.JvmField
 
 /**
  * Core abstraction for:
@@ -102,10 +103,16 @@ public sealed class KeccakDigest: Digest {
         compressProtected(buffer, 0)
 
         val len = digestLength()
-        return extract(state, ByteArray(len), 0, len, 0L)
+        return extract(state, null, ByteArray(len), 0, len)
     }
 
-    protected open fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+    protected open fun extract(
+        A: F1600,
+        r: SpongeRemainder?,
+        out: ByteArray,
+        offset: Int,
+        len: Int,
+    ): ByteArray {
         var outPos = offset
         val outLimit = outPos + len
 
@@ -113,7 +120,7 @@ public sealed class KeccakDigest: Digest {
         val spongeLimit = (spongeSize / Long.SIZE_BYTES) + 1
 
         // Bytes available in the sponge for extraction before another permutation is needed
-        var spongeRem = spongeSize - (bytesRead % spongeSize).toInt()
+        var spongeRem = r?.value ?: spongeSize
         var spongePos = (spongeSize - spongeRem) / Long.SIZE_BYTES
 
         while (outPos < outLimit) {
@@ -169,11 +176,19 @@ public sealed class KeccakDigest: Digest {
             }
         }
 
+        r?.let { it.value = spongeRem }
         return out
     }
 
     protected override fun resetProtected() {
         state.reset()
+    }
+
+    // Helper for tracking sponge state across multiple
+    // calls to extract (for SHAKEDigest Xof functionality).
+    protected class SpongeRemainder(d: KeccakDigest) {
+        @JvmField
+        public var value: Int = d.blockSize()
     }
 
     protected companion object {
