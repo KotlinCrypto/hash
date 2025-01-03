@@ -17,9 +17,6 @@
 
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
-
 /**
  * SHA-512/224
  * */
@@ -32,6 +29,9 @@ public fun SHA512_256(): SHA512t = SHA512t(t = 256)
 
 /**
  * SHA-512/t implementation
+ *
+ * @see [SHA512_224]
+ * @see [SHA512_256]
  * */
 public class SHA512t: Bit64Digest {
 
@@ -40,8 +40,6 @@ public class SHA512t: Bit64Digest {
     /**
      * Primary constructor for creating a new [SHA512t] instance
      *
-     * @see [SHA512_224]
-     * @see [SHA512_256]
      * @throws [IllegalArgumentException] when:
      *  - [digestLength] is less than or equal to 0
      *  - [t] is greater than or equal to 512
@@ -63,7 +61,7 @@ public class SHA512t: Bit64Digest {
     ) {
         isInitialized = false
 
-        update(INIT)
+        update(IV)
 
         var bitLength = t
 
@@ -82,11 +80,11 @@ public class SHA512t: Bit64Digest {
         digest()
     }
 
-    private constructor(state: DigestState, digest: SHA512t): super(state, digest) {
+    private constructor(other: SHA512t): super(other) {
         isInitialized = true
     }
 
-    protected override fun copy(state: DigestState): Digest = SHA512t(state, this)
+    public override fun copy(): SHA512t = SHA512t(other = this)
 
     protected override fun out(
         a: Long,
@@ -108,7 +106,7 @@ public class SHA512t: Bit64Digest {
             h6 = g
             h7 = h
             isInitialized = true
-            return INIT
+            return IV
         }
 
         val len = digestLength()
@@ -189,6 +187,6 @@ public class SHA512t: Bit64Digest {
     }
 
     private companion object {
-        private val INIT = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
+        private val IV = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
     }
 }

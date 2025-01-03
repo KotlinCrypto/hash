@@ -13,16 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import java.lang.IllegalStateException
 
-@OptIn(InternalKotlinCryptoApi::class)
 class TestBCDigest<T: org.bouncycastle.crypto.ExtendedDigest>: Digest {
     
     private val delegate: T
@@ -41,23 +36,23 @@ class TestBCDigest<T: org.bouncycastle.crypto.ExtendedDigest>: Digest {
     }
 
     @Suppress("UNCHECKED_CAST")
-    private constructor(state: DigestState, digest: TestBCDigest<*>): super(state) {
-        this.copy = digest.copy as T.() -> T
-        this.delegate = digest.copy.invoke(digest.delegate as T)
+    private constructor(other: TestBCDigest<*>): super(other) {
+        this.copy = other.copy as T.() -> T
+        this.delegate = other.copy.invoke(other.delegate as T)
     }
 
-    override fun copy(state: DigestState): Digest = TestBCDigest<T>(state, this)
+    override fun copy(): Digest = TestBCDigest<T>(this)
 
-    override fun compress(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
+    override fun compressProtected(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
-    override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
+    override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
         val out = ByteArray(digestLength())
         delegate.doFinal(out, 0)
         return out
     }
 
-    override fun updateDigest(input: Byte) { delegate.update(input) }
-    override fun updateDigest(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
+    override fun updateProtected(input: Byte) { delegate.update(input) }
+    override fun updateProtected(input: ByteArray, offset: Int, len: Int) { delegate.update(input, offset, len) }
 
-    override fun resetDigest() { delegate.reset() }
+    override fun resetProtected() { delegate.reset() }
 }

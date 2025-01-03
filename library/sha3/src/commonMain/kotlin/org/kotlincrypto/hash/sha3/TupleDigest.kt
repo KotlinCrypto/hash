@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.kotlincrypto.hash.sha3
+@file:Suppress("LocalVariableName")
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
-import org.kotlincrypto.core.xof.Xof
-import org.kotlincrypto.core.digest.internal.DigestState
+package org.kotlincrypto.hash.sha3
 
 /**
  * Core abstraction for:
@@ -38,51 +36,49 @@ public sealed class TupleDigest: SHAKEDigest {
         bitStrength: Int,
         digestLength: Int,
     ): super(
-        TUPLE_HASH.encodeToByteArray(),
-        S,
-        xOfMode,
-        TUPLE_HASH + bitStrength,
-        blockSizeFromBitStrength(bitStrength),
-        digestLength,
+        N = TUPLE_HASH.encodeToByteArray(),
+        S = S,
+        xOfMode = xOfMode,
+        algorithm = TUPLE_HASH + bitStrength,
+        blockSize = blockSizeFromBitStrength(bitStrength),
+        digestLength = digestLength,
     )
 
-    protected constructor(state: DigestState, digest: TupleDigest): super(state, digest)
+    protected constructor(other: TupleDigest): super(other)
 
-    protected final override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        @OptIn(InternalKotlinCryptoApi::class)
-        val encL = Xof.Utils.rightEncode(digestLength() * 8L)
+    public abstract override fun copy(): TupleDigest
 
-        val size = bufferOffset + encL.size
-        val newBitLength = bitLength + (encL.size * 8)
+    protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        val encLenBits = digestLength().rightEncodeBits()
+        val size = offset + encLenBits.size
 
         // encL will be at MOST 9 bytes, which is less than the
         // blockSize. This means that no more than 1 compression
         // would be needed to create som space in the buffer to
         // fit everything. So, we good.
         return if (size > buffer.lastIndex) {
-            val i = buffer.size - bufferOffset
-            encL.copyInto(buffer, bufferOffset, 0, i)
-            compress(buffer, 0)
-            encL.copyInto(buffer, 0, i, encL.size)
-            super.digest(newBitLength, size - buffer.size, buffer)
+            val i = buffer.size - offset
+            encLenBits.copyInto(buffer, offset, 0, i)
+            compressProtected(buffer, 0)
+            encLenBits.copyInto(buffer, 0, i, encLenBits.size)
+            super.digestProtected(buffer, size - buffer.size)
         } else {
-            encL.copyInto(buffer, bufferOffset)
-            super.digest(newBitLength, size, buffer)
+            encLenBits.copyInto(buffer, offset)
+            super.digestProtected(buffer, size)
         }
     }
 
-    protected final override fun updateDigest(input: Byte) {
+    protected final override fun updateProtected(input: Byte) {
         // Do encoding manually so unnecessary arrays aren't created
-        super.updateDigest(1)
-        super.updateDigest(8)
-        super.updateDigest(input)
+        super.updateProtected(1)
+        super.updateProtected(8)
+        super.updateProtected(input)
     }
 
-    protected final override fun updateDigest(input: ByteArray, offset: Int, len: Int) {
-        @OptIn(InternalKotlinCryptoApi::class)
-        val enc = Xof.Utils.leftEncode(len * 8L)
-        super.updateDigest(enc, 0, enc.size)
-        super.updateDigest(input, offset, len)
+    protected final override fun updateProtected(input: ByteArray, offset: Int, len: Int) {
+        val encLenBits = len.leftEncodeBits()
+        super.updateProtected(encLenBits, 0, encLenBits.size)
+        super.updateProtected(input, offset, len)
     }
 
     private companion object {

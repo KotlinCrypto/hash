@@ -8,4 +8,6 @@
 // Library unique name: <org.kotlincrypto.hash:sha1>
 final class org.kotlincrypto.hash.sha1/SHA1 : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha1/SHA1|null[0]
     constructor <init>() // org.kotlincrypto.hash.sha1/SHA1.<init>|<init>(){}[0]
+
+    final fun copy(): org.kotlincrypto.hash.sha1/SHA1 // org.kotlincrypto.hash.sha1/SHA1.copy|copy(){}[0]
 }

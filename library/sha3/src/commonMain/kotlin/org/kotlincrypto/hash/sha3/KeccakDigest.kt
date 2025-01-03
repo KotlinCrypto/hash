@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
+@file:Suppress("LocalVariableName")
 
 package org.kotlincrypto.hash.sha3
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
+import kotlin.jvm.JvmField
 
 /**
  * Core abstraction for:
@@ -50,7 +49,6 @@ public sealed class KeccakDigest: Digest {
     private val dsByte: Byte
     private val state: F1600
 
-    @OptIn(InternalKotlinCryptoApi::class)
     protected constructor(
         algorithm: String,
         blockSize: Int,
@@ -61,13 +59,14 @@ public sealed class KeccakDigest: Digest {
         this.state = F1600()
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    protected constructor(state: DigestState, digest: KeccakDigest): super(state) {
-        this.dsByte = digest.dsByte
-        this.state = digest.state.copy()
+    protected constructor(other: KeccakDigest): super(other) {
+        this.dsByte = other.dsByte
+        this.state = other.state.copy()
     }
 
-    protected final override fun compress(input: ByteArray, offset: Int) {
+    public abstract override fun copy(): KeccakDigest
+
+    protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val A = state
 
         var APos = 0
@@ -96,18 +95,24 @@ public sealed class KeccakDigest: Digest {
         A.keccakP()
     }
 
-    protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        buffer[bufferOffset] = dsByte
-        buffer.fill(0, bufferOffset + 1)
+    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        buffer[offset] = dsByte
+        buffer.fill(0, offset + 1)
         val iLast = buffer.lastIndex
         buffer[iLast] = buffer[iLast] xor 0x80.toByte()
-        compress(buffer, 0)
+        compressProtected(buffer, 0)
 
         val len = digestLength()
-        return extract(state, ByteArray(len), 0, len, 0L)
+        return extract(state, null, ByteArray(len), 0, len)
     }
 
-    protected open fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+    protected open fun extract(
+        A: F1600,
+        r: SpongeRemainder?,
+        out: ByteArray,
+        offset: Int,
+        len: Int,
+    ): ByteArray {
         var outPos = offset
         val outLimit = outPos + len
 
@@ -115,7 +120,7 @@ public sealed class KeccakDigest: Digest {
         val spongeLimit = (spongeSize / Long.SIZE_BYTES) + 1
 
         // Bytes available in the sponge for extraction before another permutation is needed
-        var spongeRem = spongeSize - (bytesRead % spongeSize).toInt()
+        var spongeRem = r?.value ?: spongeSize
         var spongePos = (spongeSize - spongeRem) / Long.SIZE_BYTES
 
         while (outPos < outLimit) {
@@ -171,10 +176,20 @@ public sealed class KeccakDigest: Digest {
             }
         }
 
+        r?.let { it.value = spongeRem }
         return out
     }
 
-    protected override fun resetDigest() { state.reset() }
+    protected override fun resetProtected() {
+        state.reset()
+    }
+
+    // Helper for tracking sponge state across multiple
+    // calls to extract (for SHAKEDigest Xof functionality).
+    protected class SpongeRemainder(d: KeccakDigest) {
+        @JvmField
+        public var value: Int = d.blockSize()
+    }
 
     protected companion object {
         internal const val KECCAK: String = "Keccak"

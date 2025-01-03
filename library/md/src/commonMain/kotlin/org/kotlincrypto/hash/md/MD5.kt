@@ -13,34 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash.md
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
+import org.kotlincrypto.core.Counter
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 
+/**
+ * MD5 implementation
+ * */
 public class MD5: Digest {
 
     private val x: IntArray
     private val state: IntArray
+    private val count: Counter.Bit32
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    public constructor(): super("MD5", 64, 16) {
+    public constructor(): super(
+        algorithm = "MD5",
+        blockSize = 64,
+        digestLength = 16,
+    ) {
         this.x = IntArray(16)
         this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878)
+        this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    private constructor(state: DigestState, digest: MD5): super(state) {
-        this.x = digest.x.copyOf()
-        this.state = digest.state.copyOf()
+    private constructor(other: MD5): super(other) {
+        this.x = other.x.copyOf()
+        this.state = other.state.copyOf()
+        this.count = other.count.copy()
     }
 
-    protected override fun copy(state: DigestState): Digest = MD5(state, this)
+    public override fun copy(): MD5 = MD5(other = this)
 
-    protected override fun compress(input: ByteArray, offset: Int) {
+    protected override fun compressProtected(input: ByteArray, offset: Int) {
         val k = K
         val s = S
 
@@ -99,33 +104,45 @@ public class MD5: Digest {
         state[1] += b
         state[2] += c
         state[3] += d
+
+        count.increment()
     }
 
-    protected override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        buffer[bufferOffset] = 0x80.toByte()
+    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        var bytesLo = count.lo
+        var bytesHi = count.hi
 
-        val size = bufferOffset + 1
+        // Add in unprocessed bytes from buffer
+        // that have yet to be counted as input.
+        val lt0 = bytesLo < 0
+        bytesLo += offset
+        if (lt0 && bytesLo >= 0) bytesHi++
+
+        // Convert to bits
+        val bitsLo = bytesLo shl 3
+        val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
+
+        buffer[offset] = 0x80.toByte()
+
+        val size = offset + 1
         if (size > 56) {
             buffer.fill(0, size, blockSize())
-            compress(buffer, 0)
+            compressProtected(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 56)
         }
 
-        val lo = bitLength.toInt()
-        val hi = bitLength.rotateLeft(32).toInt()
+        buffer[56] = (bitsLo        ).toByte()
+        buffer[57] = (bitsLo ushr  8).toByte()
+        buffer[58] = (bitsLo ushr 16).toByte()
+        buffer[59] = (bitsLo ushr 24).toByte()
+        buffer[60] = (bitsHi        ).toByte()
+        buffer[61] = (bitsHi ushr  8).toByte()
+        buffer[62] = (bitsHi ushr 16).toByte()
+        buffer[63] = (bitsHi ushr 24).toByte()
 
-        buffer[56] = (lo        ).toByte()
-        buffer[57] = (lo ushr  8).toByte()
-        buffer[58] = (lo ushr 16).toByte()
-        buffer[59] = (lo ushr 24).toByte()
-        buffer[60] = (hi        ).toByte()
-        buffer[61] = (hi ushr  8).toByte()
-        buffer[62] = (hi ushr 16).toByte()
-        buffer[63] = (hi ushr 24).toByte()
-
-        compress(buffer, 0)
+        compressProtected(buffer, 0)
 
         val state = state
         val a = state[0]
@@ -153,13 +170,14 @@ public class MD5: Digest {
         )
     }
 
-    protected override fun resetDigest() {
+    protected override fun resetProtected() {
         val state = state
         x.fill(0)
         state[0] = 1732584193
         state[1] = -271733879
         state[2] = -1732584194
         state[3] = 271733878
+        count.reset()
     }
 
     private companion object {

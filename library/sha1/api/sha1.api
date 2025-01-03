@@ -1,4 +1,6 @@
 public final class org/kotlincrypto/hash/sha1/SHA1 : org/kotlincrypto/core/digest/Digest {
 	public fun <init> ()V
+	public synthetic fun copy ()Ljava/lang/Object;
+	public fun copy ()Lorg/kotlincrypto/hash/sha1/SHA1;
 }
 

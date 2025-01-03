@@ -16,7 +16,6 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmStatic
 
@@ -50,11 +49,18 @@ public class SHAKE256: SHAKEDigest {
     private constructor(
         outputLength: Int,
         xOfMode: Boolean
-    ): super(null, null, xOfMode, SHAKE + BIT_STRENGTH_256, BLOCK_SIZE_BIT_256, outputLength)
+    ): super(
+        N = null,
+        S = null,
+        xOfMode = xOfMode,
+        algorithm = SHAKE + BIT_STRENGTH_256,
+        blockSize = BLOCK_SIZE_BIT_256,
+        digestLength = outputLength,
+    )
 
-    private constructor(state: DigestState, digest: SHAKE256): super(state, digest)
+    private constructor(other: SHAKE256): super(other)
 
-    protected override fun copy(state: DigestState): Digest = SHAKE256(state, this)
+    public override fun copy(): SHAKE256 = SHAKE256(other = this)
 
     public companion object: SHAKEXofFactory<SHAKE256>() {
 
@@ -62,6 +68,8 @@ public class SHAKE256: SHAKEDigest {
          * Produces a new [Xof] (Extendable-Output Function) for [SHAKE256]
          * */
         @JvmStatic
-        public fun xOf(): Xof<SHAKE256> = SHAKEXof(SHAKE256(0, xOfMode = true))
+        public fun xOf(): Xof<SHAKE256> {
+            return SHAKEXof(SHAKE256(outputLength = 0, xOfMode = true))
+        }
     }
 }

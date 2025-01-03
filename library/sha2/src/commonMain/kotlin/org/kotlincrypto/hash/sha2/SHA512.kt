@@ -15,9 +15,6 @@
  **/
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
-
 /**
  * SHA-512 implementation
  * */
@@ -36,9 +33,9 @@ public class SHA512: Bit64Digest {
         h7 =  6620516959819538809L,
     )
 
-    private constructor(state: DigestState, digest: SHA512): super(state, digest)
+    private constructor(other: SHA512): super(other)
 
-    protected override fun copy(state: DigestState): Digest = SHA512(state, this)
+    public override fun copy(): SHA512 = SHA512(other = this)
 
     protected override fun out(
         a: Long,

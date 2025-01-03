@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
@@ -60,11 +61,16 @@ public class TupleHash256: TupleDigest {
         S: ByteArray?,
         outputLength: Int,
         xOfMode: Boolean,
-    ): super(S, xOfMode, BIT_STRENGTH_256, outputLength)
+    ): super(
+        S = S,
+        xOfMode = xOfMode,
+        bitStrength = BIT_STRENGTH_256,
+        digestLength = outputLength,
+    )
 
-    private constructor(state: DigestState, digest: TupleHash256): super(state, digest)
+    private constructor(other: TupleHash256): super(other)
 
-    protected override fun copy(state: DigestState): Digest = TupleHash256(state, this)
+    public override fun copy(): TupleHash256 = TupleHash256(other = this)
 
     public companion object: SHAKEXofFactory<TupleHash256>() {
 
@@ -77,6 +83,8 @@ public class TupleHash256: TupleDigest {
          * */
         @JvmStatic
         @JvmOverloads
-        public fun xOf(S: ByteArray? = null): Xof<TupleHash256> = SHAKEXof(TupleHash256(S, 0, xOfMode = true))
+        public fun xOf(S: ByteArray? = null): Xof<TupleHash256> {
+            return SHAKEXof(TupleHash256(S = S, outputLength = 0, xOfMode = true))
+        }
     }
 }

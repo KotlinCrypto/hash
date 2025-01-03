@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.Xof
 import kotlin.jvm.JvmStatic
 
@@ -69,11 +70,17 @@ public class ParallelHash128: ParallelDigest {
         B: Int,
         outputLength: Int,
         xOfMode: Boolean,
-    ): super(S, B, xOfMode, BIT_STRENGTH_128, outputLength)
+    ): super(
+        S = S,
+        B = B,
+        xOfMode = xOfMode,
+        bitStrength = BIT_STRENGTH_128,
+        digestLength = outputLength,
+    )
 
-    private constructor(state: DigestState, digest: ParallelHash128): super(state, digest)
+    private constructor(other: ParallelHash128): super(other)
 
-    protected override fun copy(state: DigestState): Digest = ParallelHash128(state, this)
+    public override fun copy(): ParallelHash128 = ParallelHash128(other = this)
 
     public companion object: SHAKEXofFactory<ParallelHash128>() {
 
@@ -85,7 +92,7 @@ public class ParallelHash128: ParallelDigest {
          * */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        public fun xOf(B: Int): Xof<ParallelHash128> = xOf(null, B)
+        public fun xOf(B: Int): Xof<ParallelHash128> = xOf(S = null, B = B)
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash128]
@@ -98,6 +105,8 @@ public class ParallelHash128: ParallelDigest {
          * */
         @JvmStatic
         @Throws(IllegalArgumentException::class)
-        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash128> = SHAKEXof(ParallelHash128(S, B, 0, xOfMode = true))
+        public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash128> {
+            return SHAKEXof(ParallelHash128(S = S, B = B, outputLength = 0, xOfMode = true))
+        }
     }
 }

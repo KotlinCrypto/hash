@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation")
-
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.InternalKotlinCryptoApi
+import org.kotlincrypto.core.Counter
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.core.digest.internal.DigestState
-import org.kotlincrypto.hash.sha2.internal.rotateRight
 import kotlin.jvm.JvmField
 
 /**
@@ -43,8 +39,8 @@ public sealed class Bit64Digest: Digest {
 
     private val x: LongArray
     private val state: LongArray
+    private val count: Counter.Bit32
 
-    @OptIn(InternalKotlinCryptoApi::class)
     @Throws(IllegalArgumentException::class)
     protected constructor(
         d: Int,
@@ -57,12 +53,16 @@ public sealed class Bit64Digest: Digest {
         h5: Long,
         h6: Long,
         h7: Long,
-    ): super("SHA-$d" + (t?.let { "/$it" } ?: ""), 128, (t ?: d) / 8) {
+    ): super(
+        algorithm = "SHA-$d" + (t?.let { "/$it" } ?: ""),
+        blockSize = 128,
+        digestLength = (t ?: d) / 8,
+    ) {
         if (t != null) {
             require(d == 512) { "t can only be expressed for SHA-512" }
-            require(t % 8 == 0) { "t must be a factor of 8" }
             require(t < 512) { "t must be less than 512" }
             require(t != 384) { "t cannot be 384" }
+            require(t % 8 == 0) { "t must be a factor of 8" }
         }
 
         this.h0 = h0
@@ -75,23 +75,26 @@ public sealed class Bit64Digest: Digest {
         this.h7 = h7
         this.x = LongArray(80)
         this.state = longArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
+        this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
-    protected constructor(state: DigestState, digest: Bit64Digest): super(state) {
-        this.h0 = digest.h0
-        this.h1 = digest.h1
-        this.h2 = digest.h2
-        this.h3 = digest.h3
-        this.h4 = digest.h4
-        this.h5 = digest.h5
-        this.h6 = digest.h6
-        this.h7 = digest.h7
-        this.x = digest.x.copyOf()
-        this.state = digest.state.copyOf()
+    protected constructor(other: Bit64Digest): super(other) {
+        this.h0 = other.h0
+        this.h1 = other.h1
+        this.h2 = other.h2
+        this.h3 = other.h3
+        this.h4 = other.h4
+        this.h5 = other.h5
+        this.h6 = other.h6
+        this.h7 = other.h7
+        this.x = other.x.copyOf()
+        this.state = other.state.copyOf()
+        this.count = other.count.copy()
     }
 
-    protected final override fun compress(input: ByteArray, offset: Int) {
+    public abstract override fun copy(): Bit64Digest
+
+    protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
         var j = offset
@@ -157,33 +160,45 @@ public sealed class Bit64Digest: Digest {
         state[5] += f
         state[6] += g
         state[7] += h
+
+        count.increment()
     }
 
-    protected final override fun digest(bitLength: Long, bufferOffset: Int, buffer: ByteArray): ByteArray {
-        buffer[bufferOffset] = 0x80.toByte()
+    protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+        var bytesLo = count.lo
+        var bytesHi = count.hi
 
-        val size = bufferOffset + 1
+        // Add in unprocessed bytes from buffer
+        // that have yet to be counted as input.
+        val lt0 = bytesLo < 0
+        bytesLo += offset
+        if (lt0 && bytesLo >= 0) bytesHi++
+
+        // Convert to bits
+        val bitsLo = bytesLo shl 3
+        val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
+
+        buffer[offset] = 0x80.toByte()
+
+        val size = offset + 1
         if (size > 112) {
             buffer.fill(0, size, 128)
-            compress(buffer, 0)
+            compressProtected(buffer, 0)
             buffer.fill(0, 0, size)
         } else {
             buffer.fill(0, size, 120)
         }
 
-        val lo = bitLength.toInt()
-        val hi = bitLength.rotateLeft(32).toInt()
+        buffer[120] = (bitsHi ushr 24).toByte()
+        buffer[121] = (bitsHi ushr 16).toByte()
+        buffer[122] = (bitsHi ushr  8).toByte()
+        buffer[123] = (bitsHi        ).toByte()
+        buffer[124] = (bitsLo ushr 24).toByte()
+        buffer[125] = (bitsLo ushr 16).toByte()
+        buffer[126] = (bitsLo ushr  8).toByte()
+        buffer[127] = (bitsLo        ).toByte()
 
-        buffer[120] = (hi ushr 24).toByte()
-        buffer[121] = (hi ushr 16).toByte()
-        buffer[122] = (hi ushr  8).toByte()
-        buffer[123] = (hi        ).toByte()
-        buffer[124] = (lo ushr 24).toByte()
-        buffer[125] = (lo ushr 16).toByte()
-        buffer[126] = (lo ushr  8).toByte()
-        buffer[127] = (lo        ).toByte()
-
-        compress(buffer, 0)
+        compressProtected(buffer, 0)
 
         val state = state
         return out(
@@ -209,7 +224,7 @@ public sealed class Bit64Digest: Digest {
         h: Long,
     ): ByteArray
 
-    protected final override fun resetDigest() {
+    protected final override fun resetProtected() {
         val state = state
         x.fill(0)
         state[0] = h0
@@ -220,6 +235,7 @@ public sealed class Bit64Digest: Digest {
         state[5] = h5
         state[6] = h6
         state[7] = h7
+        count.reset()
     }
 
     private companion object {

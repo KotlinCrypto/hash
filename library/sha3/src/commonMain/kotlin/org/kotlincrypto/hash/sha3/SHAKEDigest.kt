@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("LocalVariableName", "SpellCheckingInspection")
+
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.*
-import org.kotlincrypto.core.digest.internal.DigestState
 import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
-import kotlin.jvm.JvmSynthetic
 
 /**
  * Core abstraction for:
@@ -63,17 +63,17 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             val sSize = S?.size ?: 0
 
             // Prepare encodings
-            val bE = Xof.Utils.leftEncode(blockSize.toLong())
-            val nE = Xof.Utils.leftEncode((nSize * 8L))
-            val sE = Xof.Utils.leftEncode((sSize * 8L))
+            val encBlockSize = Xof.Utils.leftEncode(blockSize)
+            val encNSizeBits = nSize.leftEncodeBits()
+            val encSSizeBits = sSize.leftEncodeBits()
 
-            val b = ByteArray(bE.size + nE.size + nSize + sE.size + sSize)
+            val b = ByteArray(encBlockSize.size + encNSizeBits.size + nSize + encSSizeBits.size + sSize)
 
-            bE.copyInto(b)
-            nE.copyInto(b, bE.size)
-            N?.copyInto(b, bE.size + nE.size)
-            sE.copyInto(b, bE.size + nE.size + nSize)
-            S?.copyInto(b, bE.size + nE.size + nSize + sE.size)
+            encBlockSize.copyInto(b)
+            encNSizeBits.copyInto(b, encBlockSize.size)
+            N?.copyInto(b, encBlockSize.size + encNSizeBits.size)
+            encSSizeBits.copyInto(b, encBlockSize.size + encNSizeBits.size + nSize)
+            S?.copyInto(b, encBlockSize.size + encNSizeBits.size + nSize + encSSizeBits.size)
 
             b
         } else {
@@ -83,13 +83,21 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         initBlock?.bytepad()
     }
 
-    protected constructor(state: DigestState, digest: SHAKEDigest): super(state, digest) {
-        this.xOfMode = digest.xOfMode
-        this.isReadingXof = digest.isReadingXof
-        this.initBlock = digest.initBlock
+    protected constructor(other: SHAKEDigest): super(other) {
+        this.xOfMode = other.xOfMode
+        this.isReadingXof = other.isReadingXof
+        this.initBlock = other.initBlock
     }
 
-    protected final override fun extract(A: F1600, out: ByteArray, offset: Int, len: Int, bytesRead: Long): ByteArray {
+    public abstract override fun copy(): SHAKEDigest
+
+    protected final override fun extract(
+        A: F1600,
+        r: SpongeRemainder?,
+        out: ByteArray,
+        offset: Int,
+        len: Int,
+    ): ByteArray {
         return if (xOfMode && !isReadingXof) {
             // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
@@ -108,12 +116,12 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             isReadingXof = true
             return newOut
         } else {
-            super.extract(A, out, offset, len, bytesRead)
+            super.extract(A, r, out, offset, len)
         }
     }
 
-    protected override fun resetDigest() {
-        super.resetDigest()
+    protected override fun resetProtected() {
+        super.resetProtected()
         initBlock?.bytepad()
 
         // Don't want to ever reset isReadingXof b/c Xof mode
@@ -124,7 +132,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     }
 
     private fun ByteArray.bytepad() {
-        super.updateDigest(this, 0, size)
+        super.updateProtected(this, 0, size)
 
         val remainder = size % blockSize()
 
@@ -132,11 +140,10 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         if (remainder == 0) return
 
         repeat(blockSize() - remainder) {
-            super.updateDigest(0)
+            super.updateProtected(0)
         }
     }
 
-    @OptIn(InternalKotlinCryptoApi::class)
     public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
 
         protected inner class SHAKEXof
@@ -184,9 +191,12 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                     new
                 }
 
+                val remainder = SpongeRemainder(d = delegateCopy)
+
                 return object : Reader() {
-                    override fun readProtected(out: ByteArray, offset: Int, len: Int, bytesRead: Long) {
-                        delegateCopy.extract(A, out, offset, len, bytesRead)
+                    override fun readProtected(out: ByteArray, offset: Int, len: Int): Int {
+                        delegateCopy.extract(A, remainder, out, offset, len)
+                        return len
                     }
 
                     override fun closeProtected() {
@@ -233,7 +243,6 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             return if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) PAD_CSHAKE else PAD_SHAKE
         }
 
-        @JvmSynthetic
         @Throws(IllegalArgumentException::class)
         internal fun blockSizeFromBitStrength(bitStrength: Int): Int {
             return when (bitStrength) {
@@ -241,6 +250,16 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                 BIT_STRENGTH_256 -> BLOCK_SIZE_BIT_256
                 else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
             }
+        }
+
+        internal fun Int.leftEncodeBits(): ByteArray {
+            @OptIn(InternalKotlinCryptoApi::class)
+            return Xof.Utils.leftEncode(lo = shl(3), hi = ushr(29))
+        }
+
+        internal fun Int.rightEncodeBits(): ByteArray {
+            @OptIn(InternalKotlinCryptoApi::class)
+            return Xof.Utils.rightEncode(lo = shl(3), hi = ushr(29))
         }
     }
 }
