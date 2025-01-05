@@ -23,7 +23,7 @@ import kotlin.test.Test
 open class CSHAKE128_N_UnitTest: CSHAKE128UnitTest() {
     override val digest: Digest = CSHAKE128(N, null)
     final override val expectedResetHash: String = "63e5b592ba16aef96e22c02f995e04421df9ec14be1b5e82d4da9af10ff2a8c0"
-    final override val expectedMultiBlockHash: String = "5584236dfd97c2a10fe7431c3b17a2c02b097aaa6921be1c9ad214d2e16e5d1f"
+    final override val expectedMultiBlockHash: String = "0f73cd62bff065856b8d1d6ecf8bf62c3cab5823b799b102afd887cc087615e1"
     final override val expectedUpdateSmallHash: String = "d72243337762656b8d1d48f0ba502468590745e825f6fcfb5c031ff458c2a1e6"
     final override val expectedUpdateMediumHash: String = "8110a0f4e6886075dc1d11372a3760868ca6b719cace7a95b75a69583021637f"
 

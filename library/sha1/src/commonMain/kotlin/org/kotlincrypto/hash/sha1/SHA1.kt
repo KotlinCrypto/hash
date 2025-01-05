@@ -121,41 +121,37 @@ public class SHA1: Digest {
         count.increment()
     }
 
-    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+    protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
         var bytesLo = count.lo
         var bytesHi = count.hi
 
         // Add in unprocessed bytes from buffer
         // that have yet to be counted as input.
         val lt0 = bytesLo < 0
-        bytesLo += offset
+        bytesLo += bufPos
         if (lt0 && bytesLo >= 0) bytesHi++
 
         // Convert to bits
         val bitsLo = bytesLo shl 3
         val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
 
-        buffer[offset] = 0x80.toByte()
+        buf[bufPos] = 0x80.toByte()
 
-        val size = offset + 1
-        if (size > 56) {
-            buffer.fill(0, size, blockSize())
-            compressProtected(buffer, 0)
-            buffer.fill(0, 0, size)
-        } else {
-            buffer.fill(0, size, 56)
+        if (bufPos + 1 > 56) {
+            compressProtected(buf, 0)
+            buf.fill(0, 0, 56)
         }
 
-        buffer[56] = (bitsHi ushr 24).toByte()
-        buffer[57] = (bitsHi ushr 16).toByte()
-        buffer[58] = (bitsHi ushr  8).toByte()
-        buffer[59] = (bitsHi        ).toByte()
-        buffer[60] = (bitsLo ushr 24).toByte()
-        buffer[61] = (bitsLo ushr 16).toByte()
-        buffer[62] = (bitsLo ushr  8).toByte()
-        buffer[63] = (bitsLo        ).toByte()
+        buf[56] = (bitsHi ushr 24).toByte()
+        buf[57] = (bitsHi ushr 16).toByte()
+        buf[58] = (bitsHi ushr  8).toByte()
+        buf[59] = (bitsHi        ).toByte()
+        buf[60] = (bitsLo ushr 24).toByte()
+        buf[61] = (bitsLo ushr 16).toByte()
+        buf[62] = (bitsLo ushr  8).toByte()
+        buf[63] = (bitsLo        ).toByte()
 
-        compressProtected(buffer, 0)
+        compressProtected(buf, 0)
 
         val state = state
         val a = state[0]

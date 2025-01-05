@@ -23,7 +23,7 @@ open class ParallelHash128UnitTest: DigestUnitTest() {
     protected val B = 100
     override val digest: Digest = ParallelHash128(null, B)
     final override val expectedResetHash: String = "4860c15ced13a8e56e95a6c7ea14e55be8ad8db61373f1b2372687dfd3c9c38f"
-    final override val expectedMultiBlockHash: String = "a70e14d1ec490bb8547b89fdaa590203ac80505e21c4836ab9c8a31baa32edf1"
+    final override val expectedMultiBlockHash: String = "8608090cc85438b6d29346d608815d87c2bf77073f001eab06bb6f8ecce16983"
     final override val expectedUpdateSmallHash: String = "f931e465e69bb9895cf655eb5227a55f8775eb0ca3b04edc7c9edfb577552f56"
     final override val expectedUpdateMediumHash: String = "57d11d6d370bd6ca17ad773f590e82d06cb2f4feb36dda629263ce723ac5d97e"
 

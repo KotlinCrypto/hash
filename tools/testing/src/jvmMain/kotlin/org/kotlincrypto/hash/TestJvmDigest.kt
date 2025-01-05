@@ -48,7 +48,7 @@ class TestJvmDigest: Digest {
 
     override fun compressProtected(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
-    override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray = delegate.digest()
+    override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray = delegate.digest()
 
     override fun updateProtected(input: Byte) { delegate.update(input) }
 

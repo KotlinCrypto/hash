@@ -22,7 +22,7 @@ import kotlin.test.Test
 open class SHA384UnitTest: DigestUnitTest() {
     override val digest: Digest = SHA384()
     final override val expectedResetHash: String = "38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b"
-    final override val expectedMultiBlockHash: String = "5fb00b191cdfba166170ac5c0004d8c4158614c860f40fd6fbb17e4a69586e324e459ca3975055421423e15b45750e53"
+    final override val expectedMultiBlockHash: String = "fb3777f1e0e9356c5d4f03f5f1a4c8ad46b72f19c7dcf1c5bafd8916a310bf2dba35edc2d135b0e6eea26092163f5234"
     final override val expectedUpdateSmallHash: String = "7a806422b07e7d139dc6201efafeb7fecaafeca412ed5ad1fae08e48ac14bdbfd75466c7f89a0d4425563522837dc99b"
     final override val expectedUpdateMediumHash: String = "196631c49831ab81a8002873897234945df585a0f58ceca0bd9357ccdf4eb4a9f30f5845001c7b6ac41816c0a12517d4"
 

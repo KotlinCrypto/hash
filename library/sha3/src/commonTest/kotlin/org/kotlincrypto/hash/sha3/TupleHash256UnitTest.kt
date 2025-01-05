@@ -22,7 +22,7 @@ import org.kotlincrypto.hash.DigestUnitTest
 open class TupleHash256UnitTest: DigestUnitTest() {
     override val digest: Digest = TupleHash256(null)
     final override val expectedResetHash: String = "3afbba494aedd16073746e9a04ac28c3e7b023fed42bcb1935d26b0ce9ed212703448a3b08b8656bd32e5fdd3ebe72fb7575ab1eefa93b84286556bead103a0a"
-    final override val expectedMultiBlockHash: String = "82c91dea4a29848566ee147fafb20a008d5318829b9511e8f67481ea82669c5e74d68ac3270451558f98ff20b0023296fe131d13b1718208af2d4a12b2029d2b"
+    final override val expectedMultiBlockHash: String = "5d15e5bba7bec281922d2021c9043549ed3888f136cabdc07c52a31ec6ada3a48de4064522d16dac85ed4f2952a583b946b90352fc2a5eeb192bb51335b7c6c3"
     final override val expectedUpdateSmallHash: String = "40229c2938b049e6999139d01d43aaaed408d74801ca0304ed4d4b70c23b43b69fe0da06914bde2bc2d3f22f33ada4f94d51446bd75b8a435deb6b9e6b3cf69b"
     final override val expectedUpdateMediumHash: String = "3436cb12063597f95cbe6dc7fbe2e99ddcf6906d9795de61a8b98ed1987801049d5d0791dc184638e861d128a8286fcf15132117556d670d780037e98c936e5f"
 
