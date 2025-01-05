@@ -37,8 +37,8 @@ open class CSHAKE256XofUnitTest: XofUnitTest() {
     }
 
     @Test
-    final override fun givenXof_whenReset_thenReadReturnsExected() {
-        super.givenXof_whenReset_thenReadReturnsExected()
+    final override fun givenXof_whenReset_thenReadReturnsExpected() {
+        super.givenXof_whenReset_thenReadReturnsExpected()
     }
 
     @Test

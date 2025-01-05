@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("FunctionName")
+
 package org.kotlincrypto.hash
 
 import io.matthewnelson.encoding.base16.Base16
@@ -21,6 +23,24 @@ import org.kotlincrypto.core.Resettable
 import org.kotlincrypto.core.Updatable
 import kotlin.test.assertEquals
 
+/**
+ * Test abstraction to verify that the Xof implementation is in
+ * proper working order. All input utilized is deterministic in order
+ * to ensure expected hash values never change.
+ *
+ * Expected hash values are obtained by an already working implementation
+ * of the algorithm under test (e.g. Bouncy Castle provider). Those values
+ * must then match when the KotlinCrypto implementation is put under test.
+ *
+ * To implement this abstraction for a new algorithm:
+ *
+ * See [org.kotlincrypto.hash.sha3.CSHAKE128XofUnitTest] located in
+ * `commonTest`. Note that the test class is `open`. This allows it to
+ * be inherited from in the `jvmTest` source set, for example the
+ * [org.kotlincrypto.hash.sha3.CSHAKE128XofJvmUnitTest] test. This ensures
+ * that both implementations run under the same test parameters output
+ * the same values.
+ * */
 abstract class XofUnitTest: HashUnitTest(), Resettable {
     abstract val xof: Updatable
 
@@ -29,14 +49,18 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
     abstract fun read(vararg args: ByteArray)
     abstract fun partialRead(out: ByteArray, offset: Int, len: Int)
 
-    open fun givenXof_whenReset_thenReadReturnsExected() {
+    /**
+     * Tests the reset functionality of the Xof implementation.
+     * */
+    open fun givenXof_whenReset_thenReadReturnsExpected() {
+        assertExpectedHashes
         updateSmall(xof)
         reset()
 
         val r = Array(50) { i -> ByteArray(i) }
         read(*r)
         var b = r.first()
-        for (i in 1 until r.size) {
+        for (i in 1..<r.size) {
             b += r[i]
         }
 
@@ -44,21 +68,31 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
         assertEquals(expectedResetHash, actual)
     }
 
+    /**
+     * Exercises the Xof implementation with partial reads to ensure
+     * it fills only the specified indices of the buffer.
+     * */
     open fun givenXof_whenPartialRead_thenReadReturnsExpected() {
+        assertExpectedHashes
         updateSmall(xof)
         val r = ByteArray(200)
         partialRead(r, 10, r.size - 20)
-        for (i in 0 until 10) {
+        for (i in 0..<10) {
             assertEquals(0, r[i])
         }
-        for (i in (r.size - 10) until r.size) {
+        for (i in (r.size - 10)..<r.size) {
             assertEquals(0, r[i])
         }
         val actual = r.encodeToString(base16)
         assertEquals(expectedPartialReadHash, actual)
     }
 
+    /**
+     * Exercises the Xof implementation with 50 bytes of input and
+     * a large multi-read output.
+     * */
     open fun givenXof_whenUpdatedSmall_thenReadReturnsExpected() {
+        assertExpectedHashes
         updateSmall(xof)
         val r1 = ByteArray(80)
         val r2 = ByteArray(500)
@@ -67,7 +101,12 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
         assertEquals(expectedUpdateSmallHash, actual)
     }
 
+    /**
+     * Exercises the Xof implementation with 100_000 bytes of input
+     * and a large multi-read output.
+     * */
     open fun givenXof_whenUpdateMedium_thenReadReturnsExpected() {
+        assertExpectedHashes
         updateMedium(xof)
         val r1 = ByteArray(80)
         val r2 = ByteArray(500)

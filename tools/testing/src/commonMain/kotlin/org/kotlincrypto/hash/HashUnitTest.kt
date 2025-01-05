@@ -16,11 +16,28 @@
 package org.kotlincrypto.hash
 
 import org.kotlincrypto.core.Updatable
+import kotlin.test.assertEquals
 
-abstract class HashUnitTest {
+sealed class HashUnitTest {
     abstract val expectedResetHash: String
     abstract val expectedUpdateSmallHash: String
     abstract val expectedUpdateMediumHash: String
+
+    internal val assertExpectedHashes by lazy {
+        val expected = 4
+        val set = mutableSetOf(
+            expectedResetHash,
+            expectedUpdateSmallHash,
+            expectedUpdateMediumHash,
+        )
+
+        when (this) {
+            is DigestUnitTest -> expectedMultiBlockHash
+            is XofUnitTest -> expectedPartialReadHash
+        }.let { set.add(it) }
+
+        assertEquals(expected, set.size, "Expected hash values must all be different")
+    }
 
     companion object {
         fun updateSmall(updatable: Updatable) {

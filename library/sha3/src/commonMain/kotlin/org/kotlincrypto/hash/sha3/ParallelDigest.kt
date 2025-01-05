@@ -107,7 +107,7 @@ public sealed class ParallelDigest: SHAKEDigest {
             val i = buf.size - bufPos
             final.copyInto(buf, bufPos, 0, i)
             compressProtected(buf, 0)
-            // + 1 is for not including index for the dsByte
+            // + 1 is to not include index where dsByte will be placed
             buf.fill(0, final.size - i + 1)
             final.copyInto(buf, 0, i, final.size)
             super.digestProtected(buf, needed - buf.size)

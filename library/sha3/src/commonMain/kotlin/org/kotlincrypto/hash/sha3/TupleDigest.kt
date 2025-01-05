@@ -60,7 +60,7 @@ public sealed class TupleDigest: SHAKEDigest {
             val i = buf.size - bufPos
             encLenBits.copyInto(buf, bufPos, 0, i)
             compressProtected(buf, 0)
-            // + 1 is for not including index for the dsByte
+            // + 1 is to not include index where dsByte will be placed
             buf.fill(0, encLenBits.size - i + 1)
             encLenBits.copyInto(buf, 0, i, encLenBits.size)
             super.digestProtected(buf, needed - buf.size)
