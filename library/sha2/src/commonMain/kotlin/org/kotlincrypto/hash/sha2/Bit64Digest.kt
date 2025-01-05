@@ -164,41 +164,37 @@ public sealed class Bit64Digest: Digest {
         count.increment()
     }
 
-    protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+    protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
         var bytesLo = count.lo
         var bytesHi = count.hi
 
         // Add in unprocessed bytes from buffer
         // that have yet to be counted as input.
         val lt0 = bytesLo < 0
-        bytesLo += offset
+        bytesLo += bufPos
         if (lt0 && bytesLo >= 0) bytesHi++
 
         // Convert to bits
         val bitsLo = bytesLo shl 3
         val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
 
-        buffer[offset] = 0x80.toByte()
+        buf[bufPos] = 0x80.toByte()
 
-        val size = offset + 1
-        if (size > 112) {
-            buffer.fill(0, size, 128)
-            compressProtected(buffer, 0)
-            buffer.fill(0, 0, size)
-        } else {
-            buffer.fill(0, size, 120)
+        if (bufPos + 1 > 112) {
+            compressProtected(buf, 0)
+            buf.fill(0, 0, 120)
         }
 
-        buffer[120] = (bitsHi ushr 24).toByte()
-        buffer[121] = (bitsHi ushr 16).toByte()
-        buffer[122] = (bitsHi ushr  8).toByte()
-        buffer[123] = (bitsHi        ).toByte()
-        buffer[124] = (bitsLo ushr 24).toByte()
-        buffer[125] = (bitsLo ushr 16).toByte()
-        buffer[126] = (bitsLo ushr  8).toByte()
-        buffer[127] = (bitsLo        ).toByte()
+        buf[120] = (bitsHi ushr 24).toByte()
+        buf[121] = (bitsHi ushr 16).toByte()
+        buf[122] = (bitsHi ushr  8).toByte()
+        buf[123] = (bitsHi        ).toByte()
+        buf[124] = (bitsLo ushr 24).toByte()
+        buf[125] = (bitsLo ushr 16).toByte()
+        buf[126] = (bitsLo ushr  8).toByte()
+        buf[127] = (bitsLo        ).toByte()
 
-        compressProtected(buffer, 0)
+        compressProtected(buf, 0)
 
         val state = state
         return out(

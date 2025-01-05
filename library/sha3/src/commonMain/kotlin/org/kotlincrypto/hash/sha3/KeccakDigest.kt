@@ -95,12 +95,11 @@ public sealed class KeccakDigest: Digest {
         A.keccakP()
     }
 
-    protected override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
-        buffer[offset] = dsByte
-        buffer.fill(0, offset + 1)
-        val iLast = buffer.lastIndex
-        buffer[iLast] = buffer[iLast] xor 0x80.toByte()
-        compressProtected(buffer, 0)
+    protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        buf[bufPos] = dsByte
+        val iLast = buf.lastIndex
+        buf[iLast] = buf[iLast] xor 0x80.toByte()
+        compressProtected(buf, 0)
 
         val len = digestLength()
         return extract(state, null, ByteArray(len), 0, len)
@@ -157,7 +156,7 @@ public sealed class KeccakDigest: Digest {
 
                 var i = 0
                 while (outPos < outLimit && (laneOffset + i) < Long.SIZE_BYTES) {
-                    val bits = (laneOffset + i++) * Long.SIZE_BYTES
+                    val bits = Byte.SIZE_BITS * (laneOffset + i++)
                     out[outPos++] = (lane ushr bits).toByte()
                 }
 

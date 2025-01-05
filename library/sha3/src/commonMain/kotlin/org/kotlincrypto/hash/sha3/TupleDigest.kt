@@ -48,23 +48,25 @@ public sealed class TupleDigest: SHAKEDigest {
 
     public abstract override fun copy(): TupleDigest
 
-    protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+    protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
         val encLenBits = digestLength().rightEncodeBits()
-        val size = offset + encLenBits.size
+        val needed = bufPos + encLenBits.size
 
-        // encL will be at MOST 9 bytes, which is less than the
-        // blockSize. This means that no more than 1 compression
-        // would be needed to create som space in the buffer to
-        // fit everything. So, we good.
-        return if (size > buffer.lastIndex) {
-            val i = buffer.size - offset
-            encLenBits.copyInto(buffer, offset, 0, i)
-            compressProtected(buffer, 0)
-            encLenBits.copyInto(buffer, 0, i, encLenBits.size)
-            super.digestProtected(buffer, size - buffer.size)
+        // encLenBits will be at MOST 9 bytes, which is less than
+        // the blockSize. This means that no more than 1 compression
+        // would be needed to create some space in the buffer to fit
+        // everything.
+        return if (needed > buf.lastIndex) {
+            val i = buf.size - bufPos
+            encLenBits.copyInto(buf, bufPos, 0, i)
+            compressProtected(buf, 0)
+            // + 1 is for not including index for the dsByte
+            buf.fill(0, encLenBits.size - i + 1)
+            encLenBits.copyInto(buf, 0, i, encLenBits.size)
+            super.digestProtected(buf, needed - buf.size)
         } else {
-            encLenBits.copyInto(buffer, offset)
-            super.digestProtected(buffer, size)
+            encLenBits.copyInto(buf, bufPos)
+            super.digestProtected(buf, needed)
         }
     }
 

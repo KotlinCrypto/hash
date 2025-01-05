@@ -80,7 +80,7 @@ public sealed class ParallelDigest: SHAKEDigest {
 
     public abstract override fun copy(): ParallelDigest
 
-    protected final override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+    protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
         val buffered = if (innerBufOffs != 0) {
             // If there's any buffered bytes left,
             // process them to append them to the
@@ -96,22 +96,24 @@ public sealed class ParallelDigest: SHAKEDigest {
         @OptIn(InternalKotlinCryptoApi::class)
         val final = buffered + Xof.Utils.rightEncode(lo = countLo, hi = countHi) + digestLength().rightEncodeBits()
 
-        val size = offset + final.size
+        val needed = bufPos + final.size
 
         // final will be at MOST (64 + 9 + 9) = 82 bytes, which is
         // less than outer digest's blockSize (136 or 168 depending
         // on bitStrength). This means that no more than 1 compression
         // would be needed to create some space in the buffer to fit
-        // everything. So, we good.
-        return if (size > buffer.lastIndex) {
-            val i = buffer.size - offset
-            final.copyInto(buffer, offset, 0, i)
-            compressProtected(buffer, 0)
-            final.copyInto(buffer, 0, i, final.size)
-            super.digestProtected(buffer, size - buffer.size)
+        // everything.
+        return if (needed > buf.lastIndex) {
+            val i = buf.size - bufPos
+            final.copyInto(buf, bufPos, 0, i)
+            compressProtected(buf, 0)
+            // + 1 is for not including index for the dsByte
+            buf.fill(0, final.size - i + 1)
+            final.copyInto(buf, 0, i, final.size)
+            super.digestProtected(buf, needed - buf.size)
         } else {
-            final.copyInto(buffer, offset)
-            super.digestProtected(buffer, size)
+            final.copyInto(buf, bufPos)
+            super.digestProtected(buf, needed)
         }
     }
 

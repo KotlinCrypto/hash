@@ -45,7 +45,7 @@ class TestBCDigest<T: org.bouncycastle.crypto.ExtendedDigest>: Digest {
 
     override fun compressProtected(input: ByteArray, offset: Int) { throw IllegalStateException("update is overridden...") }
 
-    override fun digestProtected(buffer: ByteArray, offset: Int): ByteArray {
+    override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
         val out = ByteArray(digestLength())
         delegate.doFinal(out, 0)
         return out
