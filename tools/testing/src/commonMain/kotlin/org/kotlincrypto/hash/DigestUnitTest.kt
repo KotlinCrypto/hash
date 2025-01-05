@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("FunctionName")
+
 package org.kotlincrypto.hash
 
 import io.matthewnelson.encoding.core.Encoder.Companion.encodeToString
@@ -32,11 +34,11 @@ abstract class DigestUnitTest: HashUnitTest() {
     }
 
     open fun givenDigest_whenMultiBlockDigest_thenDigestDigestReturnsExpected() {
-        val sizes = (digest.blockSize() - 10)..(digest.blockSize() + 10)
+        val inputLengths = (digest.blockSize() - 30)..(digest.blockSize() + 30)
 
         val outputs = mutableListOf<ByteArray>()
-        for (size in sizes) {
-            val digested = digest.digest(TestData.BYTES_MEDIUM.copyOf(size))
+        for (len in inputLengths) {
+            val digested = digest.digest(TestData.BYTES_MEDIUM.copyOf(len))
             outputs.add(digested)
         }
 

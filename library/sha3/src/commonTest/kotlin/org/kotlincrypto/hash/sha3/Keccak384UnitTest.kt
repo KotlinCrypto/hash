@@ -22,7 +22,7 @@ import org.kotlincrypto.hash.DigestUnitTest
 open class Keccak384UnitTest: DigestUnitTest() {
     override val digest: Digest = Keccak384()
     final override val expectedResetHash: String = "2c23146a63a29acf99e73b88f8c24eaa7dc60aa771780ccc006afbfa8fe2479b2dd2b21362337441ac12b515911957ff"
-    final override val expectedMultiBlockHash: String = "8964fd73276b79b9c50c27b75f32d5171b30a47d5fb7c4508b4866175df80df05a17c4ce07c4f51ac284280570346527"
+    final override val expectedMultiBlockHash: String = "c202c54422b2e7c0054828da52eb9aad26ba789b1105e455cbe1cb5a03372649ff2550dbf1669d738d293c35467f0fa5"
     final override val expectedUpdateSmallHash: String = "b72bbe6eb5e663354b10cbdb744141319b2fc7eda91da087291459a26f17e513b7ba689840afb92c4246b05a14d1b78f"
     final override val expectedUpdateMediumHash: String = "288cc2eae0bc30cddf7be0b09cc658146d4b00d40009dc5ac11feafed46a4d00c9a5bf3ed77e29d28a0eb2cb8e202679"
 
