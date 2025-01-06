@@ -165,19 +165,7 @@ public sealed class Bit64Digest: Digest {
     }
 
     protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
-        var bytesLo = count.lo
-        var bytesHi = count.hi
-
-        // Add in unprocessed bytes from buffer
-        // that have yet to be counted as input.
-        val lt0 = bytesLo < 0
-        bytesLo += bufPos
-        if (lt0 && bytesLo >= 0) bytesHi++
-
-        // Convert to bits
-        val bitsLo = bytesLo shl 3
-        val bitsHi = (bytesHi shl 3) or (bytesLo ushr 29)
-
+        val (bitsLo, bitsHi) = count.final(additional = bufPos).asBits()
         buf[bufPos] = 0x80.toByte()
 
         if (bufPos + 1 > 112) {
