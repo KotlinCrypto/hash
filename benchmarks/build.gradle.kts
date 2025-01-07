@@ -61,7 +61,6 @@ kmpConfiguration {
             sourceSetMain {
                 dependencies {
                     implementation(libs.benchmark.runtime)
-                    implementation(libs.kotlincrypto.endians.endians) // TODO: REMOVE
                     implementation(libs.kotlincrypto.bitops.bits)
                     implementation(libs.kotlincrypto.bitops.endian)
                     implementation(libs.kotlincrypto.sponges.keccak)
