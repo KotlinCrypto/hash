@@ -12,8 +12,9 @@ gradle-kmp-configuration = "0.3.2"
 gradle-kotlin = "1.9.24"
 gradle-publish-maven = "0.29.0"
 
+kotlincrypto-bitops = "0.1.0-SNAPSHOT"
 kotlincrypto-core = "1.0.0-alpha01-SNAPSHOT"
-kotlincrypto-endians = "0.3.1"
+kotlincrypto-endians = "0.3.1" # TODO: REMOVE
 kotlincrypto-sponges = "0.3.4"
 
 [libraries]
@@ -21,9 +22,11 @@ gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration
 gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradle-kotlin" }
 gradle-publish-maven = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-publish-maven" }
 
+kotlincrypto-bitops-bits = { module = "org.kotlincrypto.bitops:bits", version.ref = "kotlincrypto-bitops" }
+kotlincrypto-bitops-endian = { module = "org.kotlincrypto.bitops:endian", version.ref = "kotlincrypto-bitops" }
 kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "kotlincrypto-core" }
 kotlincrypto-core-xof = { module = "org.kotlincrypto.core:xof", version.ref = "kotlincrypto-core" }
-kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "kotlincrypto-endians"}
+kotlincrypto-endians-endians = { module = "org.kotlincrypto.endians:endians", version.ref = "kotlincrypto-endians"} # TODO: REMOVE
 kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", version.ref = "kotlincrypto-sponges" }
 
 # tests & tools

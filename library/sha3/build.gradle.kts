@@ -25,7 +25,8 @@ kmpConfiguration {
                 dependencies {
                     api(libs.kotlincrypto.core.digest)
                     api(libs.kotlincrypto.core.xof)
-                    implementation(libs.kotlincrypto.endians.endians)
+                    implementation(libs.kotlincrypto.endians.endians) // TODO: REMOVE
+                    implementation(libs.kotlincrypto.bitops.endian)
                     implementation(libs.kotlincrypto.sponges.keccak)
                 }
             }
