@@ -17,9 +17,9 @@
 
 package org.kotlincrypto.hash.sha3
 
+import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.xof.*
-import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
 
@@ -34,7 +34,7 @@ import kotlin.jvm.JvmStatic
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
  * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/endians
+ *  - https://github.com/KotlinCrypto/bitops
  *  - https://github.com/KotlinCrypto/sponges
  *
  * @see [ParallelDigest]
@@ -169,21 +169,8 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
                 val A: F1600 = delegateCopy.digest().let { b ->
                     val new = F1600()
 
-                    var j = 0
                     for (i in new.indices) {
-                        new.addData(
-                            index = i,
-                            data = LittleEndian.bytesToLong(
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                                b[j++],
-                            )
-                        )
+                        new.addData(index = i, data = b.leLongAt(i * Long.SIZE_BYTES))
                     }
 
                     b.fill(0)

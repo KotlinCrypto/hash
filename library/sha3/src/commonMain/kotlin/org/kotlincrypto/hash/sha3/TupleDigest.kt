@@ -25,7 +25,7 @@ package org.kotlincrypto.hash.sha3
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#5%20TupleHash
  *
  * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/endians
+ *  - https://github.com/KotlinCrypto/bitops
  *  - https://github.com/KotlinCrypto/sponges
  * */
 public sealed class TupleDigest: SHAKEDigest {
