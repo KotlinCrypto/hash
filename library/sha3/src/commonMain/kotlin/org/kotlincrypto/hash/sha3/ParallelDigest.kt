@@ -28,7 +28,7 @@ import org.kotlincrypto.core.xof.Xof
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#6%20ParallelHash
  *
  * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/endians
+ *  - https://github.com/KotlinCrypto/bitops
  *  - https://github.com/KotlinCrypto/sponges
  * */
 public sealed class ParallelDigest: SHAKEDigest {

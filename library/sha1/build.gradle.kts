@@ -24,6 +24,7 @@ kmpConfiguration {
             sourceSetMain {
                 dependencies {
                     api(libs.kotlincrypto.core.digest)
+                    implementation(libs.kotlincrypto.bitops.bits)
                 }
             }
             sourceSetTest {

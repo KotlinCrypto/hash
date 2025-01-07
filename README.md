@@ -4,7 +4,7 @@
 
 [![badge-kotlin]][url-kotlin]
 [![badge-core]][url-core]
-[![badge-endians]][url-endians]
+[![badge-bitops]][url-bitops]
 [![badge-sponges]][url-sponges]
 
 ![badge-platform-android]
@@ -144,8 +144,8 @@ dependencies {
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-1.9.24-blue.svg?logo=kotlin
+[badge-bitops]: https://img.shields.io/badge/kotlincrypto.bitops-0.1.0-blue.svg
 [badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.5.5-blue.svg
-[badge-endians]: https://img.shields.io/badge/kotlincrypto.endians-0.3.1-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.3.4-blue.svg
 
 <!-- TAG_PLATFORMS -->
@@ -169,9 +169,9 @@ dependencies {
 [url-latest-release]: https://github.com/KotlinCrypto/hash/releases/latest
 [url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt
 [url-kotlin]: https://kotlinlang.org
+[url-bitops]: https://github.com/KotlinCrypto/bitops
 [url-core]: https://github.com/KotlinCrypto/core
 [url-core-usage]: https://github.com/KotlinCrypto/core#usage
-[url-endians]: https://github.com/KotlinCrypto/endians
 [url-sponges]: https://github.com/KotlinCrypto/sponges
 [url-macs]: https://github.com/KotlinCrypto/MACs
 [url-version-catalog]: https://github.com/KotlinCrypto/version-catalog

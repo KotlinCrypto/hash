@@ -17,8 +17,8 @@
 
 package org.kotlincrypto.hash.sha3
 
+import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.core.digest.Digest
-import org.kotlincrypto.endians.LittleEndian
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
@@ -38,7 +38,7 @@ import kotlin.jvm.JvmField
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
  * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/endians
+ *  - https://github.com/KotlinCrypto/bitops
  *  - https://github.com/KotlinCrypto/sponges
  *
  * @see [SHAKEDigest]
@@ -77,19 +77,8 @@ public sealed class KeccakDigest: Digest {
         // 21 out of 25 state values will ever be modified with
         // input for each permutation.
         while (inputPos < inputLimit) {
-            A.addData(
-                index = APos++,
-                data = LittleEndian.bytesToLong(
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                    input[inputPos++],
-                )
-            )
+            A.addData(index = APos++, data = input.leLongAt(offset = inputPos))
+            inputPos += Long.SIZE_BYTES
         }
 
         A.keccakP()

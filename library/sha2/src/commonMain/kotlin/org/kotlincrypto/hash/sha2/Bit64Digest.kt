@@ -15,7 +15,7 @@
  **/
 package org.kotlincrypto.hash.sha2
 
-import org.kotlincrypto.core.Counter
+import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.core.digest.Digest
 import kotlin.jvm.JvmField
 
