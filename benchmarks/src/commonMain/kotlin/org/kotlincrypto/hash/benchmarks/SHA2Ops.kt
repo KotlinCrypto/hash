@@ -22,7 +22,6 @@ import org.kotlincrypto.hash.md.MD5
 import org.kotlincrypto.hash.sha1.SHA1
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
-import org.kotlincrypto.hash.sha2.SHA512_224
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
