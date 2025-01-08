@@ -20,80 +20,16 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA384: Bit64Digest {
 
-    public constructor(): super(
-        d = 384,
-        t = null,
-        h0 = -3766243637369397544L,
-        h1 =  7105036623409894663L,
-        h2 = -7973340178411365097L,
-        h3 =  1526699215303891257L,
-        h4 =  7436329637833083697L,
-        h5 = -8163818279084223215L,
-        h6 = -2662702644619276377L,
-        h7 =  5167115440072839076L,
-    )
+    public constructor(): super(d = 384, t = null, h = H)
 
     private constructor(other: SHA384): super(other)
 
     public override fun copy(): SHA384 = SHA384(other = this)
 
-    protected override fun out(
-        a: Long,
-        b: Long,
-        c: Long,
-        d: Long,
-        e: Long,
-        f: Long,
-        g: Long,
-        h: Long,
-    ): ByteArray = byteArrayOf(
-        (a shr 56).toByte(),
-        (a shr 48).toByte(),
-        (a shr 40).toByte(),
-        (a shr 32).toByte(),
-        (a shr 24).toByte(),
-        (a shr 16).toByte(),
-        (a shr  8).toByte(),
-        (a       ).toByte(),
-        (b shr 56).toByte(),
-        (b shr 48).toByte(),
-        (b shr 40).toByte(),
-        (b shr 32).toByte(),
-        (b shr 24).toByte(),
-        (b shr 16).toByte(),
-        (b shr  8).toByte(),
-        (b       ).toByte(),
-        (c shr 56).toByte(),
-        (c shr 48).toByte(),
-        (c shr 40).toByte(),
-        (c shr 32).toByte(),
-        (c shr 24).toByte(),
-        (c shr 16).toByte(),
-        (c shr  8).toByte(),
-        (c       ).toByte(),
-        (d shr 56).toByte(),
-        (d shr 48).toByte(),
-        (d shr 40).toByte(),
-        (d shr 32).toByte(),
-        (d shr 24).toByte(),
-        (d shr 16).toByte(),
-        (d shr  8).toByte(),
-        (d       ).toByte(),
-        (e shr 56).toByte(),
-        (e shr 48).toByte(),
-        (e shr 40).toByte(),
-        (e shr 32).toByte(),
-        (e shr 24).toByte(),
-        (e shr 16).toByte(),
-        (e shr  8).toByte(),
-        (e       ).toByte(),
-        (f shr 56).toByte(),
-        (f shr 48).toByte(),
-        (f shr 40).toByte(),
-        (f shr 32).toByte(),
-        (f shr 24).toByte(),
-        (f shr 16).toByte(),
-        (f shr  8).toByte(),
-        (f       ).toByte()
-    )
+    private companion object {
+        private val H = longArrayOf(
+            -3766243637369397544L,  7105036623409894663L, -7973340178411365097L, 1526699215303891257L,
+             7436329637833083697L, -8163818279084223215L, -2662702644619276377L, 5167115440072839076L,
+        )
+    }
 }

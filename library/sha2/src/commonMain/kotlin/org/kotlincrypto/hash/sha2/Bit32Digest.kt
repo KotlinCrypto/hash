@@ -17,6 +17,8 @@
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
+import org.kotlincrypto.bitops.endian.Endian.Big.beIntAt
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -26,57 +28,25 @@ import org.kotlincrypto.core.digest.Digest
  * */
 public sealed class Bit32Digest: Digest {
 
-    private val h0: Int
-    private val h1: Int
-    private val h2: Int
-    private val h3: Int
-    private val h4: Int
-    private val h5: Int
-    private val h6: Int
-    private val h7: Int
-
+    private val h: IntArray
     private val x: IntArray
     private val state: IntArray
     private val count: Counter.Bit32
 
     @Throws(IllegalArgumentException::class)
-    protected constructor(
-        d: Int,
-        h0: Int,
-        h1: Int,
-        h2: Int,
-        h3: Int,
-        h4: Int,
-        h5: Int,
-        h6: Int,
-        h7: Int,
-    ): super(
+    protected constructor(d: Int, h: IntArray): super(
         algorithm = "SHA-$d",
         blockSize = 64,
         digestLength = d / 8,
     ) {
-        this.h0 = h0
-        this.h1 = h1
-        this.h2 = h2
-        this.h3 = h3
-        this.h4 = h4
-        this.h5 = h5
-        this.h6 = h6
-        this.h7 = h7
+        this.h = h
         this.x = IntArray(64)
-        this.state = intArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
+        this.state = h.copyOf()
         this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
     protected constructor(other: Bit32Digest): super(other) {
-        this.h0 = other.h0
-        this.h1 = other.h1
-        this.h2 = other.h2
-        this.h3 = other.h3
-        this.h4 = other.h4
-        this.h5 = other.h5
-        this.h6 = other.h6
-        this.h7 = other.h7
+        this.h = other.h.copyOf()
         this.x = other.x.copyOf()
         this.state = other.state.copyOf()
         this.count = other.count.copy()
@@ -87,13 +57,8 @@ public sealed class Bit32Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        var j = offset
         for (i in 0..<16) {
-            x[i] =
-                ((input[j++].toInt() and 0xff) shl 24) or
-                ((input[j++].toInt() and 0xff) shl 16) or
-                ((input[j++].toInt() and 0xff) shl  8) or
-                ((input[j++].toInt() and 0xff)       )
+            x[i] = input.beIntAt(offset = (i * Int.SIZE_BYTES) + offset)
         }
 
         for (i in 16..<64) {
@@ -171,52 +136,27 @@ public sealed class Bit32Digest: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf[56] = (bitsHi ushr 24).toByte()
-        buf[57] = (bitsHi ushr 16).toByte()
-        buf[58] = (bitsHi ushr  8).toByte()
-        buf[59] = (bitsHi        ).toByte()
-        buf[60] = (bitsLo ushr 24).toByte()
-        buf[61] = (bitsLo ushr 16).toByte()
-        buf[62] = (bitsLo ushr  8).toByte()
-        buf[63] = (bitsLo        ).toByte()
-
+        buf.bePackUnsafe(bitsHi, offset = 56)
+        buf.bePackUnsafe(bitsLo, offset = 60)
         compressProtected(buf, 0)
 
         val state = state
-        return out(
-           a = state[0],
-           b = state[1],
-           c = state[2],
-           d = state[3],
-           e = state[4],
-           f = state[5],
-           g = state[6],
-           h = state[7],
-        )
+        val outLimit = digestLength()
+        val out = ByteArray(outLimit)
+
+        var outPos = 0
+        var statePos = 0
+        while (outPos < outLimit) {
+            out.bePackUnsafe(state[statePos++], outPos)
+            outPos += Int.SIZE_BYTES
+        }
+
+        return out
     }
 
-    protected abstract fun out(
-        a: Int,
-        b: Int,
-        c: Int,
-        d: Int,
-        e: Int,
-        f: Int,
-        g: Int,
-        h: Int,
-    ): ByteArray
-
     protected final override fun resetProtected() {
-        val state = state
         x.fill(0)
-        state[0] = h0
-        state[1] = h1
-        state[2] = h2
-        state[3] = h3
-        state[4] = h4
-        state[5] = h5
-        state[6] = h6
-        state[7] = h7
+        h.copyInto(state)
         count.reset()
     }
 

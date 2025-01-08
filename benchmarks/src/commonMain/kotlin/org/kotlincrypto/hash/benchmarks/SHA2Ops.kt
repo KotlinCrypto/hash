@@ -22,7 +22,6 @@ import org.kotlincrypto.hash.md.MD5
 import org.kotlincrypto.hash.sha1.SHA1
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
-import org.kotlincrypto.hash.sha2.SHA512_224
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
@@ -51,10 +50,3 @@ open class SHA256Benchmark: DigestBenchmarkBase(SHA256())
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
 open class SHA512Benchmark: DigestBenchmarkBase(SHA512())
-
-@State(Scope.Benchmark)
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
-@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
-@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHA512_224Benchmark: DigestBenchmarkBase(SHA512_224())

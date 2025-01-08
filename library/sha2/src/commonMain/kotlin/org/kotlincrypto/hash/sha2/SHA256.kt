@@ -20,63 +20,16 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA256: Bit32Digest {
 
-    public constructor(): super(
-        d = 256,
-        h0 =  1779033703,
-        h1 = -1150833019,
-        h2 =  1013904242,
-        h3 = -1521486534,
-        h4 =  1359893119,
-        h5 = -1694144372,
-        h6 =   528734635,
-        h7 =  1541459225,
-    )
+    public constructor(): super(d = 256, h = H)
 
     private constructor(other: SHA256): super(other)
 
     public override fun copy(): SHA256 = SHA256(other = this)
 
-    protected override fun out(
-        a: Int,
-        b: Int,
-        c: Int,
-        d: Int,
-        e: Int,
-        f: Int,
-        g: Int,
-        h: Int,
-    ): ByteArray = byteArrayOf(
-        (a shr 24).toByte(),
-        (a shr 16).toByte(),
-        (a shr  8).toByte(),
-        (a       ).toByte(),
-        (b shr 24).toByte(),
-        (b shr 16).toByte(),
-        (b shr  8).toByte(),
-        (b       ).toByte(),
-        (c shr 24).toByte(),
-        (c shr 16).toByte(),
-        (c shr  8).toByte(),
-        (c       ).toByte(),
-        (d shr 24).toByte(),
-        (d shr 16).toByte(),
-        (d shr  8).toByte(),
-        (d       ).toByte(),
-        (e shr 24).toByte(),
-        (e shr 16).toByte(),
-        (e shr  8).toByte(),
-        (e       ).toByte(),
-        (f shr 24).toByte(),
-        (f shr 16).toByte(),
-        (f shr  8).toByte(),
-        (f       ).toByte(),
-        (g shr 24).toByte(),
-        (g shr 16).toByte(),
-        (g shr  8).toByte(),
-        (g       ).toByte(),
-        (h shr 24).toByte(),
-        (h shr 16).toByte(),
-        (h shr  8).toByte(),
-        (h       ).toByte(),
-    )
+    private companion object {
+        private val H = intArrayOf(
+            1779033703, -1150833019, 1013904242, -1521486534,
+            1359893119, -1694144372,  528734635,  1541459225,
+        )
+    }
 }
