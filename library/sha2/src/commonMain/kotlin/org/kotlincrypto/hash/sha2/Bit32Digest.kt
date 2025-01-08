@@ -17,6 +17,8 @@
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
+import org.kotlincrypto.bitops.endian.Endian.Big.beIntAt
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -87,13 +89,8 @@ public sealed class Bit32Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        var j = offset
         for (i in 0..<16) {
-            x[i] =
-                ((input[j++].toInt() and 0xff) shl 24) or
-                ((input[j++].toInt() and 0xff) shl 16) or
-                ((input[j++].toInt() and 0xff) shl  8) or
-                ((input[j++].toInt() and 0xff)       )
+            x[i] = input.beIntAt(offset = (i * Int.SIZE_BYTES) + offset)
         }
 
         for (i in 16..<64) {
@@ -171,40 +168,23 @@ public sealed class Bit32Digest: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf[56] = (bitsHi ushr 24).toByte()
-        buf[57] = (bitsHi ushr 16).toByte()
-        buf[58] = (bitsHi ushr  8).toByte()
-        buf[59] = (bitsHi        ).toByte()
-        buf[60] = (bitsLo ushr 24).toByte()
-        buf[61] = (bitsLo ushr 16).toByte()
-        buf[62] = (bitsLo ushr  8).toByte()
-        buf[63] = (bitsLo        ).toByte()
-
+        buf.bePackUnsafe(bitsHi, offset = 56)
+        buf.bePackUnsafe(bitsLo, offset = 60)
         compressProtected(buf, 0)
 
         val state = state
-        return out(
-           a = state[0],
-           b = state[1],
-           c = state[2],
-           d = state[3],
-           e = state[4],
-           f = state[5],
-           g = state[6],
-           h = state[7],
-        )
-    }
+        val outLimit = digestLength()
+        val out = ByteArray(outLimit)
 
-    protected abstract fun out(
-        a: Int,
-        b: Int,
-        c: Int,
-        d: Int,
-        e: Int,
-        f: Int,
-        g: Int,
-        h: Int,
-    ): ByteArray
+        var outPos = 0
+        var statePos = 0
+        while (outPos < outLimit) {
+            out.bePackUnsafe(state[statePos++], outPos)
+            outPos += Int.SIZE_BYTES
+        }
+
+        return out
+    }
 
     protected final override fun resetProtected() {
         val state = state

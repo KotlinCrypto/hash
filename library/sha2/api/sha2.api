@@ -4,25 +4,15 @@ public abstract class org/kotlincrypto/hash/sha2/Bit32Digest : org/kotlincrypto/
 	protected final fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha2/Bit32Digest;
 	protected final fun digestProtected ([BI)[B
-	protected abstract fun out (IIIIIIII)[B
 	protected final fun resetProtected ()V
 }
 
 public abstract class org/kotlincrypto/hash/sha2/Bit64Digest : org/kotlincrypto/core/digest/Digest {
-	protected field h0 J
-	protected field h1 J
-	protected field h2 J
-	protected field h3 J
-	protected field h4 J
-	protected field h5 J
-	protected field h6 J
-	protected field h7 J
 	public synthetic fun <init> (ILjava/lang/Integer;JJJJJJJJLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/sha2/Bit64Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha2/Bit64Digest;
 	protected final fun digestProtected ([BI)[B
-	protected abstract fun out (JJJJJJJJ)[B
 	protected final fun resetProtected ()V
 }
 

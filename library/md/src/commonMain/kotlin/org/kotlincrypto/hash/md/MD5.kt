@@ -16,6 +16,8 @@
 package org.kotlincrypto.hash.md
 
 import org.kotlincrypto.bitops.bits.Counter
+import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -57,16 +59,11 @@ public class MD5: Digest {
         var c = state[2]
         var d = state[3]
 
-        var j = offset
         for (i in 0..<16) {
-            x[i] =
-                ((input[j++].toInt() and 0xff)       ) or
-                ((input[j++].toInt() and 0xff) shl  8) or
-                ((input[j++].toInt() and 0xff) shl 16) or
-                ((input[j++].toInt() and 0xff) shl 24)
-
-            val g = i + 0
-            val f = ((b and c) or (b.inv() and d)) + a + k[i] + x[g]
+            val xi = input.leIntAt(offset = (i * Int.SIZE_BYTES) + offset)
+            x[i] = xi
+            // val g = i + 0
+            val f = ((b and c) or (b.inv() and d)) + a + k[i] + xi // x[g]
             a = d
             d = c
             c = b
@@ -117,41 +114,18 @@ public class MD5: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf[56] = (bitsLo        ).toByte()
-        buf[57] = (bitsLo ushr  8).toByte()
-        buf[58] = (bitsLo ushr 16).toByte()
-        buf[59] = (bitsLo ushr 24).toByte()
-        buf[60] = (bitsHi        ).toByte()
-        buf[61] = (bitsHi ushr  8).toByte()
-        buf[62] = (bitsHi ushr 16).toByte()
-        buf[63] = (bitsHi ushr 24).toByte()
-
+        buf.lePackUnsafe(bitsLo, offset = 56)
+        buf.lePackUnsafe(bitsHi, offset = 60)
         compressProtected(buf, 0)
 
         val state = state
-        val a = state[0]
-        val b = state[1]
-        val c = state[2]
-        val d = state[3]
+        val out = ByteArray(digestLength())
 
-        return byteArrayOf(
-            (a       ).toByte(),
-            (a shr  8).toByte(),
-            (a shr 16).toByte(),
-            (a shr 24).toByte(),
-            (b       ).toByte(),
-            (b shr  8).toByte(),
-            (b shr 16).toByte(),
-            (b shr 24).toByte(),
-            (c       ).toByte(),
-            (c shr  8).toByte(),
-            (c shr 16).toByte(),
-            (c shr 24).toByte(),
-            (d       ).toByte(),
-            (d shr  8).toByte(),
-            (d shr 16).toByte(),
-            (d shr 24).toByte(),
-        )
+        for (i in 0..<4) {
+            out.lePackUnsafe(state[i], offset = i * Int.SIZE_BYTES)
+        }
+
+        return out
     }
 
     protected override fun resetProtected() {

@@ -15,24 +15,11 @@
  **/
 package org.kotlincrypto.hash.sha2
 
-/**
- * SHA-256 implementation
- * */
-public class SHA256: Bit32Digest {
+import org.bouncycastle.crypto.digests.SHA512tDigest
+import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.hash.TestBCDigest
 
-    public constructor(): super(
-        d = 256,
-        h0 =  1779033703,
-        h1 = -1150833019,
-        h2 =  1013904242,
-        h3 = -1521486534,
-        h4 =  1359893119,
-        h5 = -1694144372,
-        h6 =   528734635,
-        h7 =  1541459225,
-    )
-
-    private constructor(other: SHA256): super(other)
-
-    public override fun copy(): SHA256 = SHA256(other = this)
+@Suppress("ClassName")
+class SHA512_232JvmUnitTest: SHA512_232UnitTest() {
+    override val digest: Digest = TestBCDigest(SHA512tDigest(224 + 8), copy = { SHA512tDigest(this) })
 }

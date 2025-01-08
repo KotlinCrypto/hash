@@ -35,44 +35,4 @@ public class SHA224: Bit32Digest {
     private constructor(other: SHA224): super(other)
 
     public override fun copy(): SHA224 = SHA224(other = this)
-
-    protected override fun out(
-        a: Int,
-        b: Int,
-        c: Int,
-        d: Int,
-        e: Int,
-        f: Int,
-        g: Int,
-        h: Int,
-    ): ByteArray = byteArrayOf(
-        (a shr 24).toByte(),
-        (a shr 16).toByte(),
-        (a shr  8).toByte(),
-        (a       ).toByte(),
-        (b shr 24).toByte(),
-        (b shr 16).toByte(),
-        (b shr  8).toByte(),
-        (b       ).toByte(),
-        (c shr 24).toByte(),
-        (c shr 16).toByte(),
-        (c shr  8).toByte(),
-        (c       ).toByte(),
-        (d shr 24).toByte(),
-        (d shr 16).toByte(),
-        (d shr  8).toByte(),
-        (d       ).toByte(),
-        (e shr 24).toByte(),
-        (e shr 16).toByte(),
-        (e shr  8).toByte(),
-        (e       ).toByte(),
-        (f shr 24).toByte(),
-        (f shr 16).toByte(),
-        (f shr  8).toByte(),
-        (f       ).toByte(),
-        (g shr 24).toByte(),
-        (g shr 16).toByte(),
-        (g shr  8).toByte(),
-        (g       ).toByte(),
-    )
 }

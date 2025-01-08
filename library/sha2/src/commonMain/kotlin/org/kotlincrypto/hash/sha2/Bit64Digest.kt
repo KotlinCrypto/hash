@@ -16,8 +16,9 @@
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
+import org.kotlincrypto.bitops.endian.Endian.Big.beLongAt
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
 import org.kotlincrypto.core.digest.Digest
-import kotlin.jvm.JvmField
 
 /**
  * Core abstraction for:
@@ -27,15 +28,15 @@ import kotlin.jvm.JvmField
  * */
 public sealed class Bit64Digest: Digest {
 
-    // Initial values used to reset the Digest
-    @JvmField protected var h0: Long
-    @JvmField protected var h1: Long
-    @JvmField protected var h2: Long
-    @JvmField protected var h3: Long
-    @JvmField protected var h4: Long
-    @JvmField protected var h5: Long
-    @JvmField protected var h6: Long
-    @JvmField protected var h7: Long
+    private var isInitialized: Boolean
+    private var h0: Long
+    private var h1: Long
+    private var h2: Long
+    private var h3: Long
+    private var h4: Long
+    private var h5: Long
+    private var h6: Long
+    private var h7: Long
 
     private val x: LongArray
     private val state: LongArray
@@ -60,9 +61,9 @@ public sealed class Bit64Digest: Digest {
     ) {
         if (t != null) {
             require(d == 512) { "t can only be expressed for SHA-512" }
-            require(t < 512) { "t must be less than 512" }
-            require(t != 384) { "t cannot be 384" }
-            require(t % 8 == 0) { "t must be a factor of 8" }
+            require(t < 512) { "t[$t] must be less than 512" }
+            require(t != 384) { "t[$t] cannot be 384" }
+            require(t % 8 == 0) { "t[$t] must be a factor of 8" }
         }
 
         this.h0 = h0
@@ -76,6 +77,32 @@ public sealed class Bit64Digest: Digest {
         this.x = LongArray(80)
         this.state = longArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
         this.count = Counter.Bit32(incrementBy = blockSize())
+
+        if (t == null) {
+            this.isInitialized = true
+            return
+        } else {
+            this.isInitialized = false
+        }
+
+        // Initialize t variant
+        update(T_IV)
+
+        var bitLength: Int = t
+
+        if (t > 100) {
+            update((bitLength / 100 + 0x30).toByte())
+            bitLength %= 100
+        }
+
+        if (t > 10) {
+            update((bitLength / 10 + 0x30).toByte())
+            bitLength %= 10
+        }
+
+        update((bitLength + 0x30).toByte())
+
+        digest()
     }
 
     protected constructor(other: Bit64Digest): super(other) {
@@ -90,6 +117,7 @@ public sealed class Bit64Digest: Digest {
         this.x = other.x.copyOf()
         this.state = other.state.copyOf()
         this.count = other.count.copy()
+        this.isInitialized = other.isInitialized
     }
 
     public abstract override fun copy(): Bit64Digest
@@ -97,17 +125,8 @@ public sealed class Bit64Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        var j = offset
         for (i in 0..<16) {
-            x[i] =
-                ((input[j++].toLong() and 0xff) shl 56) or
-                ((input[j++].toLong() and 0xff) shl 48) or
-                ((input[j++].toLong() and 0xff) shl 40) or
-                ((input[j++].toLong() and 0xff) shl 32) or
-                ((input[j++].toLong() and 0xff) shl 24) or
-                ((input[j++].toLong() and 0xff) shl 16) or
-                ((input[j++].toLong() and 0xff) shl  8) or
-                ((input[j++].toLong() and 0xff)       )
+            x[i] = input.beLongAt(offset = (i * Long.SIZE_BYTES) + offset)
         }
 
         for (i in 16..<80) {
@@ -173,40 +192,43 @@ public sealed class Bit64Digest: Digest {
             buf.fill(0, 0, 120)
         }
 
-        buf[120] = (bitsHi ushr 24).toByte()
-        buf[121] = (bitsHi ushr 16).toByte()
-        buf[122] = (bitsHi ushr  8).toByte()
-        buf[123] = (bitsHi        ).toByte()
-        buf[124] = (bitsLo ushr 24).toByte()
-        buf[125] = (bitsLo ushr 16).toByte()
-        buf[126] = (bitsLo ushr  8).toByte()
-        buf[127] = (bitsLo        ).toByte()
-
+        buf.bePackUnsafe(bitsHi, offset = 120)
+        buf.bePackUnsafe(bitsLo, offset = 124)
         compressProtected(buf, 0)
 
         val state = state
-        return out(
-            a = state[0],
-            b = state[1],
-            c = state[2],
-            d = state[3],
-            e = state[4],
-            f = state[5],
-            g = state[6],
-            h = state[7],
-        )
-    }
+        if (!isInitialized) {
+            h0 = state[0]
+            h1 = state[1]
+            h2 = state[2]
+            h3 = state[3]
+            h4 = state[4]
+            h5 = state[5]
+            h6 = state[6]
+            h7 = state[7]
+            isInitialized = true
+            return T_IV
+        }
 
-    protected abstract fun out(
-        a: Long,
-        b: Long,
-        c: Long,
-        d: Long,
-        e: Long,
-        f: Long,
-        g: Long,
-        h: Long,
-    ): ByteArray
+        val out = ByteArray(digestLength())
+        val rem = out.size % Long.SIZE_BYTES
+        val outLimit = out.size - rem
+
+        var outPos = 0
+        var statePos = 0
+
+        // Chunk
+        while (outPos < outLimit) {
+            out.bePackUnsafe(state[statePos++], outPos)
+            outPos += Long.SIZE_BYTES
+        }
+
+        if (rem > 0) {
+            out.bePackUnsafe(state[statePos], outPos, startIndex = 0, endIndex = rem)
+        }
+
+        return out
+    }
 
     protected final override fun resetProtected() {
         val state = state
@@ -245,5 +267,7 @@ public sealed class Bit64Digest: Digest {
              2944078676154940804L,  3659926193048069267L,  4368137639120453308L,  4836135668995329356L,
              5532061633213252278L,  6448918945643986474L,  6902733635092675308L,  7801388544844847127L,
         )
+
+        private val T_IV = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
     }
 }

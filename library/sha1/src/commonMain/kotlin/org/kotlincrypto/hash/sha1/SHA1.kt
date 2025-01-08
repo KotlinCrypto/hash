@@ -16,6 +16,8 @@
 package org.kotlincrypto.hash.sha1
 
 import org.kotlincrypto.bitops.bits.Counter
+import org.kotlincrypto.bitops.endian.Endian.Big.beIntAt
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -48,13 +50,8 @@ public class SHA1: Digest {
     protected override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        var j = offset
         for (i in 0..<16) {
-            x[i] =
-                ((input[j++].toInt() and 0xff) shl 24) or
-                ((input[j++].toInt() and 0xff) shl 16) or
-                ((input[j++].toInt() and 0xff) shl  8) or
-                ((input[j++].toInt() and 0xff)       )
+            x[i] = input.beIntAt(offset = (i * Int.SIZE_BYTES) + offset)
         }
 
         for (i in 16..<80) {
@@ -130,46 +127,18 @@ public class SHA1: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf[56] = (bitsHi ushr 24).toByte()
-        buf[57] = (bitsHi ushr 16).toByte()
-        buf[58] = (bitsHi ushr  8).toByte()
-        buf[59] = (bitsHi        ).toByte()
-        buf[60] = (bitsLo ushr 24).toByte()
-        buf[61] = (bitsLo ushr 16).toByte()
-        buf[62] = (bitsLo ushr  8).toByte()
-        buf[63] = (bitsLo        ).toByte()
-
+        buf.bePackUnsafe(bitsHi, offset = 56)
+        buf.bePackUnsafe(bitsLo, offset = 60)
         compressProtected(buf, 0)
 
         val state = state
-        val a = state[0]
-        val b = state[1]
-        val c = state[2]
-        val d = state[3]
-        val e = state[4]
+        val out = ByteArray(digestLength())
 
-        return byteArrayOf(
-            (a shr 24).toByte(),
-            (a shr 16).toByte(),
-            (a shr  8).toByte(),
-            (a       ).toByte(),
-            (b shr 24).toByte(),
-            (b shr 16).toByte(),
-            (b shr  8).toByte(),
-            (b       ).toByte(),
-            (c shr 24).toByte(),
-            (c shr 16).toByte(),
-            (c shr  8).toByte(),
-            (c       ).toByte(),
-            (d shr 24).toByte(),
-            (d shr 16).toByte(),
-            (d shr  8).toByte(),
-            (d       ).toByte(),
-            (e shr 24).toByte(),
-            (e shr 16).toByte(),
-            (e shr  8).toByte(),
-            (e       ).toByte()
-        )
+        for (i in 0..<5) {
+            out.bePackUnsafe(state[i], offset = i * Int.SIZE_BYTES)
+        }
+
+        return out
     }
 
     protected override fun resetProtected() {
