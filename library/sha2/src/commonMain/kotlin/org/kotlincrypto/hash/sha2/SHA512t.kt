@@ -39,7 +39,7 @@ public class SHA512t: Bit64Digest {
      * Primary constructor for creating a new [SHA512t] instance
      *
      * @throws [IllegalArgumentException] when:
-     *  - [t] is less 0
+     *  - [t] is less than 0
      *  - [t] is greater than or equal to 512
      *  - [t] is not a factor of 8
      *  - [t] is 384
