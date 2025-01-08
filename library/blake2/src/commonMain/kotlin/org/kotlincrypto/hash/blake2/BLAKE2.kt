@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 @file:JvmName("BLAKE2")
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
 
 package org.kotlincrypto.hash.blake2
 
@@ -24,46 +24,46 @@ import kotlin.jvm.JvmName
  * BLAKE2b-160
  * */
 @JvmName("b_160")
-public fun BLAKE2b_160(): BLAKE2b = BLAKE2b(bitStrength = 160)
+public inline fun BLAKE2b_160(): BLAKE2b = BLAKE2b(bitStrength = 160)
 
 /**
  * BLAKE2b-256
  * */
 @JvmName("b_256")
-public fun BLAKE2b_256(): BLAKE2b = BLAKE2b(bitStrength = 256)
+public inline fun BLAKE2b_256(): BLAKE2b = BLAKE2b(bitStrength = 256)
 
 /**
  * BLAKE2b-384
  * */
 @JvmName("b_384")
-public fun BLAKE2b_384(): BLAKE2b = BLAKE2b(bitStrength = 384)
+public inline fun BLAKE2b_384(): BLAKE2b = BLAKE2b(bitStrength = 384)
 
 /**
  * BLAKE2b-512
  * */
 @JvmName("b_512")
-public fun BLAKE2b_512(): BLAKE2b = BLAKE2b(bitStrength = 512)
+public inline fun BLAKE2b_512(): BLAKE2b = BLAKE2b(bitStrength = 512)
 
 /**
  * BLAKE2s-128
  * */
 @JvmName("s_128")
-public fun BLAKE2s_128(): BLAKE2s = BLAKE2s(bitStrength = 128)
+public inline fun BLAKE2s_128(): BLAKE2s = BLAKE2s(bitStrength = 128)
 
 /**
  * BLAKE2s-160
  * */
 @JvmName("s_160")
-public fun BLAKE2s_160(): BLAKE2s = BLAKE2s(bitStrength = 160)
+public inline fun BLAKE2s_160(): BLAKE2s = BLAKE2s(bitStrength = 160)
 
 /**
  * BLAKE2s-224
  * */
 @JvmName("s_224")
-public fun BLAKE2s_224(): BLAKE2s = BLAKE2s(bitStrength = 224)
+public inline fun BLAKE2s_224(): BLAKE2s = BLAKE2s(bitStrength = 224)
 
 /**
  * BLAKE2s-256
  * */
 @JvmName("s_256")
-public fun BLAKE2s_256(): BLAKE2s = BLAKE2s(bitStrength = 256)
+public inline fun BLAKE2s_256(): BLAKE2s = BLAKE2s(bitStrength = 256)
