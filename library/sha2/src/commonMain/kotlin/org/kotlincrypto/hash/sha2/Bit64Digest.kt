@@ -47,6 +47,7 @@ public sealed class Bit64Digest: Digest {
     ) {
         if (t != null) {
             require(d == 512) { "t can only be expressed for SHA-512" }
+            // t < 0 inherently checked by Digest init block for a negative length
             require(t < 512) { "t[$t] must be less than 512" }
             require(t != 384) { "t[$t] cannot be 384" }
             require(t % 8 == 0) { "t[$t] must be a factor of 8" }
