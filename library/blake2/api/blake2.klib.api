@@ -1,0 +1,37 @@
+// Klib ABI Dump
+// Targets: [androidNativeArm32, androidNativeArm64, androidNativeX64, androidNativeX86, iosArm64, iosSimulatorArm64, iosX64, js, linuxArm64, linuxX64, macosArm64, macosX64, mingwX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, wasmWasi, watchosArm32, watchosArm64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <org.kotlincrypto.hash:blake2>
+final class org.kotlincrypto.hash.blake2/BLAKE2b : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2b|null[0]
+    constructor <init>(kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2b.<init>|<init>(kotlin.Int){}[0]
+
+    final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b.copy|copy(){}[0]
+}
+
+final class org.kotlincrypto.hash.blake2/BLAKE2s : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2s|null[0]
+    constructor <init>(kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2s.<init>|<init>(kotlin.Int){}[0]
+
+    final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s.copy|copy(){}[0]
+}
+
+sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest|null[0]
+    constructor <init>(kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest) // org.kotlincrypto.hash.blake2/BLAKE2Digest.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest){}[0]
+
+    abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest // org.kotlincrypto.hash.blake2/BLAKE2Digest.copy|copy(){}[0]
+
+    final object Companion // org.kotlincrypto.hash.blake2/BLAKE2Digest.Companion|null[0]
+}
+
+final fun org.kotlincrypto.hash.blake2/BLAKE2b_160(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_160|BLAKE2b_160(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2b_256(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_256|BLAKE2b_256(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2b_384(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_384|BLAKE2b_384(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2b_512(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_512|BLAKE2b_512(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2s_128(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_128|BLAKE2s_128(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2s_160(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_160|BLAKE2s_160(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2s_224(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_224|BLAKE2s_224(){}[0]
+final fun org.kotlincrypto.hash.blake2/BLAKE2s_256(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_256|BLAKE2s_256(){}[0]
