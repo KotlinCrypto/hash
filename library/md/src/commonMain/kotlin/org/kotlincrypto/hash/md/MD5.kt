@@ -35,7 +35,7 @@ public class MD5: Digest {
         digestLength = 16,
     ) {
         this.x = IntArray(16)
-        this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878)
+        this.state = H.copyOf()
         this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
@@ -129,16 +129,14 @@ public class MD5: Digest {
     }
 
     protected override fun resetProtected() {
-        val state = state
         x.fill(0)
-        state[0] = 1732584193
-        state[1] = -271733879
-        state[2] = -1732584194
-        state[3] = 271733878
+        H.copyInto(state)
         count.reset()
     }
 
     private companion object {
+        private val H = intArrayOf(1732584193, -271733879, -1732584194, 271733878)
+
         private val S = intArrayOf(
             // round 1 left rotates
             7, 12, 17, 22,

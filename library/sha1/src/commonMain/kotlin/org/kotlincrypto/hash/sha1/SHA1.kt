@@ -35,7 +35,7 @@ public class SHA1: Digest {
         digestLength = 20,
     ) {
         this.x = IntArray(80)
-        this.state = intArrayOf(1732584193, -271733879, -1732584194, 271733878, -1009589776)
+        this.state = H.copyOf()
         this.count = Counter.Bit32(incrementBy = blockSize())
     }
 
@@ -142,13 +142,12 @@ public class SHA1: Digest {
     }
 
     protected override fun resetProtected() {
-        val state = state
         x.fill(0)
-        state[0] = 1732584193
-        state[1] = -271733879
-        state[2] = -1732584194
-        state[3] = 271733878
-        state[4] = -1009589776
+        H.copyInto(state)
         count.reset()
+    }
+
+    private companion object {
+        private val H = intArrayOf(1732584193, -271733879, -1732584194, 271733878, -1009589776)
     }
 }

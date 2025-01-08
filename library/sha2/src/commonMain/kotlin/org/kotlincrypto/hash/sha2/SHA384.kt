@@ -20,20 +20,16 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA384: Bit64Digest {
 
-    public constructor(): super(
-        d = 384,
-        t = null,
-        h0 = -3766243637369397544L,
-        h1 =  7105036623409894663L,
-        h2 = -7973340178411365097L,
-        h3 =  1526699215303891257L,
-        h4 =  7436329637833083697L,
-        h5 = -8163818279084223215L,
-        h6 = -2662702644619276377L,
-        h7 =  5167115440072839076L,
-    )
+    public constructor(): super(d = 384, t = null, h = H)
 
     private constructor(other: SHA384): super(other)
 
     public override fun copy(): SHA384 = SHA384(other = this)
+
+    private companion object {
+        private val H = longArrayOf(
+            -3766243637369397544L,  7105036623409894663L, -7973340178411365097L, 1526699215303891257L,
+             7436329637833083697L, -8163818279084223215L, -2662702644619276377L, 5167115440072839076L,
+        )
+    }
 }

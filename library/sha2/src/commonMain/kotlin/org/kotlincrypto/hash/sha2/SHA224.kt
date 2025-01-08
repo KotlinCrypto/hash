@@ -20,19 +20,16 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA224: Bit32Digest {
 
-    public constructor(): super(
-        d = 224,
-        h0 = -1056596264,
-        h1 =   914150663,
-        h2 =   812702999,
-        h3 =  -150054599,
-        h4 =    -4191439,
-        h5 =  1750603025,
-        h6 =  1694076839,
-        h7 = -1090891868,
-    )
+    public constructor(): super(d = 224, h = H)
 
     private constructor(other: SHA224): super(other)
 
     public override fun copy(): SHA224 = SHA224(other = this)
+
+    private companion object {
+        private val H = intArrayOf(
+            -1056596264,  914150663,  812702999,  -150054599,
+               -4191439, 1750603025, 1694076839, -1090891868,
+        )
+    }
 }

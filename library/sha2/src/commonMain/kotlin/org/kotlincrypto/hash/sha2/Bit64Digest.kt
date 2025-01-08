@@ -29,15 +29,8 @@ import org.kotlincrypto.core.digest.Digest
 public sealed class Bit64Digest: Digest {
 
     private var isInitialized: Boolean
-    private var h0: Long
-    private var h1: Long
-    private var h2: Long
-    private var h3: Long
-    private var h4: Long
-    private var h5: Long
-    private var h6: Long
-    private var h7: Long
 
+    private val h: LongArray
     private val x: LongArray
     private val state: LongArray
     private val count: Counter.Bit32
@@ -46,14 +39,7 @@ public sealed class Bit64Digest: Digest {
     protected constructor(
         d: Int,
         t: Int?,
-        h0: Long,
-        h1: Long,
-        h2: Long,
-        h3: Long,
-        h4: Long,
-        h5: Long,
-        h6: Long,
-        h7: Long,
+        h: LongArray,
     ): super(
         algorithm = "SHA-$d" + (t?.let { "/$it" } ?: ""),
         blockSize = 128,
@@ -66,16 +52,9 @@ public sealed class Bit64Digest: Digest {
             require(t % 8 == 0) { "t[$t] must be a factor of 8" }
         }
 
-        this.h0 = h0
-        this.h1 = h1
-        this.h2 = h2
-        this.h3 = h3
-        this.h4 = h4
-        this.h5 = h5
-        this.h6 = h6
-        this.h7 = h7
+        this.h = h
         this.x = LongArray(80)
-        this.state = longArrayOf(h0, h1, h2, h3, h4, h5, h6, h7)
+        this.state = h.copyOf()
         this.count = Counter.Bit32(incrementBy = blockSize())
 
         if (t == null) {
@@ -106,14 +85,7 @@ public sealed class Bit64Digest: Digest {
     }
 
     protected constructor(other: Bit64Digest): super(other) {
-        this.h0 = other.h0
-        this.h1 = other.h1
-        this.h2 = other.h2
-        this.h3 = other.h3
-        this.h4 = other.h4
-        this.h5 = other.h5
-        this.h6 = other.h6
-        this.h7 = other.h7
+        this.h = other.h.copyOf()
         this.x = other.x.copyOf()
         this.state = other.state.copyOf()
         this.count = other.count.copy()
@@ -198,14 +170,7 @@ public sealed class Bit64Digest: Digest {
 
         val state = state
         if (!isInitialized) {
-            h0 = state[0]
-            h1 = state[1]
-            h2 = state[2]
-            h3 = state[3]
-            h4 = state[4]
-            h5 = state[5]
-            h6 = state[6]
-            h7 = state[7]
+            state.copyInto(h)
             isInitialized = true
             return T_IV
         }
@@ -231,16 +196,8 @@ public sealed class Bit64Digest: Digest {
     }
 
     protected final override fun resetProtected() {
-        val state = state
+        h.copyInto(state)
         x.fill(0)
-        state[0] = h0
-        state[1] = h1
-        state[2] = h2
-        state[3] = h3
-        state[4] = h4
-        state[5] = h5
-        state[6] = h6
-        state[7] = h7
         count.reset()
     }
 

@@ -20,20 +20,16 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA512: Bit64Digest {
 
-    public constructor(): super(
-        d = 512,
-        t = null,
-        h0 =  7640891576956012808L,
-        h1 = -4942790177534073029L,
-        h2 =  4354685564936845355L,
-        h3 = -6534734903238641935L,
-        h4 =  5840696475078001361L,
-        h5 = -7276294671716946913L,
-        h6 =  2270897969802886507L,
-        h7 =  6620516959819538809L,
-    )
+    public constructor(): super(d = 512, t = null, h = H)
 
     private constructor(other: SHA512): super(other)
 
     public override fun copy(): SHA512 = SHA512(other = this)
+
+    private companion object {
+        private val H = longArrayOf(
+            7640891576956012808L, -4942790177534073029L, 4354685564936845355L, -6534734903238641935L,
+            5840696475078001361L, -7276294671716946913L, 2270897969802886507L,  6620516959819538809L,
+        )
+    }
 }
