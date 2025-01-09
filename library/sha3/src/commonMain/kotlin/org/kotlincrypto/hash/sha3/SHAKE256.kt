@@ -41,14 +41,13 @@ public class SHAKE256: SHAKEDigest {
      * @param [outputLength] The number of bytes returned when [digest] is invoked
      * @throws [IllegalArgumentException] If [outputLength] is negative
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(
         outputLength: Int,
     ): this(outputLength, xOfMode = false)
 
     private constructor(
         outputLength: Int,
-        xOfMode: Boolean
+        xOfMode: Boolean,
     ): super(
         N = null,
         S = null,

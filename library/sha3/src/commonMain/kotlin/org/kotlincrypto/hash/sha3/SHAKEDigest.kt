@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("LocalVariableName", "SpellCheckingInspection")
+@file:Suppress("LocalVariableName", "SpellCheckingInspection", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
 
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackUnsafe
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.sponges.keccak.F1600
@@ -102,16 +103,8 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             // newReader called digest(). Snipe the extraction
             // and pass it the current state in bytes.
             val newOut = ByteArray(A.size * Long.SIZE_BYTES)
-            var j = 0
-            A.forEach { lane ->
-                newOut[j++] = (lane        ).toByte()
-                newOut[j++] = (lane ushr  8).toByte()
-                newOut[j++] = (lane ushr 16).toByte()
-                newOut[j++] = (lane ushr 24).toByte()
-                newOut[j++] = (lane ushr 32).toByte()
-                newOut[j++] = (lane ushr 40).toByte()
-                newOut[j++] = (lane ushr 48).toByte()
-                newOut[j++] = (lane ushr 56).toByte()
+            for (i in A.indices) {
+                newOut.lePackUnsafe(A[i], offset = i * Long.SIZE_BYTES)
             }
             isReadingXof = true
             return newOut
@@ -131,7 +124,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
 //        isReadingXof = false
     }
 
-    private fun ByteArray.bytepad() {
+    private inline fun ByteArray.bytepad() {
         super.updateProtected(this, 0, size)
 
         val remainder = size % blockSize()
@@ -139,9 +132,8 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         // No padding is needed
         if (remainder == 0) return
 
-        repeat(blockSize() - remainder) {
-            super.updateProtected(0)
-        }
+        val pad = blockSize() - remainder
+        super.updateProtected(ByteArray(pad), 0, pad)
     }
 
     public sealed class SHAKEXofFactory<A: SHAKEDigest>: XofFactory<A>() {
@@ -239,12 +231,14 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             }
         }
 
-        internal fun Int.leftEncodeBits(): ByteArray {
+        @JvmStatic
+        internal inline fun Int.leftEncodeBits(): ByteArray {
             @OptIn(InternalKotlinCryptoApi::class)
             return Xof.Utils.leftEncode(lo = shl(3), hi = ushr(29))
         }
 
-        internal fun Int.rightEncodeBits(): ByteArray {
+        @JvmStatic
+        internal inline fun Int.rightEncodeBits(): ByteArray {
             @OptIn(InternalKotlinCryptoApi::class)
             return Xof.Utils.rightEncode(lo = shl(3), hi = ushr(29))
         }

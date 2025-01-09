@@ -56,7 +56,6 @@ public class CSHAKE256: SHAKEDigest {
      * @param [outputLength] The number of bytes returned when [digest] is invoked
      * @throws [IllegalArgumentException] If [outputLength] is negative
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(
         N: ByteArray?,
         S: ByteArray?,

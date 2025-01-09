@@ -44,7 +44,6 @@ public class SHA512t: Bit64Digest {
      *  - [t] is not a factor of 8
      *  - [t] is 384
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(t: Int): super(
         d = 512,
         t = t,

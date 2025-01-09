@@ -70,7 +70,7 @@ final class org.kotlincrypto.hash.sha3/ParallelHash128 : org.kotlincrypto.hash.s
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/ParallelHash128> { // org.kotlincrypto.hash.sha3/ParallelHash128.Companion|null[0]
         final fun xOf(kotlin/ByteArray?, kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash128> // org.kotlincrypto.hash.sha3/ParallelHash128.Companion.xOf|xOf(kotlin.ByteArray?;kotlin.Int){}[0]
-        final fun xOf(kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash128> // org.kotlincrypto.hash.sha3/ParallelHash128.Companion.xOf|xOf(kotlin.Int){}[0]
+        final inline fun xOf(kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash128> // org.kotlincrypto.hash.sha3/ParallelHash128.Companion.xOf|xOf(kotlin.Int){}[0]
     }
 }
 
@@ -82,7 +82,7 @@ final class org.kotlincrypto.hash.sha3/ParallelHash256 : org.kotlincrypto.hash.s
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/ParallelHash256> { // org.kotlincrypto.hash.sha3/ParallelHash256.Companion|null[0]
         final fun xOf(kotlin/ByteArray?, kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash256> // org.kotlincrypto.hash.sha3/ParallelHash256.Companion.xOf|xOf(kotlin.ByteArray?;kotlin.Int){}[0]
-        final fun xOf(kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash256> // org.kotlincrypto.hash.sha3/ParallelHash256.Companion.xOf|xOf(kotlin.Int){}[0]
+        final inline fun xOf(kotlin/Int): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/ParallelHash256> // org.kotlincrypto.hash.sha3/ParallelHash256.Companion.xOf|xOf(kotlin.Int){}[0]
     }
 }
 
@@ -139,7 +139,8 @@ final class org.kotlincrypto.hash.sha3/TupleHash128 : org.kotlincrypto.hash.sha3
     final fun copy(): org.kotlincrypto.hash.sha3/TupleHash128 // org.kotlincrypto.hash.sha3/TupleHash128.copy|copy(){}[0]
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/TupleHash128> { // org.kotlincrypto.hash.sha3/TupleHash128.Companion|null[0]
-        final fun xOf(kotlin/ByteArray? =...): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash128> // org.kotlincrypto.hash.sha3/TupleHash128.Companion.xOf|xOf(kotlin.ByteArray?){}[0]
+        final fun xOf(kotlin/ByteArray?): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash128> // org.kotlincrypto.hash.sha3/TupleHash128.Companion.xOf|xOf(kotlin.ByteArray?){}[0]
+        final inline fun xOf(): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash128> // org.kotlincrypto.hash.sha3/TupleHash128.Companion.xOf|xOf(){}[0]
     }
 }
 
@@ -150,7 +151,8 @@ final class org.kotlincrypto.hash.sha3/TupleHash256 : org.kotlincrypto.hash.sha3
     final fun copy(): org.kotlincrypto.hash.sha3/TupleHash256 // org.kotlincrypto.hash.sha3/TupleHash256.copy|copy(){}[0]
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/TupleHash256> { // org.kotlincrypto.hash.sha3/TupleHash256.Companion|null[0]
-        final fun xOf(kotlin/ByteArray? =...): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash256> // org.kotlincrypto.hash.sha3/TupleHash256.Companion.xOf|xOf(kotlin.ByteArray?){}[0]
+        final fun xOf(kotlin/ByteArray?): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash256> // org.kotlincrypto.hash.sha3/TupleHash256.Companion.xOf|xOf(kotlin.ByteArray?){}[0]
+        final inline fun xOf(): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/TupleHash256> // org.kotlincrypto.hash.sha3/TupleHash256.Companion.xOf|xOf(){}[0]
     }
 }
 
