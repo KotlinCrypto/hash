@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("LocalVariableName")
+@file:Suppress("LocalVariableName", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
 
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.xof.Xof
-import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /**
@@ -51,7 +50,6 @@ public class TupleHash256: TupleDigest {
      * @param [outputLength] The number of bytes returned when [digest] is invoked
      * @throws [IllegalArgumentException] If [outputLength] is negative
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(
         S: ByteArray?,
         outputLength: Int,
@@ -76,14 +74,19 @@ public class TupleHash256: TupleDigest {
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [TupleHash256]
+         * */
+        @JvmStatic
+        public inline fun xOf(): Xof<TupleHash256> = xOf(S = null)
+
+        /**
+         * Produces a new [Xof] (Extendable-Output Function) for [TupleHash256]
          *
          * @param [S] A user selected customization bit string to define a variant
          *   of the function. When no customization is desired, [S] is set to an
          *   empty or null value. (e.g. "My Customization".encodeToByteArray())
          * */
         @JvmStatic
-        @JvmOverloads
-        public fun xOf(S: ByteArray? = null): Xof<TupleHash256> {
+        public fun xOf(S: ByteArray?): Xof<TupleHash256> {
             return SHAKEXof(TupleHash256(S = S, outputLength = 0, xOfMode = true))
         }
     }

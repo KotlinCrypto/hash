@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("LocalVariableName")
+@file:Suppress("LocalVariableName", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
 
 package org.kotlincrypto.hash.sha3
 
@@ -40,7 +40,6 @@ public class ParallelHash128: ParallelDigest {
      * @param [B] The block size for the inner hash function in bytes
      * @throws [IllegalArgumentException] If [B] is less than 1
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(
         S: ByteArray?,
         B: Int,
@@ -58,7 +57,6 @@ public class ParallelHash128: ParallelDigest {
      * @throws [IllegalArgumentException] If [B] is less than 1, or [outputLength]
      *   is negative
      * */
-    @Throws(IllegalArgumentException::class)
     public constructor(
         S: ByteArray?,
         B: Int,
@@ -91,8 +89,7 @@ public class ParallelHash128: ParallelDigest {
          * @throws [IllegalArgumentException] If [B] is less than 1
          * */
         @JvmStatic
-        @Throws(IllegalArgumentException::class)
-        public fun xOf(B: Int): Xof<ParallelHash128> = xOf(S = null, B = B)
+        public inline fun xOf(B: Int): Xof<ParallelHash128> = xOf(S = null, B = B)
 
         /**
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash128]
@@ -104,7 +101,6 @@ public class ParallelHash128: ParallelDigest {
          * @throws [IllegalArgumentException] If [B] is less than 1
          * */
         @JvmStatic
-        @Throws(IllegalArgumentException::class)
         public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash128> {
             return SHAKEXof(ParallelHash128(S = S, B = B, outputLength = 0, xOfMode = true))
         }

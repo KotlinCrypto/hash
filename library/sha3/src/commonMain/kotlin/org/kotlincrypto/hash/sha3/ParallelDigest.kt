@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("LocalVariableName")
+@file:Suppress("LocalVariableName", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
 
 package org.kotlincrypto.hash.sha3
 
@@ -35,7 +35,7 @@ public sealed class ParallelDigest: SHAKEDigest {
 
     private val inner: SHAKEDigest
     private val innerBuf: ByteArray
-    private var innerBufOffs: Int
+    private var innerBufPos: Int
     private var countLo: Int
     private var countHi: Int
 
@@ -61,7 +61,7 @@ public sealed class ParallelDigest: SHAKEDigest {
             else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
         }
         this.innerBuf = ByteArray(B)
-        this.innerBufOffs = 0
+        this.innerBufPos = 0
         this.countLo = 0
         this.countHi = 0
 
@@ -73,7 +73,7 @@ public sealed class ParallelDigest: SHAKEDigest {
     protected constructor(other: ParallelDigest): super(other) {
         this.inner = other.inner.copy()
         this.innerBuf = other.innerBuf.copyOf()
-        this.innerBufOffs = other.innerBufOffs
+        this.innerBufPos = other.innerBufPos
         this.countLo = other.countLo
         this.countHi = other.countHi
     }
@@ -81,13 +81,13 @@ public sealed class ParallelDigest: SHAKEDigest {
     public abstract override fun copy(): ParallelDigest
 
     protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
-        val buffered = if (innerBufOffs != 0) {
+        val buffered = if (innerBufPos != 0) {
             // If there's any buffered bytes left,
             // process them to append them to the
             // buffer here as additional input.
-            inner.update(innerBuf, 0, innerBufOffs)
+            inner.update(innerBuf, 0, innerBufPos)
             increment()
-            innerBufOffs = 0
+            innerBufPos = 0
             inner.digest()
         } else {
             ByteArray(0)
@@ -118,51 +118,52 @@ public sealed class ParallelDigest: SHAKEDigest {
     }
 
     protected final override fun updateProtected(input: Byte) {
-        val offsBuf = innerBufOffs++
-        innerBuf[offsBuf] = input
-        if (offsBuf + 1 != innerBuf.size) return
-        processBlock(innerBuf, 0)
-        innerBufOffs = 0
+        val buf = innerBuf
+        val bufPos = innerBufPos++
+        buf[bufPos] = input
+        if (bufPos + 1 != buf.size) return
+        processBlock(buf, 0)
+        innerBufPos = 0
     }
 
     protected final override fun updateProtected(input: ByteArray, offset: Int, len: Int) {
         val buf = innerBuf
         val blockSize = buf.size
-        var offsInput = offset
-        val limit = offsInput + len
-        var offsBuf = innerBufOffs
+        var inputPos = offset
+        val inputLimit = inputPos + len
+        var bufPos = innerBufPos
 
-        if (offsBuf > 0) {
-            if (offsBuf + len < blockSize) {
-                input.copyInto(buf, offsBuf, offsInput, limit)
-                innerBufOffs = offsBuf + len
+        if (bufPos > 0) {
+            if (bufPos + len < blockSize) {
+                input.copyInto(buf, bufPos, inputPos, inputLimit)
+                innerBufPos = bufPos + len
                 return
             }
 
-            val needed = blockSize - offsBuf
-            input.copyInto(buf, offsBuf, offsInput, offsInput + needed)
+            val needed = blockSize - bufPos
+            input.copyInto(buf, bufPos, inputPos, inputPos + needed)
             processBlock(buf, 0)
-            offsBuf = 0
-            offsInput += needed
+            bufPos = 0
+            inputPos += needed
         }
 
-        while (offsInput < limit) {
-            val offsNext = offsInput + blockSize
+        while (inputPos < inputLimit) {
+            val nextPos = inputPos + blockSize
 
-            if (offsNext > limit) {
-                input.copyInto(buf, 0, offsInput, limit)
-                offsBuf = limit - offsInput
+            if (nextPos > inputLimit) {
+                input.copyInto(buf, 0, inputPos, inputLimit)
+                bufPos = inputLimit - inputPos
                 break
             }
 
-            processBlock(input, offsInput)
-            offsInput = offsNext
+            processBlock(input, inputPos)
+            inputPos = nextPos
         }
 
-        innerBufOffs = offsBuf
+        innerBufPos = bufPos
     }
 
-    private fun processBlock(input: ByteArray, offset: Int) {
+    private inline fun processBlock(input: ByteArray, offset: Int) {
         inner.update(input, offset, innerBuf.size)
         super.updateProtected(inner.digest(), 0, inner.digestLength())
         increment()
@@ -171,7 +172,7 @@ public sealed class ParallelDigest: SHAKEDigest {
     protected final override fun resetProtected() {
         super.resetProtected()
         this.innerBuf.fill(0)
-        this.innerBufOffs = 0
+        this.innerBufPos = 0
         this.countLo = 0
         this.countHi = 0
 
@@ -185,7 +186,7 @@ public sealed class ParallelDigest: SHAKEDigest {
         super.updateProtected(encBSize, 0, encBSize.size)
     }
 
-    private fun increment() { if (++countLo == 0) countHi++ }
+    private inline fun increment() { if (++countLo == 0) countHi++ }
 
     private companion object {
         private const val PARALLEL_HASH = "ParallelHash"
