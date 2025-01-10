@@ -16,8 +16,7 @@
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
-import org.kotlincrypto.bitops.endian.Endian.Big.beLongAt
-import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -98,9 +97,7 @@ public sealed class Bit64Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        for (i in 0..<16) {
-            x[i] = input.beLongAt(offset = (i * Long.SIZE_BYTES) + offset)
-        }
+        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + blockSize())
 
         for (i in 16..<80) {
             val x15 = x[i - 15]
@@ -165,8 +162,8 @@ public sealed class Bit64Digest: Digest {
             buf.fill(0, 0, 120)
         }
 
-        buf.bePackUnsafe(bitsHi, offset = 120)
-        buf.bePackUnsafe(bitsLo, offset = 124)
+        bitsHi.bePackIntoUnsafe(buf, destOffset = 120)
+        bitsLo.bePackIntoUnsafe(buf, destOffset = 124)
         compressProtected(buf, 0)
 
         val state = state
@@ -176,21 +173,24 @@ public sealed class Bit64Digest: Digest {
             return T_IV
         }
 
-        val out = ByteArray(digestLength())
-        val rem = out.size % Long.SIZE_BYTES
-        val outLimit = out.size - rem
+        val len = digestLength()
+        val rem = len % Long.SIZE_BYTES
+        val iStateEnd = len / Long.SIZE_BYTES
 
-        var outPos = 0
-        var statePos = 0
-
-        // Chunk
-        while (outPos < outLimit) {
-            out.bePackUnsafe(state[statePos++], outPos)
-            outPos += Long.SIZE_BYTES
-        }
+        val out = state.bePackIntoUnsafe(
+            dest = ByteArray(len),
+            destOffset = 0,
+            sourceIndexStart = 0,
+            sourceIndexEnd = iStateEnd,
+        )
 
         if (rem > 0) {
-            out.bePackUnsafe(state[statePos], outPos, startIndex = 0, endIndex = rem)
+            state[iStateEnd].bePackIntoUnsafe(
+                dest = out,
+                destOffset = len - rem,
+                sourceIndexStart = 0,
+                sourceIndexEnd = rem,
+            )
         }
 
         return out

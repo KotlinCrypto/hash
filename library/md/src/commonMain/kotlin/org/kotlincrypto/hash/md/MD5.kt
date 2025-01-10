@@ -17,7 +17,7 @@ package org.kotlincrypto.hash.md
 
 import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
-import org.kotlincrypto.bitops.endian.Endian.Little.lePackUnsafe
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -114,18 +114,14 @@ public class MD5: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf.lePackUnsafe(bitsLo, offset = 56)
-        buf.lePackUnsafe(bitsHi, offset = 60)
+        bitsLo.lePackIntoUnsafe(buf, destOffset = 56)
+        bitsHi.lePackIntoUnsafe(buf, destOffset = 60)
         compressProtected(buf, 0)
 
-        val state = state
-        val out = ByteArray(digestLength())
-
-        for (i in 0..<4) {
-            out.lePackUnsafe(state[i], offset = i * Int.SIZE_BYTES)
-        }
-
-        return out
+        return state.lePackIntoUnsafe(
+            dest = ByteArray(digestLength()),
+            destOffset = 0,
+        )
     }
 
     protected override fun resetProtected() {

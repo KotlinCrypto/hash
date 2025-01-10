@@ -16,8 +16,7 @@
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
-import org.kotlincrypto.bitops.endian.Endian.Big.beIntAt
-import org.kotlincrypto.bitops.endian.Endian.Big.bePackUnsafe
+import org.kotlincrypto.bitops.endian.Endian.Big.bePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
 
 /**
@@ -56,9 +55,7 @@ public sealed class Bit32Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        for (i in 0..<16) {
-            x[i] = input.beIntAt(offset = (i * Int.SIZE_BYTES) + offset)
-        }
+        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + blockSize())
 
         for (i in 16..<64) {
             val x15 = x[i - 15]
@@ -135,22 +132,16 @@ public sealed class Bit32Digest: Digest {
             buf.fill(0, 0, 56)
         }
 
-        buf.bePackUnsafe(bitsHi, offset = 56)
-        buf.bePackUnsafe(bitsLo, offset = 60)
+        bitsHi.bePackIntoUnsafe(buf, destOffset = 56)
+        bitsLo.bePackIntoUnsafe(buf, destOffset = 60)
         compressProtected(buf, 0)
 
-        val state = state
-        val outLimit = digestLength()
-        val out = ByteArray(outLimit)
-
-        var outPos = 0
-        var statePos = 0
-        while (outPos < outLimit) {
-            out.bePackUnsafe(state[statePos++], outPos)
-            outPos += Int.SIZE_BYTES
-        }
-
-        return out
+        val len = digestLength()
+        return state.bePackIntoUnsafe(
+            dest = ByteArray(len),
+            destOffset = 0,
+            sourceIndexEnd = len / Int.SIZE_BYTES,
+        )
     }
 
     protected final override fun resetProtected() {
