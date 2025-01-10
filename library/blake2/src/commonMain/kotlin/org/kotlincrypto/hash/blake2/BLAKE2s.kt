@@ -18,7 +18,7 @@
 package org.kotlincrypto.hash.blake2
 
 import org.kotlincrypto.bitops.bits.Counter
-import org.kotlincrypto.bitops.endian.Endian.Little.lePackUnsafe
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.hash.blake2.internal.*
 
 /**
@@ -118,21 +118,24 @@ public class BLAKE2s: BLAKE2Digest {
         val h = h
         F(h = h, m = m, tLo = tLo, tHi = tHi, f = -1)
 
-        val out = ByteArray(digestLength())
-        val rem = out.size % Int.SIZE_BYTES
-        val outLimit = out.size - rem
+        val len = digestLength()
+        val rem = len % Int.SIZE_BYTES
+        val iHEnd = len / Int.SIZE_BYTES
 
-        var hPos = 0
-        var outPos = 0
-
-        // Chunk
-        while (outPos < outLimit) {
-            out.lePackUnsafe(h[hPos++], outPos)
-            outPos += Int.SIZE_BYTES
-        }
+        val out = h.lePackIntoUnsafe(
+            dest = ByteArray(len),
+            destOffset = 0,
+            sourceIndexStart = 0,
+            sourceIndexEnd = iHEnd
+        )
 
         if (rem > 0) {
-            out.lePackUnsafe(h[hPos], outPos, startIndex = 0, endIndex = rem)
+            h[iHEnd].lePackIntoUnsafe(
+                dest = out,
+                destOffset = len - rem,
+                sourceIndexStart = 0,
+                sourceIndexEnd = rem,
+            )
         }
 
         return out

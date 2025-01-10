@@ -17,24 +17,31 @@
 
 package org.kotlincrypto.hash.blake2.internal
 
-import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
-import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import kotlin.jvm.JvmInline
 
-private const val SIZE_MESSAGE = 16
+private const val LEN_MESSAGE = 16
+private const val SIZE_MESSAGE_32B = LEN_MESSAGE * Int.SIZE_BYTES
+private const val SIZE_MESSAGE_64B = LEN_MESSAGE * Long.SIZE_BYTES
 
 @JvmInline
 internal value class Bit32Message internal constructor(internal val m: IntArray) {
-    internal constructor(b: ByteArray, offset: Int): this(IntArray(SIZE_MESSAGE) { i ->
-        b.leIntAt((i * Int.SIZE_BYTES) + offset)
-    })
+    internal constructor(b: ByteArray, offset: Int): this(b.lePackIntoUnsafe(
+        dest = IntArray(LEN_MESSAGE),
+        destOffset = 0,
+        sourceIndexStart = offset,
+        sourceIndexEnd = offset + SIZE_MESSAGE_32B,
+    ))
 }
 
 @JvmInline
 internal value class Bit64Message internal constructor(internal val m: LongArray) {
-    internal constructor(b: ByteArray, offset: Int): this(LongArray(SIZE_MESSAGE) { i ->
-        b.leLongAt((i * Long.SIZE_BYTES) + offset)
-    })
+    internal constructor(b: ByteArray, offset: Int): this(b.lePackIntoUnsafe(
+        dest = LongArray(LEN_MESSAGE),
+        destOffset = 0,
+        sourceIndexStart = offset,
+        sourceIndexEnd = offset + SIZE_MESSAGE_64B,
+    ))
 }
 
 internal inline operator fun Bit32Message.get(sigmaByte: Byte): Int = m[sigmaByte.toInt()]
@@ -47,11 +54,9 @@ internal inline fun Bit32Message.fill() { m.fill(0) }
 internal inline fun Bit64Message.fill() { m.fill(0) }
 
 internal inline fun Bit32Message.populate(b: ByteArray, offset: Int) {
-    val m = m
-    for (i in 0..<SIZE_MESSAGE) { m[i] = b.leIntAt((i * Int.SIZE_BYTES) + offset) }
+    b.lePackIntoUnsafe(m, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + SIZE_MESSAGE_32B)
 }
 
 internal inline fun Bit64Message.populate(b: ByteArray, offset: Int) {
-    val m = m
-    for (i in 0..<SIZE_MESSAGE) { m[i] = b.leLongAt((i * Long.SIZE_BYTES) + offset) }
+    b.lePackIntoUnsafe(m, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + SIZE_MESSAGE_64B)
 }

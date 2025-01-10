@@ -40,7 +40,7 @@ public sealed class BLAKE2Digest: Digest {
     ) {
         // s:  64 * 4 = 256
         // b: 128 * 4 = 512
-        val max = bitStrength * 4
+        val max = blockSize * 4
         require(bitStrength <= max) { "bitStrength must be less than or equal to $max" }
         require(bitStrength >= 8) { "bitStrength must be greater than or equal to 8" }
         require(bitStrength % 8 == 0) { "bitStrength must be a factor of 8" }
