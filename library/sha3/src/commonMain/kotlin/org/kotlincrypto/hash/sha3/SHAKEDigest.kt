@@ -18,7 +18,7 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
-import org.kotlincrypto.bitops.endian.Endian.Little.lePackUnsafe
+import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.xof.*
 import org.kotlincrypto.sponges.keccak.F1600
@@ -104,7 +104,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             // and pass it the current state in bytes.
             val newOut = ByteArray(A.size * Long.SIZE_BYTES)
             for (i in A.indices) {
-                newOut.lePackUnsafe(A[i], offset = i * Long.SIZE_BYTES)
+                A[i].lePackIntoUnsafe(newOut, destOffset = i * Long.SIZE_BYTES)
             }
             isReadingXof = true
             return newOut
