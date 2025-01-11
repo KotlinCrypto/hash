@@ -44,12 +44,15 @@ public sealed class Bit64Digest: Digest {
         blockSize = 128,
         digestLength = (t ?: d) / 8,
     ) {
-        if (t != null) {
+        this.isInitialized = if (t != null) {
             require(d == 512) { "t can only be expressed for SHA-512" }
             // t < 0 inherently checked by Digest init block for a negative length
             require(t < 512) { "t[$t] must be less than 512" }
             require(t != 384) { "t[$t] cannot be 384" }
             require(t % 8 == 0) { "t[$t] must be a factor of 8" }
+            false
+        } else {
+            true
         }
 
         this.h = h
@@ -57,12 +60,7 @@ public sealed class Bit64Digest: Digest {
         this.state = h.copyOf()
         this.count = Counter.Bit32(incrementBy = blockSize())
 
-        if (t == null) {
-            this.isInitialized = true
-            return
-        } else {
-            this.isInitialized = false
-        }
+        if (t == null) return
 
         // Initialize t variant
         update(T_IV)
@@ -85,7 +83,7 @@ public sealed class Bit64Digest: Digest {
     }
 
     protected constructor(other: Bit64Digest): super(other) {
-        this.h = other.h.copyOf()
+        this.h = other.h
         this.x = other.x.copyOf()
         this.state = other.state.copyOf()
         this.count = other.count.copy()
