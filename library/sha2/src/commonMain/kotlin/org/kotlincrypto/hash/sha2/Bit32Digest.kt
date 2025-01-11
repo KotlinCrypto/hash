@@ -44,7 +44,7 @@ public sealed class Bit32Digest: Digest {
     }
 
     protected constructor(other: Bit32Digest): super(other) {
-        this.h = other.h.copyOf()
+        this.h = other.h
         this.x = other.x.copyOf()
         this.state = other.state.copyOf()
         this.count = other.count.copy()
