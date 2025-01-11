@@ -26,22 +26,12 @@ private const val SIZE_MESSAGE_64B = LEN_MESSAGE * Long.SIZE_BYTES
 
 @JvmInline
 internal value class Bit32Message internal constructor(internal val m: IntArray) {
-    internal constructor(b: ByteArray, offset: Int): this(b.lePackIntoUnsafe(
-        dest = IntArray(LEN_MESSAGE),
-        destOffset = 0,
-        sourceIndexStart = offset,
-        sourceIndexEnd = offset + SIZE_MESSAGE_32B,
-    ))
+    internal constructor(b: ByteArray, offset: Int): this(IntArray(LEN_MESSAGE)) { populate(b, offset) }
 }
 
 @JvmInline
 internal value class Bit64Message internal constructor(internal val m: LongArray) {
-    internal constructor(b: ByteArray, offset: Int): this(b.lePackIntoUnsafe(
-        dest = LongArray(LEN_MESSAGE),
-        destOffset = 0,
-        sourceIndexStart = offset,
-        sourceIndexEnd = offset + SIZE_MESSAGE_64B,
-    ))
+    internal constructor(b: ByteArray, offset: Int): this(LongArray(LEN_MESSAGE)) { populate(b, offset) }
 }
 
 internal inline operator fun Bit32Message.get(sigmaByte: Byte): Int = m[sigmaByte.toInt()]
