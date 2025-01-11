@@ -31,12 +31,12 @@ public class MD5: Digest {
 
     public constructor(): super(
         algorithm = "MD5",
-        blockSize = 64,
+        blockSize = BLOCK_SIZE_64,
         digestLength = 16,
     ) {
         this.x = IntArray(16)
         this.state = H.copyOf()
-        this.count = Counter.Bit32(incrementBy = blockSize())
+        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE_64)
     }
 
     private constructor(other: MD5): super(other) {
@@ -131,6 +131,8 @@ public class MD5: Digest {
     }
 
     private companion object {
+        private const val BLOCK_SIZE_64 = 64
+
         private val H = intArrayOf(1732584193, -271733879, -1732584194, 271733878)
 
         private val S = intArrayOf(
