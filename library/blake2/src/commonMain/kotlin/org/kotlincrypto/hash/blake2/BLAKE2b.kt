@@ -52,7 +52,7 @@ public class BLAKE2b: BLAKE2Digest {
         this.h = IV.copyOf()
         this.h[0] = IV[0] xor (digestLength().toLong() or 16842752L)
         this.m = null
-        this.t = Counter.Bit64(incrementBy = blockSize().toLong())
+        this.t = Counter.Bit64(incrementBy = BLOCK_SIZE_B.toLong())
     }
 
     private constructor(other: BLAKE2b): super(other) {
@@ -126,7 +126,7 @@ public class BLAKE2b: BLAKE2Digest {
             dest = ByteArray(len),
             destOffset = 0,
             sourceIndexStart = 0,
-            sourceIndexEnd = iHEnd
+            sourceIndexEnd = iHEnd,
         )
 
         if (rem > 0) {

@@ -52,7 +52,7 @@ public class BLAKE2s: BLAKE2Digest {
         this.h = IV.copyOf()
         this.h[0] = IV[0] xor (digestLength() or 16842752)
         this.m = null
-        this.t = Counter.Bit32(incrementBy = blockSize())
+        this.t = Counter.Bit32(incrementBy = BLOCK_SIZE_S)
     }
 
     private constructor(other: BLAKE2s): super(other) {
@@ -126,7 +126,7 @@ public class BLAKE2s: BLAKE2Digest {
             dest = ByteArray(len),
             destOffset = 0,
             sourceIndexStart = 0,
-            sourceIndexEnd = iHEnd
+            sourceIndexEnd = iHEnd,
         )
 
         if (rem > 0) {
