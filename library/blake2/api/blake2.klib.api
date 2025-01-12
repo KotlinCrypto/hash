@@ -6,32 +6,61 @@
 // - Show declarations: true
 
 // Library unique name: <org.kotlincrypto.hash:blake2>
-final class org.kotlincrypto.hash.blake2/BLAKE2b : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2b|null[0]
+final class org.kotlincrypto.hash.blake2/BLAKE2b : org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64 { // org.kotlincrypto.hash.blake2/BLAKE2b|null[0]
     constructor <init>(kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2b.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2b.<init>|<init>(kotlin.Int;kotlin.ByteArray?){}[0]
 
     final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b.copy|copy(){}[0]
 }
 
-final class org.kotlincrypto.hash.blake2/BLAKE2s : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2s|null[0]
+final class org.kotlincrypto.hash.blake2/BLAKE2s : org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32 { // org.kotlincrypto.hash.blake2/BLAKE2s|null[0]
     constructor <init>(kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2s.<init>|<init>(kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2s.<init>|<init>(kotlin.Int;kotlin.ByteArray?){}[0]
 
     final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s.copy|copy(){}[0]
 }
 
 sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest|null[0]
-    constructor <init>(kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
-    constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest) // org.kotlincrypto.hash.blake2/BLAKE2Digest.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest){}[0]
+    final val depth // org.kotlincrypto.hash.blake2/BLAKE2Digest.depth|{}depth[0]
+        final fun <get-depth>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.depth.<get-depth>|<get-depth>(){}[0]
+    final val fanOut // org.kotlincrypto.hash.blake2/BLAKE2Digest.fanOut|{}fanOut[0]
+        final fun <get-fanOut>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.fanOut.<get-fanOut>|<get-fanOut>(){}[0]
+    final val innerLength // org.kotlincrypto.hash.blake2/BLAKE2Digest.innerLength|{}innerLength[0]
+        final fun <get-innerLength>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.innerLength.<get-innerLength>|<get-innerLength>(){}[0]
+    final val isLastNode // org.kotlincrypto.hash.blake2/BLAKE2Digest.isLastNode|{}isLastNode[0]
+        final fun <get-isLastNode>(): kotlin/Boolean // org.kotlincrypto.hash.blake2/BLAKE2Digest.isLastNode.<get-isLastNode>|<get-isLastNode>(){}[0]
+    final val keyLength // org.kotlincrypto.hash.blake2/BLAKE2Digest.keyLength|{}keyLength[0]
+        final fun <get-keyLength>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.keyLength.<get-keyLength>|<get-keyLength>(){}[0]
+    final val leafLength // org.kotlincrypto.hash.blake2/BLAKE2Digest.leafLength|{}leafLength[0]
+        final fun <get-leafLength>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.leafLength.<get-leafLength>|<get-leafLength>(){}[0]
+    final val nodeDepth // org.kotlincrypto.hash.blake2/BLAKE2Digest.nodeDepth|{}nodeDepth[0]
+        final fun <get-nodeDepth>(): kotlin/Int // org.kotlincrypto.hash.blake2/BLAKE2Digest.nodeDepth.<get-nodeDepth>|<get-nodeDepth>(){}[0]
+    final val nodeOffset // org.kotlincrypto.hash.blake2/BLAKE2Digest.nodeOffset|{}nodeOffset[0]
+        final fun <get-nodeOffset>(): kotlin/Long // org.kotlincrypto.hash.blake2/BLAKE2Digest.nodeOffset.<get-nodeOffset>|<get-nodeOffset>(){}[0]
+    final val personalization // org.kotlincrypto.hash.blake2/BLAKE2Digest.personalization|{}personalization[0]
+        final fun <get-personalization>(): kotlin/ByteArray? // org.kotlincrypto.hash.blake2/BLAKE2Digest.personalization.<get-personalization>|<get-personalization>(){}[0]
+    final val salt // org.kotlincrypto.hash.blake2/BLAKE2Digest.salt|{}salt[0]
+        final fun <get-salt>(): kotlin/ByteArray? // org.kotlincrypto.hash.blake2/BLAKE2Digest.salt.<get-salt>|<get-salt>(){}[0]
 
     abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest // org.kotlincrypto.hash.blake2/BLAKE2Digest.copy|copy(){}[0]
 
-    final object Companion // org.kotlincrypto.hash.blake2/BLAKE2Digest.Companion|null[0]
-}
+    sealed class Bit32 : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32|null[0]
+        constructor <init>(kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/ByteArray?, kotlin/ByteArray?, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.ByteArray?;kotlin.ByteArray?;kotlin.Int){}[0]
+        constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest.Bit32){}[0]
 
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2b_160(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_160|BLAKE2b_160(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2b_256(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_256|BLAKE2b_256(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2b_384(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_384|BLAKE2b_384(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2b_512(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b_512|BLAKE2b_512(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2s_128(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_128|BLAKE2s_128(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2s_160(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_160|BLAKE2s_160(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2s_224(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_224|BLAKE2s_224(){}[0]
-final inline fun org.kotlincrypto.hash.blake2/BLAKE2s_256(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s_256|BLAKE2s_256(){}[0]
+        abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32 // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.copy|copy(){}[0]
+        open fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
+        open fun digestProtected(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.digestProtected|digestProtected(kotlin.ByteArray;kotlin.Int){}[0]
+        open fun resetProtected() // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.resetProtected|resetProtected(){}[0]
+    }
+
+    sealed class Bit64 : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64|null[0]
+        constructor <init>(kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/ByteArray?, kotlin/ByteArray?, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.ByteArray?;kotlin.ByteArray?;kotlin.Int){}[0]
+        constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest.Bit64){}[0]
+
+        abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64 // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.copy|copy(){}[0]
+        open fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
+        open fun digestProtected(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.digestProtected|digestProtected(kotlin.ByteArray;kotlin.Int){}[0]
+        open fun resetProtected() // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.resetProtected|resetProtected(){}[0]
+    }
+}

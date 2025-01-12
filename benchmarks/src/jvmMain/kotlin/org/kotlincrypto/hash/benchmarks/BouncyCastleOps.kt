@@ -18,8 +18,8 @@
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
-import org.kotlincrypto.hash.blake2.BLAKE2b_512
-import org.kotlincrypto.hash.blake2.BLAKE2s_256
+import org.kotlincrypto.hash.blake2.BLAKE2b
+import org.kotlincrypto.hash.blake2.BLAKE2s
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
 import org.kotlincrypto.hash.sha3.SHA3_256
@@ -60,11 +60,11 @@ open class SHAKE128Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = 
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class BLAKE2b_512Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2b_512())
+open class BLAKE2b_512Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2b(512))
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class BLAKE2s_256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2s_256())
+open class BLAKE2s_256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2s(256))

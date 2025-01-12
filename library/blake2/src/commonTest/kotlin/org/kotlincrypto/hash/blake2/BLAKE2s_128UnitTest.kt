@@ -21,7 +21,7 @@ import kotlin.test.Test
 
 @Suppress("ClassName")
 open class BLAKE2s_128UnitTest: DigestUnitTest() {
-    override val digest: Digest = BLAKE2s_128()
+    override val digest: Digest = BLAKE2s(128)
     final override val expectedResetHash: String = "64550d6ffe2c0a01a14aba1eade0200c"
     final override val expectedMultiBlockHash: String = "4cbf8cd6c17a32c0ad94b565c56f6936"
     final override val expectedUpdateSmallHash: String = "ab38f13c29c9a4447792dff4001eed60"
