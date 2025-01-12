@@ -19,7 +19,6 @@ if (CHECK_PUBLICATION != null) {
     listOf(
         "blake2",
         "md",
-        "md5",
         "sha1",
         "sha2",
         "sha3",
