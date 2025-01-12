@@ -64,6 +64,7 @@ kmpConfiguration {
                     implementation(libs.kotlincrypto.bitops.bits)
                     implementation(libs.kotlincrypto.bitops.endian)
                     implementation(libs.kotlincrypto.sponges.keccak)
+                    implementation(project(":library:blake2"))
                     implementation(project(":library:md"))
                     implementation(project(":library:sha1"))
                     implementation(project(":library:sha2"))

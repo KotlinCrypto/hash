@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("ClassName")
+@file:Suppress("ClassName", "unused")
 
 package org.kotlincrypto.hash.benchmarks
 

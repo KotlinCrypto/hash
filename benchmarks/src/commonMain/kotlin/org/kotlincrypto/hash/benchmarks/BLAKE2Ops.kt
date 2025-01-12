@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Matthew Nelson
+ * Copyright (c) 2025 Matthew Nelson
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,19 +18,19 @@
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
-import org.kotlincrypto.hash.sha2.SHA256
-import org.kotlincrypto.hash.sha2.SHA512
+import org.kotlincrypto.hash.blake2.BLAKE2b
+import org.kotlincrypto.hash.blake2.BLAKE2s
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHA256Benchmark: DigestBenchmarkBase(SHA256())
+open class BLAKE2b_512Benchmark: DigestBenchmarkBase(BLAKE2b(512))
 
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
-open class SHA512Benchmark: DigestBenchmarkBase(SHA512())
+open class BLAKE2s_256Benchmark: DigestBenchmarkBase(BLAKE2s(256))

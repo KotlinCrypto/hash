@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("ClassName")
+@file:Suppress("ClassName", "unused")
 
 package org.kotlincrypto.hash.benchmarks
 
 import kotlinx.benchmark.*
+import org.kotlincrypto.hash.blake2.BLAKE2b
+import org.kotlincrypto.hash.blake2.BLAKE2s
 import org.kotlincrypto.hash.sha2.SHA256
 import org.kotlincrypto.hash.sha2.SHA512
 import org.kotlincrypto.hash.sha3.SHA3_256
@@ -52,3 +54,17 @@ open class SHA3_256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = 
 @Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
 @Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
 open class SHAKE128Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = SHAKE128())
+
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
+@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
+open class BLAKE2b_512Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2b(512))
+
+@State(Scope.Benchmark)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(BenchmarkTimeUnit.NANOSECONDS)
+@Warmup(iterations = ITERATIONS, time = TIME_WARMUP)
+@Measurement(iterations = ITERATIONS, time = TIME_MEASURE)
+open class BLAKE2s_256Benchmark_BouncyCastle: BouncyCastleBenchmarkBase(kcDigest = BLAKE2s(256))

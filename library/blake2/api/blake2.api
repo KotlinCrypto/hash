@@ -1,0 +1,52 @@
+public abstract class org/kotlincrypto/hash/blake2/BLAKE2Digest : org/kotlincrypto/core/digest/Digest {
+	protected final field depth I
+	protected final field fanOut I
+	protected final field innerLength I
+	protected final field isLastNode Z
+	protected final field keyLength I
+	protected final field leafLength I
+	protected final field nodeDepth I
+	protected final field nodeOffset J
+	protected final field personalization [B
+	protected final field salt [B
+	public synthetic fun <init> (Ljava/lang/String;IIZIIIIJII[B[BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/hash/blake2/BLAKE2Digest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public abstract fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest;
+}
+
+public abstract class org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32 : org/kotlincrypto/hash/blake2/BLAKE2Digest {
+	public synthetic fun <init> (Ljava/lang/String;IZIIIIJII[B[BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun compressProtected ([BI)V
+	public abstract fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32;
+	protected fun digestProtected ([BI)[B
+	protected fun resetProtected ()V
+}
+
+public abstract class org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64 : org/kotlincrypto/hash/blake2/BLAKE2Digest {
+	public synthetic fun <init> (Ljava/lang/String;IZIIIIJII[B[BILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	protected fun compressProtected ([BI)V
+	public abstract fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64;
+	protected fun digestProtected ([BI)[B
+	protected fun resetProtected ()V
+}
+
+public final class org/kotlincrypto/hash/blake2/BLAKE2b : org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64 {
+	public fun <init> (I)V
+	public fun <init> (I[B)V
+	public synthetic fun copy ()Ljava/lang/Object;
+	public synthetic fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64;
+	public synthetic fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest;
+	public fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2b;
+}
+
+public final class org/kotlincrypto/hash/blake2/BLAKE2s : org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32 {
+	public fun <init> (I)V
+	public fun <init> (I[B)V
+	public synthetic fun copy ()Ljava/lang/Object;
+	public synthetic fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32;
+	public synthetic fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest;
+	public fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2s;
+}
+
