@@ -20,7 +20,7 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA512: Bit64Digest {
 
-    public constructor(): super(d = 512, t = null, h = H)
+    public constructor(): super(bitStrength = 512, t = null, h = H)
 
     private constructor(other: SHA512): super(other)
 

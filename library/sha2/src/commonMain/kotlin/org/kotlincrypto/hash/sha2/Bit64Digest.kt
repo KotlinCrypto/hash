@@ -36,17 +36,17 @@ public sealed class Bit64Digest: Digest {
 
     @Throws(IllegalArgumentException::class)
     protected constructor(
-        d: Int,
+        bitStrength: Int,
         t: Int?,
         h: LongArray,
     ): super(
-        algorithm = "SHA-$d" + (t?.let { "/$it" } ?: ""),
+        algorithm = "SHA-$bitStrength" + (t?.let { "/$it" } ?: ""),
         blockSize = BLOCK_SIZE_128,
-        digestLength = (t ?: d) / 8,
+        digestLength = (t ?: bitStrength) / Byte.SIZE_BITS,
     ) {
         this.isInitialized = if (t != null) {
-            require(d == 512) { "t can only be expressed for SHA-512" }
-            // t < 0 inherently checked by Digest init block for a negative length
+            require(bitStrength == 512) { "t can only be expressed for SHA-512" }
+            // t < 0 inherently checked by Digest for a negative digestLength
             require(t < 512) { "t[$t] must be less than 512" }
             require(t != 384) { "t[$t] cannot be 384" }
             require(t % 8 == 0) { "t[$t] must be a factor of 8" }

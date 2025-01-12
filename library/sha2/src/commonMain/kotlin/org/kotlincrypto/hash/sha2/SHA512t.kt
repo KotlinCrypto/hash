@@ -13,25 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("FunctionName")
-
 package org.kotlincrypto.hash.sha2
 
 /**
- * SHA-512/224
- * */
-public fun SHA512_224(): SHA512t = SHA512t(t = 224)
-
-/**
- * SHA-512/256
- * */
-public fun SHA512_256(): SHA512t = SHA512t(t = 256)
-
-/**
  * SHA-512/t implementation
- *
- * @see [SHA512_224]
- * @see [SHA512_256]
  * */
 public class SHA512t: Bit64Digest {
 
@@ -45,7 +30,7 @@ public class SHA512t: Bit64Digest {
      *  - [t] is 384
      * */
     public constructor(t: Int): super(
-        d = 512,
+        bitStrength = 512,
         t = t,
         h = longArrayOf(
              7640891576956012808L xor -6510615555426900571L,

@@ -32,10 +32,10 @@ public sealed class Bit32Digest: Digest {
     private val count: Counter.Bit32
 
     @Throws(IllegalArgumentException::class)
-    protected constructor(d: Int, h: IntArray): super(
-        algorithm = "SHA-$d",
+    protected constructor(bitStrength: Int, h: IntArray): super(
+        algorithm = "SHA-$bitStrength",
         blockSize = BLOCK_SIZE_64,
-        digestLength = d / 8,
+        digestLength = bitStrength / Byte.SIZE_BITS,
     ) {
         this.h = h
         this.x = IntArray(BLOCK_SIZE_64)

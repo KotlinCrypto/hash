@@ -21,7 +21,7 @@ import kotlin.test.Test
 
 @Suppress("ClassName")
 open class SHA512_224UnitTest: DigestUnitTest() {
-    override val digest: Digest = SHA512_224()
+    override val digest: Digest = SHA512t(224)
     final override val expectedResetHash: String = "6ed0dd02806fa89e25de060c19d3ac86cabb87d6a0ddd05c333b84f4"
     final override val expectedMultiBlockHash: String = "def504f69a18c54a156bdd73afdf3797f55259f0ed7510af5c0a9a32"
     final override val expectedUpdateSmallHash: String = "d45c8e42b7a6a28123e5026f8d55acdd9b2e8738e4b65fe65c86f5c4"
