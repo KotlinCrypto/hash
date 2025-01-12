@@ -41,7 +41,7 @@ public sealed class Bit64Digest: Digest {
         h: LongArray,
     ): super(
         algorithm = "SHA-$bitStrength" + (t?.let { "/$it" } ?: ""),
-        blockSize = BLOCK_SIZE_128,
+        blockSize = BLOCK_SIZE,
         digestLength = (t ?: bitStrength) / Byte.SIZE_BITS,
     ) {
         this.isInitialized = if (t != null) {
@@ -58,7 +58,7 @@ public sealed class Bit64Digest: Digest {
         this.h = h
         this.x = LongArray(80)
         this.state = h.copyOf()
-        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE_128)
+        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE)
 
         if (t == null) return
 
@@ -95,7 +95,7 @@ public sealed class Bit64Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE_128)
+        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE)
 
         for (i in 16..<80) {
             val x15 = x[i - 15]
@@ -201,7 +201,7 @@ public sealed class Bit64Digest: Digest {
     }
 
     private companion object {
-        private const val BLOCK_SIZE_128 = 128
+        private const val BLOCK_SIZE = 128
 
         private val K = longArrayOf(
              4794697086780616226L,  8158064640168781261L, -5349999486874862801L, -1606136188198331460L,

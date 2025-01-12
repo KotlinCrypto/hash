@@ -34,13 +34,13 @@ public sealed class Bit32Digest: Digest {
     @Throws(IllegalArgumentException::class)
     protected constructor(bitStrength: Int, h: IntArray): super(
         algorithm = "SHA-$bitStrength",
-        blockSize = BLOCK_SIZE_64,
+        blockSize = BLOCK_SIZE,
         digestLength = bitStrength / Byte.SIZE_BITS,
     ) {
         this.h = h
-        this.x = IntArray(BLOCK_SIZE_64)
+        this.x = IntArray(BLOCK_SIZE)
         this.state = h.copyOf()
-        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE_64)
+        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE)
     }
 
     protected constructor(other: Bit32Digest): super(other) {
@@ -55,7 +55,7 @@ public sealed class Bit32Digest: Digest {
     protected final override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE_64)
+        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE)
 
         for (i in 16..<64) {
             val x15 = x[i - 15]
@@ -151,7 +151,7 @@ public sealed class Bit32Digest: Digest {
     }
 
     private companion object {
-        private const val BLOCK_SIZE_64 = 64
+        private const val BLOCK_SIZE = 64
 
         private val K = intArrayOf(
              1116352408,  1899447441, -1245643825,  -373957723,
