@@ -30,12 +30,12 @@ public class SHA1: Digest {
 
     public constructor(): super(
         algorithm = "SHA-1",
-        blockSize = BLOCK_SIZE_64,
+        blockSize = BLOCK_SIZE,
         digestLength = 20,
     ) {
         this.x = IntArray(80)
         this.state = H.copyOf()
-        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE_64)
+        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE)
     }
 
     private constructor(other: SHA1): super(other) {
@@ -49,7 +49,7 @@ public class SHA1: Digest {
     protected override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x
 
-        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE_64)
+        input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE)
 
         for (i in 16..<80) {
             x[i] = (x[i - 3] xor x[i - 8] xor x[i - 14] xor x[i - 16]).rotateLeft(1)
@@ -141,7 +141,7 @@ public class SHA1: Digest {
     }
 
     private companion object {
-        private const val BLOCK_SIZE_64 = 64
+        private const val BLOCK_SIZE = 64
 
         private val H = intArrayOf(1732584193, -271733879, -1732584194, 271733878, -1009589776)
     }

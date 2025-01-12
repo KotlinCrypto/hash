@@ -20,7 +20,7 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA256: Bit32Digest {
 
-    public constructor(): super(d = 256, h = H)
+    public constructor(): super(bitStrength = 256, h = H)
 
     private constructor(other: SHA256): super(other)
 

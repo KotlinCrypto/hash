@@ -20,7 +20,7 @@ package org.kotlincrypto.hash.sha2
  * */
 public class SHA384: Bit64Digest {
 
-    public constructor(): super(d = 384, t = null, h = H)
+    public constructor(): super(bitStrength = 384, t = null, h = H)
 
     private constructor(other: SHA384): super(other)
 

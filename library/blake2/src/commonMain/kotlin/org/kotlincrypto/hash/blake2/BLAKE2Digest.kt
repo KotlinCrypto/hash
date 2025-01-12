@@ -72,6 +72,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit32Message?
         private val t: Counter.Bit32
 
+        @Throws(IllegalArgumentException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -333,6 +334,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit64Message?
         private val t: Counter.Bit64
 
+        @Throws(IllegalArgumentException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -578,6 +580,7 @@ public sealed class BLAKE2Digest: Digest {
     }
 
     // BLAKE2Digest
+    @Throws(IllegalArgumentException::class)
     private constructor(
         variant: String,
         blockSize: Int,

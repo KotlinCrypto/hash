@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Matthew Nelson
+ * Copyright (c) 2025 Matthew Nelson
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,23 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:JvmName("SHA512tKt")
+@file:Suppress("FunctionName")
+
 package org.kotlincrypto.hash.sha2
 
-/**
- * SHA-224 implementation
- * */
-public class SHA224: Bit32Digest {
+import kotlin.jvm.JvmName
 
-    public constructor(): super(bitStrength = 224, h = H)
+/** @suppress */
+@Deprecated("Use SHA512t directly", ReplaceWith("SHA512t(224)", "org.kotlincrypto.hash.sha2.SHA512t"))
+public fun SHA512_224(): SHA512t = SHA512t(t = 224)
 
-    private constructor(other: SHA224): super(other)
-
-    public override fun copy(): SHA224 = SHA224(other = this)
-
-    private companion object {
-        private val H = intArrayOf(
-            -1056596264,  914150663,  812702999,  -150054599,
-               -4191439, 1750603025, 1694076839, -1090891868,
-        )
-    }
-}
+/** @suppress */
+@Deprecated("Use SHA512t directly", ReplaceWith("SHA512t(256)", "org.kotlincrypto.hash.sha2.SHA512t"))
+public fun SHA512_256(): SHA512t = SHA512t(t = 256)
