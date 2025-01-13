@@ -21,6 +21,7 @@ import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
+import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.blake2.internal.*
 import kotlin.jvm.JvmField
@@ -684,5 +685,21 @@ public sealed class BLAKE2Digest: Digest {
                 s1,
             )
         }
+    }
+
+    /** @suppress */
+    public sealed class KeyedHashFactory<D: BLAKE2Digest> {
+
+        /**
+         * See https://github.com/KotlinCrypto/MACs
+         * */
+        @InternalKotlinCryptoApi
+        @Throws(IllegalArgumentException::class)
+        public abstract fun keyedHashInstance(
+            bitStrength: Int,
+            keyLength: Int,
+            salt: ByteArray?,
+            personalization: ByteArray?,
+        ): D
     }
 }
