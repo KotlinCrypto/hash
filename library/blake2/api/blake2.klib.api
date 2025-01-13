@@ -11,6 +11,8 @@ final class org.kotlincrypto.hash.blake2/BLAKE2b : org.kotlincrypto.hash.blake2/
     constructor <init>(kotlin/Int, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2b.<init>|<init>(kotlin.Int;kotlin.ByteArray?){}[0]
 
     final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2b // org.kotlincrypto.hash.blake2/BLAKE2b.copy|copy(){}[0]
+
+    final object Companion : org.kotlincrypto.hash.blake2/BLAKE2Digest.KeyedHashFactory<org.kotlincrypto.hash.blake2/BLAKE2b> // org.kotlincrypto.hash.blake2/BLAKE2b.Companion|null[0]
 }
 
 final class org.kotlincrypto.hash.blake2/BLAKE2s : org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32 { // org.kotlincrypto.hash.blake2/BLAKE2s|null[0]
@@ -18,6 +20,8 @@ final class org.kotlincrypto.hash.blake2/BLAKE2s : org.kotlincrypto.hash.blake2/
     constructor <init>(kotlin/Int, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2s.<init>|<init>(kotlin.Int;kotlin.ByteArray?){}[0]
 
     final fun copy(): org.kotlincrypto.hash.blake2/BLAKE2s // org.kotlincrypto.hash.blake2/BLAKE2s.copy|copy(){}[0]
+
+    final object Companion : org.kotlincrypto.hash.blake2/BLAKE2Digest.KeyedHashFactory<org.kotlincrypto.hash.blake2/BLAKE2s> // org.kotlincrypto.hash.blake2/BLAKE2s.Companion|null[0]
 }
 
 sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest|null[0]
@@ -43,6 +47,10 @@ sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.d
         final fun <get-salt>(): kotlin/ByteArray? // org.kotlincrypto.hash.blake2/BLAKE2Digest.salt.<get-salt>|<get-salt>(){}[0]
 
     abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest // org.kotlincrypto.hash.blake2/BLAKE2Digest.copy|copy(){}[0]
+
+    sealed class <#A1: org.kotlincrypto.hash.blake2/BLAKE2Digest> KeyedHashFactory { // org.kotlincrypto.hash.blake2/BLAKE2Digest.KeyedHashFactory|null[0]
+        constructor <init>() // org.kotlincrypto.hash.blake2/BLAKE2Digest.KeyedHashFactory.<init>|<init>(){}[0]
+    }
 
     sealed class Bit32 : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32|null[0]
         constructor <init>(kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/ByteArray?, kotlin/ByteArray?, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.ByteArray?;kotlin.ByteArray?;kotlin.Int){}[0]

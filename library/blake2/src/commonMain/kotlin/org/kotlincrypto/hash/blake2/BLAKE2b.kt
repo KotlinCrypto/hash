@@ -15,6 +15,9 @@
  **/
 package org.kotlincrypto.hash.blake2
 
+import org.kotlincrypto.core.InternalKotlinCryptoApi
+import kotlin.jvm.JvmStatic
+
 /**
  * BLAKE2b implementation
  *
@@ -93,4 +96,26 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
         personalization = personalization,
         digestLength = digestLength,
     )
+
+    /** @suppress */
+    public companion object: KeyedHashFactory<BLAKE2b>() {
+
+        /**
+         * See https://github.com/KotlinCrypto/MACs
+         * */
+        @JvmStatic
+        @InternalKotlinCryptoApi
+        @Throws(IllegalArgumentException::class)
+        override fun keyedHashInstance(
+            bitStrength: Int,
+            keyLength: Int,
+            salt: ByteArray?,
+            personalization: ByteArray?,
+        ): BLAKE2b = BLAKE2b(
+            bitStrength = bitStrength,
+            keyLength = keyLength,
+            salt = salt,
+            personalization = personalization,
+        )
+    }
 }
