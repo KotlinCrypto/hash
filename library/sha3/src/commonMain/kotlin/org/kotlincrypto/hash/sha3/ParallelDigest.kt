@@ -34,8 +34,8 @@ import org.kotlincrypto.core.xof.Xof
 public sealed class ParallelDigest: SHAKEDigest {
 
     private val inner: SHAKEDigest
-    private val innerBuf: ByteArray
-    private var innerBufPos: Int
+    private val innerBlockSize: Int
+    private var innerPos: Int
     private var countLo: Int
     private var countHi: Int
 
@@ -60,8 +60,8 @@ public sealed class ParallelDigest: SHAKEDigest {
             BIT_STRENGTH_256 -> CSHAKE256(N = null, S = null)
             else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
         }
-        this.innerBuf = ByteArray(B)
-        this.innerBufPos = 0
+        this.innerBlockSize = B
+        this.innerPos = 0
         this.countLo = 0
         this.countHi = 0
 
@@ -72,8 +72,8 @@ public sealed class ParallelDigest: SHAKEDigest {
 
     protected constructor(other: ParallelDigest): super(other) {
         this.inner = other.inner.copy()
-        this.innerBuf = other.innerBuf.copyOf()
-        this.innerBufPos = other.innerBufPos
+        this.innerBlockSize = other.innerBlockSize
+        this.innerPos = other.innerPos
         this.countLo = other.countLo
         this.countHi = other.countHi
     }
@@ -81,13 +81,12 @@ public sealed class ParallelDigest: SHAKEDigest {
     public abstract override fun copy(): ParallelDigest
 
     protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
-        val buffered = if (innerBufPos != 0) {
+        val buffered = if (innerPos != 0) {
             // If there's any buffered bytes left,
-            // process them to append them to the
+            // process them and prefix to the
             // buffer here as additional input.
-            inner.update(innerBuf, 0, innerBufPos)
-            increment()
-            innerBufPos = 0
+            innerPos = 0
+            incrementCount()
             inner.digest()
         } else {
             ByteArray(0)
@@ -118,75 +117,67 @@ public sealed class ParallelDigest: SHAKEDigest {
     }
 
     protected final override fun updateProtected(input: Byte) {
-        val buf = innerBuf
-        val bufPos = innerBufPos++
-        buf[bufPos] = input
-        if (bufPos + 1 != buf.size) return
-        processBlock(buf, 0)
-        innerBufPos = 0
+        inner.update(input)
+        if (++innerPos != innerBlockSize) return
+        processBlock()
+        innerPos = 0
     }
 
     protected final override fun updateProtected(input: ByteArray, offset: Int, len: Int) {
-        val buf = innerBuf
-        val blockSize = buf.size
         var inputPos = offset
         val inputLimit = inputPos + len
-        var bufPos = innerBufPos
+        var innerPos = innerPos
 
-        if (bufPos > 0) {
-            if (bufPos + len < blockSize) {
-                input.copyInto(buf, bufPos, inputPos, inputLimit)
-                innerBufPos = bufPos + len
+        if (innerPos > 0) {
+            if (innerPos + len < innerBlockSize) {
+                // Not enough input to process a block
+                inner.update(input, offset, len)
+                this.innerPos = innerPos + len
                 return
             }
 
-            val needed = blockSize - bufPos
-            input.copyInto(buf, bufPos, inputPos, inputPos + needed)
-            processBlock(buf, 0)
-            bufPos = 0
+            val needed = innerBlockSize - innerPos
+            inner.update(input, inputPos, needed)
+            processBlock()
+            innerPos = 0
             inputPos += needed
         }
 
         while (inputPos < inputLimit) {
-            val nextPos = inputPos + blockSize
+            val nextPos = inputPos + innerBlockSize
 
             if (nextPos > inputLimit) {
-                input.copyInto(buf, 0, inputPos, inputLimit)
-                bufPos = inputLimit - inputPos
+                innerPos = inputLimit - inputPos
+                inner.update(input, inputPos, innerPos)
                 break
             }
 
-            processBlock(input, inputPos)
+            inner.update(input, inputPos, innerBlockSize)
+            processBlock()
             inputPos = nextPos
         }
 
-        innerBufPos = bufPos
+        this.innerPos = innerPos
     }
 
-    private inline fun processBlock(input: ByteArray, offset: Int) {
-        inner.update(input, offset, innerBuf.size)
+    private inline fun processBlock() {
         super.updateProtected(inner.digest(), 0, inner.digestLength())
-        increment()
+        incrementCount()
     }
 
     protected final override fun resetProtected() {
         super.resetProtected()
-        this.innerBuf.fill(0)
-        this.innerBufPos = 0
+        this.inner.reset()
+        this.innerPos = 0
         this.countLo = 0
         this.countHi = 0
 
-        // No need to reset inner as digest() is always called
-        // when processing blocks which leaves it in a perpetually
-        // reset state.
-//        this.inner.reset()
-
         @OptIn(InternalKotlinCryptoApi::class)
-        val encBSize = Xof.Utils.leftEncode(innerBuf.size)
+        val encBSize = Xof.Utils.leftEncode(innerBlockSize)
         super.updateProtected(encBSize, 0, encBSize.size)
     }
 
-    private inline fun increment() { if (++countLo == 0) countHi++ }
+    private inline fun incrementCount() { if (++countLo == 0) countHi++ }
 
     private companion object {
         private const val PARALLEL_HASH = "ParallelHash"
