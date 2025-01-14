@@ -62,7 +62,7 @@ public class BLAKE2s: BLAKE2Digest.Bit32 {
         keyLength = 0,
         salt = null,
         personalization = personalization,
-        variant = "s"
+        variant = "s",
     )
 
     /**

@@ -16,7 +16,6 @@
 package org.kotlincrypto.hash.blake2
 
 import org.kotlincrypto.core.InternalKotlinCryptoApi
-import kotlin.jvm.JvmStatic
 
 /**
  * BLAKE2b implementation
