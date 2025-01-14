@@ -21,7 +21,6 @@ import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
-import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.blake2.internal.*
 import kotlin.jvm.JvmField
@@ -87,7 +86,6 @@ public sealed class BLAKE2Digest: Digest {
             innerLength: Int,
             salt: ByteArray?,
             personalization: ByteArray?,
-            digestLength: Int,
         ): super(
             variant = variant,
             blockSize = BLOCK_SIZE,
@@ -102,7 +100,6 @@ public sealed class BLAKE2Digest: Digest {
             innerLength = innerLength,
             salt = salt,
             personalization = personalization,
-            digestLength = digestLength,
         ) {
             require(nodeOffset in 0..MAX_NODE_OFFSET) { "nodeOffset must be between 0 and $MAX_NODE_OFFSET (inclusive)" }
 
@@ -349,7 +346,6 @@ public sealed class BLAKE2Digest: Digest {
             innerLength: Int,
             salt: ByteArray?,
             personalization: ByteArray?,
-            digestLength: Int,
         ): super(
             variant = variant,
             blockSize = BLOCK_SIZE,
@@ -364,7 +360,6 @@ public sealed class BLAKE2Digest: Digest {
             innerLength = innerLength,
             salt = salt,
             personalization = personalization,
-            digestLength = digestLength,
         ) {
             this.v = LongArray(16)
             this.h = LongArray(8).initialize()
@@ -596,21 +591,16 @@ public sealed class BLAKE2Digest: Digest {
         innerLength: Int,
         salt: ByteArray?,
         personalization: ByteArray?,
-        digestLength: Int,
     ): super(
-        algorithm = "BLAKE2$variant" + if (variant.contains('x')) "" else "-$bitStrength",
+        algorithm = "BLAKE2$variant-$bitStrength",
         blockSize = blockSize,
-        digestLength = digestLength,
+        digestLength = bitStrength / Byte.SIZE_BITS,
     ) {
-        if (!variant.contains('x')) {
-            // s:  64 * 4 = 256
-            // b: 128 * 4 = 512
-            require(bitStrength <= (blockSize * 4)) { "bitStrength must be less than or equal to ${blockSize * 4}" }
-            require(bitStrength >= Byte.SIZE_BITS) { "bitStrength must be greater than or equal to ${Byte.SIZE_BITS}" }
-            require(bitStrength % Byte.SIZE_BITS == 0) { "bitStrength must be a factor of ${Byte.SIZE_BITS}" }
-
-            require(digestLength == (bitStrength / Byte.SIZE_BITS)) { "digestLength must be (bitsStrength / ${Byte.SIZE_BITS}) for non-xOf uses" }
-        } /* else */
+        // s:  64 * 4 = 256
+        // b: 128 * 4 = 512
+        require(bitStrength <= (blockSize * 4)) { "bitStrength must be less than or equal to ${blockSize * 4}" }
+        require(bitStrength >= Byte.SIZE_BITS) { "bitStrength must be greater than or equal to ${Byte.SIZE_BITS}" }
+        require(bitStrength % Byte.SIZE_BITS == 0) { "bitStrength must be a factor of ${Byte.SIZE_BITS}" }
 
         // s:  64 / 2 = 32
         // b: 128 / 2 = 64
@@ -685,21 +675,5 @@ public sealed class BLAKE2Digest: Digest {
                 s1,
             )
         }
-    }
-
-    /** @suppress */
-    public sealed class KeyedHashFactory<D: BLAKE2Digest> {
-
-        /**
-         * See https://github.com/KotlinCrypto/MACs
-         * */
-        @InternalKotlinCryptoApi
-        @Throws(IllegalArgumentException::class)
-        public abstract fun keyedHashInstance(
-            bitStrength: Int,
-            keyLength: Int,
-            salt: ByteArray?,
-            personalization: ByteArray?,
-        ): D
     }
 }

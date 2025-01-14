@@ -61,6 +61,42 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
         keyLength = 0,
         salt = null,
         personalization = personalization,
+        variant = "b",
+    )
+
+    /**
+     * Creates a new [BLAKE2b] instance capable of keyed hashing.
+     *
+     * **NOTE:** See https://github.com/KotlinCrypto/MACs
+     *
+     * @param [bitStrength] The number of bits returned when [digest] is invoked.
+     * @param [keyLength] The length of the key that will be hashed.
+     * @param [salt] bytes to salt the hash with. Must be 16 bytes in length, or null.
+     * @param [personalization] A user selected customization bit string to define a variant
+     *   of the function. When no customization is desired, [personalization] must be set to a
+     *   null value. Must be 16 bytes in length, or null.
+     *
+     * @throws [IllegalArgumentException] when:
+     *  - [bitStrength] is less than 8
+     *  - [bitStrength] is greater than 512
+     *  - [bitStrength] is not a factor of 8
+     *  - [keyLength] is less than 0
+     *  - [keyLength] is greater than 64
+     *  - [salt] is non-null and not exactly 16 bytes in length
+     *  - [personalization] is non-null and not exactly 16 bytes in length
+     * */
+    @InternalKotlinCryptoApi
+    public constructor(
+        bitStrength: Int,
+        keyLength: Int,
+        salt: ByteArray?,
+        personalization: ByteArray?,
+    ): this(
+        bitStrength = bitStrength,
+        keyLength = keyLength,
+        salt = salt,
+        personalization = personalization,
+        variant = "b",
     )
 
     private constructor(other: BLAKE2b): super(other)
@@ -72,7 +108,7 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
         keyLength: Int,
         salt: ByteArray?,
         personalization: ByteArray?,
-        variant: String = "b",
+        variant: String,
         isLastNode: Boolean = false,
         fanOut: Int = 1,
         depth: Int = 1,
@@ -80,7 +116,6 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
         nodeOffset: Long = 0L,
         nodeDepth: Int = 0,
         innerLength: Int = 0,
-        digestLength: Int = bitStrength / Byte.SIZE_BITS,
     ): super(
         variant = variant,
         bitStrength = bitStrength,
@@ -94,28 +129,5 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
         innerLength = innerLength,
         salt = salt,
         personalization = personalization,
-        digestLength = digestLength,
     )
-
-    /** @suppress */
-    public companion object: KeyedHashFactory<BLAKE2b>() {
-
-        /**
-         * See https://github.com/KotlinCrypto/MACs
-         * */
-        @JvmStatic
-        @InternalKotlinCryptoApi
-        @Throws(IllegalArgumentException::class)
-        override fun keyedHashInstance(
-            bitStrength: Int,
-            keyLength: Int,
-            salt: ByteArray?,
-            personalization: ByteArray?,
-        ): BLAKE2b = BLAKE2b(
-            bitStrength = bitStrength,
-            keyLength = keyLength,
-            salt = salt,
-            personalization = personalization,
-        )
-    }
 }
