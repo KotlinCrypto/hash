@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Version 0.6.0 (2025-01-15)
+ - Adds `BLAKE2b` and `BLAKE2s` hashing.
+ - Updates all implementations to conform to `KotlinCrypto.core` `0.6.0` modifications 
+   to `Digest` internal API.
+ - All implementations now define a proper return type for `copy` (instead of `Digest`).
+ - Replaces usage of `KotlinCrypto.endians` library (deprecated) with `KotlinCrypto.bitops`.
+ - Removes all `@Throws` annotations from constructors (it is documented).
+ - Deprecates `SHA512_224` and `SHA512_256` top-level functions.
+ - Performance improvements to `compressProtected` implementations for `MD5` and `SHA1`.
+ - Removes unnecessary usage of a buffer by `ParallelDigest`.
+ - `xOf` functions with no parameters for `ParallelHash` and `TupleHash` implementations 
+   are now inlined.
+
 ## Version 0.5.6 (2024-12-28)
  - Updates `kotlincrypto.sponges` to `0.3.4` [[#74]][74]
      - See [discussions-75][discussions-75]
