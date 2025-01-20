@@ -32,7 +32,7 @@ public sealed class Bit64Digest: Digest {
     private val h: LongArray
     private val x: LongArray
     private val state: LongArray
-    private val count: Counter.Bit32
+    private val count: Counter.Bit64
 
     @Throws(IllegalArgumentException::class)
     protected constructor(
@@ -58,7 +58,7 @@ public sealed class Bit64Digest: Digest {
         this.h = h
         this.x = LongArray(80)
         this.state = h.copyOf()
-        this.count = Counter.Bit32(incrementBy = BLOCK_SIZE)
+        this.count = Counter.Bit64(incrementBy = BLOCK_SIZE.toLong())
 
         if (t == null) return
 
@@ -157,11 +157,11 @@ public sealed class Bit64Digest: Digest {
 
         if (bufPos + 1 > 112) {
             compressProtected(buf, 0)
-            buf.fill(0, 0, 120)
+            buf.fill(0, 0, 112)
         }
 
-        bitsHi.bePackIntoUnsafe(buf, destOffset = 120)
-        bitsLo.bePackIntoUnsafe(buf, destOffset = 124)
+        bitsHi.bePackIntoUnsafe(buf, destOffset = 112)
+        bitsLo.bePackIntoUnsafe(buf, destOffset = 120)
         compressProtected(buf, 0)
 
         val state = state
