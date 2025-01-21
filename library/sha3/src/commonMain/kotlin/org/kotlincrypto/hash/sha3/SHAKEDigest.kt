@@ -98,19 +98,17 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
         out: ByteArray,
         offset: Int,
         len: Int,
-    ): ByteArray {
-        return if (xOfMode && !isReadingXof) {
-            // newReader called digest(). Snipe the extraction
-            // and pass it the current state in bytes.
-            val newOut = ByteArray(A.size * Long.SIZE_BYTES)
-            for (i in A.indices) {
-                A[i].lePackIntoUnsafe(newOut, destOffset = i * Long.SIZE_BYTES)
-            }
-            isReadingXof = true
-            return newOut
-        } else {
-            super.extract(A, r, out, offset, len)
+    ): ByteArray = if (xOfMode && !isReadingXof) {
+        // newReader called digest(). Snipe the extraction
+        // and pass it the current state in bytes.
+        val newOut = ByteArray(A.size * Long.SIZE_BYTES)
+        for (i in A.indices) {
+            A[i].lePackIntoUnsafe(newOut, destOffset = i * Long.SIZE_BYTES)
         }
+        isReadingXof = true
+        newOut
+    } else {
+        super.extract(A, r, out, offset, len)
     }
 
     protected override fun resetProtected() {
