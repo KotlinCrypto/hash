@@ -19,6 +19,7 @@ public abstract class org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32 : org/kotl
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit32;
+	protected fun digestIntoProtected ([BI[BI)V
 	protected fun digestProtected ([BI)[B
 	protected fun resetProtected ()V
 }
@@ -28,6 +29,7 @@ public abstract class org/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64 : org/kotl
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/blake2/BLAKE2Digest$Bit64;
+	protected fun digestIntoProtected ([BI[BI)V
 	protected fun digestProtected ([BI)[B
 	protected fun resetProtected ()V
 }
