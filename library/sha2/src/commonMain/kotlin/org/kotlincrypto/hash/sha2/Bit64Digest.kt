@@ -79,7 +79,7 @@ public sealed class Bit64Digest: Digest {
 
         update((bitLength + 0x30).toByte())
 
-        digest()
+        digestInto(T_INTO, 0)
     }
 
     protected constructor(other: Bit64Digest): super(other) {
@@ -152,6 +152,12 @@ public sealed class Bit64Digest: Digest {
     }
 
     protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        val digest = ByteArray(digestLength())
+        digestIntoProtected(digest, 0, buf, bufPos)
+        return digest
+    }
+
+    protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
         val (bitsLo, bitsHi) = count.final(additional = bufPos).asBits()
         buf[bufPos] = 0x80.toByte()
 
@@ -168,30 +174,27 @@ public sealed class Bit64Digest: Digest {
         if (!isInitialized) {
             state.copyInto(h)
             isInitialized = true
-            return T_IV
+            return
         }
 
         val len = digestLength()
         val rem = len % Long.SIZE_BYTES
         val iStateEnd = len / Long.SIZE_BYTES
 
-        val out = state.bePackIntoUnsafe(
-            dest = ByteArray(len),
-            destOffset = 0,
+        state.bePackIntoUnsafe(
+            dest = dest,
+            destOffset = destOffset,
             sourceIndexStart = 0,
             sourceIndexEnd = iStateEnd,
         )
 
-        if (rem > 0) {
-            state[iStateEnd].bePackIntoUnsafe(
-                dest = out,
-                destOffset = len - rem,
-                sourceIndexStart = 0,
-                sourceIndexEnd = rem,
-            )
-        }
-
-        return out
+        if (rem == 0) return
+        state[iStateEnd].bePackIntoUnsafe(
+            dest = dest,
+            destOffset = destOffset + len - rem,
+            sourceIndexStart = 0,
+            sourceIndexEnd = rem,
+        )
     }
 
     protected final override fun resetProtected() {
@@ -202,6 +205,10 @@ public sealed class Bit64Digest: Digest {
 
     private companion object {
         private const val BLOCK_SIZE = 128
+
+        // For use with digestInto for SHA512t initialization
+        private val T_INTO = ByteArray(512 / Byte.SIZE_BITS) // maximum digest length for SHA-512
+        private val T_IV = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
 
         private val K = longArrayOf(
              4794697086780616226L,  8158064640168781261L, -5349999486874862801L, -1606136188198331460L,
@@ -225,7 +232,5 @@ public sealed class Bit64Digest: Digest {
              2944078676154940804L,  3659926193048069267L,  4368137639120453308L,  4836135668995329356L,
              5532061633213252278L,  6448918945643986474L,  6902733635092675308L,  7801388544844847127L,
         )
-
-        private val T_IV = byteArrayOf(0x53, 0x48, 0x41, 0x2D, 0x35, 0x31, 0x32, 0x2F)
     }
 }

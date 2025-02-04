@@ -42,6 +42,7 @@ sealed class org.kotlincrypto.hash.sha2/Bit32Digest : org.kotlincrypto.core.dige
 
     abstract fun copy(): org.kotlincrypto.hash.sha2/Bit32Digest // org.kotlincrypto.hash.sha2/Bit32Digest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
     final fun digestProtected(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit32Digest.digestProtected|digestProtected(kotlin.ByteArray;kotlin.Int){}[0]
     final fun resetProtected() // org.kotlincrypto.hash.sha2/Bit32Digest.resetProtected|resetProtected(){}[0]
 }
@@ -52,6 +53,7 @@ sealed class org.kotlincrypto.hash.sha2/Bit64Digest : org.kotlincrypto.core.dige
 
     abstract fun copy(): org.kotlincrypto.hash.sha2/Bit64Digest // org.kotlincrypto.hash.sha2/Bit64Digest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit64Digest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
+    final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit64Digest.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
     final fun digestProtected(kotlin/ByteArray, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha2/Bit64Digest.digestProtected|digestProtected(kotlin.ByteArray;kotlin.Int){}[0]
     final fun resetProtected() // org.kotlincrypto.hash.sha2/Bit64Digest.resetProtected|resetProtected(){}[0]
 }
