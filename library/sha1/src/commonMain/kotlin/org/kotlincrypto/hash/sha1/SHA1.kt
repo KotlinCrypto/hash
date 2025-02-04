@@ -116,6 +116,12 @@ public class SHA1: Digest {
     }
 
     protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        val digest = ByteArray(digestLength())
+        digestIntoProtected(digest, 0, buf, bufPos)
+        return digest
+    }
+
+    protected override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
         val (bitsLo, bitsHi) = count.final(additional = bufPos).asBits()
         buf[bufPos] = 0x80.toByte()
 
@@ -128,10 +134,7 @@ public class SHA1: Digest {
         bitsLo.bePackIntoUnsafe(buf, destOffset = 60)
         compressProtected(buf, 0)
 
-        return state.bePackIntoUnsafe(
-            dest = ByteArray(digestLength()),
-            destOffset = 0,
-        )
+        state.bePackIntoUnsafe(dest = dest, destOffset = destOffset)
     }
 
     protected override fun resetProtected() {
