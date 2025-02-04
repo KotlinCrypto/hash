@@ -43,6 +43,8 @@ abstract class DigestUnitTest: HashUnitTest() {
     abstract val digest: Digest
     abstract val expectedMultiBlockHash: String
 
+    private fun ByteArray.hex(): String = encodeToString(TestData.base16)
+
     /**
      * Tests the reset functionality of the Digest implementation.
      * */
@@ -50,8 +52,13 @@ abstract class DigestUnitTest: HashUnitTest() {
         assertExpectedHashes
         updateMedium(digest)
         digest.reset()
-        val actual = digest.digest().encodeToString(TestData.base16)
-        assertEquals(expectedResetHash, actual)
+        assertEquals(expectedResetHash, digest.digest().hex())
+
+        updateMedium(digest)
+        digest.reset()
+        val into = ByteArray(digest.digestLength())
+        digest.digestInto(into, 0)
+        assertEquals(expectedResetHash, into.hex())
     }
 
     /**
@@ -73,8 +80,7 @@ abstract class DigestUnitTest: HashUnitTest() {
             digest.update(output)
         }
 
-        val actual = digest.digest().encodeToString(TestData.base16)
-        assertEquals(expectedMultiBlockHash, actual)
+        assertEquals(expectedMultiBlockHash, digest.digest().hex())
     }
 
     /**
@@ -83,8 +89,16 @@ abstract class DigestUnitTest: HashUnitTest() {
     open fun givenDigest_whenUpdatedSmall_thenDigestDigestReturnsExpected() {
         assertExpectedHashes
         updateSmall(digest)
-        val actual = digest.digest().encodeToString(TestData.base16)
-        assertEquals(expectedUpdateSmallHash, actual)
+        assertEquals(expectedUpdateSmallHash, digest.digest().hex())
+
+        updateSmall(digest)
+        var into = ByteArray(digest.digestLength() + 16)
+        digest.digestInto(into, destOffset = 16)
+        for (i in 0..<16) {
+            assertEquals(0, into[i])
+        }
+        into = into.copyInto(destination = ByteArray(digest.digestLength()), startIndex = 16)
+        assertEquals(expectedUpdateSmallHash, into.hex())
     }
 
     /**
@@ -93,8 +107,12 @@ abstract class DigestUnitTest: HashUnitTest() {
     open fun givenDigest_whenUpdatedMedium_thenDigestDigestReturnsExpected() {
         assertExpectedHashes
         updateMedium(digest)
-        val actual = digest.digest().encodeToString(TestData.base16)
-        assertEquals(expectedUpdateMediumHash, actual)
+        assertEquals(expectedUpdateMediumHash, digest.digest().hex())
+
+        updateMedium(digest)
+        val into = ByteArray(digest.digestLength())
+        digest.digestInto(into, 0)
+        assertEquals(expectedUpdateMediumHash, into.hex())
     }
 
     /**
@@ -108,12 +126,12 @@ abstract class DigestUnitTest: HashUnitTest() {
         updateSmall(digest)
         val copy = digest.copy()
         assertNotEquals(copy, digest)
-        assertEquals(expectedUpdateSmallHash, copy.digest().encodeToString(TestData.base16))
-        assertEquals(expectedResetHash, copy.digest().encodeToString(TestData.base16))
+        assertEquals(expectedUpdateSmallHash, copy.digest().hex())
+        assertEquals(expectedResetHash, copy.digest().hex())
 
         updateSmall(copy)
-        assertEquals(expectedUpdateSmallHash, digest.digest().encodeToString(TestData.base16))
-        assertEquals(expectedUpdateSmallHash, copy.digest().encodeToString(TestData.base16))
+        assertEquals(expectedUpdateSmallHash, digest.digest().hex())
+        assertEquals(expectedUpdateSmallHash, copy.digest().hex())
     }
 
     /**
