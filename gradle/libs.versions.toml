@@ -1,41 +1,41 @@
 [versions]
-androidx-test-runner = "1.5.2"
+androidx-test-runner        = "1.5.2"
 
-bouncy-castle = "1.73"
+bouncy-castle               = "1.73"
 
-encoding = "2.3.1"
+encoding                    = "2.3.1"
 
-gradle-android = "8.2.2"
-gradle-benchmark = "0.4.11"
-gradle-binary-compat = "0.16.3"
-gradle-kmp-configuration = "0.3.2"
-gradle-kotlin = "1.9.24"
-gradle-publish-maven = "0.29.0"
+gradle-android              = "8.2.2"
+gradle-benchmark            = "0.4.11"
+gradle-binary-compat        = "0.16.3"
+gradle-kmp-configuration    = "0.3.2"
+gradle-kotlin               = "1.9.24"
+gradle-publish-maven        = "0.29.0"
 
-kotlincrypto-bitops = "0.1.2"
-kotlincrypto-core = "0.6.0"
-kotlincrypto-sponges = "0.3.4"
+kotlincrypto-bitops         = "0.1.2"
+kotlincrypto-core           = "0.6.1-SNAPSHOT"
+kotlincrypto-sponges        = "0.3.4"
 
 [libraries]
-gradle-kmp-configuration = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "gradle-kmp-configuration" }
-gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradle-kotlin" }
-gradle-publish-maven = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-publish-maven" }
+gradle-kmp-configuration    = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "gradle-kmp-configuration" }
+gradle-kotlin               = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradle-kotlin" }
+gradle-publish-maven        = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-publish-maven" }
 
-kotlincrypto-bitops-bits = { module = "org.kotlincrypto.bitops:bits", version.ref = "kotlincrypto-bitops" }
-kotlincrypto-bitops-endian = { module = "org.kotlincrypto.bitops:endian", version.ref = "kotlincrypto-bitops" }
-kotlincrypto-core-digest = { module = "org.kotlincrypto.core:digest", version.ref = "kotlincrypto-core" }
-kotlincrypto-core-xof = { module = "org.kotlincrypto.core:xof", version.ref = "kotlincrypto-core" }
+kotlincrypto-bitops-bits    = { module = "org.kotlincrypto.bitops:bits", version.ref = "kotlincrypto-bitops" }
+kotlincrypto-bitops-endian  = { module = "org.kotlincrypto.bitops:endian", version.ref = "kotlincrypto-bitops" }
+kotlincrypto-core-digest    = { module = "org.kotlincrypto.core:digest", version.ref = "kotlincrypto-core" }
+kotlincrypto-core-xof       = { module = "org.kotlincrypto.core:xof", version.ref = "kotlincrypto-core" }
 kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", version.ref = "kotlincrypto-sponges" }
 
 # tests & tools
-androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
-benchmark-runtime = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "gradle-benchmark" }
-bouncy-castle = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncy-castle" }
-encoding-base16 = { module = "io.matthewnelson.encoding:base16", version.ref = "encoding" }
-encoding-base64 = { module = "io.matthewnelson.encoding:base64", version.ref = "encoding" }
+androidx-test-runner        = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
+benchmark-runtime           = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "gradle-benchmark" }
+bouncy-castle               = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncy-castle" }
+encoding-base16             = { module = "io.matthewnelson.encoding:base16", version.ref = "encoding" }
+encoding-base64             = { module = "io.matthewnelson.encoding:base64", version.ref = "encoding" }
 
 [plugins]
-android-library = { id = "com.android.library", version.ref = "gradle-android" }
-benchmark = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "gradle-benchmark" }
-binary-compat = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "gradle-binary-compat" }
-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "gradle-kotlin" }
+android-library             = { id = "com.android.library", version.ref = "gradle-android" }
+benchmark                   = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "gradle-benchmark" }
+binary-compat               = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "gradle-binary-compat" }
+kotlin-multiplatform        = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "gradle-kotlin" }
