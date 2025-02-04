@@ -118,7 +118,7 @@ public sealed class BLAKE2Digest: Digest {
 
         public abstract override fun copy(): Bit32
 
-        protected override fun compressProtected(input: ByteArray, offset: Int) {
+        protected final override fun compressProtected(input: ByteArray, offset: Int) {
             val m = m
 
             if (m == null) {
@@ -144,13 +144,13 @@ public sealed class BLAKE2Digest: Digest {
             m.populate(input, offset)
         }
 
-        protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
             val digest = ByteArray(digestLength())
             digestIntoProtected(digest, 0, buf, bufPos)
             return digest
         }
 
-        protected override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
+        protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
             var m = m
 
             if (m != null) {
@@ -295,7 +295,7 @@ public sealed class BLAKE2Digest: Digest {
             return this
         }
 
-        protected override fun resetProtected() {
+        protected final override fun resetProtected() {
             v.fill(0)
             h.initialize()
             m?.fill()
@@ -379,7 +379,7 @@ public sealed class BLAKE2Digest: Digest {
 
         public abstract override fun copy(): Bit64
 
-        protected override fun compressProtected(input: ByteArray, offset: Int) {
+        protected final override fun compressProtected(input: ByteArray, offset: Int) {
             val m = m
 
             if (m == null) {
@@ -405,13 +405,13 @@ public sealed class BLAKE2Digest: Digest {
             m.populate(input, offset)
         }
 
-        protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
             val digest = ByteArray(digestLength())
             digestIntoProtected(digest, 0, buf, bufPos)
             return digest
         }
 
-        protected override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
+        protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
             var m = m
 
             if (m != null) {
@@ -557,7 +557,7 @@ public sealed class BLAKE2Digest: Digest {
             return this
         }
 
-        protected override fun resetProtected() {
+        protected final override fun resetProtected() {
             v.fill(0)
             h.initialize()
             m?.fill()
