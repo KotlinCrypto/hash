@@ -18,6 +18,7 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.gradle.dokka)
     implementation(libs.gradle.kmp.configuration)
     implementation(libs.gradle.kotlin)
     implementation(libs.gradle.publish.maven)

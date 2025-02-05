@@ -19,14 +19,10 @@ package org.kotlincrypto.hash.sha3
 
 /**
  * Core abstraction for:
- *  - TupleHash128
- *  - TupleHash256
+ *  - [TupleHash128]
+ *  - [TupleHash256]
  *
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#5%20TupleHash
- *
- * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/bitops
- *  - https://github.com/KotlinCrypto/sponges
  * */
 public sealed class TupleDigest: SHAKEDigest {
 

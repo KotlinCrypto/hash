@@ -8,6 +8,7 @@ encoding                    = "2.3.1"
 gradle-android              = "8.2.2"
 gradle-benchmark            = "0.4.11"
 gradle-binary-compat        = "0.16.3"
+gradle-dokka                = "1.9.20"
 gradle-kmp-configuration    = "0.3.2"
 gradle-kotlin               = "1.9.24"
 gradle-publish-maven        = "0.29.0"
@@ -17,6 +18,7 @@ kotlincrypto-core           = "0.6.1-SNAPSHOT"
 kotlincrypto-sponges        = "0.3.4"
 
 [libraries]
+gradle-dokka                = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "gradle-dokka" }
 gradle-kmp-configuration    = { module = "io.matthewnelson:gradle-kmp-configuration-plugin", version.ref = "gradle-kmp-configuration" }
 gradle-kotlin               = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "gradle-kotlin" }
 gradle-publish-maven        = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradle-publish-maven" }
@@ -38,4 +40,5 @@ encoding-base64             = { module = "io.matthewnelson.encoding:base64", ver
 android-library             = { id = "com.android.library", version.ref = "gradle-android" }
 benchmark                   = { id = "org.jetbrains.kotlinx.benchmark", version.ref = "gradle-benchmark" }
 binary-compat               = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "gradle-binary-compat" }
+dokka                       = { id = "org.jetbrains.dokka", version.ref = "gradle-dokka" }
 kotlin-multiplatform        = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "gradle-kotlin" }
