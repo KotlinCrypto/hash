@@ -118,7 +118,7 @@ public sealed class BLAKE2Digest: Digest {
 
         public abstract override fun copy(): Bit32
 
-        protected override fun compressProtected(input: ByteArray, offset: Int) {
+        protected final override fun compressProtected(input: ByteArray, offset: Int) {
             val m = m
 
             if (m == null) {
@@ -144,7 +144,13 @@ public sealed class BLAKE2Digest: Digest {
             m.populate(input, offset)
         }
 
-        protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+            val digest = ByteArray(digestLength())
+            digestIntoProtected(digest, 0, buf, bufPos)
+            return digest
+        }
+
+        protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
             var m = m
 
             if (m != null) {
@@ -176,23 +182,20 @@ public sealed class BLAKE2Digest: Digest {
             val rem = len % Int.SIZE_BYTES
             val iHEnd = len / Int.SIZE_BYTES
 
-            val out = h.lePackIntoUnsafe(
-                dest = ByteArray(len),
-                destOffset = 0,
+            h.lePackIntoUnsafe(
+                dest = dest,
+                destOffset = destOffset,
                 sourceIndexStart = 0,
                 sourceIndexEnd = iHEnd,
             )
 
-            if (rem > 0) {
-                h[iHEnd].lePackIntoUnsafe(
-                    dest = out,
-                    destOffset = len - rem,
-                    sourceIndexStart = 0,
-                    sourceIndexEnd = rem,
-                )
-            }
-
-            return out
+            if (rem == 0) return
+            h[iHEnd].lePackIntoUnsafe(
+                dest = dest,
+                destOffset = destOffset + len - rem,
+                sourceIndexStart = 0,
+                sourceIndexEnd = rem,
+            )
         }
 
         private inline fun F(h: IntArray, m: Bit32Message, tLo: Int, tHi: Int, f0: Int, f1: Int) {
@@ -292,7 +295,7 @@ public sealed class BLAKE2Digest: Digest {
             return this
         }
 
-        protected override fun resetProtected() {
+        protected final override fun resetProtected() {
             v.fill(0)
             h.initialize()
             m?.fill()
@@ -376,7 +379,7 @@ public sealed class BLAKE2Digest: Digest {
 
         public abstract override fun copy(): Bit64
 
-        protected override fun compressProtected(input: ByteArray, offset: Int) {
+        protected final override fun compressProtected(input: ByteArray, offset: Int) {
             val m = m
 
             if (m == null) {
@@ -402,7 +405,13 @@ public sealed class BLAKE2Digest: Digest {
             m.populate(input, offset)
         }
 
-        protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+            val digest = ByteArray(digestLength())
+            digestIntoProtected(digest, 0, buf, bufPos)
+            return digest
+        }
+
+        protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
             var m = m
 
             if (m != null) {
@@ -434,23 +443,20 @@ public sealed class BLAKE2Digest: Digest {
             val rem = len % Long.SIZE_BYTES
             val iHEnd = len / Long.SIZE_BYTES
 
-            val out = h.lePackIntoUnsafe(
-                dest = ByteArray(len),
-                destOffset = 0,
+            h.lePackIntoUnsafe(
+                dest = dest,
+                destOffset = destOffset,
                 sourceIndexStart = 0,
                 sourceIndexEnd = iHEnd,
             )
 
-            if (rem > 0) {
-                h[iHEnd].lePackIntoUnsafe(
-                    dest = out,
-                    destOffset = len - rem,
-                    sourceIndexStart = 0,
-                    sourceIndexEnd = rem,
-                )
-            }
-
-            return out
+            if (rem == 0) return
+            h[iHEnd].lePackIntoUnsafe(
+                dest = dest,
+                destOffset = destOffset + len - rem,
+                sourceIndexStart = 0,
+                sourceIndexEnd = rem,
+            )
         }
 
         private inline fun F(h: LongArray, m: Bit64Message, tLo: Long, tHi: Long, f0: Long, f1: Long) {
@@ -551,7 +557,7 @@ public sealed class BLAKE2Digest: Digest {
             return this
         }
 
-        protected override fun resetProtected() {
+        protected final override fun resetProtected() {
             v.fill(0)
             h.initialize()
             m?.fill()

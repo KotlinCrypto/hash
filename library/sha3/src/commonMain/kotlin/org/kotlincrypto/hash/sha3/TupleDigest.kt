@@ -48,7 +48,13 @@ public sealed class TupleDigest: SHAKEDigest {
 
     public abstract override fun copy(): TupleDigest
 
-    protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+    protected final override fun finalizeAndExtractTo(
+        dest: ByteArray,
+        destOffset: Int,
+        buf: ByteArray,
+        bufPos: Int,
+        len: Int,
+    ): ByteArray {
         val encLenBits = digestLength().rightEncodeBits()
         val needed = bufPos + encLenBits.size
 
@@ -63,10 +69,10 @@ public sealed class TupleDigest: SHAKEDigest {
             // + 1 is to not include index where dsByte will be placed
             buf.fill(0, encLenBits.size - i + 1)
             encLenBits.copyInto(buf, 0, i, encLenBits.size)
-            super.digestProtected(buf, needed - buf.size)
+            super.finalizeAndExtractTo(dest, destOffset, buf, needed - buf.size, len)
         } else {
             encLenBits.copyInto(buf, bufPos)
-            super.digestProtected(buf, needed)
+            super.finalizeAndExtractTo(dest, destOffset, buf, needed, len)
         }
     }
 

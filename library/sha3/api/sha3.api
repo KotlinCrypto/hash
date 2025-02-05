@@ -68,8 +68,10 @@ public abstract class org/kotlincrypto/hash/sha3/KeccakDigest : org/kotlincrypto
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/sha3/KeccakDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	protected final fun compressProtected ([BI)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha3/KeccakDigest;
-	protected fun digestProtected ([BI)[B
+	protected final fun digestIntoProtected ([BI[BI)V
+	protected final fun digestProtected ([BI)[B
 	protected fun extract (Lorg/kotlincrypto/sponges/keccak/F1600;Lorg/kotlincrypto/hash/sha3/KeccakDigest$SpongeRemainder;[BII)[B
+	protected fun finalizeAndExtractTo ([BI[BII)[B
 	protected fun resetProtected ()V
 }
 
@@ -85,7 +87,7 @@ public abstract class org/kotlincrypto/hash/sha3/ParallelDigest : org/kotlincryp
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/sha3/ParallelDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([BIZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha3/ParallelDigest;
-	protected final fun digestProtected ([BI)[B
+	protected final fun finalizeAndExtractTo ([BI[BII)[B
 	protected final fun resetProtected ()V
 	protected final fun updateProtected (B)V
 	protected final fun updateProtected ([BII)V
@@ -217,7 +219,7 @@ public abstract class org/kotlincrypto/hash/sha3/TupleDigest : org/kotlincrypto/
 	public synthetic fun <init> (Lorg/kotlincrypto/hash/sha3/TupleDigest;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> ([BZIILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public abstract fun copy ()Lorg/kotlincrypto/hash/sha3/TupleDigest;
-	protected final fun digestProtected ([BI)[B
+	protected final fun finalizeAndExtractTo ([BI[BII)[B
 	protected final fun updateProtected (B)V
 	protected final fun updateProtected ([BII)V
 }

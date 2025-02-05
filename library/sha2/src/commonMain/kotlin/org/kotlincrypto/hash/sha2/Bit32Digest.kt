@@ -124,6 +124,12 @@ public sealed class Bit32Digest: Digest {
     }
 
     protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        val digest = ByteArray(digestLength())
+        digestIntoProtected(digest, 0, buf, bufPos)
+        return digest
+    }
+
+    protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
         val (bitsLo, bitsHi) = count.final(additional = bufPos).asBits()
         buf[bufPos] = 0x80.toByte()
 
@@ -136,11 +142,10 @@ public sealed class Bit32Digest: Digest {
         bitsLo.bePackIntoUnsafe(buf, destOffset = 60)
         compressProtected(buf, 0)
 
-        val len = digestLength()
-        return state.bePackIntoUnsafe(
-            dest = ByteArray(len),
-            destOffset = 0,
-            sourceIndexEnd = len / Int.SIZE_BYTES,
+        state.bePackIntoUnsafe(
+            dest = dest,
+            destOffset = destOffset,
+            sourceIndexEnd = digestLength() / Int.SIZE_BYTES,
         )
     }
 

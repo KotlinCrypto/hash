@@ -74,8 +74,8 @@ public sealed class KeccakDigest: Digest {
         val inputLimit = inputPos + blockSize()
 
         // Max blockSize is 168 (SHAKE128), so at a maximum only
-        // 21 out of 25 state values will ever be modified with
-        // input for each permutation.
+        // 21 of 25 state values will ever be modified with input
+        // for each permutation.
         while (inputPos < inputLimit) {
             A.addData(index = APos++, data = input.leLongAt(offset = inputPos))
             inputPos += Long.SIZE_BYTES
@@ -84,14 +84,27 @@ public sealed class KeccakDigest: Digest {
         A.keccakP()
     }
 
-    protected override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+    protected final override fun digestProtected(buf: ByteArray, bufPos: Int): ByteArray {
+        val len = digestLength()
+        return finalizeAndExtractTo(ByteArray(len), 0, buf, bufPos, len)
+    }
+
+    protected final override fun digestIntoProtected(dest: ByteArray, destOffset: Int, buf: ByteArray, bufPos: Int) {
+        finalizeAndExtractTo(dest, destOffset, buf, bufPos, digestLength())
+    }
+
+    protected open fun finalizeAndExtractTo(
+        dest: ByteArray,
+        destOffset: Int,
+        buf: ByteArray,
+        bufPos: Int,
+        len: Int,
+    ): ByteArray {
         buf[bufPos] = dsByte
         val iLast = buf.lastIndex
         buf[iLast] = buf[iLast] xor 0x80.toByte()
         compressProtected(buf, 0)
-
-        val len = digestLength()
-        return extract(state, null, ByteArray(len), 0, len)
+        return extract(state, null, dest, destOffset, len)
     }
 
     protected open fun extract(
