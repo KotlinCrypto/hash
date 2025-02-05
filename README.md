@@ -35,7 +35,7 @@ Cryptographic hash functions for Kotlin Multiplatform
 
 ### API Docs
 
- - [hash.kotlincrypto.org][url-docs]
+ - [https://hash.kotlincrypto.org][url-docs]
 
 ### Get Started
 
