@@ -1,0 +1,13 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+
+module:library/blake2
+org.kotlincrypto.hash.blake2
+module:library/md
+org.kotlincrypto.hash.md
+module:library/sha1
+org.kotlincrypto.hash.sha1
+module:library/sha2
+org.kotlincrypto.hash.sha2
+module:library/sha3
+org.kotlincrypto.hash.sha3
