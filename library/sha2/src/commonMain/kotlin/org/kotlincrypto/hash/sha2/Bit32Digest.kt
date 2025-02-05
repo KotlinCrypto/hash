@@ -21,8 +21,8 @@ import org.kotlincrypto.core.digest.Digest
 
 /**
  * Core abstraction for:
- *  - SHA-224
- *  - SHA-256
+ *  - [SHA224]
+ *  - [SHA256]
  * */
 public sealed class Bit32Digest: Digest {
 

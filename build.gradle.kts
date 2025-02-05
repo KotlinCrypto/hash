@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.android.library) apply(false)
     alias(libs.plugins.benchmark) apply(false)
     alias(libs.plugins.binary.compat)
+    alias(libs.plugins.dokka)
     alias(libs.plugins.kotlin.multiplatform) apply(false)
 }
 

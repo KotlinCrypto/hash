@@ -26,17 +26,14 @@ import kotlin.jvm.JvmStatic
 
 /**
  * Core abstraction for:
- *  - CSHAKE128
- *  - CSHAKE256
- *  - SHAKE128
- *  - SHAKE256
+ *  - [CSHAKE128]
+ *  - [CSHAKE256]
+ *  - [SHAKE128]
+ *  - [SHAKE256]
  *
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
- * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
- * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/bitops
- *  - https://github.com/KotlinCrypto/sponges
+ * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
  *
  * @see [ParallelDigest]
  * @see [TupleDigest]

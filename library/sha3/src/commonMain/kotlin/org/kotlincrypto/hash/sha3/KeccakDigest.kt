@@ -26,20 +26,16 @@ import kotlin.jvm.JvmField
 
 /**
  * Core abstraction for:
- *  - Keccak-224
- *  - Keccak-256
- *  - Keccak-384
- *  - Keccak-512
- *  - SHA3-224
- *  - SHA3-256
- *  - SHA3-384
- *  - SHA3-512
+ *  - [Keccak224]
+ *  - [Keccak256]
+ *  - [Keccak384]
+ *  - [Keccak512]
+ *  - [SHA3_224]
+ *  - [SHA3_256]
+ *  - [SHA3_384]
+ *  - [SHA3_512]
  *
  * https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
- *
- * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/bitops
- *  - https://github.com/KotlinCrypto/sponges
  *
  * @see [SHAKEDigest]
  * */

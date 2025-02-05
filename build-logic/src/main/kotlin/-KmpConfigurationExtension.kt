@@ -25,10 +25,9 @@ fun KmpConfigurationExtension.configureShared(
     publish: Boolean = false,
     action: Action<KmpConfigurationContainerDsl>
 ) {
-//    TODO: Enable once module :library:md5 is removed
-//    if (publish) {
-//        require(!java9ModuleName.isNullOrBlank()) { "publications must specify a module-info name" }
-//    }
+    if (publish) {
+        require(!java9ModuleName.isNullOrBlank()) { "publications must specify a module-info name" }
+    }
 
     configure {
         options {
@@ -76,7 +75,7 @@ fun KmpConfigurationExtension.configureShared(
         mingwAll()
 
         common {
-            if (publish) pluginIds("publication")
+            if (publish) pluginIds("publication", "dokka")
 
             sourceSetTest {
                 dependencies {

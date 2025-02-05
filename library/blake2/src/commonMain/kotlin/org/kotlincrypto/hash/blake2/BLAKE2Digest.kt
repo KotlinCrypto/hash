@@ -62,8 +62,6 @@ public sealed class BLAKE2Digest: Digest {
     /**
      * Core abstraction for:
      *  - [BLAKE2s]
-     *
-     * @see [Bit64]
      * */
     public sealed class Bit32: BLAKE2Digest {
 
@@ -325,8 +323,6 @@ public sealed class BLAKE2Digest: Digest {
     /**
      * Core abstraction for:
      *  - [BLAKE2b]
-     *
-     * @see [Bit32]
      * */
     public sealed class Bit64: BLAKE2Digest {
 

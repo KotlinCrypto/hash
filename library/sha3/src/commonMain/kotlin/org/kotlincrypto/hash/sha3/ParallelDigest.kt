@@ -22,14 +22,10 @@ import org.kotlincrypto.core.xof.Xof
 
 /**
  * Core abstraction for:
- *  - ParallelHash128
- *  - ParallelHash256
+ *  - [ParallelHash128]
+ *  - [ParallelHash256]
  *
  * https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#6%20ParallelHash
- *
- * Also see support libraries utilized:
- *  - https://github.com/KotlinCrypto/bitops
- *  - https://github.com/KotlinCrypto/sponges
  * */
 public sealed class ParallelDigest: SHAKEDigest {
 

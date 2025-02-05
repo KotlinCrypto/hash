@@ -21,6 +21,10 @@ import org.kotlincrypto.core.InternalKotlinCryptoApi
  * BLAKE2b implementation
  *
  * https://datatracker.ietf.org/doc/rfc7693/
+ *
+ * https://www.blake2.net/blake2.pdf
+ *
+ * [macs-blake2](https://github.com/KotlinCrypto/MACs/tree/master/library/blake2)
  * */
 public class BLAKE2b: BLAKE2Digest.Bit64 {
 
@@ -83,6 +87,8 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
      *  - [keyLength] is greater than 64
      *  - [salt] is non-null and not exactly 16 bytes in length
      *  - [personalization] is non-null and not exactly 16 bytes in length
+     *
+     * @suppress
      * */
     @InternalKotlinCryptoApi
     public constructor(

@@ -3,8 +3,8 @@
 [![badge-latest-release]][url-latest-release]
 
 [![badge-kotlin]][url-kotlin]
-[![badge-core]][url-core]
 [![badge-bitops]][url-bitops]
+[![badge-core]][url-core]
 [![badge-sponges]][url-sponges]
 
 ![badge-platform-android]
@@ -25,90 +25,17 @@
 
 Cryptographic hash functions for Kotlin Multiplatform
 
-Utilized by [KotlinCrypto/MACs][url-macs]
+### Modules
 
-### Usage
+ - [md](library/md/README.md)
+ - [sha1](library/sha1/README.md)
+ - [sha2](library/sha2/README.md)
+ - [sha3](library/sha3/README.md)
+ - [blake2](library/blake2/README.md)
 
-See [HERE][url-core-usage] for basic usage example for `Digest`.
+### API Docs
 
-```kotlin
-fun main() {
-    // Digests that may be needed for backward compatibility but 
-    // should no longer be utilized because they have been broken.
-    MD5()
-    SHA1()
-}
-```
-
-`SHA2 Digests`
-
-```kotlin
-fun main() {
-    SHA224()
-    SHA256()
-    SHA384()
-    SHA512()
-
-    SHA512t(t = 224) // SHA-512/224
-    SHA512t(t = 256) // SHA-512/256
-}
-```
-
-`SHA3 Digests`
-
-```kotlin
-fun main() {
-    Keccak224()
-    Keccak256()
-    Keccak384()
-    Keccak512()
-    SHA3_224()
-    SHA3_256()
-    SHA3_384()
-    SHA3_512()
-
-    SHAKE128()
-    SHAKE256(outputLength = 640) // returns 640 bytes instead of the default when digest() is invoked
-    
-    // NIST.SP.800-185 derived functions
-    val S = "My Customization".encodeToByteArray()
-    CSHAKE128(null, S, outputLength = 128)
-    CSHAKE256(null, S)
-    ParallelHash128(null, B = 123)
-    ParallelHash256(S, B = 456, outputLength = 123)
-    TupleHash128(S, outputLength = 320)
-    TupleHash256(null)
-}
-```
-
-`SHA3 XOFs` (i.e. [Extendable-Output Functions][url-pub-xof])
-
-See [HERE][url-core-usage] for details on what `XOFs` are, and a basic usage example for `Xof`.
-
-```kotlin
-fun main() {
-    SHAKE128.xOf()
-    SHAKE256.xOf()
-
-    // NIST.SP.800-185 derived functions
-    val S = "My Customization".encodeToByteArray()
-    CSHAKE128.xOf(null, S)
-    CSHAKE256.xOf(null, S)
-    ParallelHash128.xOf(S, B = 123)
-    ParallelHash256.xOf(B = 654)
-    TupleHash128.xOf(S)
-    TupleHash256.xOf()
-}
-```
-
-`BLAKE2 Digests`
-
-```kotlin
-fun main() {
-    BLAKE2b(512)
-    BLAKE2s(256)
-}
-```
+ - [hash.kotlincrypto.org][url-docs]
 
 ### Get Started
 
@@ -143,6 +70,9 @@ dependencies {
     // ParallelHash128, ParallelHash256
     // TupleHash128, TupleHash256
     implementation("org.kotlincrypto.hash:sha3")
+
+    // BLAKE2b, BLAKE2s
+    implementation("org.kotlincrypto.hash:blake2")
 }
 ```
 
@@ -179,8 +109,6 @@ dependencies {
 [url-kotlin]: https://kotlinlang.org
 [url-bitops]: https://github.com/KotlinCrypto/bitops
 [url-core]: https://github.com/KotlinCrypto/core
-[url-core-usage]: https://github.com/KotlinCrypto/core#usage
 [url-sponges]: https://github.com/KotlinCrypto/sponges
-[url-macs]: https://github.com/KotlinCrypto/MACs
 [url-version-catalog]: https://github.com/KotlinCrypto/version-catalog
-[url-pub-xof]: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+[url-docs]: https://hash.kotlincrypto.org
