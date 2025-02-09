@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.6.1 (2025-02-09)
+ - Updates `kotlincrypto.bitops` to `0.1.2` [[#104]][104]
+ - Updates `kotlincrypto.core` to `0.6.1`
+ - Use `Counter.Bit64` instead of `Counter.Bit32` for `SHA384`, `SHA512` and `SHA512t` [[#104]][104]
+ - Implements new `Digest.digestInto` API for all implementations [[#108]][108]
+ - Adds `dokka` documentation at `https://hash.kotlincrypto.org` [[#109]][109]
+
 ## Version 0.6.0 (2025-01-15)
  - Adds `BLAKE2b` and `BLAKE2s` hashing.
  - Updates all implementations to conform to `KotlinCrypto.core` `0.6.0` modifications 
@@ -15,7 +22,7 @@
 
 ## Version 0.5.6 (2024-12-28)
  - Updates `kotlincrypto.sponges` to `0.3.4` [[#74]][74]
-     - See [discussions-75][discussions-75]
+     - See [ANNOUNCEMENT #75][75-discussion]
 
 ## Version 0.5.5 (2024-12-20)
  - Updates `kotlincrypto.core` to `0.5.5`
@@ -27,7 +34,7 @@
  - Updates `kotlincrypto.sponges` to `0.3.2`
  - Adds benchmarking to repository [[#69]][69]
      - Benchmark comparisons using `core` and `sponges` performance 
-       improvements can be viewed in [PR #70][70-comment]
+       improvements can be viewed in [comment PR #70][70-comment]
      - TL;DR huge gains for `sha3`
 
 ## Version 0.5.3 (2024-08-31)
@@ -75,7 +82,7 @@
    been removed from publication [[#50]][50]
      - `org.kotlincrypto.hash:sha2-256`
      - `org.kotlincrypto.hash:sha2-512`
- - See the [ANNOUNCEMENT][discussion-3] for more information on `0.3.0` release
+ - See the [ANNOUNCEMENT #3][3-discussion] for more information on `0.3.0` release
 
 ## Version 0.2.7 (2023-06-09)
  - Updates `kotlincrypto.core` to `0.2.7`
@@ -120,7 +127,7 @@
  - Updates `kotlincrypto.core` to `0.2.0`
      - Updates the `Digest.compress` function with API change
      - Consumers of `hash` lib are not affected (internal changes only)
-     - See [[core #21]][core-21] for more info
+     - See [[core PR #21]][21-core] for more info
 
 ## Version 0.2.0 (2023-03-12)
  - Adds `SHA-224`
@@ -145,8 +152,8 @@
 ## Version 0.1.0 (2023-03-04)
  - Initial Release
 
-[discussion-3]: https://github.com/orgs/KotlinCrypto/discussions/3
-[core-21]: https://github.com/KotlinCrypto/core/pull/21
+[3-discussion]: https://github.com/orgs/KotlinCrypto/discussions/3
+[21-core]: https://github.com/KotlinCrypto/core/pull/21
 [29]: https://github.com/KotlinCrypto/hash/pull/29
 [31]: https://github.com/KotlinCrypto/hash/pull/31
 [38]: https://github.com/KotlinCrypto/hash/pull/38
@@ -162,4 +169,7 @@
 [70-comment]: https://github.com/KotlinCrypto/hash/pull/70#issuecomment-2554683182
 [71]: https://github.com/KotlinCrypto/hash/pull/71
 [74]: https://github.com/KotlinCrypto/hash/pull/74
-[discussions-75]: https://github.com/KotlinCrypto/hash/discussions/75
+[75-discussion]: https://github.com/KotlinCrypto/hash/discussions/75
+[104]: https://github.com/KotlinCrypto/hash/pull/104
+[108]: https://github.com/KotlinCrypto/hash/pull/108
+[109]: https://github.com/KotlinCrypto/hash/pull/109

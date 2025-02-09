@@ -14,7 +14,7 @@ gradle-kotlin               = "1.9.24"
 gradle-publish-maven        = "0.29.0"
 
 kotlincrypto-bitops         = "0.1.2"
-kotlincrypto-core           = "0.6.1-SNAPSHOT"
+kotlincrypto-core           = "0.6.1"
 kotlincrypto-sponges        = "0.3.4"
 
 [libraries]

@@ -31,6 +31,9 @@ tasks.withType<DokkaTaskPartial>().configureEach {
         externalDocumentationLink {
             url = URI("https://core.kotlincrypto.org/").toURL()
         }
+        externalDocumentationLink {
+            url = URI("https://error.kotlincrypto.org/").toURL()
+        }
 
         sourceLink {
             localDirectory = rootDir
