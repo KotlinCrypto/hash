@@ -178,19 +178,19 @@ public sealed class BLAKE2Digest: Digest {
             val h = h
             F(h = h, m = m, tLo = tLo, tHi = tHi, f0 = -1, f1 = if (isLastNode) -1 else 0)
 
-            val len = if (innerLength != 0) innerLength else digestLength()
+            val len = digestLength()
             val rem = len % Int.SIZE_BYTES
-            val iHEnd = len / Int.SIZE_BYTES
+            val hIndexEnd = len / Int.SIZE_BYTES
 
             h.lePackIntoUnsafe(
                 dest = dest,
                 destOffset = destOffset,
                 sourceIndexStart = 0,
-                sourceIndexEnd = iHEnd,
+                sourceIndexEnd = hIndexEnd,
             )
 
             if (rem == 0) return
-            h[iHEnd].lePackIntoUnsafe(
+            h[hIndexEnd].lePackIntoUnsafe(
                 dest = dest,
                 destOffset = destOffset + len - rem,
                 sourceIndexStart = 0,
@@ -437,19 +437,19 @@ public sealed class BLAKE2Digest: Digest {
             val h = h
             F(h = h, m = m, tLo = tLo, tHi = tHi, f0 = -1L, f1 = if (isLastNode) -1L else 0L)
 
-            val len = if (innerLength != 0) innerLength else digestLength()
+            val len = digestLength()
             val rem = len % Long.SIZE_BYTES
-            val iHEnd = len / Long.SIZE_BYTES
+            val hIndexEnd = len / Long.SIZE_BYTES
 
             h.lePackIntoUnsafe(
                 dest = dest,
                 destOffset = destOffset,
                 sourceIndexStart = 0,
-                sourceIndexEnd = iHEnd,
+                sourceIndexEnd = hIndexEnd,
             )
 
             if (rem == 0) return
-            h[iHEnd].lePackIntoUnsafe(
+            h[hIndexEnd].lePackIntoUnsafe(
                 dest = dest,
                 destOffset = destOffset + len - rem,
                 sourceIndexStart = 0,
@@ -649,7 +649,7 @@ public sealed class BLAKE2Digest: Digest {
         this.nodeOffset = other.nodeOffset
         this.nodeDepth = other.nodeDepth
         this.innerLength = other.innerLength
-        this.salt = other.salt?.copyOf()
+        this.salt = other.salt
         this.personalization = other.personalization
     }
 
