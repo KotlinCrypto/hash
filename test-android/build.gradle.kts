@@ -17,9 +17,7 @@ plugins {
     id("configuration")
 }
 
-repositories {
-    google()
-}
+repositories { google() }
 
 kmpConfiguration {
     configure {
