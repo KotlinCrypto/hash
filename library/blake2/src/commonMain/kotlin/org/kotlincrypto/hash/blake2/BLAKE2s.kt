@@ -18,6 +18,7 @@
 package org.kotlincrypto.hash.blake2
 
 import org.kotlincrypto.core.InternalKotlinCryptoApi
+import org.kotlincrypto.error.InvalidParameterException
 
 /**
  * BLAKE2s implementation
@@ -35,7 +36,7 @@ public class BLAKE2s: BLAKE2Digest.Bit32 {
      *
      * @param [bitStrength] The number of bits returned when [digest] is invoked.
      *
-     * @throws [IllegalArgumentException] when:
+     * @throws [InvalidParameterException] when:
      *  - [bitStrength] is less than 8
      *  - [bitStrength] is greater than 256
      *  - [bitStrength] is not a factor of 8
@@ -52,7 +53,7 @@ public class BLAKE2s: BLAKE2Digest.Bit32 {
      *   of the function. When no customization is desired, [personalization] must be set to a
      *   null value. Must be 8 bytes in length, or null.
      *
-     * @throws [IllegalArgumentException] when:
+     * @throws [InvalidParameterException] when:
      *  - [bitStrength] is less than 8
      *  - [bitStrength] is greater than 256
      *  - [bitStrength] is not a factor of 8
@@ -81,7 +82,7 @@ public class BLAKE2s: BLAKE2Digest.Bit32 {
      *   of the function. When no customization is desired, [personalization] must be set to a
      *   null value. Must be 8 bytes in length, or null.
      *
-     * @throws [IllegalArgumentException] when:
+     * @throws [InvalidParameterException] when:
      *  - [bitStrength] is less than 8
      *  - [bitStrength] is greater than 256
      *  - [bitStrength] is not a factor of 8
@@ -110,6 +111,7 @@ public class BLAKE2s: BLAKE2Digest.Bit32 {
 
     public override fun copy(): BLAKE2s = BLAKE2s(this)
 
+    @Throws(InvalidParameterException::class)
     private constructor(
         bitStrength: Int,
         keyLength: Int,

@@ -20,12 +20,5 @@ import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.TestBCDigest
 
 class ParallelHash128JvmUnitTest: ParallelHash128UnitTest() {
-    override val digest: Digest = TestBCDigest(ParallelHash(128, null, B)) {
-        ParallelHash(this)
-    }
-
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        // https://github.com/bcgit/bc-java/issues/1375
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
+    override val digest: Digest = TestBCDigest(ParallelHash(128, null, B), copy = { ParallelHash(this) })
 }

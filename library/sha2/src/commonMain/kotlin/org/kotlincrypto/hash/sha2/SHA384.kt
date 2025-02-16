@@ -24,7 +24,7 @@ public class SHA384: Bit64Digest {
 
     private constructor(other: SHA384): super(other)
 
-    public override fun copy(): SHA384 = SHA384(other = this)
+    public override fun copy(): SHA384 = SHA384(this)
 
     private companion object {
         private val H = longArrayOf(

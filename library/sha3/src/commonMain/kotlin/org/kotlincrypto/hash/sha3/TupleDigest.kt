@@ -17,6 +17,8 @@
 
 package org.kotlincrypto.hash.sha3
 
+import org.kotlincrypto.error.InvalidParameterException
+
 /**
  * Core abstraction for:
  *  - [TupleHash128]
@@ -26,6 +28,7 @@ package org.kotlincrypto.hash.sha3
  * */
 public sealed class TupleDigest: SHAKEDigest {
 
+    @Throws(InvalidParameterException::class)
     protected constructor(
         S: ByteArray?,
         xOfMode: Boolean,

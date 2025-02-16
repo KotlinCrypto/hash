@@ -18,18 +18,9 @@
 package org.kotlincrypto.hash.sha3
 
 import org.bouncycastle.crypto.digests.CSHAKEDigest
-import org.junit.Test
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.hash.TestBCDigest
 
 class CSHAKE256_N_JvmUnitTest: CSHAKE256_N_UnitTest() {
-    override val digest: Digest = TestBCDigest(CSHAKEDigest(256, N, null)) {
-        throw AssertionError("Unable to copy CSHAKE digest")
-    }
-
-    @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-//        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
-
+    override val digest: Digest = TestBCDigest(CSHAKEDigest(256, N, null), copy = { CSHAKEDigest(this) })
 }

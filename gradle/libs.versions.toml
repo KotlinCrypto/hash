@@ -1,21 +1,23 @@
 [versions]
-androidx-test-runner        = "1.5.2"
+#noinspection GradleDependency
+androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, where next version requires minSdk 19+
 
-bouncy-castle               = "1.73"
+# https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/
+bouncy-castle               = "1.80"
 
-encoding                    = "2.3.1"
+encoding                    = "2.4.0"
 
-gradle-android              = "8.2.2"
-gradle-benchmark            = "0.4.11"
-gradle-binary-compat        = "0.16.3"
-gradle-dokka                = "1.9.20"
-gradle-kmp-configuration    = "0.3.2"
-gradle-kotlin               = "1.9.24"
-gradle-publish-maven        = "0.29.0"
+gradle-android              = "8.7.3"
+gradle-benchmark            = "0.4.13"
+gradle-binary-compat        = "0.17.0"
+gradle-dokka                = "2.0.0"
+gradle-kmp-configuration    = "0.4.0"
+gradle-kotlin               = "2.1.10"
+gradle-publish-maven        = "0.30.0"
 
-kotlincrypto-bitops         = "0.1.2"
-kotlincrypto-core           = "0.6.1"
-kotlincrypto-sponges        = "0.3.4"
+kotlincrypto-bitops         = "0.2.0-SNAPSHOT"
+kotlincrypto-core           = "0.7.0-SNAPSHOT"
+kotlincrypto-sponges        = "0.4.0-SNAPSHOT"
 
 [libraries]
 gradle-dokka                = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "gradle-dokka" }
@@ -32,7 +34,7 @@ kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", vers
 # tests & tools
 androidx-test-runner        = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 benchmark-runtime           = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "gradle-benchmark" }
-bouncy-castle               = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncy-castle" }
+bouncy-castle               = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncy-castle" }
 encoding-base16             = { module = "io.matthewnelson.encoding:base16", version.ref = "encoding" }
 encoding-base64             = { module = "io.matthewnelson.encoding:base64", version.ref = "encoding" }
 

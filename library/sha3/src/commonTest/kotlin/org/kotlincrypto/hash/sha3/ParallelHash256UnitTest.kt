@@ -48,7 +48,7 @@ open class ParallelHash256UnitTest: DigestUnitTest() {
     }
 
     @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
+    final override fun givenDigest_whenCopied_thenIsDifferentInstance() {
         super.givenDigest_whenCopied_thenIsDifferentInstance()
     }
 

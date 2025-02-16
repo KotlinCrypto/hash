@@ -37,9 +37,6 @@ final class org.kotlincrypto.hash.sha2/SHA512t : org.kotlincrypto.hash.sha2/Bit6
 }
 
 sealed class org.kotlincrypto.hash.sha2/Bit32Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha2/Bit32Digest|null[0]
-    constructor <init>(kotlin/Int, kotlin/IntArray) // org.kotlincrypto.hash.sha2/Bit32Digest.<init>|<init>(kotlin.Int;kotlin.IntArray){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha2/Bit32Digest) // org.kotlincrypto.hash.sha2/Bit32Digest.<init>|<init>(org.kotlincrypto.hash.sha2.Bit32Digest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha2/Bit32Digest // org.kotlincrypto.hash.sha2/Bit32Digest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
     final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit32Digest.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
@@ -48,9 +45,6 @@ sealed class org.kotlincrypto.hash.sha2/Bit32Digest : org.kotlincrypto.core.dige
 }
 
 sealed class org.kotlincrypto.hash.sha2/Bit64Digest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha2/Bit64Digest|null[0]
-    constructor <init>(kotlin/Int, kotlin/Int?, kotlin/LongArray) // org.kotlincrypto.hash.sha2/Bit64Digest.<init>|<init>(kotlin.Int;kotlin.Int?;kotlin.LongArray){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha2/Bit64Digest) // org.kotlincrypto.hash.sha2/Bit64Digest.<init>|<init>(org.kotlincrypto.hash.sha2.Bit64Digest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha2/Bit64Digest // org.kotlincrypto.hash.sha2/Bit64Digest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit64Digest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
     final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha2/Bit64Digest.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]

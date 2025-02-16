@@ -19,6 +19,8 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.InternalKotlinCryptoApi
 import org.kotlincrypto.core.xof.Xof
+import org.kotlincrypto.error.InvalidParameterException
+import org.kotlincrypto.error.requireParam
 
 /**
  * Core abstraction for:
@@ -35,6 +37,7 @@ public sealed class ParallelDigest: SHAKEDigest {
     private var countLo: Int
     private var countHi: Int
 
+    @Throws(InvalidParameterException::class)
     protected constructor(
         S: ByteArray?,
         B: Int,
@@ -49,7 +52,7 @@ public sealed class ParallelDigest: SHAKEDigest {
         blockSize = blockSizeFromBitStrength(bitStrength),
         digestLength = digestLength,
     ) {
-        require(B > 0) { "B must be greater than 0" }
+        requireParam(B > 0) { "B must be greater than 0" }
 
         this.inner = when (bitStrength) {
             BIT_STRENGTH_128 -> CSHAKE128(N = null, S = null)

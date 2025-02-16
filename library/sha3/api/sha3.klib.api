@@ -13,9 +13,9 @@ final class org.kotlincrypto.hash.sha3/CSHAKE128 : org.kotlincrypto.hash.sha3/SH
     final fun copy(): org.kotlincrypto.hash.sha3/CSHAKE128 // org.kotlincrypto.hash.sha3/CSHAKE128.copy|copy(){}[0]
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/CSHAKE128> { // org.kotlincrypto.hash.sha3/CSHAKE128.Companion|null[0]
-        final const val BLOCK_SIZE // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.BLOCK_SIZE|<get-BLOCK_SIZE>(){}[0]
+        final const val BLOCK_SIZE // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.BLOCK_SIZE|{}BLOCK_SIZE[0]
             final fun <get-BLOCK_SIZE>(): kotlin/Int // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.BLOCK_SIZE.<get-BLOCK_SIZE>|<get-BLOCK_SIZE>(){}[0]
-        final const val DIGEST_LENGTH // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.DIGEST_LENGTH|<get-DIGEST_LENGTH>(){}[0]
+        final const val DIGEST_LENGTH // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.DIGEST_LENGTH|{}DIGEST_LENGTH[0]
             final fun <get-DIGEST_LENGTH>(): kotlin/Int // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.DIGEST_LENGTH.<get-DIGEST_LENGTH>|<get-DIGEST_LENGTH>(){}[0]
 
         final fun xOf(kotlin/ByteArray?, kotlin/ByteArray?): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/CSHAKE128> // org.kotlincrypto.hash.sha3/CSHAKE128.Companion.xOf|xOf(kotlin.ByteArray?;kotlin.ByteArray?){}[0]
@@ -29,9 +29,9 @@ final class org.kotlincrypto.hash.sha3/CSHAKE256 : org.kotlincrypto.hash.sha3/SH
     final fun copy(): org.kotlincrypto.hash.sha3/CSHAKE256 // org.kotlincrypto.hash.sha3/CSHAKE256.copy|copy(){}[0]
 
     final object Companion : org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory<org.kotlincrypto.hash.sha3/CSHAKE256> { // org.kotlincrypto.hash.sha3/CSHAKE256.Companion|null[0]
-        final const val BLOCK_SIZE // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.BLOCK_SIZE|<get-BLOCK_SIZE>(){}[0]
+        final const val BLOCK_SIZE // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.BLOCK_SIZE|{}BLOCK_SIZE[0]
             final fun <get-BLOCK_SIZE>(): kotlin/Int // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.BLOCK_SIZE.<get-BLOCK_SIZE>|<get-BLOCK_SIZE>(){}[0]
-        final const val DIGEST_LENGTH // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.DIGEST_LENGTH|<get-DIGEST_LENGTH>(){}[0]
+        final const val DIGEST_LENGTH // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.DIGEST_LENGTH|{}DIGEST_LENGTH[0]
             final fun <get-DIGEST_LENGTH>(): kotlin/Int // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.DIGEST_LENGTH.<get-DIGEST_LENGTH>|<get-DIGEST_LENGTH>(){}[0]
 
         final fun xOf(kotlin/ByteArray?, kotlin/ByteArray?): org.kotlincrypto.core.xof/Xof<org.kotlincrypto.hash.sha3/CSHAKE256> // org.kotlincrypto.hash.sha3/CSHAKE256.Companion.xOf|xOf(kotlin.ByteArray?;kotlin.ByteArray?){}[0]
@@ -157,9 +157,6 @@ final class org.kotlincrypto.hash.sha3/TupleHash256 : org.kotlincrypto.hash.sha3
 }
 
 sealed class org.kotlincrypto.hash.sha3/KeccakDigest : org.kotlincrypto.core.digest/Digest { // org.kotlincrypto.hash.sha3/KeccakDigest|null[0]
-    constructor <init>(kotlin/String, kotlin/Int, kotlin/Int, kotlin/Byte) // org.kotlincrypto.hash.sha3/KeccakDigest.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Int;kotlin.Byte){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha3/KeccakDigest) // org.kotlincrypto.hash.sha3/KeccakDigest.<init>|<init>(org.kotlincrypto.hash.sha3.KeccakDigest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha3/KeccakDigest // org.kotlincrypto.hash.sha3/KeccakDigest.copy|copy(){}[0]
     final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha3/KeccakDigest.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
     final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.sha3/KeccakDigest.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
@@ -171,7 +168,7 @@ sealed class org.kotlincrypto.hash.sha3/KeccakDigest : org.kotlincrypto.core.dig
     final class SpongeRemainder { // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder|null[0]
         constructor <init>(org.kotlincrypto.hash.sha3/KeccakDigest) // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.<init>|<init>(org.kotlincrypto.hash.sha3.KeccakDigest){}[0]
 
-        final var value // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value|<get-value>(){}[0]
+        final var value // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value|{}value[0]
             final fun <get-value>(): kotlin/Int // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value.<get-value>|<get-value>(){}[0]
             final fun <set-value>(kotlin/Int) // org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder.value.<set-value>|<set-value>(kotlin.Int){}[0]
     }
@@ -180,9 +177,6 @@ sealed class org.kotlincrypto.hash.sha3/KeccakDigest : org.kotlincrypto.core.dig
 }
 
 sealed class org.kotlincrypto.hash.sha3/ParallelDigest : org.kotlincrypto.hash.sha3/SHAKEDigest { // org.kotlincrypto.hash.sha3/ParallelDigest|null[0]
-    constructor <init>(kotlin/ByteArray?, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.sha3/ParallelDigest.<init>|<init>(kotlin.ByteArray?;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha3/ParallelDigest) // org.kotlincrypto.hash.sha3/ParallelDigest.<init>|<init>(org.kotlincrypto.hash.sha3.ParallelDigest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha3/ParallelDigest // org.kotlincrypto.hash.sha3/ParallelDigest.copy|copy(){}[0]
     final fun finalizeAndExtractTo(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/ParallelDigest.finalizeAndExtractTo|finalizeAndExtractTo(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     final fun resetProtected() // org.kotlincrypto.hash.sha3/ParallelDigest.resetProtected|resetProtected(){}[0]
@@ -191,16 +185,11 @@ sealed class org.kotlincrypto.hash.sha3/ParallelDigest : org.kotlincrypto.hash.s
 }
 
 sealed class org.kotlincrypto.hash.sha3/SHAKEDigest : org.kotlincrypto.core.xof/XofAlgorithm, org.kotlincrypto.hash.sha3/KeccakDigest { // org.kotlincrypto.hash.sha3/SHAKEDigest|null[0]
-    constructor <init>(kotlin/ByteArray?, kotlin/ByteArray?, kotlin/Boolean, kotlin/String, kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.sha3/SHAKEDigest.<init>|<init>(kotlin.ByteArray?;kotlin.ByteArray?;kotlin.Boolean;kotlin.String;kotlin.Int;kotlin.Int){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha3/SHAKEDigest) // org.kotlincrypto.hash.sha3/SHAKEDigest.<init>|<init>(org.kotlincrypto.hash.sha3.SHAKEDigest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha3/SHAKEDigest // org.kotlincrypto.hash.sha3/SHAKEDigest.copy|copy(){}[0]
     final fun extract(org.kotlincrypto.sponges.keccak/F1600, org.kotlincrypto.hash.sha3/KeccakDigest.SpongeRemainder?, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/SHAKEDigest.extract|extract(org.kotlincrypto.sponges.keccak.F1600;org.kotlincrypto.hash.sha3.KeccakDigest.SpongeRemainder?;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     open fun resetProtected() // org.kotlincrypto.hash.sha3/SHAKEDigest.resetProtected|resetProtected(){}[0]
 
     sealed class <#A1: org.kotlincrypto.hash.sha3/SHAKEDigest> SHAKEXofFactory : org.kotlincrypto.core.xof/XofFactory<#A1> { // org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory|null[0]
-        constructor <init>() // org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory.<init>|<init>(){}[0]
-
         final inner class SHAKEXof : org.kotlincrypto.core.xof/XofFactory.XofDelegate<#A1> { // org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory.SHAKEXof|null[0]
             constructor <init>(#A1) // org.kotlincrypto.hash.sha3/SHAKEDigest.SHAKEXofFactory.SHAKEXof.<init>|<init>(2:0){}[0]
 
@@ -212,9 +201,6 @@ sealed class org.kotlincrypto.hash.sha3/SHAKEDigest : org.kotlincrypto.core.xof/
 }
 
 sealed class org.kotlincrypto.hash.sha3/TupleDigest : org.kotlincrypto.hash.sha3/SHAKEDigest { // org.kotlincrypto.hash.sha3/TupleDigest|null[0]
-    constructor <init>(kotlin/ByteArray?, kotlin/Boolean, kotlin/Int, kotlin/Int) // org.kotlincrypto.hash.sha3/TupleDigest.<init>|<init>(kotlin.ByteArray?;kotlin.Boolean;kotlin.Int;kotlin.Int){}[0]
-    constructor <init>(org.kotlincrypto.hash.sha3/TupleDigest) // org.kotlincrypto.hash.sha3/TupleDigest.<init>|<init>(org.kotlincrypto.hash.sha3.TupleDigest){}[0]
-
     abstract fun copy(): org.kotlincrypto.hash.sha3/TupleDigest // org.kotlincrypto.hash.sha3/TupleDigest.copy|copy(){}[0]
     final fun finalizeAndExtractTo(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int, kotlin/Int): kotlin/ByteArray // org.kotlincrypto.hash.sha3/TupleDigest.finalizeAndExtractTo|finalizeAndExtractTo(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int;kotlin.Int){}[0]
     final fun updateProtected(kotlin/Byte) // org.kotlincrypto.hash.sha3/TupleDigest.updateProtected|updateProtected(kotlin.Byte){}[0]

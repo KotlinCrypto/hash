@@ -16,7 +16,6 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import kotlin.test.Test
 
 @Suppress("ClassName")
 open class CSHAKE256_NS_UnitTest: CSHAKE256UnitTest() {
@@ -25,10 +24,4 @@ open class CSHAKE256_NS_UnitTest: CSHAKE256UnitTest() {
     final override val expectedMultiBlockHash: String = "613b6da6d25c57f9938d1ba08feb10683be68cfdb22f025a6ec907840071de95ae8cd656aab857ca2f69a429b755fb333e4ce4c2e40672773008cc4bdffd7f42"
     final override val expectedUpdateSmallHash: String = "69269d2e388a5b116b70ed4d8ce8eb5f964e8236d25e7e29bbf251f990fc99036ab170a1ba47eeca03581741b420167bc806634af4387753eaac0a77e6fa06e4"
     final override val expectedUpdateMediumHash: String = "2d555623df2198f3fd36f5f5a79190eb06b6ce38bfe10cc9f1ff86542a2511babe79fd1b0c0d0b6d9d9941a131a69a4ea90483e7dc592848e03a0703f112d717"
-
-    @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
-
 }

@@ -18,6 +18,8 @@ package org.kotlincrypto.hash.sha2
 import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.bitops.endian.Endian.Big.bePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidParameterException
+import org.kotlincrypto.error.requireParam
 
 /**
  * Core abstraction for:
@@ -34,7 +36,7 @@ public sealed class Bit64Digest: Digest {
     private val state: LongArray
     private val count: Counter.Bit64
 
-    @Throws(IllegalArgumentException::class)
+    @Throws(InvalidParameterException::class)
     protected constructor(
         bitStrength: Int,
         t: Int?,
@@ -45,11 +47,11 @@ public sealed class Bit64Digest: Digest {
         digestLength = (t ?: bitStrength) / Byte.SIZE_BITS,
     ) {
         this.isInitialized = if (t != null) {
-            require(bitStrength == 512) { "t can only be expressed for SHA-512" }
+            requireParam(bitStrength == 512) { "t can only be expressed for SHA-512" }
             // t < 0 inherently checked by Digest for a negative digestLength
-            require(t < 512) { "t[$t] must be less than 512" }
-            require(t != 384) { "t[$t] cannot be 384" }
-            require(t % 8 == 0) { "t[$t] must be a factor of 8" }
+            requireParam(t < 512) { "t[$t] must be less than 512" }
+            requireParam(t != 384) { "t[$t] cannot be 384" }
+            requireParam(t % 8 == 0) { "t[$t] must be a factor of 8" }
             false
         } else {
             true

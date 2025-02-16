@@ -19,6 +19,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidParameterException
 import org.kotlincrypto.sponges.keccak.F1600
 import org.kotlincrypto.sponges.keccak.keccakP
 import kotlin.experimental.xor
@@ -45,6 +46,7 @@ public sealed class KeccakDigest: Digest {
     private val dsByte: Byte
     private val state: F1600
 
+    @Throws(InvalidParameterException::class)
     protected constructor(
         algorithm: String,
         blockSize: Int,
