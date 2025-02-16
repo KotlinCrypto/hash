@@ -3,7 +3,7 @@ androidx-test-runner        = "1.5.2"
 
 bouncy-castle               = "1.73"
 
-encoding                    = "2.3.1"
+encoding                    = "2.4.0"
 
 gradle-android              = "8.2.2"
 gradle-benchmark            = "0.4.11"
