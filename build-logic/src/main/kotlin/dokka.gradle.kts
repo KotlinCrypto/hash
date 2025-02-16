@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Matthew Nelson
+ * Copyright (c) 2025 KotlinCrypto
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 import org.jetbrains.dokka.gradle.DokkaExtension
 import org.jetbrains.dokka.gradle.engine.parameters.VisibilityModifier
 import java.net.URI
+import java.time.LocalDate
 
 plugins {
     id("org.jetbrains.dokka")
@@ -50,5 +51,9 @@ extensions.configure<DokkaExtension> {
         documentedVisibilities(
             VisibilityModifier.Public,
         )
+    }
+
+    pluginsConfiguration.html {
+        footerMessage.set("© 2023-${LocalDate.now().year} Copyright KotlinCrypto")
     }
 }
