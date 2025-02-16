@@ -21,6 +21,7 @@ import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.core.*
 import org.kotlincrypto.core.xof.*
+import org.kotlincrypto.error.InvalidParameterException
 import org.kotlincrypto.sponges.keccak.F1600
 import kotlin.jvm.JvmStatic
 
@@ -44,6 +45,7 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
     private var isReadingXof: Boolean
     private val xOfMode: Boolean
 
+    @Throws(InvalidParameterException::class)
     protected constructor(
         N: ByteArray?,
         S: ByteArray?,
@@ -217,12 +219,12 @@ public sealed class SHAKEDigest: KeccakDigest, XofAlgorithm {
             return if (N?.isNotEmpty() == true || S?.isNotEmpty() == true) PAD_CSHAKE else PAD_SHAKE
         }
 
-        @Throws(IllegalArgumentException::class)
+        @Throws(InvalidParameterException::class)
         internal fun blockSizeFromBitStrength(bitStrength: Int): Int {
             return when (bitStrength) {
                 BIT_STRENGTH_128 -> BLOCK_SIZE_BIT_128
                 BIT_STRENGTH_256 -> BLOCK_SIZE_BIT_256
-                else -> throw IllegalArgumentException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
+                else -> throw InvalidParameterException("bitStrength must be $BIT_STRENGTH_128 or $BIT_STRENGTH_256")
             }
         }
 

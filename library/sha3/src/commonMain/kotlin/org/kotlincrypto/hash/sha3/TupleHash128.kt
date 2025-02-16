@@ -19,6 +19,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.xof.Xof
+import org.kotlincrypto.error.InvalidParameterException
 import kotlin.jvm.JvmStatic
 
 /**
@@ -48,13 +49,14 @@ public class TupleHash128: TupleDigest {
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [outputLength] The number of bytes returned when [digest] is invoked
-     * @throws [IllegalArgumentException] If [outputLength] is negative
+     * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(
         S: ByteArray?,
         outputLength: Int,
     ): this(S, outputLength, xOfMode = false)
 
+    @Throws(InvalidParameterException::class)
     private constructor(
         S: ByteArray?,
         outputLength: Int,
@@ -68,7 +70,7 @@ public class TupleHash128: TupleDigest {
 
     private constructor(other: TupleHash128): super(other)
 
-    public override fun copy(): TupleHash128 = TupleHash128(other = this)
+    public override fun copy(): TupleHash128 = TupleHash128(this)
 
     public companion object: SHAKEXofFactory<TupleHash128>() {
 

@@ -19,6 +19,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.xof.Xof
+import org.kotlincrypto.error.InvalidParameterException
 import kotlin.jvm.JvmStatic
 
 /**
@@ -38,7 +39,7 @@ public class ParallelHash256: ParallelDigest {
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [B] The block size for the inner hash function in bytes
-     * @throws [IllegalArgumentException] If [B] is less than 1
+     * @throws [InvalidParameterException] If [B] is less than 1
      * */
     public constructor(
         S: ByteArray?,
@@ -54,8 +55,7 @@ public class ParallelHash256: ParallelDigest {
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [B] The block size for the inner hash function in bytes
      * @param [outputLength] The number of bytes returned when [digest] is invoked
-     * @throws [IllegalArgumentException] If [B] is less than 1, or [outputLength]
-     *   is negative
+     * @throws [InvalidParameterException] If [B] is less than 1, or [outputLength] is negative
      * */
     public constructor(
         S: ByteArray?,
@@ -63,6 +63,7 @@ public class ParallelHash256: ParallelDigest {
         outputLength: Int,
     ): this(S, B, outputLength, xOfMode = false)
 
+    @Throws(InvalidParameterException::class)
     private constructor(
         S: ByteArray?,
         B: Int,
@@ -78,7 +79,7 @@ public class ParallelHash256: ParallelDigest {
 
     private constructor(other: ParallelHash256): super(other)
 
-    public override fun copy(): ParallelHash256 = ParallelHash256(other = this)
+    public override fun copy(): ParallelHash256 = ParallelHash256(this)
 
     public companion object: SHAKEXofFactory<ParallelHash256>() {
 
@@ -86,7 +87,7 @@ public class ParallelHash256: ParallelDigest {
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash256]
          *
          * @param [B] The block size for the inner hash function in bytes
-         * @throws [IllegalArgumentException] If [B] is less than 1
+         * @throws [InvalidParameterException] If [B] is less than 1
          * */
         @JvmStatic
         public inline fun xOf(B: Int): Xof<ParallelHash256> = xOf(S = null, B = B)
@@ -98,7 +99,7 @@ public class ParallelHash256: ParallelDigest {
          *   of the function. When no customization is desired, [S] is set to an
          *   empty or null value. (e.g. "My Customization".encodeToByteArray())
          * @param [B] The block size for the inner hash function in bytes
-         * @throws [IllegalArgumentException] If [B] is less than 1
+         * @throws [InvalidParameterException] If [B] is less than 1
          * */
         @JvmStatic
         public fun xOf(S: ByteArray?, B: Int): Xof<ParallelHash256> {

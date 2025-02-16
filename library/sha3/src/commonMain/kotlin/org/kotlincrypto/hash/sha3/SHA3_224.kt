@@ -33,5 +33,5 @@ public class SHA3_224: KeccakDigest {
 
     private constructor(other: SHA3_224): super(other)
 
-    public override fun copy(): SHA3_224 = SHA3_224(other = this)
+    public override fun copy(): SHA3_224 = SHA3_224(this)
 }

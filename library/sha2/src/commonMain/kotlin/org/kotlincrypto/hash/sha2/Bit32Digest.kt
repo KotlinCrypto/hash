@@ -18,6 +18,7 @@ package org.kotlincrypto.hash.sha2
 import org.kotlincrypto.bitops.bits.Counter
 import org.kotlincrypto.bitops.endian.Endian.Big.bePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidParameterException
 
 /**
  * Core abstraction for:
@@ -31,7 +32,7 @@ public sealed class Bit32Digest: Digest {
     private val state: IntArray
     private val count: Counter.Bit32
 
-    @Throws(IllegalArgumentException::class)
+    @Throws(InvalidParameterException::class)
     protected constructor(bitStrength: Int, h: IntArray): super(
         algorithm = "SHA-$bitStrength",
         blockSize = BLOCK_SIZE,

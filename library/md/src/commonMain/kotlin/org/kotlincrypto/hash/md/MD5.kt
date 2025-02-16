@@ -45,7 +45,7 @@ public class MD5: Digest {
         this.count = other.count.copy()
     }
 
-    public override fun copy(): MD5 = MD5(other = this)
+    public override fun copy(): MD5 = MD5(this)
 
     protected override fun compressProtected(input: ByteArray, offset: Int) {
         val k = K

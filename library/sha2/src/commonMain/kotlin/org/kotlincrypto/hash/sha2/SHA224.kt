@@ -24,7 +24,7 @@ public class SHA224: Bit32Digest {
 
     private constructor(other: SHA224): super(other)
 
-    public override fun copy(): SHA224 = SHA224(other = this)
+    public override fun copy(): SHA224 = SHA224(this)
 
     private companion object {
         private val H = intArrayOf(

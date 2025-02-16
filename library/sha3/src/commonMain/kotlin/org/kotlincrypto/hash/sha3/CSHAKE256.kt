@@ -19,6 +19,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.xof.Xof
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidParameterException
 import kotlin.jvm.JvmStatic
 
 /**
@@ -54,7 +55,7 @@ public class CSHAKE256: SHAKEDigest {
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [outputLength] The number of bytes returned when [digest] is invoked
-     * @throws [IllegalArgumentException] If [outputLength] is negative
+     * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(
         N: ByteArray?,
@@ -62,6 +63,7 @@ public class CSHAKE256: SHAKEDigest {
         outputLength: Int,
     ): this(N, S, outputLength, xOfMode = false)
 
+    @Throws(InvalidParameterException::class)
     private constructor(
         N: ByteArray?,
         S: ByteArray?,
@@ -78,7 +80,7 @@ public class CSHAKE256: SHAKEDigest {
 
     private constructor(other: CSHAKE256): super(other)
 
-    public override fun copy(): CSHAKE256 = CSHAKE256(other = this)
+    public override fun copy(): CSHAKE256 = CSHAKE256(this)
 
     public companion object: SHAKEXofFactory<CSHAKE256>() {
 

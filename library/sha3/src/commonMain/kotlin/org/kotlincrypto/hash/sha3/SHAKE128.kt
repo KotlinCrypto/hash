@@ -17,6 +17,7 @@ package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
 import org.kotlincrypto.core.xof.Xof
+import org.kotlincrypto.error.InvalidParameterException
 import kotlin.jvm.JvmStatic
 
 /**
@@ -39,12 +40,13 @@ public class SHAKE128: SHAKEDigest {
      * length.
      *
      * @param [outputLength] The number of bytes returned when [digest] is invoked
-     * @throws [IllegalArgumentException] If [outputLength] is negative
+     * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(
         outputLength: Int,
     ): this(outputLength, xOfMode = false)
 
+    @Throws(InvalidParameterException::class)
     private constructor(
         outputLength: Int,
         xOfMode: Boolean,
@@ -59,7 +61,7 @@ public class SHAKE128: SHAKEDigest {
 
     private constructor(other: SHAKE128): super(other)
 
-    public override fun copy(): SHAKE128 = SHAKE128(other = this)
+    public override fun copy(): SHAKE128 = SHAKE128(this)
 
     public companion object: SHAKEXofFactory<SHAKE128>() {
 

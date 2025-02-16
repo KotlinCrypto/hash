@@ -22,6 +22,8 @@ import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidParameterException
+import org.kotlincrypto.error.requireParam
 import org.kotlincrypto.hash.blake2.internal.*
 import kotlin.jvm.JvmField
 
@@ -70,7 +72,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit32Message?
         private val t: Counter.Bit32
 
-        @Throws(IllegalArgumentException::class)
+        @Throws(InvalidParameterException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -331,7 +333,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit64Message?
         private val t: Counter.Bit64
 
-        @Throws(IllegalArgumentException::class)
+        @Throws(InvalidParameterException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -578,7 +580,7 @@ public sealed class BLAKE2Digest: Digest {
     }
 
     // BLAKE2Digest
-    @Throws(IllegalArgumentException::class)
+    @Throws(InvalidParameterException::class)
     private constructor(
         variant: String,
         blockSize: Int,
@@ -600,31 +602,31 @@ public sealed class BLAKE2Digest: Digest {
     ) {
         // s:  64 * 4 = 256
         // b: 128 * 4 = 512
-        require(bitStrength <= (blockSize * 4)) { "bitStrength must be less than or equal to ${blockSize * 4}" }
-        require(bitStrength >= Byte.SIZE_BITS) { "bitStrength must be greater than or equal to ${Byte.SIZE_BITS}" }
-        require(bitStrength % Byte.SIZE_BITS == 0) { "bitStrength must be a factor of ${Byte.SIZE_BITS}" }
+        requireParam(bitStrength <= (blockSize * 4)) { "bitStrength must be less than or equal to ${blockSize * 4}" }
+        requireParam(bitStrength >= Byte.SIZE_BITS) { "bitStrength must be greater than or equal to ${Byte.SIZE_BITS}" }
+        requireParam(bitStrength % Byte.SIZE_BITS == 0) { "bitStrength must be a factor of ${Byte.SIZE_BITS}" }
 
         // s:  64 / 2 = 32
         // b: 128 / 2 = 64
         (blockSize / 2).let { size ->
-            require(keyLength in 0..size) { "keyLength must be between 0 and $size (inclusive)" }
-            require(innerLength in 0..size) { "innerLength must be between 0 and $size (inclusive)" }
+            requireParam(keyLength in 0..size) { "keyLength must be between 0 and $size (inclusive)" }
+            requireParam(innerLength in 0..size) { "innerLength must be between 0 and $size (inclusive)" }
         }
 
         // s:  64 / 8 = 8
         // b: 128 / 8 = 16
         (blockSize / Byte.SIZE_BITS).let { size ->
             if (salt != null) {
-                require(salt.size == size) { "salt must be exactly $size bytes" }
+                requireParam(salt.size == size) { "salt must be exactly $size bytes" }
             }
             if (personalization != null) {
-                require(personalization.size == size) { "personalization must be exactly $size bytes" }
+                requireParam(personalization.size == size) { "personalization must be exactly $size bytes" }
             }
         }
 
-        require(fanOut in 0..255) { "fanOut must be between 0 and 255 (inclusive)" }
-        require(depth in 1..255) { "depth must be between 1 and 255 (inclusive)" }
-        require(nodeDepth in 0..255) { "nodeDepth must be between 1 and 255 (inclusive)" }
+        requireParam(fanOut in 0..255) { "fanOut must be between 0 and 255 (inclusive)" }
+        requireParam(depth in 1..255) { "depth must be between 1 and 255 (inclusive)" }
+        requireParam(nodeDepth in 0..255) { "nodeDepth must be between 1 and 255 (inclusive)" }
 
         this.isLastNode = isLastNode
         this.keyLength = keyLength

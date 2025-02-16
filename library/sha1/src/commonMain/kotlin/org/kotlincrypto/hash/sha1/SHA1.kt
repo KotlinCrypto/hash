@@ -44,7 +44,7 @@ public class SHA1: Digest {
         this.count = other.count.copy()
     }
 
-    public override fun copy(): SHA1 = SHA1(other = this)
+    public override fun copy(): SHA1 = SHA1(this)
 
     protected override fun compressProtected(input: ByteArray, offset: Int) {
         val x = x

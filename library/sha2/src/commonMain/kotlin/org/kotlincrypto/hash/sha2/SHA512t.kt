@@ -15,6 +15,8 @@
  **/
 package org.kotlincrypto.hash.sha2
 
+import org.kotlincrypto.error.InvalidParameterException
+
 /**
  * SHA-512/t implementation
  * */
@@ -23,7 +25,7 @@ public class SHA512t: Bit64Digest {
     /**
      * Primary constructor for creating a new [SHA512t] instance
      *
-     * @throws [IllegalArgumentException] when:
+     * @throws [InvalidParameterException] when:
      *  - [t] is less than 0
      *  - [t] is greater than or equal to 512
      *  - [t] is not a factor of 8
@@ -46,5 +48,5 @@ public class SHA512t: Bit64Digest {
 
     private constructor(other: SHA512t): super(other)
 
-    public override fun copy(): SHA512t = SHA512t(other = this)
+    public override fun copy(): SHA512t = SHA512t(this)
 }

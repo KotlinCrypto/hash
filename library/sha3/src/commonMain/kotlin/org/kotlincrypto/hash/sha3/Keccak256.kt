@@ -31,5 +31,5 @@ public class Keccak256: KeccakDigest {
 
     private constructor(other: Keccak256): super(other)
 
-    public override fun copy(): Keccak256 = Keccak256(other = this)
+    public override fun copy(): Keccak256 = Keccak256(this)
 }
