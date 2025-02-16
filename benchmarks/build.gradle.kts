@@ -16,7 +16,6 @@
 import io.matthewnelson.kmp.configuration.extension.container.target.KmpTarget
 import kotlinx.benchmark.gradle.BenchmarksExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
-import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
@@ -27,7 +26,6 @@ plugins {
 kmpConfiguration {
     val benchmarks by lazy { extensions.getByType<BenchmarksExtension>() }
 
-    @OptIn(ExperimentalWasmDsl::class)
     configure {
         fun <T: KotlinTarget> KmpTarget<T>.register() {
             target { benchmarks.targets.register(name) }
