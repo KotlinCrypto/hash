@@ -17,6 +17,7 @@ import io.matthewnelson.kmp.configuration.extension.KmpConfigurationExtension
 import io.matthewnelson.kmp.configuration.extension.container.target.KmpConfigurationContainerDsl
 import org.gradle.api.Action
 import org.gradle.api.JavaVersion
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 fun KmpConfigurationExtension.configureShared(
     java9ModuleName: String? = null,
@@ -41,6 +42,7 @@ fun KmpConfigurationExtension.configureShared(
         }
 
         js()
+        @OptIn(ExperimentalWasmDsl::class)
         wasmJs {
             target {
                 browser {
@@ -51,6 +53,7 @@ fun KmpConfigurationExtension.configureShared(
                 nodejs()
             }
         }
+        @OptIn(ExperimentalWasmDsl::class)
         wasmWasi {
             target {
                 nodejs()

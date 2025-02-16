@@ -45,9 +45,6 @@ sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.d
     abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest // org.kotlincrypto.hash.blake2/BLAKE2Digest.copy|copy(){}[0]
 
     sealed class Bit32 : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32|null[0]
-        constructor <init>(kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/ByteArray?, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.ByteArray?;kotlin.ByteArray?){}[0]
-        constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest.Bit32){}[0]
-
         abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32 // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.copy|copy(){}[0]
         final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
         final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit32.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
@@ -56,9 +53,6 @@ sealed class org.kotlincrypto.hash.blake2/BLAKE2Digest : org.kotlincrypto.core.d
     }
 
     sealed class Bit64 : org.kotlincrypto.hash.blake2/BLAKE2Digest { // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64|null[0]
-        constructor <init>(kotlin/String, kotlin/Int, kotlin/Boolean, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Int, kotlin/Long, kotlin/Int, kotlin/Int, kotlin/ByteArray?, kotlin/ByteArray?) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.<init>|<init>(kotlin.String;kotlin.Int;kotlin.Boolean;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Int;kotlin.Long;kotlin.Int;kotlin.Int;kotlin.ByteArray?;kotlin.ByteArray?){}[0]
-        constructor <init>(org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.<init>|<init>(org.kotlincrypto.hash.blake2.BLAKE2Digest.Bit64){}[0]
-
         abstract fun copy(): org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64 // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.copy|copy(){}[0]
         final fun compressProtected(kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.compressProtected|compressProtected(kotlin.ByteArray;kotlin.Int){}[0]
         final fun digestIntoProtected(kotlin/ByteArray, kotlin/Int, kotlin/ByteArray, kotlin/Int) // org.kotlincrypto.hash.blake2/BLAKE2Digest.Bit64.digestIntoProtected|digestIntoProtected(kotlin.ByteArray;kotlin.Int;kotlin.ByteArray;kotlin.Int){}[0]
