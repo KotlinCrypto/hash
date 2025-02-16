@@ -1,11 +1,12 @@
 [versions]
-androidx-test-runner        = "1.5.2"
+#noinspection GradleDependency
+androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, where next version requires minSdk 19+
 
 bouncy-castle               = "1.73"
 
 encoding                    = "2.4.0"
 
-gradle-android              = "8.2.2"
+gradle-android              = "8.7.3"
 gradle-benchmark            = "0.4.11"
 gradle-binary-compat        = "0.16.3"
 gradle-dokka                = "1.9.20"
