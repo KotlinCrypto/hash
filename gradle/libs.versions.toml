@@ -2,7 +2,8 @@
 #noinspection GradleDependency
 androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, where next version requires minSdk 19+
 
-bouncy-castle               = "1.73"
+# https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/
+bouncy-castle               = "1.80"
 
 encoding                    = "2.4.0"
 
@@ -33,7 +34,7 @@ kotlincrypto-sponges-keccak = { module = "org.kotlincrypto.sponges:keccak", vers
 # tests & tools
 androidx-test-runner        = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 benchmark-runtime           = { module = "org.jetbrains.kotlinx:kotlinx-benchmark-runtime", version.ref = "gradle-benchmark" }
-bouncy-castle               = { module = "org.bouncycastle:bcprov-ext-jdk15to18", version.ref = "bouncy-castle" }
+bouncy-castle               = { module = "org.bouncycastle:bcprov-jdk18on", version.ref = "bouncy-castle" }
 encoding-base16             = { module = "io.matthewnelson.encoding:base16", version.ref = "encoding" }
 encoding-base64             = { module = "io.matthewnelson.encoding:base64", version.ref = "encoding" }
 

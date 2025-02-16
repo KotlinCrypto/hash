@@ -18,7 +18,6 @@
 package org.kotlincrypto.hash.sha3
 
 import org.kotlincrypto.core.digest.Digest
-import kotlin.test.Test
 
 open class CSHAKE128_S_UnitTest: CSHAKE128UnitTest() {
     override val digest: Digest = CSHAKE128(null, S)
@@ -26,10 +25,4 @@ open class CSHAKE128_S_UnitTest: CSHAKE128UnitTest() {
     final override val expectedMultiBlockHash: String = "3f8d7e75e01ead3924941e176e32daac8d6c04bdc345afa921114196fc6d3f74"
     final override val expectedUpdateSmallHash: String = "42de220e99553116a60d6316540774d2e9984419cffe5ac2fc62cf0b41227ac3"
     final override val expectedUpdateMediumHash: String = "1379ca33af3ec1032c51eed4c3996c18f90e3121d8ce8ef36323fa159045472f"
-
-    @Test
-    override fun givenDigest_whenCopied_thenIsDifferentInstance() {
-        super.givenDigest_whenCopied_thenIsDifferentInstance()
-    }
-
 }
