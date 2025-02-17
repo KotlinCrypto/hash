@@ -16,6 +16,7 @@
 package org.kotlincrypto.hash.blake2
 
 import org.kotlincrypto.core.InternalKotlinCryptoApi
+import org.kotlincrypto.error.InvalidKeyException
 import org.kotlincrypto.error.InvalidParameterException
 
 /**
@@ -84,10 +85,11 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
      *  - [bitStrength] is less than 8
      *  - [bitStrength] is greater than 512
      *  - [bitStrength] is not a factor of 8
-     *  - [keyLength] is less than 0
-     *  - [keyLength] is greater than 64
      *  - [salt] is non-null and not exactly 16 bytes in length
      *  - [personalization] is non-null and not exactly 16 bytes in length
+     * @throws [InvalidKeyException] when:
+     *  - [keyLength] is less than 0
+     *  - [keyLength] is greater than 64
      *
      * @suppress
      * */
@@ -109,7 +111,7 @@ public class BLAKE2b: BLAKE2Digest.Bit64 {
 
     public override fun copy(): BLAKE2b = BLAKE2b(this)
 
-    @Throws(InvalidParameterException::class)
+    @Throws(InvalidKeyException::class, InvalidParameterException::class)
     private constructor(
         bitStrength: Int,
         keyLength: Int,

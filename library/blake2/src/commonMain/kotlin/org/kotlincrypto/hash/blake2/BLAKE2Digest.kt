@@ -22,6 +22,7 @@ import org.kotlincrypto.bitops.endian.Endian.Little.leIntAt
 import org.kotlincrypto.bitops.endian.Endian.Little.leLongAt
 import org.kotlincrypto.bitops.endian.Endian.Little.lePackIntoUnsafe
 import org.kotlincrypto.core.digest.Digest
+import org.kotlincrypto.error.InvalidKeyException
 import org.kotlincrypto.error.InvalidParameterException
 import org.kotlincrypto.error.requireParam
 import org.kotlincrypto.hash.blake2.internal.*
@@ -72,7 +73,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit32Message?
         private val t: Counter.Bit32
 
-        @Throws(InvalidParameterException::class)
+        @Throws(InvalidKeyException::class, InvalidParameterException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -333,7 +334,7 @@ public sealed class BLAKE2Digest: Digest {
         private var m: Bit64Message?
         private val t: Counter.Bit64
 
-        @Throws(InvalidParameterException::class)
+        @Throws(InvalidKeyException::class, InvalidParameterException::class)
         protected constructor(
             variant: String,
             bitStrength: Int,
@@ -580,7 +581,7 @@ public sealed class BLAKE2Digest: Digest {
     }
 
     // BLAKE2Digest
-    @Throws(InvalidParameterException::class)
+    @Throws(InvalidKeyException::class, InvalidParameterException::class)
     private constructor(
         variant: String,
         blockSize: Int,
@@ -609,7 +610,9 @@ public sealed class BLAKE2Digest: Digest {
         // s:  64 / 2 = 32
         // b: 128 / 2 = 64
         (blockSize / 2).let { size ->
-            requireParam(keyLength in 0..size) { "keyLength must be between 0 and $size (inclusive)" }
+            if (keyLength !in 0..size) {
+                throw InvalidKeyException("keyLength must be between 0 and $size (inclusive)")
+            }
             requireParam(innerLength in 0..size) { "innerLength must be between 0 and $size (inclusive)" }
         }
 
