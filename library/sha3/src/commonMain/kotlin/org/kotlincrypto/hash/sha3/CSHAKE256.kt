@@ -55,6 +55,7 @@ public class CSHAKE256: SHAKEDigest {
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [outputLength] The number of bytes returned when [digest] is invoked
+     *
      * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(

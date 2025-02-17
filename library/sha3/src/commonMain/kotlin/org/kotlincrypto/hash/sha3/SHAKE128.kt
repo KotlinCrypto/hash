@@ -30,16 +30,15 @@ import kotlin.jvm.JvmStatic
 public class SHAKE128: SHAKEDigest {
 
     /**
-     * Creates a new [SHAKE128] [Digest] instance with a default output
-     * length of 32 bytes.
+     * Creates a new [SHAKE128] [Digest] instance with a default output length of 32 bytes.
      * */
     public constructor(): this(DIGEST_LENGTH_BIT_128)
 
     /**
-     * Creates a new [SHAKE128] [Digest] instance with a non-default output
-     * length.
+     * Creates a new [SHAKE128] [Digest] instance with a non-default output length.
      *
      * @param [outputLength] The number of bytes returned when [digest] is invoked
+     *
      * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(
