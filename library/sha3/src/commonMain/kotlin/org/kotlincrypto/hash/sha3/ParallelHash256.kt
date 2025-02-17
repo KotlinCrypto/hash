@@ -39,6 +39,7 @@ public class ParallelHash256: ParallelDigest {
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [B] The block size for the inner hash function in bytes
+     *
      * @throws [InvalidParameterException] If [B] is less than 1
      * */
     public constructor(
@@ -55,6 +56,7 @@ public class ParallelHash256: ParallelDigest {
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [B] The block size for the inner hash function in bytes
      * @param [outputLength] The number of bytes returned when [digest] is invoked
+     *
      * @throws [InvalidParameterException] If [B] is less than 1, or [outputLength] is negative
      * */
     public constructor(
@@ -87,6 +89,7 @@ public class ParallelHash256: ParallelDigest {
          * Produces a new [Xof] (Extendable-Output Function) for [ParallelHash256]
          *
          * @param [B] The block size for the inner hash function in bytes
+         *
          * @throws [InvalidParameterException] If [B] is less than 1
          * */
         @JvmStatic
@@ -99,6 +102,7 @@ public class ParallelHash256: ParallelDigest {
          *   of the function. When no customization is desired, [S] is set to an
          *   empty or null value. (e.g. "My Customization".encodeToByteArray())
          * @param [B] The block size for the inner hash function in bytes
+         *
          * @throws [InvalidParameterException] If [B] is less than 1
          * */
         @JvmStatic

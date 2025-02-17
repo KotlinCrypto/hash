@@ -32,8 +32,7 @@ import kotlin.jvm.JvmStatic
 public class TupleHash256: TupleDigest {
 
     /**
-     * Creates a new [TupleHash256] [Digest] instance with a default output
-     * length of 64 bytes.
+     * Creates a new [TupleHash256] [Digest] instance with a default output length of 64 bytes.
      *
      * @param [S] A user selected customization bit string to define a variant
      *   of the function. When no customization is desired, [S] is set to an
@@ -42,13 +41,13 @@ public class TupleHash256: TupleDigest {
     public constructor(S: ByteArray?): this(S, DIGEST_LENGTH_BIT_256)
 
     /**
-     * Creates a new [TupleHash256] [Digest] instance with a non-default output
-     * length.
+     * Creates a new [TupleHash256] [Digest] instance with a non-default output length.
      *
      * @param [S] A user selected customization bit string to define a variant
      *   of the function. When no customization is desired, [S] is set to an
      *   empty or null value. (e.g. "My Customization".encodeToByteArray())
      * @param [outputLength] The number of bytes returned when [digest] is invoked
+     *
      * @throws [InvalidParameterException] If [outputLength] is negative
      * */
     public constructor(
