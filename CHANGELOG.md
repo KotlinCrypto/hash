@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## Version 0.7.0 (2025-02-25)
+ - Updates `kotlin` to `2.1.10` [[#111]][111]
+ - Updates `kotlincrypto.bitops` to `0.2.0` [[#111]][111]
+ - Updates `kotlincrypto.core` to `0.7.0` [[#111]][111]
+ - Updates `kotlincrypto.sponges` to `0.4.0` [[#111]][111]
+ - The following now throw `InvalidParameterException` instead of `IllegalArgumentException` on 
+   instantiation when a parameter is inappropriate [[#111]][111]:
+     - `blake2/BLAKE2b`
+     - `blake2/BLAKE2s`
+     - `sha2/SHA512t`
+     - `sha3/CSHAKE128`
+     - `sha3/CSHAKE256`
+     - `sha3/ParallelHash128`
+     - `sha3/ParallelHash256`
+     - `sha3/SHAKE128`
+     - `sha3/SHAKE256`
+     - `sha3/TuppleHash128`
+     - `sha3/TuppleHash256`
+
 ## Version 0.6.1 (2025-02-09)
  - Updates `kotlincrypto.bitops` to `0.1.2` [[#104]][104]
  - Updates `kotlincrypto.core` to `0.6.1`
@@ -173,3 +192,4 @@
 [104]: https://github.com/KotlinCrypto/hash/pull/104
 [108]: https://github.com/KotlinCrypto/hash/pull/108
 [109]: https://github.com/KotlinCrypto/hash/pull/109
+[111]: https://github.com/KotlinCrypto/hash/pull/111

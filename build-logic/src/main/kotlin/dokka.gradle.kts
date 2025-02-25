@@ -26,7 +26,7 @@ rootProject.dependencies { dokka(project(project.path)) }
 
 extensions.configure<DokkaExtension> {
     dokkaPublications.configureEach {
-        suppressInheritedMembers.set(true)
+        suppressObviousFunctions.set(true)
     }
 
     dokkaSourceSets.configureEach {
