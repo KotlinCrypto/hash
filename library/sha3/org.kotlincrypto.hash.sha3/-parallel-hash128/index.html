@@ -25,61 +25,93 @@
 <link href="../../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
 <a class="library-name--link" href="../../../../index.html">
-                            hash
-                    </a>            </div>
-            <div class="library-version">0.6.1
+                    hash
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.7.0
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":library:sha3/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":library:sha3/commonMain" data-filter=":library:sha3/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":library:sha3:dokkaHtmlPartial/commonMain">common</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    hash
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageids="sha3::org.kotlincrypto.hash.sha3/ParallelHash128///PointingToDeclaration//560943149">
+<div class="main-content" data-page-type="classlike" id="content" pageids="sha3::org.kotlincrypto.hash.sha3/ParallelHash128///PointingToDeclaration//-184367311">
   <div class="breadcrumbs"><a href="../../index.html">sha3</a><span class="delimiter">/</span><a href="../index.html">org.kotlincrypto.hash.sha3</a><span class="delimiter">/</span><span class="current">ParallelHash128</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Parallel</span><wbr><span><span>Hash128</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ParallelHash128</a> : <a href="../-parallel-digest/index.html">ParallelDigest</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/KotlinCrypto/hash/tree/master/library/sha3/src/commonMain/kotlin/org/kotlincrypto/hash/sha3/ParallelHash128.kt#L31">source</a>)</span></span></div><p class="paragraph">ParallelHash128 implementation</p><p class="paragraph">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#6%20ParallelHash</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":library:sha3:dokkaHtmlPartial/commonMain" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-companion/x-of.html"><span>Parallel</span><wbr><span>Hash128.</span><wbr><span>Companion.</span><wbr><span>xOf</span></a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">ParallelHash128</a> : <a href="../-parallel-digest/index.html">ParallelDigest</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/KotlinCrypto/hash/tree/master/library/sha3/src/commonMain/kotlin/org/kotlincrypto/hash/sha3/ParallelHash128.kt#L32">source</a>)</span></span></div><p class="paragraph">ParallelHash128 implementation</p><p class="paragraph">https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf#6%20ParallelHash</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="-companion/x-of.html"><span>Parallel</span><wbr><span>Hash128.</span><wbr><span>Companion.</span><wbr><span>xOf</span></a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="-1462500705%2FConstructors%2F560943149" anchor-label="ParallelHash128" id="-1462500705%2FConstructors%2F560943149" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":library:sha3:dokkaHtmlPartial/commonMain" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain">
+        <div class="table"><a data-name="-1462500705%2FConstructors%2F-184367311" anchor-label="ParallelHash128" id="-1462500705%2FConstructors%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-parallel-hash128.html"><span>Parallel</span><wbr><span><span>Hash128</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1462500705%2FConstructors%2F560943149"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1462500705%2FConstructors%2F-184367311"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">S<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">B<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <a href="https://core.kotlincrypto.org/library/digest/org.kotlincrypto.core.digest/-digest/index.html">ParallelHash128</a> instance with a default output length of 32 bytes.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">S<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">B<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span><span class="token punctuation">, </span></span><span class="parameter ">outputLength<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <a href="https://core.kotlincrypto.org/library/digest/org.kotlincrypto.core.digest/-digest/index.html">ParallelHash128</a> instance with a non-default output length.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">S<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">B<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <a href="https://core.kotlincrypto.org/library/digest/org.kotlincrypto.core.digest/-digest/index.html">ParallelHash128</a> instance with a default output length of 32 bytes.</p></div><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">S<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">B<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span><span class="token punctuation">, </span></span><span class="parameter ">outputLength<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a new <a href="https://core.kotlincrypto.org/library/digest/org.kotlincrypto.core.digest/-digest/index.html">ParallelHash128</a> instance with a non-default output length.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -88,17 +120,17 @@
       </div>
       <div data-togglable="TYPE">
         <h2 class="">Types</h2>
-        <div class="table"><a data-name="-350565381%2FClasslikes%2F560943149" anchor-label="Companion" id="-350565381%2FClasslikes%2F560943149" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-filterable-current=":library:sha3:dokkaHtmlPartial/commonMain" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain">
+        <div class="table"><a data-name="-350565381%2FClasslikes%2F-184367311" anchor-label="Companion" id="-350565381%2FClasslikes%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-350565381%2FClasslikes%2F560943149"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-350565381%2FClasslikes%2F-184367311"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../-s-h-a-k-e-digest/-s-h-a-k-e-xof-factory/index.html">SHAKEDigest.SHAKEXofFactory</a><span class="token operator">&lt;</span><a href="index.html">ParallelHash128</a><span class="token operator">&gt; </span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a> : <a href="../-s-h-a-k-e-digest/-s-h-a-k-e-xof-factory/index.html">SHAKEDigest.SHAKEXofFactory</a><span class="token operator">&lt;</span><a href="index.html">ParallelHash128</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
               </div>
             </div>
@@ -107,17 +139,167 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="-1309819759%2FFunctions%2F560943149" anchor-label="copy" id="-1309819759%2FFunctions%2F560943149" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain"></a>
-          <div class="table-row" data-filterable-current=":library:sha3:dokkaHtmlPartial/commonMain" data-filterable-set=":library:sha3:dokkaHtmlPartial/commonMain">
+        <div class="table"><a data-name="1085436283%2FFunctions%2F-184367311" anchor-label="algorithm" id="1085436283%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1309819759%2FFunctions%2F560943149"></span>
+                  <div><a href="../-tuple-hash256/index.html#1085436283%2FFunctions%2F-184367311"><span><span>algorithm</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1085436283%2FFunctions%2F-184367311"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ParallelHash128</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#1085436283%2FFunctions%2F-184367311"><span class="token function">algorithm</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/String///PointingToDeclaration/">String</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-759054180%2FFunctions%2F-184367311" anchor-label="blockSize" id="-759054180%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-759054180%2FFunctions%2F-184367311"><span>block</span><wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-759054180%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-759054180%2FFunctions%2F-184367311"><span class="token function">blockSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1309819759%2FFunctions%2F-184367311" anchor-label="copy" id="-1309819759%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="copy.html"><span><span>copy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1309819759%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="copy.html"><span class="token function">copy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ParallelHash128</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2017986136%2FFunctions%2F-184367311" anchor-label="digest" id="-2017986136%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1621205428%2FFunctions%2F-184367311"><span><span>digest</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2017986136%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1621205428%2FFunctions%2F-184367311"><span class="token function">digest</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span></div><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-781110680%2FFunctions%2F-184367311"><span class="token function">digest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1067219979%2FFunctions%2F-184367311" anchor-label="digestInto" id="-1067219979%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1067219979%2FFunctions%2F-184367311"><span>digest</span><wbr><span><span>Into</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1067219979%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1067219979%2FFunctions%2F-184367311"><span class="token function">digestInto</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dest<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token punctuation">, </span></span><span class="parameter ">destOffset<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1925930298%2FFunctions%2F-184367311" anchor-label="digestLength" id="-1925930298%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1925930298%2FFunctions%2F-184367311"><span>digest</span><wbr><span><span>Length</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1925930298%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1925930298%2FFunctions%2F-184367311"><span class="token function">digestLength</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1174468943%2FFunctions%2F-184367311" anchor-label="equals" id="-1174468943%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1174468943%2FFunctions%2F-184367311"><span><span>equals</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1174468943%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1174468943%2FFunctions%2F-184367311"><span class="token function">equals</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><span data-unresolved-link="kotlin/Any///PointingToDeclaration/">Any</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/Boolean///PointingToDeclaration/">Boolean</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1229019371%2FFunctions%2F-184367311" anchor-label="hashCode" id="-1229019371%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1229019371%2FFunctions%2F-184367311"><span>hash</span><wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1229019371%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1229019371%2FFunctions%2F-184367311"><span class="token function">hashCode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1045197595%2FFunctions%2F-184367311" anchor-label="reset" id="1045197595%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#1045197595%2FFunctions%2F-184367311"><span><span>reset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1045197595%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#1045197595%2FFunctions%2F-184367311"><span class="token function">reset</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1407185436%2FFunctions%2F-184367311" anchor-label="toString" id="-1407185436%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-1407185436%2FFunctions%2F-184367311"><span>to</span><wbr><span><span>String</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1407185436%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-1407185436%2FFunctions%2F-184367311"><span class="token function">toString</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlin/String///PointingToDeclaration/">String</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1174554278%2FFunctions%2F-184367311" anchor-label="update" id="1174554278%2FFunctions%2F-184367311" data-filterable-set=":library:sha3/commonMain"></a>
+          <div class="table-row" data-filterable-current=":library:sha3/commonMain" data-filterable-set=":library:sha3/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-tuple-hash256/index.html#-217196058%2FFunctions%2F-184367311"><span><span>update</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1174554278%2FFunctions%2F-184367311"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":library:sha3/commonMain"><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-217196058%2FFunctions%2F-184367311"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><span data-unresolved-link="kotlin/Byte///PointingToDeclaration/">Byte</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#1267859715%2FFunctions%2F-184367311"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">expect </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-tuple-hash256/index.html#-692780893%2FFunctions%2F-184367311"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">input<span class="token operator">: </span><span data-unresolved-link="kotlin/ByteArray///PointingToDeclaration/">ByteArray</span><span class="token punctuation">, </span></span><span class="parameter ">offset<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span><span class="token punctuation">, </span></span><span class="parameter ">len<span class="token operator">: </span><span data-unresolved-link="kotlin/Int///PointingToDeclaration/">Int</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -127,12 +309,18 @@
     </div>
   </div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2023-2025 Copyright KotlinCrypto</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
