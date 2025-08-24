@@ -30,7 +30,8 @@ cd ..
 cp -aR build/dokka/html/* gh-pages/$REPO_NAME
 
 cd "$DIR_SCRIPT/$REPO_NAME"
-sed -i "s|module:|module:library/|g" "package-list"
+PACKAGE_LIST="$(sed "s|module:|module:library/|g" "package-list")"
+echo "$PACKAGE_LIST" > package-list
 
 git add --all
 git commit -S --message "Update dokka docs"

@@ -13,7 +13,7 @@ gradle-binary-compat        = "0.17.0"
 gradle-dokka                = "2.0.0"
 gradle-kmp-configuration    = "0.4.0"
 gradle-kotlin               = "2.1.10"
-gradle-publish-maven        = "0.30.0"
+gradle-publish-maven        = "0.34.0"
 
 kotlincrypto-bitops         = "0.2.0"
 kotlincrypto-core           = "0.7.0"
