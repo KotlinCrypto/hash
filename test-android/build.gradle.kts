@@ -23,12 +23,14 @@ kmpConfiguration {
     configure {
         androidLibrary {
             android {
+                buildToolsVersion = "35.0.1"
+                compileSdk = 35
                 namespace = "org.kotlincrypto.hash"
-                compileSdk = 34
 
                 defaultConfig {
                     minSdk = 14
 
+                    testInstrumentationRunnerArguments["disableAnalytics"] = true.toString()
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
             }
