@@ -8,7 +8,7 @@ bouncy-castle               = "1.80"
 encoding                    = "2.4.0"
 
 gradle-android              = "8.7.3"
-gradle-benchmark            = "0.4.13"
+gradle-benchmark            = "0.4.14"
 gradle-binary-compat        = "0.18.1"
 gradle-dokka                = "2.0.0"
 gradle-kmp-configuration    = "0.5.2"
