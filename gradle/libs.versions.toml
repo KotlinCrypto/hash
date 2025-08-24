@@ -11,7 +11,7 @@ gradle-android              = "8.7.3"
 gradle-benchmark            = "0.4.13"
 gradle-binary-compat        = "0.18.1"
 gradle-dokka                = "2.0.0"
-gradle-kmp-configuration    = "0.4.0"
+gradle-kmp-configuration    = "0.5.2"
 gradle-kotlin               = "2.1.10"
 gradle-publish-maven        = "0.34.0"
 

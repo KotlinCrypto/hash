@@ -22,10 +22,6 @@ repositories { google() }
 kmpConfiguration {
     configure {
         androidLibrary {
-            kotlinJvmTarget = JavaVersion.VERSION_11
-            compileSourceCompatibility = JavaVersion.VERSION_11
-            compileTargetCompatibility = JavaVersion.VERSION_11
-
             android {
                 namespace = "org.kotlincrypto.hash"
                 compileSdk = 34
