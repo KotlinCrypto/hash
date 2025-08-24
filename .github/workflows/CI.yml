@@ -63,7 +63,7 @@ jobs:
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
-        if: ${{ always() }}
+        if: always()
         with:
           name: test-report-${{ matrix.os }}-java${{ matrix.java-version }}
           path: '**/build/reports/tests/**'
@@ -134,8 +134,10 @@ jobs:
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
-        if: ${{ always() }}
+        if: always()
         with:
           name: test-report-android-${{ matrix.api-level }}
-          path: '**/build/reports/androidTests/**'
+          path: |
+            **/build/reports/androidTests/**
+            **/build/outputs/androidTest-results/connected/debug/*/logcat-*.txt
           retention-days: 1

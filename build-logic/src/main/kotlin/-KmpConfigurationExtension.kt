@@ -16,7 +16,6 @@
 import io.matthewnelson.kmp.configuration.extension.KmpConfigurationExtension
 import io.matthewnelson.kmp.configuration.extension.container.target.KmpConfigurationContainerDsl
 import org.gradle.api.Action
-import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 fun KmpConfigurationExtension.configureShared(
@@ -34,10 +33,6 @@ fun KmpConfigurationExtension.configureShared(
         }
 
         jvm {
-            kotlinJvmTarget = JavaVersion.VERSION_1_8
-            compileSourceCompatibility = JavaVersion.VERSION_1_8
-            compileTargetCompatibility = JavaVersion.VERSION_1_8
-
             java9ModuleInfoName = java9ModuleName
         }
 
@@ -45,11 +40,7 @@ fun KmpConfigurationExtension.configureShared(
         @OptIn(ExperimentalWasmDsl::class)
         wasmJs {
             target {
-                browser {
-                    testTask {
-                        useMocha { timeout = "30s" }
-                    }
-                }
+                browser()
                 nodejs()
             }
         }

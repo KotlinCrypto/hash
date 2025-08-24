@@ -16,6 +16,8 @@
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin
 import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.yarn.WasmYarnPlugin
+import org.jetbrains.kotlin.gradle.targets.wasm.yarn.WasmYarnRootExtension
 
 plugins {
     alias(libs.plugins.android.library) apply(false)
@@ -37,7 +39,7 @@ allprojects {
             // Only allow snapshot dependencies for non-release versions.
             // This would cause a build failure if attempting to make a release
             // while depending on a -SNAPSHOT version (such as core).
-            maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            maven("https://central.sonatype.com/repository/maven-snapshots/")
         }
     }
 }
@@ -46,9 +48,16 @@ allprojects {
 val CHECK_PUBLICATION = findProperty("CHECK_PUBLICATION") != null
 
 plugins.withType<YarnPlugin> {
-    the<YarnRootExtension>().lockFileDirectory = rootDir.resolve(".kotlin-js-store")
-    if (CHECK_PUBLICATION) {
-        the<YarnRootExtension>().yarnLockMismatchReport = YarnLockMismatchReport.NONE
+    the<YarnRootExtension>().apply {
+        lockFileDirectory = rootDir.resolve(".kotlin-js-store").resolve("js")
+        if (CHECK_PUBLICATION) yarnLockMismatchReport = YarnLockMismatchReport.NONE
+    }
+}
+
+plugins.withType<WasmYarnPlugin> {
+    the<WasmYarnRootExtension>().apply {
+        lockFileDirectory = rootDir.resolve(".kotlin-js-store").resolve("wasm")
+        if (CHECK_PUBLICATION) yarnLockMismatchReport = YarnLockMismatchReport.NONE
     }
 }
 

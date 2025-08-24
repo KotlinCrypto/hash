@@ -13,22 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
+
 plugins {
     id("configuration")
 }
 
 repositories {
-    val host = "https://s01.oss.sonatype.org"
-
     if (version.toString().endsWith("-SNAPSHOT")) {
-        maven("$host/content/repositories/snapshots/")
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
     } else {
-        maven("$host/content/groups/staging") {
+        maven("https://central.sonatype.com/api/v1/publisher/deployments/download/") {
             val p = rootProject.properties
-
-            credentials {
-                username = p["mavenCentralUsername"]?.toString()
-                password = p["mavenCentralPassword"]?.toString()
+            authentication.create("Authorization", HttpHeaderAuthentication::class.java)
+            credentials(HttpHeaderCredentials::class.java) {
+                val username = p["mavenCentralUsername"]?.toString() ?: throw NullPointerException()
+                val password = p["mavenCentralPassword"]?.toString() ?: throw NullPointerException()
+                name = "Authorization"
+                @OptIn(ExperimentalEncodingApi::class)
+                value = "Bearer " + Base64.Mime.encode("$username:$password".encodeToByteArray())
             }
         }
     }

@@ -13,16 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-import org.gradle.plugins.signing.SigningExtension
-
 plugins {
     id("com.vanniktech.maven.publish")
-}
-
-if (!version.toString().endsWith("-SNAPSHOT")) {
-    extensions.configure<SigningExtension>("signing") {
-        useGpgCmd()
-    }
 }
 
 tasks.withType<AbstractArchiveTask>().configureEach {
