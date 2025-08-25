@@ -47,7 +47,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.7.1"))
+    implementation(project.dependencies.platform("org.kotlincrypto.hash:bom:0.7.1"))
 
     // define artifacts without version
     
