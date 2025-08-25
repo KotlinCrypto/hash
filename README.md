@@ -19,8 +19,6 @@
 ![badge-platform-watchos]
 ![badge-platform-windows]
 ![badge-support-android-native]
-![badge-support-apple-silicon]
-![badge-support-js-ir]
 ![badge-support-linux-arm]
 
 Cryptographic hash functions for Kotlin Multiplatform
@@ -49,7 +47,7 @@ shown below.
 // build.gradle.kts
 dependencies {
     // define the BOM and its version
-    implementation(platform("org.kotlincrypto.hash:bom:0.7.0"))
+    implementation(platform("org.kotlincrypto.hash:bom:0.7.1"))
 
     // define artifacts without version
     
@@ -77,14 +75,14 @@ dependencies {
 ```
 
 <!-- TAG_VERSION -->
-[badge-latest-release]: https://img.shields.io/badge/latest--release-0.7.0-blue.svg?style=flat
+[badge-latest-release]: https://img.shields.io/badge/latest--release-0.7.1-blue.svg?style=flat
 [badge-license]: https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat
 
 <!-- TAG_DEPENDENCIES -->
-[badge-kotlin]: https://img.shields.io/badge/kotlin-2.1.10-blue.svg?logo=kotlin
-[badge-bitops]: https://img.shields.io/badge/kotlincrypto.bitops-0.2.0-blue.svg
-[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.7.0-blue.svg
-[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.4.0-blue.svg
+[badge-kotlin]: https://img.shields.io/badge/kotlin-2.2.10-blue.svg?logo=kotlin
+[badge-bitops]: https://img.shields.io/badge/kotlincrypto.bitops-0.2.1-blue.svg
+[badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.7.1-blue.svg
+[badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.4.1-blue.svg
 
 <!-- TAG_PLATFORMS -->
 [badge-platform-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
@@ -99,10 +97,7 @@ dependencies {
 [badge-platform-wasm]: https://img.shields.io/badge/-wasm-624FE8.svg?style=flat
 [badge-platform-windows]: http://img.shields.io/badge/-windows-4D76CD.svg?style=flat
 [badge-support-android-native]: http://img.shields.io/badge/support-[AndroidNative]-6EDB8D.svg?style=flat
-[badge-support-apple-silicon]: http://img.shields.io/badge/support-[AppleSilicon]-43BBFF.svg?style=flat
-[badge-support-js-ir]: https://img.shields.io/badge/support-[js--IR]-AAC4E0.svg?style=flat
 [badge-support-linux-arm]: http://img.shields.io/badge/support-[LinuxArm]-2D3F6C.svg?style=flat
-[badge-support-linux-mips]: http://img.shields.io/badge/support-[LinuxMIPS]-2D3F6C.svg?style=flat
 
 [url-latest-release]: https://github.com/KotlinCrypto/hash/releases/latest
 [url-license]: https://www.apache.org/licenses/LICENSE-2.0.txt

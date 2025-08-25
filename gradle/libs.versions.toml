@@ -5,7 +5,7 @@ androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, w
 # https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/
 bouncy-castle               = "1.81"
 
-encoding                    = "2.4.0" # TODO: Update
+encoding                    = "2.4.0"
 
 gradle-android              = "8.10.1"
 gradle-benchmark            = "0.4.14"
@@ -15,9 +15,9 @@ gradle-kmp-configuration    = "0.5.2"
 gradle-kotlin               = "2.2.10"
 gradle-publish-maven        = "0.34.0"
 
-kotlincrypto-bitops         = "0.2.0" # TODO: Update
-kotlincrypto-core           = "0.7.0" # TODO: Update
-kotlincrypto-sponges        = "0.4.0" # TODO: Update
+kotlincrypto-bitops         = "0.2.1"
+kotlincrypto-core           = "0.7.1"
+kotlincrypto-sponges        = "0.4.1"
 
 [libraries]
 gradle-dokka                = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "gradle-dokka" }
