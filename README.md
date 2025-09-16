@@ -80,7 +80,7 @@ dependencies {
 
 <!-- TAG_DEPENDENCIES -->
 [badge-kotlin]: https://img.shields.io/badge/kotlin-2.2.20-blue.svg?logo=kotlin
-[badge-bitops]: https://img.shields.io/badge/kotlincrypto.bitops-0.2.1-blue.svg
+[badge-bitops]: https://img.shields.io/badge/kotlincrypto.bitops-0.3.0--SNAPSHOT-blue.svg
 [badge-core]: https://img.shields.io/badge/kotlincrypto.core-0.7.1-blue.svg
 [badge-sponges]: https://img.shields.io/badge/kotlincrypto.sponges-0.4.1-blue.svg
 

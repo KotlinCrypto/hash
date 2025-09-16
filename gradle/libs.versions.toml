@@ -15,7 +15,7 @@ gradle-kmp-configuration    = "0.5.2"
 gradle-kotlin               = "2.2.20"
 gradle-publish-maven        = "0.34.0"
 
-kotlincrypto-bitops         = "0.2.1"
+kotlincrypto-bitops         = "0.3.0-SNAPSHOT"
 kotlincrypto-core           = "0.7.1"
 kotlincrypto-sponges        = "0.4.1"
 
