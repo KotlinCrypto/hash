@@ -5,19 +5,19 @@ androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, w
 # https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/
 bouncy-castle               = "1.81"
 
-encoding                    = "2.4.0"
+encoding                    = "2.5.0-SNAPSHOT"
 
-gradle-android              = "8.10.1"
+gradle-android              = "8.11.2"
 gradle-benchmark            = "0.4.14"
 gradle-binary-compat        = "0.18.1"
 gradle-dokka                = "2.0.0"
 gradle-kmp-configuration    = "0.5.2"
-gradle-kotlin               = "2.2.10"
+gradle-kotlin               = "2.2.20"
 gradle-publish-maven        = "0.34.0"
 
-kotlincrypto-bitops         = "0.2.1"
-kotlincrypto-core           = "0.7.1"
-kotlincrypto-sponges        = "0.4.1"
+kotlincrypto-bitops         = "0.3.0-SNAPSHOT"
+kotlincrypto-core           = "0.8.0-SNAPSHOT"
+kotlincrypto-sponges        = "0.5.0-SNAPSHOT"
 
 [libraries]
 gradle-dokka                = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "gradle-dokka" }

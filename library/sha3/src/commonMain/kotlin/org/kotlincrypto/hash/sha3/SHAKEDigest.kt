@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("LocalVariableName", "SpellCheckingInspection", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE")
+@file:Suppress("LocalVariableName", "NOTHING_TO_INLINE", "RedundantVisibilityModifier", "SpellCheckingInspection")
 
 package org.kotlincrypto.hash.sha3
 

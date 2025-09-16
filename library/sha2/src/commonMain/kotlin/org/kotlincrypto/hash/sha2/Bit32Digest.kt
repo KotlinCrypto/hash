@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+@file:Suppress("RedundantVisibilityModifier", "SameParameterValue")
+
 package org.kotlincrypto.hash.sha2
 
 import org.kotlincrypto.bitops.bits.Counter
