@@ -12,7 +12,7 @@ gradle-benchmark            = "0.4.14"
 gradle-binary-compat        = "0.18.1"
 gradle-dokka                = "2.0.0"
 gradle-kmp-configuration    = "0.5.2"
-gradle-kotlin               = "2.2.10"
+gradle-kotlin               = "2.2.20"
 gradle-publish-maven        = "0.34.0"
 
 kotlincrypto-bitops         = "0.2.1"

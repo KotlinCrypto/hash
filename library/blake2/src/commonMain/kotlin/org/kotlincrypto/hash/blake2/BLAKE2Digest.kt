@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-@file:Suppress("UnnecessaryOptInAnnotation", "KotlinRedundantDiagnosticSuppress", "NOTHING_TO_INLINE", "FunctionName")
+@file:Suppress("NOTHING_TO_INLINE", "RedundantVisibilityModifier", "SameParameterValue", "FunctionName")
 
 package org.kotlincrypto.hash.blake2
 
@@ -643,6 +643,7 @@ public sealed class BLAKE2Digest: Digest {
         this.personalization = personalization?.copyOf()
     }
 
+    @Suppress("UNUSED")
     private constructor(other: BLAKE2Digest): super(other) {
         this.isLastNode = other.isLastNode
         this.keyLength = other.keyLength
