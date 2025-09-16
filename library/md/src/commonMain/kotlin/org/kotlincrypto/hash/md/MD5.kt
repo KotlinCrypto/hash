@@ -61,7 +61,7 @@ public class MD5: Digest {
         var c = state[2]
         var d = state[3]
 
-        for (i in 0..<16) {
+        for (i in 0 until 16) {
             val xi = input.leIntAt(offset = (i * Int.SIZE_BYTES) + offset)
             x[i] = xi
             // val g = i + 0
@@ -72,7 +72,7 @@ public class MD5: Digest {
             b += f.rotateLeft(s[i])
         }
 
-        for (i in 16..<32) {
+        for (i in 16 until 32) {
             val g = ((5 * i) + 1) % 16
             val f = ((d and b) or (d.inv() and c)) + a + k[i] + x[g]
             a = d
@@ -81,7 +81,7 @@ public class MD5: Digest {
             b += f.rotateLeft(s[i])
         }
 
-        for (i in 32..<48) {
+        for (i in 32 until 48) {
             val g = ((3 * i) + 5) % 16
             val f = (b xor c xor d) + a + k[i] + x[g]
             a = d
@@ -90,7 +90,7 @@ public class MD5: Digest {
             b += f.rotateLeft(s[i])
         }
 
-        for (i in 48..<64) {
+        for (i in 48 until 64) {
             val g = (7 * i) % 16
             val f = (c xor (b or d.inv())) + a + k[i] + x[g]
             a = d

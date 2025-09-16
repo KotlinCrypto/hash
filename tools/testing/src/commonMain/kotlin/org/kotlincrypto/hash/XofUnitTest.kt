@@ -60,7 +60,7 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
         val r = Array(50) { i -> ByteArray(i) }
         read(*r)
         var b = r.first()
-        for (i in 1..<r.size) {
+        for (i in 1 until r.size) {
             b += r[i]
         }
 
@@ -77,10 +77,10 @@ abstract class XofUnitTest: HashUnitTest(), Resettable {
         updateSmall(xof)
         val r = ByteArray(200)
         partialRead(r, 10, r.size - 20)
-        for (i in 0..<10) {
+        for (i in 0 until 10) {
             assertEquals(0, r[i])
         }
-        for (i in (r.size - 10)..<r.size) {
+        for (i in (r.size - 10) until r.size) {
             assertEquals(0, r[i])
         }
         val actual = r.encodeToString(base16)

@@ -94,7 +94,7 @@ abstract class DigestUnitTest: HashUnitTest() {
         updateSmall(digest)
         var into = ByteArray(digest.digestLength() + 16)
         digest.digestInto(into, destOffset = 16)
-        for (i in 0..<16) {
+        for (i in 0 until 16) {
             assertEquals(0, into[i])
         }
         into = into.copyInto(destination = ByteArray(digest.digestLength()), startIndex = 16)

@@ -214,7 +214,7 @@ public sealed class BLAKE2Digest: Digest {
             // Cryptographic mixing
             val s = SIGMA
 
-            for (i in 0..<ROUND_COUNT) {
+            for (i in 0 until ROUND_COUNT) {
                 G(v = v, a = 0, b = 4, c =  8, d = 12, x = m[s[i][ 0]], y = m[s[i][ 1]])
                 G(v = v, a = 1, b = 5, c =  9, d = 13, x = m[s[i][ 2]], y = m[s[i][ 3]])
                 G(v = v, a = 2, b = 6, c = 10, d = 14, x = m[s[i][ 4]], y = m[s[i][ 5]])
@@ -227,7 +227,7 @@ public sealed class BLAKE2Digest: Digest {
             }
 
             // xor the two halves
-            for (i in 0..<8) {
+            for (i in 0 until 8) {
                 h[i] = h[i] xor v[i] xor v[i + 8]
             }
         }
@@ -473,7 +473,7 @@ public sealed class BLAKE2Digest: Digest {
             // Cryptographic mixing
             val s = SIGMA
 
-            for (i in 0..<ROUND_COUNT) {
+            for (i in 0 until ROUND_COUNT) {
                 G(v = v, a = 0, b = 4, c =  8, d = 12, x = m[s[i][ 0]], y = m[s[i][ 1]])
                 G(v = v, a = 1, b = 5, c =  9, d = 13, x = m[s[i][ 2]], y = m[s[i][ 3]])
                 G(v = v, a = 2, b = 6, c = 10, d = 14, x = m[s[i][ 4]], y = m[s[i][ 5]])
@@ -486,7 +486,7 @@ public sealed class BLAKE2Digest: Digest {
             }
 
             // xor the two halves
-            for (i in 0..<8) {
+            for (i in 0 until 8) {
                 h[i] = h[i] xor v[i] xor v[i + 8]
             }
         }
