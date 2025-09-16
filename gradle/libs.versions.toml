@@ -5,7 +5,7 @@ androidx-test-runner        = "1.5.2" # Do not upgrade. Tests run for API 15+, w
 # https://repo.maven.apache.org/maven2/org/bouncycastle/bcprov-jdk18on/
 bouncy-castle               = "1.81"
 
-encoding                    = "2.4.0"
+encoding                    = "2.5.0-SNAPSHOT"
 
 gradle-android              = "8.11.2"
 gradle-benchmark            = "0.4.14"
