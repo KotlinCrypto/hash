@@ -17,6 +17,7 @@ import io.matthewnelson.kmp.configuration.extension.KmpConfigurationExtension
 import io.matthewnelson.kmp.configuration.extension.container.target.KmpConfigurationContainerDsl
 import org.gradle.api.Action
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 fun KmpConfigurationExtension.configureShared(
     java9ModuleName: String? = null,
@@ -72,6 +73,15 @@ fun KmpConfigurationExtension.configureShared(
         }
 
         if (publish) kotlin { explicitApi() }
+
+        if (publish) kotlin {
+            @Suppress("DEPRECATION")
+            compilerOptions {
+                freeCompilerArgs.add("-Xsuppress-version-warnings")
+                apiVersion.set(KotlinVersion.KOTLIN_1_8)
+                languageVersion.set(KotlinVersion.KOTLIN_1_8)
+            }
+        }
 
         action.execute(this)
     }

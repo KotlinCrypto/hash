@@ -60,7 +60,7 @@ public sealed class Bit32Digest: Digest {
 
         input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE)
 
-        for (i in 16..<64) {
+        for (i in 16 until 64) {
             val x15 = x[i - 15]
             val s0 =
                 ((x15 ushr  7) or (x15 shl 25)) xor
@@ -88,7 +88,7 @@ public sealed class Bit32Digest: Digest {
         var g = state[6]
         var h = state[7]
 
-        for (i in 0..<64) {
+        for (i in 0 until 64) {
             val s0 =
                 ((a ushr  2) or (a shl 30)) xor
                 ((a ushr 13) or (a shl 19)) xor

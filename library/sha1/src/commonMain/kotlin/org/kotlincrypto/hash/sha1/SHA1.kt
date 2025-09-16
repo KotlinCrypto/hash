@@ -53,7 +53,7 @@ public class SHA1: Digest {
 
         input.bePackIntoUnsafe(x, destOffset = 0, sourceIndexStart = offset, sourceIndexEnd = offset + BLOCK_SIZE)
 
-        for (i in 16..<80) {
+        for (i in 16 until 80) {
             x[i] = (x[i - 3] xor x[i - 8] xor x[i - 14] xor x[i - 16]).rotateLeft(1)
         }
 
@@ -64,7 +64,7 @@ public class SHA1: Digest {
         var d = state[3]
         var e = state[4]
 
-        for (i in 0..<20) {
+        for (i in 0 until 20) {
             val f = d xor (b and (c xor d))
             val k = 1518500249
             val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
@@ -75,7 +75,7 @@ public class SHA1: Digest {
             a = a2
         }
 
-        for (i in 20..<40) {
+        for (i in 20 until 40) {
             val f = b xor c xor d
             val k = 1859775393
             val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
@@ -86,7 +86,7 @@ public class SHA1: Digest {
             a = a2
         }
 
-        for (i in 40..<60) {
+        for (i in 40 until 60) {
             val f = (b and c) or (b and d) or (c and d)
             val k = -1894007588
             val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
@@ -97,7 +97,7 @@ public class SHA1: Digest {
             a = a2
         }
 
-        for (i in 60..<80) {
+        for (i in 60 until 80) {
             val f = b xor c xor d
             val k = -899497514
             val a2 = (a.rotateLeft(5)) + f + e + k + x[i]
