@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.8.0 (2025-09-19)
+ - Updates `kotlin` to `2.2.20` [[#118]][118]
+ - Updates `kotlincrypto.bitops` to `0.3.0` [[#118]][118]
+ - Updates `kotlincrypto.core` to `0.8.0` [[#118]][118]
+ - Updates `kotlincrypto.sponges` to `0.5.0` [[#118]][118]
+ - Lower supported `KotlinVersion` to `1.8` [[#119]][119]
+
 ## Version 0.7.1 (2025-08-25)
  - Updates `kotlin` to `2.2.10` [[#117]][117]
  - Updates `kotlincrypto.bitops` to `0.2.1`
@@ -200,3 +207,5 @@
 [109]: https://github.com/KotlinCrypto/hash/pull/109
 [111]: https://github.com/KotlinCrypto/hash/pull/111
 [117]: https://github.com/KotlinCrypto/hash/pull/117
+[118]: https://github.com/KotlinCrypto/hash/pull/118
+[119]: https://github.com/KotlinCrypto/hash/pull/119
